@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+{% csrf_token %}
+
+<h1>Welcome to the Portal</h1>
+
+<p> You are logged in as {{ user }}</p>
+
+<p>Your <a href="{% url 'user_profile' %}">Profile</a></p>
+
+<ul>
+    <li><p><a href="{% url 'login' %}">Sign In</a></p></li>
+    <li><p><a href="{% url 'create_profile' %}">Create a new profile</a></p></li>
+    <li><p><a href="{% url 'django.contrib.auth.views.logout' %}">Log out</a></p></li>
+</ul>
+
+</body>
+</html>

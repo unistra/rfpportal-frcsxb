@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'user_profile',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -63,15 +64,34 @@ WSGI_APPLICATION = 'portal_frc.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 # Parse database configuration from $DATABASE_URL
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 
-import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
+if os.getenv('DATABASE_URL'):
+    DATABASES = {
+                'default': {
+                        'ENGINE': 'postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+                        'NAME': 'd8lr5m3s8okiv8',                      # Or path to database file if using sqlite3.
+                        #The following settings are not used with sqlite3:
+                        'USER': 'fbtwjcbowjgjta',
+                        'PASSWORD': 'YXtlCCcvlW5cQDzXBpDMkcqVx0',
+                        'HOST': 'ec2-107-21-102-69.compute-1.amazonaws.com',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+                        'PORT': '5432',
+                }
+            }
+
+    import dj_database_url
+    DATABASES['default'] =  dj_database_url.config()
+else:
+    DATABASES = {
+                'default': {
+                        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+                        'NAME': 'rfp_portal',                      # Or path to database file if using sqlite3.
+                        #The following settings are not used with sqlite3:
+                        'USER': 'postgres',
+                        'PASSWORD': 'noosfere',
+                        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+                        'PORT': '5433',
+                }
+    }
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -98,6 +118,20 @@ STATICFILES_FINDERS = (
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
+
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+#     'django.template.loaders.eggs.Loader',
+)
+
+TEMPLATE_DIRS = (
+    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    TEMPLATE_PATH,
+)
+
 
 LANGUAGE_CODE = 'en-us'
 
