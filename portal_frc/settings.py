@@ -69,11 +69,11 @@ if os.getenv('DATABASE_URL'):
     DATABASES = {
                 'default': {
                         'ENGINE': 'postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-                        'NAME': 'd8lr5m3s8okiv8',                      # Or path to database file if using sqlite3.
+                        'NAME': 'd9pmli5c2jt4i6',                      # Or path to database file if using sqlite3.
                         #The following settings are not used with sqlite3:
-                        'USER': 'fbtwjcbowjgjta',
-                        'PASSWORD': 'YXtlCCcvlW5cQDzXBpDMkcqVx0',
-                        'HOST': 'ec2-107-21-102-69.compute-1.amazonaws.com',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+                        'USER': 'qviasannlxqkov',
+                        'PASSWORD': '3ZqmRyWulBDKf-mhIiJy-0OoEm',
+                        'HOST': 'ec2-23-23-215-150.compute-1.amazonaws.com',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
                         'PORT': '5432',
                 }
             }
