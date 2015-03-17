@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %} Your Profile {% endblock %}
+
+{% block body_block %}
+
+{% csrf_token %}
+
+
+<div class="container">
 
 <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
 {% csrf_token %}
@@ -25,6 +28,6 @@
 </form>
 
 <p>Forgot your password? <a href="{% url 'password_reset' %}">Click here.</a></p>
+</div>
 
-</body>
-</html>
+{% endblock %}

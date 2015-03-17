@@ -17,8 +17,11 @@ def create_profile(request):
             username = form.cleaned_data['username']
             email = form.cleaned_data['email']
             user = User.objects.create_user(username, email, form.cleaned_data['password'])
-            user.save()
 
+            user.last_name = form.cleaned_data['last_name']
+            user.first_name = form.cleaned_data['first_name']
+
+            user.save()
 
             user_logged_in = authenticate(username=username, password=form.cleaned_data['password'])
 
@@ -39,7 +42,6 @@ def create_profile(request):
         form = sign_up()
 
     return render_to_response('user_profile/create_profile.html',{'form':form},context)
-
 
 
 @login_required(login_url='/login/')
