@@ -9,17 +9,25 @@
 <div class="container">
 
 <h1>Welcome to the Portal</h1>
-
+{% if user.id > 0 %}
 <p> You are logged in as {{ user }}</p>
+    <ul>
+<li><a href="{% url 'user_profile' %}">Manage your profile</a></li>
 
-<p>Your <a href="{% url 'user_profile' %}">Profile</a></p>
+<li><a href="{% url 'create_project' %}">Add a new project</a></li>
+<!--<li><a href="{% url 'create_project' %}">Post a new Review</a></li>-->
 
+<li><a href="{% url 'django.contrib.auth.views.logout' %}">Log out</a></li>
+    </ul>
+
+{% else %}
 <ul>
     <li><p><a href="{% url 'login' %}">Sign In</a></p></li>
     <li><p><a href="{% url 'create_profile' %}">Create a new profile</a></p></li>
-    <li><p><a href="{% url 'django.contrib.auth.views.logout' %}">Log out</a></p></li>
 </ul>
+{% endif %}
 
 </div>
 
 {% endblock %}
+

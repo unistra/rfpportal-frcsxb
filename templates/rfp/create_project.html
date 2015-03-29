@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block body_block %}
+
+<div class="container">
+
+<form method="post" action="{% url 'create_project' %}">
+
+    {% csrf_token %}
+
+    <div>
+        <h1> Create a Project</h1>
+            {{ form }}
+    </div>
+
+     <input type="submit" value="submit" />
+     <input type="hidden" name="next" value="{% url 'user_profile' %}" />
+
+</form>
+</div>
+
+{% endblock %}

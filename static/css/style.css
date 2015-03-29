@@ -1,1 +1,58 @@
-body {}
+body {
+
+min-height:600px;
+position:relative;
+
+}
+
+.navbar
+{
+    background-color:black;
+    color:white;
+}
+
+.navbar-default{
+background-image:none;
+}
+
+.navbar-default .navbar-nav>li>a{
+color:white;
+}
+
+.navbar-default .navbar-nav>li>a:hover{
+color:white;
+font-weight:bold;
+}
+
+
+.footer {
+  position:absolute;
+  bottom:0%;
+  top:100%;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  margin-top:25px;
+  height: 60px;
+  background-color:black;
+  color:white;
+
+}
+
+.footer-text
+{
+
+    padding-top:5px;
+
+}
+
+.footer .footer-text p{
+text-align:center;
+    font-size:12px;
+
+}
+
+.footer .footer-text p > a
+{
+    font-size:12px;
+    color:white;
+}

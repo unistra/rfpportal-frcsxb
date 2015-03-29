@@ -17,6 +17,7 @@ class sign_up(forms.Form):
     title = forms.ChoiceField(required=False,choices=TITLE_CHOICES)
     first_name=forms.CharField(max_length=255,widget=forms.TextInput(attrs={'class' : 'form-control'}))
     last_name = forms.CharField(max_length=255,widget=forms.TextInput(attrs={'class' : 'form-control'}))
+    organization = forms.CharField(max_length=255,widget=forms.TextInput(attrs={'class' : 'form-control'}))
 
     address = forms.CharField(required=False,max_length=255,widget=forms.TextInput(attrs={'class' : 'form-control'}))
     zip = forms.IntegerField(required=False,widget=forms.TextInput(attrs={'class' : 'form-control'}))

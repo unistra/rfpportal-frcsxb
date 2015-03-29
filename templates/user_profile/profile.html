@@ -8,7 +8,49 @@
 
 <div class="container">
 
-    <p>Hello {{ user }} !!!</p>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-md-8">
+                <h1>Contact Information</h1>
+                <p>Username: {{ user }}</p>
+                <p>Email: {{ user.email }}</p>
+
+                <p> {{ user_profile.first_name }} {{ user_profile.last_name }}</p>
+                <p> Organization: {{ user_profile.organization }}</p>
+                <p> {{ user_profile.address }}<br>
+                {{ user_profile.zip }}, {{ user_profile.city }}<br>
+                {{ user_profile.country }}
+                </p>
+
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-md-8">
+                <h2>Posted Reviews</h2>
+                {% for r in reviews %}
+
+                <p>
+                    {{ r.name }}
+                </p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-md-8">
+                <h2>Projects</h2>
+                {% for p in projects %}
+
+                <p>
+                    {{ p.name }}
+                </p>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
 
 </div>
 

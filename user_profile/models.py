@@ -17,6 +17,7 @@ class UserProfile(models.Model):
     city = models.CharField(max_length=255,null=True)
     is_pi = models.BooleanField(default=False)
     is_reviewer = models.BooleanField(default=False)
+    organization = models.CharField(max_length=255,null=True)
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
