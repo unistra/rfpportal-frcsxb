@@ -39,14 +39,25 @@
         </div>
 
         <div class="row">
-            <div class="col-xs-12 col-md-8">
+            <div class="col-xs-12 col-md-12">
                 <h2>Projects</h2>
-                {% for p in projects %}
+                <table class="table">
 
-                <p>
-                    {{ p.name }}
-                </p>
-                {% endfor %}
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>City</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for p in projects %}
+                        <tr>
+                            <td><a href="{% url 'project_detail' p.id %}">{{ p.name }}</a></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
             </div>
         </div>
 

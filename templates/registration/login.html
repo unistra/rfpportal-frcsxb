@@ -8,26 +8,43 @@
 
 
 <div class="container">
+<div class="row">
+<div class="col-md-4"></div>
+
+
+<div class="col-xs-12 col-md-4">
 
 <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
 {% csrf_token %}
+<div class="form-group">
+    {{ form.username.label_tag }}
+    {{ form.username }}
+</div>
 
-<table>
-<tr>
-    <td>{{ form.username.label_tag }}</td>
-    <td>{{ form.username }}</td>
-</tr>
-
-<tr>
-    <td>{{ form.password.label_tag }}</td>
-    <td>{{ form.password }}</td>
-</tr>
-</table>
-        <input type="submit" value="login" />
+<div class="form-group">
+    {{ form.password.label_tag }}
+    {{ form.password }}
+</div>
+        <input class="btn btn-primary pull-right" type="submit" value="login" />
         <input type="hidden" name="next" value="{% url 'home_page' %}" />
 </form>
+</div>
+    <div class="col-xs-12 col-md-4"></div>
 
-<p>Forgot your password? <a href="{% url 'password_reset' %}">Click here.</a></p>
+</div>
+
+<div class="row">
+
+    <div class="col-xs-12 col-md-4"></div>
+
+<div class="col-xs-12 col-md-4">
+    <p>Forgot your password? <a href="{% url 'password_reset' %}">Click here.</a></p>
+</div>
+
+<div class="col-xs-12 col-md-4"></div>
+
+</div>
+
 </div>
 
 {% endblock %}

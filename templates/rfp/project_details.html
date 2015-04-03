@@ -6,9 +6,18 @@
 
 <div class="container">
 
-<h1> Create a Project</h1>
+    <h2>{{ project.rfp.name }}</h2>
+    <h1>{{ project.name }}</h1>
+    
+    <p>{{ project.starting_date }}</p>
+    <p>{{ project.project_duration }}</p>
+    <p>{{ project.ending_date }}</p>
+    <p>{{ project.purpose }}</p>
+    <p>{{ project.scope_of_work }}</p>
+    <p> {{ project.anticipated_impact }}</p>
 
-<form class="form-horizontal" method="post" action="{% url 'create_project' %}">
+
+<form class="form-horizontal" method="post" action="{% url 'project_detail' project.id %}">
 
     {% csrf_token %}
 
@@ -23,6 +32,7 @@
      <input type="hidden" name="next" value="{% url 'user_profile' %}" />
 
 </form>
+
 </div>
 
 {% endblock %}

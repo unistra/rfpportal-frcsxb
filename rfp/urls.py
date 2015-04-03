@@ -4,6 +4,7 @@ import views
 
 urlpatterns = patterns('',
     url(r'^create_project/$',views.create_project,name='create_project'),
+    url(r'^(?P<projectId>\d+)/$',views.project_detail,name='project_detail'),
     #url(r'^profile/$',views.,name='user_profile'),
 )
 
