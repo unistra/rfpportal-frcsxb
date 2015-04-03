@@ -4,32 +4,62 @@
 
 {% block body_block %}
 
-<div class="container">
+<div class="container project_container">
 
-    <h2>{{ project.rfp.name }}</h2>
-    <h1>{{ project.name }}</h1>
-    
-    <p>{{ project.starting_date }}</p>
-    <p>{{ project.project_duration }}</p>
-    <p>{{ project.ending_date }}</p>
-    <p>{{ project.purpose }}</p>
-    <p>{{ project.scope_of_work }}</p>
-    <p> {{ project.anticipated_impact }}</p>
+    <div class="row proj_header">
+        <div class="col-xs-10 col-md-10">
+        <h2>{{ project.name }}</h2>
+        <h4> {{ project.rfp.name }}</h4>
+        </div>
+    <div class="col-xs-2 col-md-2">
+        <h2><button class="btn btn-secondary" id="edit"> <a href="#">Edit</a> </button></h2>
+        <h2><button class="btn btn-primary save" type="submit" id="save"> <a href="#">Save</a> </button></h2>
+    </div>
 
+    </div>
 
 <form class="form-horizontal" method="post" action="{% url 'project_detail' project.id %}">
-
+<div class="row">
+   <div class="col-xs-12 col-md-12">
     {% csrf_token %}
 
-        {% for f in form %}
-        <div class="form-group">
-            {{ f.label }}
-            {{ f }}
-        </div>
-        {% endfor %}
+{% for p in project_data %}
+    <p class="project_data" id="{{ p.label|slugify }}"><strong>{{ p.label }}:</strong>{{ p.data }}</p>
 
-     <input class="btn btn-primary" type="submit" value="submit"  />
-     <input type="hidden" name="next" value="{% url 'user_profile' %}" />
+        <div class="form-group">
+
+        <div class="edit">
+        <label class="col-sm-4 control-label edit_label">{{ p.label }}:</label>
+        <div class="col-sm-8">
+             {% for f in form %}
+                {% if f.label == p.label %}
+                    {{ f }}
+                {% endif %}
+            {% endfor %}
+        </div>
+        </div>
+
+        </div>
+
+{% endfor %}
+    </div>
+    </div>
+    <div class="row edit">
+
+    <div class="col-xs-12 col-md-10">
+
+    </div>
+
+    <div class="col-xs-12 col-md-2">
+
+        <input class="btn btn-primary save" type="submit" value="Save"  />
+        <input type="hidden" name="next" value="{% url 'user_profile' %}" />
+
+    </div>
+
+    </div>
+
+
 
 </form>
 

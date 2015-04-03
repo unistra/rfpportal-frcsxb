@@ -24,6 +24,46 @@ color:white;
 font-weight:bold;
 }
 
+.edit_link > a
+{
+    font-size:12px;
+}
+
+.edit_label{
+    text-align:left !important;
+}
+
+.proj_header{
+    margin-bottom:15px;
+}
+
+.project_container{
+    padding = 0px !important;
+}
+
+
+.project_data{
+
+}
+
+#edit{
+    width:100%;
+    background-color:black;
+}
+
+#edit > a {
+    color:white;
+}
+
+.save{
+    width:100%;
+}
+
+.save > a {
+    color:white;
+}
+
+
 
 .footer {
   position:absolute;

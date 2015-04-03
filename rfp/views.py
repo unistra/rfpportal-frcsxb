@@ -104,10 +104,11 @@ def project_detail(request,projectId):
     else:
         project=Project.objects.get(id=projectId)
         project_dict=model_to_dict(project)
+        project_data = ProjectForm(data=model_to_dict(project))
 
         form = ProjectForm(project_dict)
 
 
-    context_dict={'project':project,'user':user,'form':form}
+    context_dict={'project':project,'user':user,'form':form,'project_data':project_data}
 
     return render_to_response('rfp/project_details.html',context_dict,context)
