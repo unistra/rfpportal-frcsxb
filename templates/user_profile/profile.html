@@ -46,16 +46,29 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>City</th>
+                            <th>Requested ($)</th>
+                            <th>Call for Proposal</th>
+                            <th>Starting Date</th>
+                            <th>Project Duration</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
+
                     <tbody>
                     {% for p in projects %}
-                        <tr>
+
+                    <tr>
                             <td><a href="{% url 'project_detail' p.id %}">{{ p.name }}</a></td>
-                        </tr>
+                            <td>{{ p.requested_amount }}</td>
+                            <td>{{ p.rfp.name }}</a></td>
+                            <td>{{ p.starting_date }}</a></td>
+                            <td>{{ p.project_duration }}</a></td>
+                            <td>Pending</td>
+                    </tr>
+
                     {% endfor %}
                     </tbody>
+
                 </table>
 
             </div>

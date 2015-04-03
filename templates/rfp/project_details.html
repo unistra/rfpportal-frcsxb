@@ -13,7 +13,6 @@
         </div>
     <div class="col-xs-2 col-md-2">
         <h2><button class="btn btn-secondary" id="edit"> <a href="#">Edit</a> </button></h2>
-        <h2><button class="btn btn-primary save" type="submit" id="save"> <a href="#">Save</a> </button></h2>
     </div>
 
     </div>
@@ -24,7 +23,7 @@
     {% csrf_token %}
 
 {% for p in project_data %}
-    <p class="project_data" id="{{ p.label|slugify }}"><strong>{{ p.label }}:</strong>{{ p.data }}</p>
+    <p class="project_data" id="{{ p.label|slugify }}"><strong>{{ p.label }}: </strong>{{ p.data|linebreaksbr }}</p>
 
         <div class="form-group">
 

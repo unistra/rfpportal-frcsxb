@@ -76,7 +76,7 @@ def index_profile(request):
 
     user_account = UserProfile.objects.get(user = user.id)
 
-    projects = Project.objects.filter(user = user.id)
+    projects = Project.objects.filter(user = user.id).order_by('-starting_date')
     reviews = Review.objects.filter(user = user.id)
 
     context_dict = {'user_profile': user_account,'projects' : projects,'reviews': reviews}
