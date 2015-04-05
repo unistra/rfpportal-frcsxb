@@ -112,3 +112,24 @@ def project_detail(request,projectId):
     context_dict={'project':project,'user':user,'form':form,'project_data':project_data}
 
     return render_to_response('rfp/project_details.html',context_dict,context)
+
+
+def rfp_campaign(request,rfpcampaignId):
+    context = RequestContext(request)
+    user = request.user
+    rfp_campaign=RfpCampaign.objects.get(id=rfpcampaignId)
+
+    context_dict = {'user':user,'rfp_campaign':rfp_campaign}
+
+    return render_to_response('rfp/rfp_details.html',context_dict,context)
+
+def rfp_list(request):
+    context= RequestContext(request)
+
+    rfp_list = RequestForProposal.objects.all()
+    rfp_c = RfpCampaign.objects.all()
+
+    context_dict = {'rfp_list': rfp_list, 'rfp_c' : rfp_c}
+
+    return render_to_response('rfp/rfp_list.html',context_dict,context)
+

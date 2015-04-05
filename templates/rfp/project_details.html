@@ -4,6 +4,17 @@
 
 {% block body_block %}
 
+
+<script>
+
+$( document ).ready(function() {
+    console.log('TAG in SCRIUPT ???');
+    var rfp_id = {{ project.rfp.id }};
+    $('#id_rfp_id').val(rfp_id);
+});
+
+</script>
+
 <div class="container project_container">
 
     <div class="row proj_header">
@@ -23,12 +34,16 @@
     {% csrf_token %}
 
 {% for p in project_data %}
-    <p class="project_data" id="{{ p.label|slugify }}"><strong>{{ p.label }}: </strong>{{ p.data|linebreaksbr }}</p>
+    {% if p.label == '' %}
+        <p class="project_data hide" id=""><strong>{{ p.label }} </strong>{{ p.data|linebreaksbr }}</p>
+    {% else %}
+        <p class="project_data" id="{{ p.label|slugify }}"><strong>{{ p.label }}: </strong>{{ p.data|linebreaksbr }}</p>
+    {% endif %}
 
         <div class="form-group">
 
         <div class="edit">
-        <label class="col-sm-4 control-label edit_label">{{ p.label }}:</label>
+        <label class="col-sm-4 control-label edit_label">{{ p.label }}</label>
         <div class="col-sm-8">
              {% for f in form %}
                 {% if f.label == p.label %}

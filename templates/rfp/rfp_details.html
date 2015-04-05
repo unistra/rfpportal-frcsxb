@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ rfp_campaign.name }} {% endblock %}
+
+{% block body_block %}
+
+<div class="container">
+
+    <h1> {{ rfp_campaign.request_for_proposal.name }}</h1>
+
+    <p> {{ rfp_campaign.request_for_proposal.description|linebreaksbr }}</p>
+
+    <h2> {{ rfp_campaign.name }}</h2>
+
+    <p> {{ rfp_campaign.instructions|linebreaksbr }}</p>
+
+    <a href="{% url 'create_project' %}?rfp={{ rfp_campaign.id }}">
+        <button class="btn btn-primary pull-right" type="apply" value="apply" >Apply</button>
+    </a>
+
+</div>
+
+{% endblock %}

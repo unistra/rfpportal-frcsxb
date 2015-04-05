@@ -9,22 +9,27 @@
 <div class="container">
 
 <h1>Welcome to the Portal</h1>
+
 {% if user.id > 0 %}
-<p> You are logged in as {{ user }}</p>
+<p> You are currently logged in as {{ user }}</p>
+    <p>You can use this portal to: </p>
     <ul>
-<li><a href="{% url 'user_profile' %}">Manage your profile</a></li>
 
-<li><a href="{% url 'create_project' %}">Add a new project</a></li>
-<!--<li><a href="{% url 'create_project' %}">Post a new Review</a></li>-->
+        <li>apply to the different<a href="{% url 'rfp_list' %}"> Grant opportunities </a>offered by an organization.</li>
 
-<li><a href="{% url 'django.contrib.auth.views.logout' %}">Log out</a></li>
+        <li>manage your request currently pending, accepted or declined in <a href="{% url 'user_profile' %}">your profile area.</a></li>
+
+        <!--<li><a href="{% url 'user_profile' %}">manage your request currently pending, accepted or declined.</a></li>-->
+        <!--<li><a href="{% url 'create_project' %}">Post a new Review</a></li>-->
+
     </ul>
 
+    <p><a href="{% url 'django.contrib.auth.views.logout' %}">Log out</a></p>
+
 {% else %}
-<ul>
-    <li><p><a href="{% url 'login' %}">Sign In</a></p></li>
-    <li><p><a href="{% url 'create_profile' %}">Create a new profile</a></p></li>
-</ul>
+
+    <p> You are not currently logged in. Click <a href="{% url 'login' %}"> here</a> to log in or <a href="{% url 'create_profile' %}">create a new User Account</a></p>
+
 {% endif %}
 
 </div>

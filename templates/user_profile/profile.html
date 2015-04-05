@@ -60,7 +60,7 @@
                     <tr>
                             <td><a href="{% url 'project_detail' p.id %}">{{ p.name }}</a></td>
                             <td>{{ p.requested_amount }}</td>
-                            <td>{{ p.rfp.name }}</a></td>
+                            <td><a href="{% url 'rfpcampaign_detail' p.rfp.id %}">{{ p.rfp.name }}</a></td>
                             <td>{{ p.starting_date }}</a></td>
                             <td>{{ p.project_duration }}</a></td>
                             <td>Pending</td>

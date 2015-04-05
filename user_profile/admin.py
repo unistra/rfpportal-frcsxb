@@ -7,5 +7,6 @@ class UserProfileAdmin(admin.ModelAdmin):
     list_display = ["last_name","first_name","city"]
 
 
+
 # Register your models here.
 admin.site.register(UserProfile, UserProfileAdmin)

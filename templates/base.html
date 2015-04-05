@@ -39,7 +39,7 @@
         <div class="collapse navbar-collapse navbar-responsive-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li id="home"><a href="/">Home</a></li>
-                <li id="RFP"><a href="/gallery/">Request for Proposal</a></li>
+                <li id="RFP"><a href="{% url 'rfp_list' %}">Request for Proposal</a></li>
                 <li id="Review"><a href="/members/">My Reviews</a></li>
                 <li id="contactus"><a href="/contact_us/">My Projects</a></li>
             </ul>
@@ -61,14 +61,16 @@
 <!-- Navigation bar ends here -->
 
 
-
-{% block body_block %}
-
+    {% block body_block %}
 
 
-{% endblock %}
+
+    {% endblock %}
+
+
 
 <!--Footer starts here-->
+
 <div class="footer">
       <div class="container">
         <div class ="footer-text">
@@ -78,6 +80,7 @@
         </div>
       </div>
     </div>
+
 <!--Footer ends here-->
 
 </body>
