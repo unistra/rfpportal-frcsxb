@@ -8,7 +8,7 @@
 
 <h1> Create a Project</h1>
 
-<form class="" method="post" action="{% url 'create_project' %}">
+<form class="" method="post" enctype="multipart/form-data" action="{% url 'create_project' %}">
 
     {% csrf_token %}
 

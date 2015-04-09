@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import Project,RfpCampaign,Review,RequestForProposal
+from models import Project,RfpCampaign,Review,RequestForProposal,File_Test
 # Register your models here.
 
 class RfpCampaignInline(admin.TabularInline):
@@ -22,3 +22,4 @@ admin.site.register(Project)
 admin.site.register(RfpCampaign, RfpCampaignAdmin)
 admin.site.register(Review)
 admin.site.register(RequestForProposal, RequestForProposalAdmin)
+admin.site.register(File_Test)

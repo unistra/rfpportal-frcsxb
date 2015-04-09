@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'user_profile',
     'rfp',
+    'widget_tweaks',
 
 )
 
@@ -100,8 +101,8 @@ else:
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-# Allow all host headers
-
+MEDIA_ROOT = 'media'
+MEDIA_URL = '/media/'
 
 # Static asset configuration
 

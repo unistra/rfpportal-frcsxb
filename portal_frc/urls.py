@@ -1,5 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from django.conf.urls.static import static
+from django.conf import settings
 import views
 
 urlpatterns = patterns('',
@@ -13,5 +15,5 @@ urlpatterns = patterns('',
     url(r'^/logout/$', 'django.contrib.auth.views.logout', {'template_name': 'registration/logout.html'}),
     url(r'^/login/?next=/$', 'django.contrib.auth.views.login',),
     url(r'^$',views.index,name='home_page'),
-)
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

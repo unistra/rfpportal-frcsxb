@@ -28,16 +28,28 @@ $( document ).ready(function() {
 
     </div>
 
-<form class="form-horizontal" method="post" action="{% url 'project_detail' project.id %}">
+<form class="form-horizontal" method="post" enctype="multipart/form-data" action="{% url 'project_detail' project.id %}">
+
 <div class="row">
    <div class="col-xs-12 col-md-12">
     {% csrf_token %}
 
 {% for p in project_data %}
     {% if p.label == '' %}
-        <p class="project_data hide" id=""><strong>{{ p.label }} </strong>{{ p.data|linebreaksbr }}</p>
-    {% else %}
-        <p class="project_data" id="{{ p.label|slugify }}"><strong>{{ p.label }}: </strong>{{ p.data|linebreaksbr }}</p>
+       <p class="project_data hide" id=""><strong>{{ p.label }} </strong>{{ p.data|linebreaksbr }}</p>
+
+       {% elif p.name == 'document' %}
+
+       <div class = "col-xs-12 col-md-4">
+          <p class="file_field"><strong>Document: </strong></p>
+       </div>
+
+       <div class = col-md-8>
+          <p><a href="{{ project.document.url }}" target="_blank"> {{ project.document.name }} </a></p>
+       </div>
+       {% else %}
+
+       <p class="project_data" id="{{ p.label|slugify }}"><strong>{{ p.label }}: </strong>{{ p.data|linebreaksbr }}</p>
     {% endif %}
 
         <div class="form-group">
@@ -72,8 +84,6 @@ $( document ).ready(function() {
     </div>
 
     </div>
-
-
 
 </form>
 

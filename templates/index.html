@@ -18,6 +18,7 @@
         <li>apply to the different<a href="{% url 'rfp_list' %}"> Grant opportunities </a>offered by an organization.</li>
 
         <li>manage your request currently pending, accepted or declined in <a href="{% url 'user_profile' %}">your profile area.</a></li>
+        <li><a href="{% url 'file_test' %}">file_test</a></li>
 
         <!--<li><a href="{% url 'user_profile' %}">manage your request currently pending, accepted or declined.</a></li>-->
         <!--<li><a href="{% url 'create_project' %}">Post a new Review</a></li>-->
@@ -28,7 +29,7 @@
 
 {% else %}
 
-    <p> You are not currently logged in. Click <a href="{% url 'login' %}"> here</a> to log in or <a href="{% url 'create_profile' %}">create a new User Account</a></p>
+    <p> You are not currently logged in. Click <a href="{% url 'login' %}"> here</a> to log in or <a href="{% url 'create_profile' %}">create a new User Account</a>.</p>
 
 {% endif %}
 

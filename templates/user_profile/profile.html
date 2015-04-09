@@ -25,7 +25,7 @@
 
             </div>
         </div>
-
+<!--
         <div class="row">
             <div class="col-xs-12 col-md-8">
                 <h2>Posted Reviews</h2>
@@ -37,7 +37,7 @@
                 {% endfor %}
             </div>
         </div>
-
+-->
         <div class="row">
             <div class="col-xs-12 col-md-12">
                 <h2>Projects</h2>
@@ -50,6 +50,7 @@
                             <th>Call for Proposal</th>
                             <th>Starting Date</th>
                             <th>Project Duration</th>
+                            <th>File</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -63,6 +64,7 @@
                             <td><a href="{% url 'rfpcampaign_detail' p.rfp.id %}">{{ p.rfp.name }}</a></td>
                             <td>{{ p.starting_date }}</a></td>
                             <td>{{ p.project_duration }}</a></td>
+                            <td>{% if p.document %} <a href="{{ p.document.url }}">{{ p.document.name }}</a> {% else %} <em>No File</em> {% endif %}</td>
                             <td>Pending</td>
                     </tr>
 

@@ -5,8 +5,8 @@ from django.contrib.auth.models import User,Group,Permission
 from django.contrib.auth import authenticate, login
 from django.forms.models import model_to_dict
 
-from models import Project,Review,RequestForProposal,RfpCampaign
-from forms import ProjectForm
+from models import Project,Review,RequestForProposal,RfpCampaign,File_Test
+from forms import ProjectForm,file_test,UpdateForm
 
 # Create your views here.
 
@@ -15,10 +15,10 @@ def create_project(request):
     context = RequestContext(request)
     user = request.user
 
-    #p = ProjectForm(request.POST)
+    # p = ProjectForm(request.POST,request.FILES)
 
     if request.method == 'POST':
-        p = ProjectForm(request.POST)
+        p = ProjectForm(request.POST,request.FILES)
 
         if p.is_valid():
            name = p.cleaned_data['name']
@@ -32,8 +32,10 @@ def create_project(request):
            rfp_id = p.cleaned_data['rfp_id']
            rfp = RfpCampaign.objects.get(id = rfp_id)
 
-           new_project = Project.objects.get_or_create(name=name,rfp=rfp,user=user,requested_amount=requested_amount,starting_date=starting_date,project_duration=project_duration,
-                                                       ending_date=ending_date,purpose=purpose,scope_of_work=scope_of_work,anticipated_impact=anticipated_impact)
+
+           new_project = Project(name=name,rfp=rfp,user=user,requested_amount=requested_amount,starting_date=starting_date,project_duration=project_duration,
+                                                       ending_date=ending_date,purpose=purpose,scope_of_work=scope_of_work,anticipated_impact=anticipated_impact,document = request.FILES['document'])
+           new_project.save()
 
            url=('../../user_profile/profile/')
 
@@ -70,27 +72,40 @@ def post_review(request):
 def project_detail(request,projectId):
     context = RequestContext(request)
     user = request.user
+
     project=Project.objects.get(id=projectId)
+    project_dict=model_to_dict(project)
+    project_data = UpdateForm(data=model_to_dict(project))
 
     if request.method == 'POST':
-        p = ProjectForm(request.POST)
+        p = UpdateForm(request.POST,request.FILES,instance=project)
 
         if p.is_valid():
            name = p.cleaned_data['name']
-           requested_amount=p.cleaned_data['requested_amount']
-           starting_date=p.cleaned_data['starting_date']
-           project_duration=p.cleaned_data['project_duration']
-           ending_date=p.cleaned_data['ending_date']
-           purpose=p.cleaned_data['purpose']
-           scope_of_work=p.cleaned_data['scope_of_work']
-           anticipated_impact=p.cleaned_data['anticipated_impact']
-           rfp_id = p.cleaned_data['rfp_id']
-           rfp = RfpCampaign.objects.get(id = rfp_id)
+           requested_amount = p.cleaned_data['requested_amount']
+           starting_date = p.cleaned_data['starting_date']
+           project_duration = p.cleaned_data['project_duration']
+           ending_date = p.cleaned_data['ending_date']
+           purpose = p.cleaned_data['purpose']
+           scope_of_work = p.cleaned_data['scope_of_work']
+           anticipated_impact = p.cleaned_data['anticipated_impact']
+           #rfp_id = p.cleaned_data['rfp_id']
+           doc = request.FILES['document']
 
-           updated_project = Project(id=projectId,name=name,rfp=rfp,user=user,requested_amount=requested_amount,starting_date=starting_date,project_duration=project_duration,
-                                                       ending_date=ending_date,purpose=purpose,scope_of_work=scope_of_work,anticipated_impact=anticipated_impact)
+           #rfp = RfpCampaign.objects.get(id = rfp_id)
 
-           updated_project.save(update_fields=['name','requested_amount','starting_date','project_duration','ending_date','purpose','scope_of_work','anticipated_impact'])
+           #Project.objects.filter(pk=project.pk).update(name=name,user=user,requested_amount=requested_amount,starting_date=starting_date,project_duration=project_duration,
+           #ending_date=ending_date,purpose=purpose,scope_of_work=scope_of_work,anticipated_impact=anticipated_impact,document=doc)
+
+           p.save()
+
+           print(request.FILES['document'])
+
+           #updated_project.update(name=name,rfp=rfp,user=user,requested_amount=requested_amount,starting_date=starting_date,project_duration=project_duration,
+           #ending_date=ending_date,purpose=purpose,scope_of_work=scope_of_work,anticipated_impact=anticipated_impact)
+
+           #Project.objects.filter(pk=project.pk).update()
+           #project.save(update_fields=['name','requested_amount','starting_date','project_duration','ending_date','purpose','scope_of_work','anticipated_impact'])
 
            def get_absolute_url(self):
                 from django.core.urlresolvers import reverse
@@ -102,14 +117,11 @@ def project_detail(request,projectId):
            return HttpResponseRedirect(url)
 
     else:
-        project=Project.objects.get(id=projectId)
-        project_dict=model_to_dict(project)
-        project_data = ProjectForm(data=model_to_dict(project))
 
-        form = ProjectForm(project_dict)
+        p = UpdateForm(project_dict)
 
 
-    context_dict={'project':project,'user':user,'form':form,'project_data':project_data}
+    context_dict={'project':project,'user':user,'form':p,'project_data':project_data}
 
     return render_to_response('rfp/project_details.html',context_dict,context)
 
@@ -133,3 +145,24 @@ def rfp_list(request):
 
     return render_to_response('rfp/rfp_list.html',context_dict,context)
 
+def test_file(request):
+    context= RequestContext(request)
+
+    if request.method == 'POST':
+        f = file_test(request.POST, request.FILES)
+        if f.is_valid():
+                name = f.cleaned_data['name']
+                new_doc=File_Test(name=name)
+                new_doc.save()
+                print('Doc is created')
+
+                instance = File_Test(document=request.FILES['document'])
+                instance.save()
+                print('Document is added')
+
+                return HttpResponse('File Saved !!')
+    else:
+        f = file_test()
+
+    context_dict = {'form' : f }
+    return render_to_response('rfp/file_test.html',context_dict,context)

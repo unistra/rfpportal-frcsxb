@@ -40,14 +40,12 @@
             <ul class="nav navbar-nav">
                 <li id="home"><a href="/">Home</a></li>
                 <li id="RFP"><a href="{% url 'rfp_list' %}">Request for Proposal</a></li>
-                <li id="Review"><a href="/members/">My Reviews</a></li>
-                <li id="contactus"><a href="/contact_us/">My Projects</a></li>
+                <li id="profile_nabar"><a href="{% url 'user_profile' %}">My Project</a></li>
             </ul>
 
             <ul class="nav navbar-nav pull-right">
                 {% if user.id > 0 %}
-                    <li><a href="{% url 'user_profile' %}">Logged in as {{ user }}</a></li>
-                    <li id="profile_nabar"><a href="{% url 'user_profile' %}">My Profile</a></li>
+                    <li><a href="{% url 'django.contrib.auth.views.logout' %}">Log out</a></li>
                 {% else %}
                     <li id="login_navbar"><a href="{% url 'django.contrib.auth.views.login' %}">Log in</a></li>
                 {% endif %}
