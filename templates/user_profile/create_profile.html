@@ -6,19 +6,18 @@
 
 {% csrf_token %}
 
-
 <div class="container">
 
 <form action="../sign_up/" method="post">
+
 {% csrf_token %}
 
- {{ form }}
+    {{ form }}
 
- <button type="submit" value="Create">Create</button>
+<button type="submit" value="Create">Create</button>
 
 </form>
 
 </div>
-
 
 {% endblock %}

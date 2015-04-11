@@ -1,5 +1,7 @@
 __author__ = 'Sylvestre'
 from django import forms
+from models import UserProfile
+from django.contrib.auth.models import User
 
 class sign_up(forms.Form):
 
@@ -25,4 +27,33 @@ class sign_up(forms.Form):
     country = forms.CharField(required=False,max_length=255,widget=forms.TextInput(attrs={'class' : 'form-control'}))
     is_pi = forms.BooleanField(required=False,widget=forms.CheckboxInput(attrs={'class' : 'form-control'}))
     is_reviewer = forms.BooleanField(required=False,widget=forms.CheckboxInput(attrs={'class' : 'form-control'}))
+
+class UserUpdate(forms.ModelForm):
+
+    TITLE_CHOICES = (
+        ('p', 'Pr.'),
+        ('d', 'Dr.'),
+        ('m', 'Mr.'),
+        ('mm', 'Mrs.'),
+    )
+
+    class Meta:
+        model = UserProfile
+        exclude = ['user','is_pi','is_reviewer','title']
+
+        widgets = {
+            'title' : forms.TextInput(attrs={'class':'form-control'}),
+            'first_name' : forms.TextInput(attrs={'class':'form-control'}),
+            'last_name' : forms.TextInput(attrs={'class':'form-control'}),
+            'organization' : forms.TextInput(attrs={'class':'form-control'}),
+            'address' : forms.TextInput(attrs={'class':'form-control'}),
+            'zip' : forms.TextInput(attrs={'class':'form-control'}),
+            'state' : forms.TextInput(attrs = {'class' : 'form-control'}),
+            'city' : forms.TextInput(attrs={'class':'form-control'}),
+            'country' : forms.TextInput(attrs = {'class' : 'form-control'}),
+        }
+
+        labels = {
+
+        }
 

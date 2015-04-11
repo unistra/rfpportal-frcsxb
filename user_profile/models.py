@@ -9,15 +9,19 @@ from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
     user = models.ForeignKey(User, unique=True)
+    title = models.CharField(max_length=255,null=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    title = models.CharField(max_length=255,null=True)
+    organization = models.CharField(max_length=255,null=True)
+
     address = models.CharField(max_length=255,null=True)
-    zip = models.PositiveIntegerField(null=True)
     city = models.CharField(max_length=255,null=True)
+    state = models.CharField(max_length=255,null=True)
+    zip = models.PositiveIntegerField(null=True)
+    country = models.CharField(max_length= 255,null=True)
+
     is_pi = models.BooleanField(default=False)
     is_reviewer = models.BooleanField(default=False)
-    organization = models.CharField(max_length=255,null=True)
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:

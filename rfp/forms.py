@@ -20,7 +20,7 @@ class ProjectForm(forms.Form):
     scope_of_work=forms.CharField(label='Indicate the scope of work (400 words max.):',widget=forms.Textarea(attrs={'class':'form-control'}))
     anticipated_impact=forms.CharField(label='Indicate the anticipated impact (400 words max.):',widget=forms.Textarea(attrs={'class':'form-control'}))
     document=forms.FileField(label='Upload your document: ',widget=forms.FileInput(attrs={'class':'form-control'}))
-    rfp_id = forms.IntegerField(label='',widget=forms.NumberInput(attrs={'class':''}))
+    rfp_id = forms.IntegerField(label='',widget=forms.NumberInput(attrs={'class':'hide'}))
 
     class Meta:
         model=Project

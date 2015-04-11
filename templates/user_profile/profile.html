@@ -11,33 +11,64 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 col-md-8">
-                <h1>Contact Information</h1>
-                <p>Username: {{ user }}</p>
-                <p>Email: {{ user.email }}</p>
-
-                <p> {{ user_profile.first_name }} {{ user_profile.last_name }}</p>
-                <p> Organization: {{ user_profile.organization }}</p>
-                <p> {{ user_profile.address }}<br>
+            <div class="col-xs-12 col-md-4">
+                <h3>Account information</h3>
+                <p>Username: {{ user }}<br>
+                <span style="font-size : 12px;">Click <a href = "{% url 'password_change' %}">here</a> to change your password.</span></p>
+            </div>
+            
+            <div class="col-xs-12 col-md-4">
+                <h3>Contact information <span style="font-size : 12px;"><a href = "{% url 'edit_profile' %}">Edit</a></span></h3>
+                <p> {{ user_profile.first_name }} {{ user_profile.last_name }}<br/>
+                Email: {{ user.email }}</p>
+                <p> Organization: <strong>{{ user_profile.organization }}</strong><br>
+                 {{ user_profile.address }}<br>
                 {{ user_profile.zip }}, {{ user_profile.city }}<br>
                 {{ user_profile.country }}
                 </p>
-
             </div>
+
+            <div class="col-xs-12 col-md-4">            </div>
         </div>
-<!--
+
+        {% if is_rev %}
+
         <div class="row">
             <div class="col-xs-12 col-md-8">
-                <h2>Posted Reviews</h2>
+                <h2>Reviews</h2>
                 {% for r in reviews %}
+                <table class="table">
 
-                <p>
-                    {{ r.name }}
-                </p>
+                    <thead>
+                        <tr>
+                            <th>Project</th>
+                            <th>File</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for r in reviews %}
+
+                    <tr>
+                            <td><a href="{% url 'project_detail' p.id %}">{{ r.project.name }}</a></td>
+                            <td>{{ r.document }}</td>
+                            <td><a href="{% url 'rfpcampaign_detail' p.rfp.id %}">Pending</a></td>
+
+                    </tr>
+
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+
                 {% endfor %}
             </div>
         </div>
--->
+
+        {% endif %}
+
+        {% if is_pi %}
         <div class="row">
             <div class="col-xs-12 col-md-12">
                 <h2>Projects</h2>
@@ -75,6 +106,7 @@
 
             </div>
         </div>
+        {% endif %}
 
     </div>
 

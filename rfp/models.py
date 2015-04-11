@@ -31,13 +31,13 @@ class Project(models.Model):
     purpose=models.CharField(max_length=255,null=True)
     scope_of_work=models.CharField(max_length=4000,null=True)
     anticipated_impact=models.CharField(max_length=4000,null=True)
-
     document=models.FileField(null=True)
 
 class Review(models.Model):
     name=models.CharField(max_length=255)
     project=models.ForeignKey(Project)
     user=models.ForeignKey(User)
+
 
 class File_Test(models.Model):
     name=models.CharField(max_length=255)
