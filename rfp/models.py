@@ -26,12 +26,12 @@ class Project(models.Model):
     rfp=models.ForeignKey(RfpCampaign)
     requested_amount=models.IntegerField(null=True)
     starting_date=models.DateField(null=True)
-    project_duration=models.IntegerField(null=True)
-    ending_date=models.DateField(null=True)
-    purpose=models.CharField(max_length=255,null=True)
-    scope_of_work=models.CharField(max_length=4000,null=True)
-    anticipated_impact=models.CharField(max_length=4000,null=True)
-    document=models.FileField(null=True)
+    project_duration=models.IntegerField(null=True,blank=True)
+    ending_date=models.DateField(null=True,blank=True)
+    purpose=models.CharField(max_length=255,null=True,blank=True)
+    scope_of_work=models.CharField(max_length=4000,null=True,blank=True)
+    anticipated_impact=models.CharField(max_length=4000,null=True,blank=True)
+    document=models.FileField(upload_to=('projects'),null=True,blank=True)
 
 class Review(models.Model):
     user=models.ForeignKey(User)

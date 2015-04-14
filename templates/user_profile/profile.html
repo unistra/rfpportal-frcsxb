@@ -51,7 +51,7 @@
 
                     <tr>
                             <td><a href="{% url 'post_review' r.project.id %}">Edit</a></td>
-                            <td><a href="{{ r.document.url }}">{{ r.document.name }}</a></td>
+                            <td> {% if r.document %} <td><a href="{{ r.document.url }}">{{ r.document.name }}</a> {% endif %}</td>
                             <td><a href="{% url 'project_detail' r.project.id %}">{{ r.project.name }}</a></td>
                             <td>{{ r.project.rfp.name }}</a></td>
 
