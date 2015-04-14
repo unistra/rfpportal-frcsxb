@@ -29,7 +29,7 @@
 
 {% else %}
 
-    <p> You are not currently logged in. Click <a href="{% url 'login' %}"> here</a> to log in or <a href="{% url 'create_profile' %}">create a new User Account</a>.</p>
+    <p> You are not currently logged in. Click <a href="{% url 'login' %}?next={% url 'user_profile' %}"> here</a> to log in or <a href="{% url 'create_profile' %}">create a new User Account</a>.</p>
 
 {% endif %}
 

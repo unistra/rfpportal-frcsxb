@@ -34,16 +34,17 @@
         {% if is_rev %}
 
         <div class="row">
-            <div class="col-xs-12 col-md-8">
+            <div class="col-xs-12 col-md-12">
                 <h2>Reviews</h2>
                 {% for r in reviews %}
                 <table class="table">
 
                     <thead>
                         <tr>
-                            <th>Project</th>
+                            <th>Review</th>
                             <th>File</th>
-                            <th>Status</th>
+                            <th>Project</th>
+                            <th>Category</th>
                         </tr>
                     </thead>
 
@@ -51,9 +52,10 @@
                     {% for r in reviews %}
 
                     <tr>
-                            <td><a href="{% url 'project_detail' p.id %}">{{ r.project.name }}</a></td>
-                            <td>{{ r.document }}</td>
-                            <td><a href="{% url 'rfpcampaign_detail' p.rfp.id %}">Pending</a></td>
+                            <td><a href="{% url 'post_review' r.project.id %}">Edit</a></td>
+                            <td><a href="{{ r.document.url }}">{{ r.document.name }}</a></td>
+                            <td><a href="{% url 'project_detail' r.project.id %}">{{ r.project.name }}</a></td>
+                            <td>{{ r.project.rfp.name }}</a></td>
 
                     </tr>
 

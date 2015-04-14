@@ -45,9 +45,9 @@
 
             <ul class="nav navbar-nav pull-right">
                 {% if user.id > 0 %}
-                    <li><a href="{% url 'django.contrib.auth.views.logout' %}">Log out</a></li>
+                    <li><a href="{% url 'django.contrib.auth.views.logout' %}?next={% url 'home_page' %}">Log out</a></li>
                 {% else %}
-                    <li id="login_navbar"><a href="{% url 'django.contrib.auth.views.login' %}">Log in</a></li>
+                    <li id="login_navbar"><a href="{% url 'django.contrib.auth.views.login' %}?next={% url 'user_profile' %}">Log in</a></li>
                 {% endif %}
             </ul>
 

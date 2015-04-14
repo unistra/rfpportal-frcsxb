@@ -15,12 +15,12 @@
         {% for f in form %}
 
                 <div class="form-group">
-                    {{ f.label }}
+                    {{ f.label }}{% if f.field.required = True %} * {% endif %}
                     {{ f }}
+                    {{ f.errors }}
                 </div>
 
         {% endfor %}
-
 
      <input class="btn btn-primary" type="submit" value="Save"  />
      <input type="hidden" name="next" value="{% url 'user_profile' %}" />

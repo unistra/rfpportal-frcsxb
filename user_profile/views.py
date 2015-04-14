@@ -14,6 +14,7 @@ def is_reviewer(User):
 def is_pi(User):
     return User.groups.filter(name = 'Principal_Investigator').exists()
 
+#Create a new profile
 def create_profile(request):
     context = RequestContext(request)
 
@@ -72,7 +73,8 @@ def create_profile(request):
 
     return render_to_response('user_profile/create_profile.html',{'form':form},context)
 
-@login_required(login_url='/login/')
+#Edit an existing profile
+@login_required(login_url="/login/?next={% 'user_profile' %}")
 def edit_profile(request):
     context = RequestContext(request)
     user = request.user
@@ -91,9 +93,8 @@ def edit_profile(request):
     context_dict = {'user' : user, 'form' : form, 'UP' : up}
     return render_to_response('user_profile/edit_profile.html', context_dict, context)
 
-
-
-@login_required(login_url='/login/')
+#Access an exiting profile
+@login_required(login_url="/login/?next={% 'user_profile' %}")
 #@user_passes_test(is_pi, login_url='/')
 def index_profile(request):
 

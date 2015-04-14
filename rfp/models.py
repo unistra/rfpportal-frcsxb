@@ -34,10 +34,13 @@ class Project(models.Model):
     document=models.FileField(null=True)
 
 class Review(models.Model):
-    name=models.CharField(max_length=255)
-    project=models.ForeignKey(Project)
     user=models.ForeignKey(User)
-
+    project=models.ForeignKey(Project)
+    name=models.CharField(max_length=255,blank=True)
+    question_1 = models.CharField(max_length=4000,null=True,blank=True)
+    question_2 = models.CharField(max_length=4000,null=True,blank=True)
+    date = models.DateField(null=True,blank=True)
+    document=models.FileField(null=True,upload_to=('reviews'),blank=True)
 
 class File_Test(models.Model):
     name=models.CharField(max_length=255)

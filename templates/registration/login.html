@@ -18,19 +18,23 @@
 {% load widget_tweaks %}
 <div class="col-xs-12 col-md-4">
 
-<form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+<form method="post" action="{% url 'django.contrib.auth.views.login' %}?next={{ request.path }}">
 {% csrf_token %}
 <div class="form-group">
+
     {{ form.username.label_tag }}
     {{ form.username|add_class:"form-control" }}
+     {{ form.username.errors }}
+
 </div>
 
 <div class="form-group">
     {{ form.password.label_tag }}
     {{ form.password|add_class:"form-control" }}
+    {{ form.password.errors }}
 </div>
         <input class="btn btn-primary pull-right" type="submit" value="Login" />
-        <input type="hidden" name="next" value="{% url 'home_page' %}" />
+        <input type="hidden" name="next" value="{{ next }}" />
 </form>
 </div>
     <div class="col-xs-12 col-md-4"></div>

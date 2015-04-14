@@ -99,3 +99,13 @@ font-weight:bold;
 .file_field{
     margin-left:-15px;
 }
+
+.errorlist{
+    padding-left:0px;
+    list-style:none;
+}
+
+.errorlist > li {
+    color:red;
+    font-size:12px;
+}
