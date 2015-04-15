@@ -28,6 +28,20 @@ color:white;
 font-weight:bold;
 }
 
+.jumbo_styling{
+    background: url("images/header.jpg") no-repeat center center;
+    height:250px;
+}
+
+.jumbo_head{
+    background-color:RGBA(255,255,255,0.8);
+    margin-top:100px;
+    padding: 10px 0px 10px 0px;
+    text-align:center;
+    border-radius: 5px;
+}
+
+
 .edit_link > a
 {
     font-size:12px;
@@ -44,7 +58,9 @@ font-weight:bold;
 .project_container{
     padding : 0px !important;
 }
-
+ .sep {
+    margin: 10px 0px 10px 0px;
+ }
 
 .project_data{
 
@@ -108,4 +124,15 @@ font-weight:bold;
 .errorlist > li {
     color:red;
     font-size:12px;
+}
+
+.logo{
+    border:none;
+    height:150px;
+    webkit-box-shadow: 0 0px 0px rgba(0,0,0,.075);
+    box-shadow: 0 0px 0px rgba(0,0,0,.075);
+}
+
+.logo > img {
+    height:100px;
 }

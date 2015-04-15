@@ -39,8 +39,8 @@
         <div class="collapse navbar-collapse navbar-responsive-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li id="home"><a href="/">Home</a></li>
-                <li id="RFP"><a href="{% url 'rfp_list' %}">Request for Proposal</a></li>
-                <li id="profile_nabar"><a href="{% url 'user_profile' %}">My Profile - {{ user }}</a></li>
+                <li id="RFP"><a href="{% url 'rfp_list' %}">Call for Proposals</a></li>
+                <li id="profile_nabar"><a href="{% url 'user_profile' %}">My Profile</a></li>
             </ul>
 
             <ul class="nav navbar-nav pull-right">
@@ -57,23 +57,23 @@
 
 </nav>
 <!-- Navigation bar ends here -->
-
-
     {% block body_block %}
 
 
 
+
     {% endblock %}
-
-
-
 <!--Footer starts here-->
 
 <div class="footer">
       <div class="container">
         <div class ="footer-text">
 
-        <p><a href="/about-us/">About Us </a>| <a href="/members/">Log Out</a> | <a href="/contact_us/">Contact Us</a> | <a href="/sitemap.xml">Sitemap</a></p>
+        <p><a href="/about-us/">About Us </a>| {% if user.id > 0 %}
+                    <a href="{% url 'django.contrib.auth.views.logout' %}?next={% url 'home_page' %}">Log out</a>
+                {% else %}
+                    <a href="{% url 'django.contrib.auth.views.login' %}?next={% url 'user_profile' %}">Log in</a>
+                {% endif %} | <a href="mailto: contact@icfrc.fr">Contact Us</a> | <a href="/sitemap.xml">Sitemap</a></p>
         <p>Powered by Django - 2014</p>
         </div>
       </div>

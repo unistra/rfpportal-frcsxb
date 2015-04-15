@@ -6,7 +6,79 @@
 
 {% csrf_token %}
 
+{% load static %}
+
 <div class="container">
+
+    <div class="jumbotron jumbo_styling">
+            <div class="jumbo_head">
+                    <h2>International Center for Frontier Research in Chemistry <small>Innovations that excites!</small></h2>
+            </div>
+    </div>
+    <div class = "row">
+        <div class = "col-xs-12 col-md-8">
+
+                <p>
+                    In 2007, the French Government selected Strasbourg as the Center of Excellence in Chemistry for the country.
+                    This “International Center for Frontier Research in Chemistry”, or FRC,
+                    involves 80 teams in different institutes in Strasbourg comprising about 250 scientists and faculty members, 250 PhD students and 250 post-docs and technical staff.
+<br><br>
+The FRC builds on the long and outstanding tradition of chemistry in Strasbourg including scientists such as Louis Pasteur, Charles Gerhardt, Adolf von Baeyer, Emil Fischer, Hermann Staudinger and most recently Jean-Marie Lehn (Nobel Prize 1987) et Martin Karplus (Nobel Prize 2013). Strasbourg has one of the very highest citation indexes in chemistry in Europe.
+<br><br>
+It is multi-disciplinary covering every aspect of chemistry together with its interfaces with physics, material science and biology. Its members have strong links with industry through collaborations and the creation of start-ups.
+
+PhD students and post-docs come from all over the world to benefit from this expertise at the frontiers of chemistry. Half the PhD students are foreigners.
+<br><br>
+The founders of the FRC are the University of Strasbourg, the CNRS and two corporations: BASF (the world’s leading chemical company) and Bruker (advanced instrumentation).
+                </p>
+        </div>
+        <div class = "col-xs-12 col-md-4">
+            <h3>News</h3>
+            <h4> News Title</h4>
+            <p>News Abstract</p>
+            <h4> News Title</h4>
+            <p>News Abstract</p>
+            <h4> News Title</h4>
+            <p>News Abstract</p>
+            <h4> News Title</h4>
+            <p>News Abstract</p>
+    </div>
+</div>
+
+        <div class="row sep">
+            <hr>
+        </div>
+
+    <div class = "row">
+
+
+        <div class = "col-xs-12 col-md-3">
+            <a href="https://www.cnrs.fr" class = "thumbnail logo" target = "_blank">
+                <img src="{% static 'images/logo-cnrs.jpg' %}" alt = "CNRS">
+            </a>
+        </div>
+
+        <div class = "col-xs-12 col-md-3">
+            <a href="https://www.unistra.fr" class = "thumbnail logo" target = "_blank">
+            <img class = "" src="{% static 'images/logo_unistra.jpg' %}">
+            </a>
+        </div>
+
+        <div class = "col-xs-12 col-md-3">
+            <a href="https://www.basf.com" class = "thumbnail logo" target = "_blank">
+            <img class = "" src="{% static 'images/logo_BASF.jpg' %}">
+            </a>
+        </div>
+
+        <div class = "col-xs-12 col-md-3">
+            <a href="https://www.brucker.com" class = "thumbnail logo" target = "_blank">
+            <img class = "" src="{% static 'images/logo_brucker.jpg' %}">
+            </a>
+        </div>
+
+
+    </div>
+
 
 <h1>Welcome to the Portal</h1>
 
@@ -28,6 +100,8 @@
     <p> You are not currently logged in. Click <a href="{% url 'login' %}?next={% url 'user_profile' %}"> here</a> to log in or <a href="{% url 'create_profile' %}">create a new User Account</a>.</p>
 
 {% endif %}
+
+</div>
 
 </div>
 
