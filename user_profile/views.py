@@ -5,6 +5,7 @@ from django.contrib.auth.models import User,Group,Permission
 from django.contrib.auth import authenticate, login
 from forms import sign_up,UserUpdate
 from models import UserProfile
+
 from rfp.models import Project,Review,RequestForProposal,RfpCampaign
 
 # Create your views here.
@@ -30,7 +31,6 @@ def create_profile(request):
 
             user.last_name = form.cleaned_data['last_name']
             user.first_name = form.cleaned_data['first_name']
-
             user.save()
 
             if pi:
@@ -50,6 +50,7 @@ def create_profile(request):
             user_profile.address = form.cleaned_data['address']
             user_profile.zip = form.cleaned_data['zip']
             user_profile.city = form.cleaned_data['city']
+            user_profile.num_connection = 1
 
             user_profile.save()
 

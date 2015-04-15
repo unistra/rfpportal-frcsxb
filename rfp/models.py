@@ -27,7 +27,7 @@ class Project(models.Model):
     requested_amount=models.IntegerField(null=True)
     starting_date=models.DateField(null=True)
     project_duration=models.IntegerField(null=True,blank=True)
-    ending_date=models.DateField(null=True,blank=True)
+    #ending_date=models.DateField(null=True,blank=True)
     purpose=models.CharField(max_length=255,null=True,blank=True)
     scope_of_work=models.CharField(max_length=4000,null=True,blank=True)
     anticipated_impact=models.CharField(max_length=4000,null=True,blank=True)

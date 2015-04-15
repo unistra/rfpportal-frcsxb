@@ -35,7 +35,7 @@ def create_project(request):
            requested_amount=p.cleaned_data['requested_amount']
            starting_date=p.cleaned_data['starting_date']
            project_duration=p.cleaned_data['project_duration']
-           ending_date=p.cleaned_data['ending_date']
+           #ending_date=p.cleaned_data['ending_date']
            purpose=p.cleaned_data['purpose']
            scope_of_work=p.cleaned_data['scope_of_work']
            anticipated_impact=p.cleaned_data['anticipated_impact']
@@ -44,7 +44,7 @@ def create_project(request):
 
 
            new_project = Project(name=name,rfp=rfp,user=user,requested_amount=requested_amount,starting_date=starting_date,project_duration=project_duration,
-                                                       ending_date=ending_date,purpose=purpose,scope_of_work=scope_of_work,anticipated_impact=anticipated_impact,document = request.FILES['document'])
+                                                       purpose=purpose,scope_of_work=scope_of_work,anticipated_impact=anticipated_impact,document = request.FILES['document'])
            new_project.save()
 
            url=('../../user_profile/profile/')
@@ -79,7 +79,6 @@ def post_review(request,projectId):
         r = ReviewForm(instance = review)
 
     return render_to_response('rfp/post_review.html',{'form' : r, 'project' : project, 'user' : user, 'up' : user_profile}, context)
-
 
 @login_required()
 def edit_project(request,projectId):

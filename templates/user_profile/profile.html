@@ -22,7 +22,7 @@
                 <p> {{ user_profile.first_name }} {{ user_profile.last_name }}<br/>
                 Email: {{ user.email }}</p>
                 <p> Organization: <strong>{{ user_profile.organization }}</strong><br>
-                 {{ user_profile.address }}<br>
+                {{ user_profile.address }}<br>
                 {{ user_profile.zip }}, {{ user_profile.city }}<br>
                 {{ user_profile.country }}
                 </p>
@@ -43,6 +43,7 @@
                             <th>File</th>
                             <th>Project</th>
                             <th>Category</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
 
@@ -50,11 +51,11 @@
                     {% for r in reviews %}
 
                     <tr>
-                            <td><a href="{% url 'post_review' r.project.id %}">Edit</a></td>
-                            <td> {% if r.document %} <td><a href="{{ r.document.url }}">{{ r.document.name }}</a> {% endif %}</td>
+                            <td><a href="{% url 'post_review' r.project.id %}">{% if r.question_1 %}Edit{% else %}Complete{% endif %}</a></td>
+                            <td>{% if r.document %}<a href="{{ r.document.url }}">{{ r.document.name }}</a> {% endif %}</td>
                             <td><a href="{% url 'project_detail' r.project.id %}">{{ r.project.name }}</a></td>
                             <td>{{ r.project.rfp.name }}</a></td>
-
+                            <td>{% if r.question_1 %}Completed{% else %}Pending{% endif %}</td>
                     </tr>
 
                     {% endfor %}

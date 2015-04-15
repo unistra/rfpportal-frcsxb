@@ -13,17 +13,13 @@
 {% if user.id > 0 %}
 <p> You are currently logged in as {{ user }}</p>
     <p>You can use this portal to: </p>
-    <ul>
+    <p>Apply to the different<a href="{% url 'rfp_list' %}"> Request for Proposal's Category </a> offered by an organization.</p>
 
-        <li>apply to the different<a href="{% url 'rfp_list' %}"> Grant opportunities </a>offered by an organization.</li>
-
-        <li>manage your request currently pending, accepted or declined in <a href="{% url 'user_profile' %}">your profile area.</a></li>
-        <li><a href="{% url 'file_test' %}">file_test</a></li>
+    <p>PI: Manage your request currently pending, accepted or declined in <a href="{% url 'user_profile' %}">your profile.</a></p>
+    <p>Reviewer: Manage your review currently pending, completed in <a href="{% url 'user_profile' %}">your profile.</a> </p>
 
         <!--<li><a href="{% url 'user_profile' %}">manage your request currently pending, accepted or declined.</a></li>-->
         <!--<li><a href="{% url 'create_project' %}">Post a new Review</a></li>-->
-
-    </ul>
 
     <p><a href="{% url 'django.contrib.auth.views.logout' %}">Log out</a></p>
 

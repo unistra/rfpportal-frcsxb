@@ -40,7 +40,7 @@
             <ul class="nav navbar-nav">
                 <li id="home"><a href="/">Home</a></li>
                 <li id="RFP"><a href="{% url 'rfp_list' %}">Request for Proposal</a></li>
-                <li id="profile_nabar"><a href="{% url 'user_profile' %}">My Project</a></li>
+                <li id="profile_nabar"><a href="{% url 'user_profile' %}">My Profile - {{ user }}</a></li>
             </ul>
 
             <ul class="nav navbar-nav pull-right">
