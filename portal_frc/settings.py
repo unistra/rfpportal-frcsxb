@@ -101,11 +101,10 @@ else:
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
+MEDIA_ROOT = os.path.join(STATIC_PATH, 'media')
 MEDIA_URL = '/media/'
 
 # Static asset configuration
-
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
