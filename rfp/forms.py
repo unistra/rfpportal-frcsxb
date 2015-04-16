@@ -18,7 +18,7 @@ class ProjectForm(forms.Form):
     purpose=forms.CharField(required=False,label='In less than 25 words, please indicate the purpose of the project:',widget=forms.TextInput(attrs={'class':'form-control'}))
     scope_of_work=forms.CharField(required=False,label='Indicate the scope of work (400 words max.):',widget=forms.Textarea(attrs={'class':'form-control'}))
     anticipated_impact=forms.CharField(required=False,label='Indicate the anticipated impact (400 words max.):',widget=forms.Textarea(attrs={'class':'form-control'}))
-    document=forms.FileField(required=False,label='Upload your document: ',widget=forms.FileInput(attrs={'class':'form-control'}))
+    document=forms.FileField(required=False,label='Upload your document:',widget=forms.FileInput(attrs={'class':'form-control'}))
     rfp_id = forms.IntegerField(label='',widget=forms.NumberInput(attrs={'class':'hide'}))
 
     class Meta:

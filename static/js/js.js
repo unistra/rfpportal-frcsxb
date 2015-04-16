@@ -29,6 +29,8 @@ $( document ).ready(function() {
 
    var rfp = getUrlParameter('rfp');
    $('#id_rfp_id').val(rfp);
-   console.log(rfp);
+
+   $('#id_starting_date').datepicker();
+
 
 });

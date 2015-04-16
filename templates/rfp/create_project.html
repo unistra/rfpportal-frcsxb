@@ -13,16 +13,73 @@
     {% csrf_token %}
 
         {% for f in form %}
+            {% if f.label == 'Requested Amount ($):' %}
+            <div style="padding-left:0px;" class = "col-xs-12 col-md-4">
+            <div class="form-group">
+            {{ f.label }}{% if f.field.required = True %} * {% endif %}
+                <div class="input-group">
 
-                <div class="form-group">
-                    {{ f.label }}{% if f.field.required = True %} * {% endif %}
+                        <div class="input-group-addon">
+                            <img src="https://cdn3.iconfinder.com/data/icons/sympletts-free-sampler/128/euro-20.png"/>
+                        </div>
+
+                            {{ f }}
+                            {{ f.errors }}
+                </div>
+            </div>
+            </div>
+
+            {% elif f.label == 'Planned starting date:' %}
+
+            <div style="padding-left:0px;" class = "col-xs-12 col-md-4">
+            <div class="form-group">
+            {{ f.label }}{% if f.field.required = True %} * {% endif %}
+                <div class="input-group">
+
+                        <div class="input-group-addon">
+                            <img src="https://cdn0.iconfinder.com/data/icons/news-and-magazine/512/calendar-16.png"/>
+                        </div>
+
+                            {{ f }}
+                            {{ f.errors }}
+                </div>
+            </div>
+            </div>
+
+            {% elif f.label == 'Project Duration (months):' %}
+
+            <div style="padding-left:0px; padding-right:0px;" class = "col-xs-12 col-md-4">
+            <div class="form-group">
+            {{ f.label }}{% if f.field.required = True %} * {% endif %}
+                            {{ f }}
+                            {{ f.errors }}
+                </div>
+            </div>
+
+            {% elif f.label == 'Upload your document:' %}
+
+            <div class="form-group">
+                <div  style="padding-top:7px;" class=" no_l_pad col-xs-12 col-md-4">
+                    <span class=""><strong>Upload your document: *</strong></span>
+                </div>
+                <div style="padding-right:0px;" class="col-xs-12 col-md-8">
                     {{ f }}
                     {{ f.errors }}
                 </div>
+            </div>
 
+            {% elif f.label != '' %}
+
+            <div class="form-group">
+                        {{ f.label }}{% if f.field.required = True %} * {% endif %}
+                        {{ f }}
+                        {{ f.errors }}
+            </div>
+
+            {% endif %}
         {% endfor %}
 
-     <input class="btn btn-primary" type="submit" value="Save"  />
+     <input class="save_btn btn btn-primary pull-right" type="submit" value="Save"  />
      <input type="hidden" name="next" value="{% url 'user_profile' %}" />
 
 </form>

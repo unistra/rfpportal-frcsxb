@@ -41,6 +41,15 @@ font-weight:bold;
     border-radius: 5px;
 }
 
+.no_l_pad{
+    padding-left:0px;
+}
+
+
+.save_btn{
+    width:100px;
+    margin-top:20px;
+}
 
 .edit_link > a
 {
