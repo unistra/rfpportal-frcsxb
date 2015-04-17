@@ -9,20 +9,36 @@ class  RequestForProposalForm(ModelForm):
         model = RequestForProposal
         fields = ['name']
 
-class ProjectForm(forms.Form):
-    name = forms.CharField(label='Project Name:',widget=forms.TextInput(attrs={'class':'form-control'}))
-    requested_amount=forms.IntegerField(label='Requested Amount ($):',widget=forms.NumberInput(attrs={'class':'form-control'}))
-    starting_date=forms.DateField(label='Planned starting date:',widget=forms.DateInput(attrs={'class':'form-control'}))
-    project_duration=forms.IntegerField(required=False,label='Project Duration (months):',widget=forms.NumberInput(attrs={'class':'form-control'}))
-    #ending_date=forms.DateField(required=False,label='Ending date:',widget=forms.DateInput(attrs={'class':'form-control'}))
-    purpose=forms.CharField(required=False,label='In less than 25 words, please indicate the purpose of the project:',widget=forms.TextInput(attrs={'class':'form-control'}))
-    scope_of_work=forms.CharField(required=False,label='Indicate the scope of work (400 words max.):',widget=forms.Textarea(attrs={'class':'form-control'}))
-    anticipated_impact=forms.CharField(required=False,label='Indicate the anticipated impact (400 words max.):',widget=forms.Textarea(attrs={'class':'form-control'}))
-    document=forms.FileField(required=False,label='Upload your document:',widget=forms.FileInput(attrs={'class':'form-control'}))
-    rfp_id = forms.IntegerField(label='',widget=forms.NumberInput(attrs={'class':'hide'}))
+class ProjectForm(ModelForm):
 
     class Meta:
-        model=Project
+        model = Project
+        widgets = {
+            'name' : forms.TextInput(attrs={'class':'form-control'}),
+            'requested_amount' : forms.NumberInput(attrs={'class':'form-control'}),
+            'starting_date' : forms.DateInput(attrs={'class':'form-control'}),
+            'project_duration' : forms.NumberInput(attrs={'class':'form-control'}),
+            'purpose' : forms.TextInput(attrs={'class':'form-control'}),
+            'scope_of_work' : forms.Textarea(attrs={'class':'form-control'}),
+            'anticipated_impact' : forms.Textarea(attrs={'class':'form-control'}),
+            'document' : forms.FileInput(attrs={'class':'form-control'}),
+            'rfp' : forms.Select(attrs={'class':'form-control'}),
+            'user' : forms.Select(attrs={'class':'hide'})
+        }
+
+        labels = {
+            'name' : _('Project Name:'),
+            'requested_amount' : _('Requested Amount:'),
+            'starting_date' : _('Planned starting date:'),
+            'project_duration' : _('Project Duration (months):'),
+            'purpose' : _('In less than 25 words, please indicate the purpose of the project:'),
+            'scope_of_work' : _('Abstract:'),
+            'anticipated_impact' : _('Anticipated Impact:'),
+            'document' : _('Upload your document:'),
+            'rfp' : _('Category:'),
+            'user' : _(' ')
+        }
+
 
 class UpdateForm(ModelForm):
 

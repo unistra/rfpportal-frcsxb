@@ -21,9 +21,9 @@ class RfpCampaign(models.Model):
         return self.name
 
 class Project(models.Model):
-    name=models.CharField(max_length=255)
-    user=models.ForeignKey(User)
     rfp=models.ForeignKey(RfpCampaign)
+    name=models.CharField(max_length=255)
+    user=models.ForeignKey(User,blank=True,null=True)
     requested_amount=models.IntegerField(null=True)
     starting_date=models.DateField(null=True)
     project_duration=models.IntegerField(null=True,blank=True)
@@ -31,7 +31,7 @@ class Project(models.Model):
     purpose=models.CharField(max_length=255,null=True,blank=True)
     scope_of_work=models.CharField(max_length=4000,null=True,blank=True)
     anticipated_impact=models.CharField(max_length=4000,null=True,blank=True)
-    document=models.FileField(upload_to=('projects'),null=True,blank=True)
+    document=models.FileField(upload_to='project',null=True,blank=True)
 
 class Review(models.Model):
     user=models.ForeignKey(User)
@@ -40,7 +40,7 @@ class Review(models.Model):
     question_1 = models.CharField(max_length=4000,null=True,blank=True)
     question_2 = models.CharField(max_length=4000,null=True,blank=True)
     date = models.DateField(null=True,blank=True)
-    document=models.FileField(null=True,upload_to=('reviews'),blank=True)
+    document=models.FileField(upload_to=('reviews'),null=True,blank=True)
 
 class File_Test(models.Model):
     name=models.CharField(max_length=255)

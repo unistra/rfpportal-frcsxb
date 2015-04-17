@@ -1,19 +1,8 @@
 $( document ).ready(function() {
 
-   console.log( "Script initiated!" );
+   console.log( "This Script?" );
 
-  //  $('.edit').hide();
-   // $('#save').hide();
-   // $('#project-name').hide();
-
-   //$('#edit').click(function(){
-     //       $(this).slideUp(500);
-       //     $('#save').slideDown(500);
-         //   $('.edit').slideDown(500);
-          //  $('.project_data').slideUp(500);
-   //});
-
-    function getUrlParameter(sParam)
+   function getUrlParameter(sParam)
     {
         var sPageURL = window.location.search.substring(1);
         var sURLVariables = sPageURL.split('&');
@@ -28,9 +17,11 @@ $( document ).ready(function() {
     }
 
    var rfp = getUrlParameter('rfp');
-   $('#id_rfp_id').val(rfp);
+   var id = getUrlParameter('u');
+   console.log(rfp);
 
+   $('#id_rfp').val(rfp);
+   $('#id_user').val(id);
    $('#id_starting_date').datepicker();
-
 
 });

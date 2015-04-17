@@ -13,7 +13,24 @@
     {% csrf_token %}
 
         {% for f in form %}
-            {% if f.label == 'Requested Amount ($):' %}
+            {% if f.label == 'Category:' %}
+
+            <div class = "row">
+
+                <div  style="padding-top:7px;" class="col-xs-12 col-md-4">
+                    <strong>Category: *</strong>
+                </div>
+                <div class="col-xs-12 col-md-8">
+                    {{ f }}
+                    {{ f.errors }}
+                </div>
+
+                <hr>
+
+            </div>
+
+
+            {% elif f.label == 'Requested Amount:' %}
             <div style="padding-left:0px;" class = "col-xs-12 col-md-4">
             <div class="form-group">
             {{ f.label }}{% if f.field.required = True %} * {% endif %}

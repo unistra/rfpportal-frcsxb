@@ -46,6 +46,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'user_profile',
     'rfp',
+    'storages',
     'widget_tweaks',
 
 )
@@ -101,12 +102,46 @@ else:
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
+#AWS configuration
+AWS_HEADERS = {  # see http://developer.yahoo.com/performance/rules.html#expires
+        'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
+        'Cache-Control': 'max-age=94608000',
+    }
+
+AWS_STORAGE_BUCKET_NAME = 'frcdev'
+AWS_ACCESS_KEY_ID = 'AKIAJM2IT5AUXRQUPQJQ'
+AWS_SECRET_ACCESS_KEY = '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'
+
+# Tell django-storages that when coming up with the URL for an item in S3 storage, keep
+# it simple - just use this domain plus the path. (If this isn't set, things get complicated).
+# This controls how the `static` template tag from `staticfiles` gets expanded, if you're using it.
+# We also use it in the next setting.
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+# This is used by the `static` template tag from `static`, if you're using that. Or if anything else
+# refers directly to STATIC_URL. So it's safest to always set it.
+#STATIC_URL = "https://%s/" % AWS_S3_CUSTOM_DOMAIN
+
+# Tell the staticfiles app to use S3Boto storage when writing the collected static files (when
+# you run `collectstatic`).
+#STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+STATICFILES_LOCATION = 'static'
+
+#from custom_storages import StaticStorage
+STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
+
+
+MEDIAFILES_LOCATION = 'media'
+MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
 MEDIA_ROOT = 'media'
-MEDIA_URL = '/media/'
+
+#MEDIA_URL = '/media/'
 
 # Static asset configuration
 STATIC_ROOT = 'staticfiles'
-STATIC_URL = '/static/'
+#STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
     STATIC_PATH,
@@ -119,6 +154,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/

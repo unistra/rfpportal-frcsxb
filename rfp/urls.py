@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     url(r'^edit_project/(?P<projectId>\d+)/$',views.edit_project,name='edit_project'),
     url(r'^post_review/(?P<projectId>\d+)/$',views.post_review,name='post_review'),
     url(r'^rfp/(?P<rfpcampaignId>\d+)/$',views.rfp_campaign,name='rfpcampaign_detail'),
+    #url(r'^rfp/create_project/(?P<rfp>\d+)/$',views.create_project,name='create_project'),
     url(r'^rfp/$',views.rfp_list,name='rfp_list'),
     url(r'^file_test/$',views.test_file,name='file_test'),
 

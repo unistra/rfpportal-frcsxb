@@ -31,21 +31,7 @@ def create_project(request):
         p = ProjectForm(request.POST,request.FILES)
 
         if p.is_valid():
-           name = p.cleaned_data['name']
-           requested_amount=p.cleaned_data['requested_amount']
-           starting_date=p.cleaned_data['starting_date']
-           project_duration=p.cleaned_data['project_duration']
-           #ending_date=p.cleaned_data['ending_date']
-           purpose=p.cleaned_data['purpose']
-           scope_of_work=p.cleaned_data['scope_of_work']
-           anticipated_impact=p.cleaned_data['anticipated_impact']
-           rfp_id = p.cleaned_data['rfp_id']
-           rfp = RfpCampaign.objects.get(id = rfp_id)
-
-
-           new_project = Project(name=name,rfp=rfp,user=user,requested_amount=requested_amount,starting_date=starting_date,project_duration=project_duration,
-                                                       purpose=purpose,scope_of_work=scope_of_work,anticipated_impact=anticipated_impact,document = request.FILES['document'])
-           new_project.save()
+           p.save ()
 
            url=('../../user_profile/profile/')
 
@@ -53,7 +39,6 @@ def create_project(request):
 
     else:
         p = ProjectForm()
-
 
     return render_to_response('rfp/create_project.html',{'form' : p}, context)
 
