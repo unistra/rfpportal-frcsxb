@@ -13,6 +13,7 @@ class ProjectForm(ModelForm):
 
     class Meta:
         model = Project
+        exclude = {}
         widgets = {
             'name' : forms.TextInput(attrs={'class':'form-control'}),
             'requested_amount' : forms.NumberInput(attrs={'class':'form-control'}),
@@ -79,8 +80,6 @@ class ReviewForm(ModelForm):
             'date' : forms.DateInput(attrs={'class':'form-control'}),
             'document' : forms.FileInput(attrs={'class':'form-control'})
         }
-
-
 
 class file_test (forms.Form):
     name=forms.CharField(label='File Name:',widget=forms.TextInput(attrs={'class':'form-control'}))
