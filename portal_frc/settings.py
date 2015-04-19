@@ -125,27 +125,29 @@ AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 # Tell the staticfiles app to use S3Boto storage when writing the collected static files (when
 # you run `collectstatic`).
 #STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-STATICFILES_LOCATION = 'static'
 
-#from custom_storages import StaticStorage
-STATICFILES_STORAGE = 'custom_storages.StaticStorage'
-STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
+#MEDIA_ROOT = 'media'
 
-
+MEDIA_ROOT = 'media'
 MEDIAFILES_LOCATION = 'media'
 MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
 DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
-MEDIA_ROOT = 'media'
 
-#MEDIA_URL = '/media/'
 
-# Static asset configuration
-STATIC_ROOT = 'staticfiles'
-#STATIC_URL = '/static/'
+if not os.getenv('DATABASE_URL'):
+# Static asset configuration for local dev:
+    STATIC_ROOT = 'staticfiles'
+    STATIC_URL = '/static/'
+    STATICFILES_LOCATION = 'static'
+
+else:
+    STATICFILES_LOCATION = 'static'
+    STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+    STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
 
 STATICFILES_DIRS = (
-    STATIC_PATH,
-)
+        STATIC_PATH,
+    )
 
 # List of finder classes that know how to find static files in
 # various locations.
