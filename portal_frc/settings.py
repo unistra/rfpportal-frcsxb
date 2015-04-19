@@ -48,6 +48,7 @@ INSTALLED_APPS = (
     'rfp',
     'storages',
     'widget_tweaks',
+    'bootstrap3',
 
 )
 
