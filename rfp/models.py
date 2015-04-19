@@ -16,6 +16,7 @@ class RfpCampaign(models.Model):
     name=models.CharField(max_length=255,null=True)
     year=models.PositiveIntegerField(null=True)
     instructions=models.TextField(max_length=4000,null=True)
+    logo = models.ImageField(upload_to='image',null=True,blank=True)
 
     def __unicode__(self):
         return self.name
