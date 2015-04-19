@@ -12,8 +12,8 @@ body {
 
 .navbar
 {
-    background-color:black;
-    color:white;
+    background-color:white;
+    color:RGB(153,51,153);
 }
 
 .navbar-default{
@@ -21,12 +21,26 @@ background-image:none;
 }
 
 .navbar-default .navbar-nav>li>a{
-color:white;
+color:RGB(0,94,167);
 }
 
 .navbar-default .navbar-nav>li>a:hover{
-color:white;
+color:RGB(0,94,167);
 font-weight:bold;
+}
+
+.navbar-default .navbar-nav>li>a:focus{
+color:RGB(0,94,167);
+font-weight:bold;
+}
+
+.dropdown-menu>li>a{
+    color:RGB(0,94,167);
+}
+
+.dropdown-menu>li>a:hover{
+    color:RGB(0,94,167);
+    font-weight:bold;
 }
 
 .jumbo_styling{
@@ -101,8 +115,8 @@ font-weight:bold;
   /* Set the fixed height of the footer here */
 
   height: 60px;
-  background-color:black;
-  color:white;
+  background-color:white;
+  color:RGB(0,94,167);
 }
 
 .footer-text
@@ -119,7 +133,7 @@ font-weight:bold;
 .footer .footer-text p > a
 {
     font-size:12px;
-    color:white;
+    color:RGB(0,94,167);
 }
 
 .file_field{

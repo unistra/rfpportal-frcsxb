@@ -38,16 +38,59 @@
         <a class="navbar-brand" href="/"></a>
         <div class="collapse navbar-collapse navbar-responsive-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li id="home"><a href="/">Home</a></li>
-                <li id="RFP"><a href="{% url 'rfp_list' %}">Call for Proposals</a></li>
-                <li id="profile_nabar"><a href="{% url 'user_profile' %}">My Profile</a></li>
+                <li id="home"><a href="/"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a></li>
+                <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">About <span class="caret"></span></a>
+                              <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Philosophy and Organization</a></li>
+                                <li><a href="#">Funding members</a></li>
+                                <li><a href="#">Documents</a></li>
+                                <li><a href="#">Links</a></li>
+                              </ul>
+                </li>
+                <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">The Network <span class="caret"></span></a>
+                              <ul class="dropdown-menu" role="menu">
+                                <li><a href="#">Research Team</a></li>
+                                <li><a href="#">Strength</a></li>
+                                <li><a href="#">Scientific Production</a></li>
+                                <li><a href="#">Equipement</a></li>
+                              </ul>
+                </li>
+                <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Call for Proposals <span class="caret"></span></a>
+                              <ul class="dropdown-menu" role="menu">
+                                <li id="RFP"><a href="{% url 'rfp_list' %}">Call for Proposals</a></li>
+                                <li><a href="#">Archives</a></li>
+                              </ul>
+                </li>
+                <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Publications <span class="caret"></span></a>
+                              <ul class="dropdown-menu" role="menu">
+                                <li><a href="{% url 'rfp_list' %}">2015</a></li>
+                                <li><a href="{% url 'rfp_list' %}">2010 - 2014</a></li>
+                                <li><a href="#">Books</a></li>
+                                <li><a href="#">Patents</a></li>
+                              </ul>
+                </li>
+                <li><a href="#">Scholarships</a></li>
+                <li><a href="#">Donate</a></li>
+
             </ul>
 
             <ul class="nav navbar-nav pull-right">
                 {% if user.id > 0 %}
-                    <li><a href="{% url 'django.contrib.auth.views.logout' %}?next={% url 'home_page' %}">Log out</a></li>
+
+                <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> My Profile <span class="caret"></span></a>
+                              <ul class="dropdown-menu" role="menu">
+                                <li id="profile_nabar"><a href="{% url 'user_profile' %}">Profile</a></li>
+                                <li><a href="{% url 'django.contrib.auth.views.logout' %}?next={% url 'home_page' %}"> Log out</a></li>
+                              </ul>
+                </li>
+
                 {% else %}
-                    <li id="login_navbar"><a href="{% url 'django.contrib.auth.views.login' %}?next={% url 'user_profile' %}">Log in</a></li>
+                    <li id="login_navbar"><a href="{% url 'django.contrib.auth.views.login' %}?next={% url 'user_profile' %}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>  Log in</a></li>
                 {% endif %}
             </ul>
 
