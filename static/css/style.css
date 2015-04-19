@@ -160,3 +160,12 @@ font-weight:bold;
 .logo > img {
     height:100px;
 }
+
+.logo_head{
+    border:none;
+    height:150px;
+    webkit-box-shadow: 0 0px 0px rgba(0,0,0,.075);
+    box-shadow: 0 0px 0px rgba(0,0,0,.075);
+}
+
+
