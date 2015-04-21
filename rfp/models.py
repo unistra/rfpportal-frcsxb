@@ -11,6 +11,10 @@ class RequestForProposal(models.Model):
     def __unicode__(self):
         return self.name
 
+    class Meta:
+        verbose_name = "Fund"
+        verbose_name_plural = "Funds"
+
 class RfpCampaign(models.Model):
     request_for_proposal=models.ForeignKey(RequestForProposal)
     name=models.CharField(max_length=255,null=True)
@@ -20,6 +24,10 @@ class RfpCampaign(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    class Meta:
+        verbose_name = "Call for proposal"
+        verbose_name_plural = "Call for proposals"
 
 class Project(models.Model):
     rfp=models.ForeignKey(RfpCampaign)
@@ -34,14 +42,21 @@ class Project(models.Model):
     anticipated_impact=models.CharField(max_length=4000,null=True,blank=True)
     document=models.FileField(upload_to='project',null=True,blank=True)
 
+    def __unicode__(self):
+        return self.name
+
 class Review(models.Model):
-    user=models.ForeignKey(User)
-    project=models.ForeignKey(Project)
+    user=models.ForeignKey(User,verbose_name=u"Reviewer")
+    project=models.ForeignKey(Project, verbose_name=u"Project")
     name=models.CharField(max_length=255,blank=True)
     question_1 = models.CharField(max_length=4000,null=True,blank=True)
     question_2 = models.CharField(max_length=4000,null=True,blank=True)
     date = models.DateField(null=True,blank=True)
     document=models.FileField(upload_to=('reviews'),null=True,blank=True)
+
+    def __unicode__(self):
+        return (str(self.user.first_name) + " " + str(self.user.last_name) + " for: " + str(self.project.name))
+
 
 class File_Test(models.Model):
     name=models.CharField(max_length=255)

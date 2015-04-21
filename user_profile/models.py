@@ -21,6 +21,13 @@ class UserProfile(models.Model):
     is_reviewer = models.BooleanField(default=False)
     num_connection = models.IntegerField(default=0, editable=False)
 
+    def __unicode__(self):
+        return (str(self.first_name) + " " + str(self.last_name))
+
+    class Meta:
+        verbose_name = "Contact"
+        verbose_name_plural = "Contacts"
+
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance,num_connection=0)

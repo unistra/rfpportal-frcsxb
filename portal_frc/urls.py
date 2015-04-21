@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
 import views
+import grappelli
 
 urlpatterns = patterns('',
     # Examples:
@@ -10,6 +11,7 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
     url(r'^user_profile/', include('user_profile.urls')),
     url(r'^project/', include('rfp.urls')),
+    (r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
     url('^', include('django.contrib.auth.urls',)),
     url(r'^/logout/$', 'django.contrib.auth.views.logout', {'template_name': 'registration/logout.html'}),
