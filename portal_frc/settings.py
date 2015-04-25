@@ -51,6 +51,7 @@ INSTALLED_APPS = (
     'storages',
     'widget_tweaks',
     'bootstrap3',
+    'djrill',
 
 )
 
@@ -102,14 +103,24 @@ else:
                 }
     }
 
+
+#Email configuration
+MANDRILL_API_KEY = 'ivIn8-AMFL0bqaxN-x-_GQ'
+EMAIL_BACKEND = 'djrill.mail.backends.djrill.DjrillBackend'
+DEFAULT_FROM_EMAIL = 'contact@icfrc.fr'
+
+LOGIN_REDIRECT_URL = "/"
+
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 #AWS configuration
+"""
 AWS_HEADERS = {  # see http://developer.yahoo.com/performance/rules.html#expires
         'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
         'Cache-Control': 'max-age=94608000',
     }
+"""
 
 AWS_STORAGE_BUCKET_NAME = 'frcdev'
 AWS_ACCESS_KEY_ID = 'AKIAJM2IT5AUXRQUPQJQ'

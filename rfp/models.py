@@ -33,10 +33,11 @@ class Project(models.Model):
     rfp=models.ForeignKey(RfpCampaign)
     name=models.CharField(max_length=255)
     user=models.ForeignKey(User,blank=True,null=True)
-    requested_amount=models.IntegerField(null=True)
     starting_date=models.DateField(null=True)
+    ending_date=models.DateField(null=True,blank=True)
     project_duration=models.IntegerField(null=True,blank=True)
-    #ending_date=models.DateField(null=True,blank=True)
+    requested_amount=models.IntegerField(null=True)
+    additional_funding = models.CharField(max_length = 255, null = True, blank = True)
     purpose=models.CharField(max_length=255,null=True,blank=True)
     scope_of_work=models.CharField(max_length=4000,null=True,blank=True)
     anticipated_impact=models.CharField(max_length=4000,null=True,blank=True)
@@ -44,6 +45,18 @@ class Project(models.Model):
 
     def __unicode__(self):
         return self.name
+
+
+
+
+class BudgetLine(models.Model):
+    project = models.OneToOneField(Project,null = True)
+    item = models.CharField(max_length = 255, null=True, blank=True)
+    amount = models.FloatField(null=True, blank = True)
+
+    def __unicode__(self):
+        return  self.item
+
 
 class Review(models.Model):
     user=models.ForeignKey(User,verbose_name=u"Reviewer")

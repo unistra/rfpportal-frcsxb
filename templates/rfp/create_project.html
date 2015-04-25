@@ -30,8 +30,9 @@
             </div>
 
 
-            {% elif f.label == 'Requested Amount:' %}
-            <div style="padding-left:0px;" class = "col-xs-12 col-md-4">
+            {% elif f.label == 'Requested amount from FRC:' %}
+            <div class = "row">
+            <div  class = "col-xs-12 col-md-4">
             <div class="form-group">
             {{ f.label }}{% if f.field.required = True %} * {% endif %}
                 <div class="input-group">
@@ -43,6 +44,7 @@
                             {{ f }}
                             {{ f.errors }}
                 </div>
+            </div>
             </div>
             </div>
 
@@ -63,7 +65,24 @@
             </div>
             </div>
 
-            {% elif f.label == 'Project Duration (months):' %}
+            {% elif f.label == 'Ending date:' %}
+
+            <div style="padding-left:0px;" class = "col-xs-12 col-md-4">
+            <div class="form-group">
+            {{ f.label }}{% if f.field.required = True %} * {% endif %}
+                <div class="input-group">
+
+                        <div class="input-group-addon">
+                            <img src="https://cdn0.iconfinder.com/data/icons/news-and-magazine/512/calendar-16.png"/>
+                        </div>
+
+                            {{ f }}
+                            {{ f.errors }}
+                </div>
+            </div>
+            </div>
+
+            {% elif f.label == 'Expected duration of project (months):' %}
 
             <div style="padding-left:0px; padding-right:0px;" class = "col-xs-12 col-md-4">
             <div class="form-group">
@@ -86,7 +105,6 @@
             </div>
 
             {% elif f.label != '' %}
-
             <div class="form-group">
                         {{ f.label }}{% if f.field.required = True %} * {% endif %}
                         {{ f }}

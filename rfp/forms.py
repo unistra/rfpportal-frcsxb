@@ -24,20 +24,24 @@ class ProjectForm(ModelForm):
             'anticipated_impact' : forms.Textarea(attrs={'class':'form-control'}),
             'document' : forms.FileInput(attrs={'class':'form-control'}),
             'rfp' : forms.Select(attrs={'class':'form-control'}),
-            'user' : forms.Select(attrs={'class':'hide'})
+            'user' : forms.Select(attrs={'class':'hide'}),
+            'ending_date' : forms.DateInput(attrs={'class':'form-control'}),
+            'additional_funding' : forms.Textarea(attrs={'class':'form-control'}),
         }
 
         labels = {
-            'name' : _('Project Name:'),
-            'requested_amount' : _('Requested Amount:'),
+            'name' : _('Project Title:'),
+            'requested_amount' : _('Requested amount from FRC:'),
             'starting_date' : _('Planned starting date:'),
-            'project_duration' : _('Project Duration (months):'),
-            'purpose' : _('In less than 25 words, please indicate the purpose of the project:'),
-            'scope_of_work' : _('Abstract:'),
-            'anticipated_impact' : _('Anticipated Impact:'),
+            'ending_date' : _('Ending date:'),
+            'project_duration' : _('Expected duration of project (months):'),
+            'purpose' : _('Keywords relating to project (10 max.):'),
+            'scope_of_work' : _('Abstract (300 words max.):'),
+            'anticipated_impact' : _('Link with other existing projects:'),
             'document' : _('Upload your document:'),
             'rfp' : _('Category:'),
-            'user' : _(' ')
+            'user' : _(' '),
+            'additional_funding' : _('Additional co-funding, if any (please specify funding body and amount):')
         }
 
 

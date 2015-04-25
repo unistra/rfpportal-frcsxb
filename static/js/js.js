@@ -1,7 +1,5 @@
 $( document ).ready(function() {
 
-   console.log( "This Script?" );
-
    function getUrlParameter(sParam)
     {
         var sPageURL = window.location.search.substring(1);
@@ -22,6 +20,7 @@ $( document ).ready(function() {
 
    $('#id_rfp').val(rfp);
    $('#id_user').val(id);
+   $('#id_ending_date').datepicker();
    $('#id_starting_date').datepicker();
 
 });
