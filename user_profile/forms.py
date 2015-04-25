@@ -2,6 +2,7 @@ __author__ = 'Sylvestre'
 from django import forms
 from models import UserProfile
 from django.contrib.auth.models import User
+from django.utils.translation import ugettext_lazy as _
 
 class sign_up(forms.Form):
 
@@ -30,13 +31,6 @@ class sign_up(forms.Form):
 
 class UserUpdate(forms.ModelForm):
 
-    TITLE_CHOICES = (
-        ('p', 'Pr.'),
-        ('d', 'Dr.'),
-        ('m', 'Mr.'),
-        ('mm', 'Mrs.'),
-    )
-
     class Meta:
         model = UserProfile
         exclude = ['user','is_pi','is_reviewer','title']
@@ -46,6 +40,7 @@ class UserUpdate(forms.ModelForm):
             'first_name' : forms.TextInput(attrs={'class':'form-control'}),
             'last_name' : forms.TextInput(attrs={'class':'form-control'}),
             'organization' : forms.TextInput(attrs={'class':'form-control'}),
+            'insitute_research_unit' : forms.TextInput(attrs={'class':'form-control'}),
             'address' : forms.TextInput(attrs={'class':'form-control'}),
             'zip' : forms.TextInput(attrs={'class':'form-control'}),
             'state' : forms.TextInput(attrs = {'class' : 'form-control'}),
@@ -54,6 +49,8 @@ class UserUpdate(forms.ModelForm):
         }
 
         labels = {
-
+            'insitute_research_unit' : _('Reasearch Group/Unit:'),
+            'state' : _('State/Region:'),
+            'zip' : _('Postcode:')
         }
 

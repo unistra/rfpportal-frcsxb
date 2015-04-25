@@ -31,7 +31,9 @@ def create_project(request):
         p = ProjectForm(request.POST,request.FILES)
 
         if p.is_valid():
-           p.save ()
+           p.save (commit=False)
+           p.user = user.pk
+           p.save()
 
            url=('../../user_profile/profile/')
 
@@ -40,7 +42,7 @@ def create_project(request):
     else:
         p = ProjectForm()
 
-    return render_to_response('rfp/create_project.html',{'form' : p}, context)
+    return render_to_response('rfp/create_project.html',{'form' : p, 'user' : user}, context)
 
 #@user_passes_test(is_reviewer,login_url='/login/',redirect_field_name='next')
 

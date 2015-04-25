@@ -8,6 +8,12 @@
 
 <h1> Create a Project</h1>
 
+    <p>Team Leader: <a href = "{% url 'user_profile' %}">{{ user.userprofile }}</a></p>
+    <p>Research Unit: {{ user.userprofile.organization }} - {{ user.userprofile.insitute_research_unit}}</p>
+    <p>Email: <a href = "matilto: {{ user.email }}">{{ user.email }}</a></p>
+
+
+
 <form class="" method="post" enctype="multipart/form-data" action="{% url 'create_project' %}">
 
     {% csrf_token %}

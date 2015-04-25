@@ -55,16 +55,30 @@ class UpdateForm(ModelForm):
             'requested_amount' : forms.NumberInput(attrs={'class':'form-control'}),
             'starting_date' : forms.DateInput(attrs={'class':'form-control'}),
             'project_duration' : forms.NumberInput(attrs={'class':'form-control'}),
-            #'ending_date' : forms.DateInput(attrs={'class':'form-control'}),
-
             'purpose' : forms.TextInput(attrs={'class':'form-control'}),
             'scope_of_work' : forms.Textarea(attrs={'class':'form-control'}),
             'anticipated_impact' : forms.Textarea(attrs={'class':'form-control'}),
-            'document' : forms.FileInput(attrs={'class':'form-control'})
+            'document' : forms.FileInput(attrs={'class':'form-control'}),
+            'rfp' : forms.Select(attrs={'class':'form-control'}),
+            'user' : forms.Select(attrs={'class':'hide'}),
+            'ending_date' : forms.DateInput(attrs={'class':'form-control'}),
+            'additional_funding' : forms.Textarea(attrs={'class':'form-control'}),
+
         }
         labels = {
-            'name' : _('Name of the Project: '),
-            'document' : _('Select a document to update the current file: '),
+            'name' : _('Project Title:'),
+            'requested_amount' : _('Requested amount from FRC:'),
+            'starting_date' : _('Planned starting date:'),
+            'ending_date' : _('Ending date:'),
+            'project_duration' : _('Expected duration of project (months):'),
+            'purpose' : _('Keywords relating to project (10 max.):'),
+            'scope_of_work' : _('Abstract (300 words max.):'),
+            'anticipated_impact' : _('Link with other existing projects:'),
+
+            'rfp' : _('Category:'),
+            'user' : _(' '),
+            'additional_funding' : _('Additional co-funding, if any (please specify funding body and amount):'),
+            'document' : _('Select a document to update the current file: ')
         }
 
 

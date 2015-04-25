@@ -7,14 +7,15 @@ from django.shortcuts import render,render_to_response,HttpResponse,HttpResponse
 # Create your models here.
 
 class UserProfile(models.Model):
-    user = models.ForeignKey(User, unique=True)
-    title = models.CharField(max_length=255,null=True)
+    user = models.OneToOneField(User)
+    title = models.CharField(max_length=255,null=True, blank=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    organization = models.CharField(max_length=255,null=True)
+    organization = models.CharField(max_length=255,null=True, blank=True)
+    insitute_research_unit = models.CharField(max_length=255,null=True, blank=True)
     address = models.CharField(max_length=255,null=True)
     city = models.CharField(max_length=255,null=True)
-    state = models.CharField(max_length=255,null=True)
+    state = models.CharField(max_length=255,null=True,blank=True)
     zip = models.PositiveIntegerField(null=True)
     country = models.CharField(max_length= 255,null=True)
     is_pi = models.BooleanField(default=False)

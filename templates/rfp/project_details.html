@@ -8,7 +8,6 @@
 <script>
 
 $( document ).ready(function() {
-    console.log('TAG in SCRIUPT ???');
     var rfp_id = {{ project.rfp.id }};
     $('#id_rfp_id').val(rfp_id);
 });
@@ -21,6 +20,10 @@ $( document ).ready(function() {
         <div class="col-xs-10 col-md-10">
         <h2>{{ project.name }}</h2>
         <h4> {{ project.rfp.name }}</h4>
+        <p>Team Leader: <a href = "{% url 'user_profile' %}">{{ user.userprofile }}</a></p>
+        <p>Research Unit: {{ user.userprofile.organization }} - {{ user.userprofile.insitute_research_unit}}</p>
+        <p>Email: <a href = "matilto: {{ user.email }}">{{ user.email }}</a></p>
+
         </div>
 
     <div class="col-xs-2 col-md-2">
@@ -41,15 +44,16 @@ $( document ).ready(function() {
        {% elif p.name == 'document' %}
 
        <div class = "col-xs-12 col-md-4">
-          <p class="file_field"><strong>Document: </strong></p>
+
+           <p class="file_field"><strong>Document: </strong></p>
        </div>
 
        <div class = col-md-8>
-          <p><a href="{{ project.document.url }}" target="_blank"> {{ project.document.name }} </a></p>
+          <p>{% if project.document %}<a href="{{ project.document.url }}" target="_blank"> {{ project.document.name }} </a> {% endif %}</p>
        </div>
        {% else %}
 
-       <p class="project_data" id="{{ p.label|slugify }}"><strong>{{ p.label }}: </strong>{{ p.data|linebreaksbr }}</p>
+       <p class="project_data" id="{{ p.label|slugify }}"><strong>{{ p.label }} </strong>{{ p.data|linebreaksbr }}</p>
     {% endif %}
 
 {% endfor %}

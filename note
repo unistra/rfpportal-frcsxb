@@ -1,0 +1,2 @@
+To ask to Maths:
+	- Why on my create project form, I cannot save the user using the usual process (save(commit=False) then connect the user to p.user).
