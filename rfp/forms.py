@@ -1,8 +1,9 @@
 __author__ = 'Sylvestre'
 from django import forms
 from django.forms import ModelForm
+from django.forms.models import modelformset_factory
 from django.utils.translation import ugettext_lazy as _
-from models import Project,RfpCampaign,RequestForProposal,Review,File_Test
+from models import Project,RfpCampaign,RequestForProposal,Review,File_Test,ProposedReviewer
 
 class  RequestForProposalForm(ModelForm):
     class Meta:
@@ -98,6 +99,46 @@ class ReviewForm(ModelForm):
             'date' : forms.DateInput(attrs={'class':'form-control'}),
             'document' : forms.FileInput(attrs={'class':'form-control'})
         }
+
+
+class ProposedReviewerForm(ModelForm):
+    class Meta:
+        model = ProposedReviewer
+        exclude = {'project'}
+        widgets = {
+            'first_name' : forms.TextInput(attrs={'class':'form-control'}),
+            'last_name' : forms.TextInput(attrs={'class':'form-control'}),
+            'email' : forms.EmailInput(attrs={'class':'form-control'}),
+            'institution' : forms.TextInput(attrs={'class':'form-control'}),
+            'address' : forms.TextInput(attrs={'class':'form-control'}),
+            'city' : forms.TextInput(attrs={'class':'form-control'}),
+            'state' : forms.TextInput(attrs={'class':'form-control'}),
+            'postcode' : forms.NumberInput(attrs={'class':'form-control'}),
+            'country' : forms.TextInput(attrs={'class':'form-control'}),
+        }
+
+
+ProposedReviewerFormSet = modelformset_factory(
+            ProposedReviewer,
+            exclude = {'project'},
+            widgets = {
+            #'project' : forms.TextInput(attrs={'class':'hide', 'default' : '{{ project.id }}'}),
+            'first_name' : forms.TextInput(attrs={'class':'form-control'}),
+            'last_name' : forms.TextInput(attrs={'class':'form-control'}),
+            'email' : forms.EmailInput(attrs={'class':'form-control'}),
+            'institution' : forms.TextInput(attrs={'class':'form-control'}),
+            'address' : forms.TextInput(attrs={'class':'form-control'}),
+            'city' : forms.TextInput(attrs={'class':'form-control'}),
+            'state' : forms.TextInput(attrs={'class':'form-control'}),
+            'postcode' : forms.NumberInput(attrs={'class':'form-control'}),
+            'country' : forms.TextInput(attrs={'class':'form-control'}),
+        },
+            labels = {
+                'project' : _('do_not_show')
+            },
+            extra = 3,
+                                               )
+
 
 class file_test (forms.Form):
     name=forms.CharField(label='File Name:',widget=forms.TextInput(attrs={'class':'form-control'}))

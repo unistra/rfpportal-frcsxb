@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Propose your Reviewers{% endblock %}
+
+{% block body_block %}
+
+<div class = "container">
+
+    <form class="form-horizontal"  method = "post" enctype="multipart/form-data"  action="{% url 'edit_reviewer' prop_rev.pk %}" >
+
+    {% csrf_token %}
+
+    {% for f in form %}
+
+    <div class = "form-group">
+        {{ f.label }}
+        {{ f }}
+        {{ f.errors }}
+    </div>
+
+    {% endfor %}
+
+    <input class="save_btn btn btn-primary pull-right" type="submit" value="Save"  />
+    <input type="hidden" name="next" value="{% url 'user_profile' %}" />
+
+</form>
+
+
+</div>
+
+
+
+{% endblock %}

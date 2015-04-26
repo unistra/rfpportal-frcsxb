@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}Propose your Reviewers{% endblock %}
+
+{% block body_block %}
+
+
+<div class = "container">
+
+     <div class="row">
+            <div class="col-xs-12 col-md-12">
+                <h2><a style="text-decoration:none; color:black;" href="{% url 'project_detail' project.pk %}">{{ project.name }}</a></h2>
+                <h4><strong>Category:</strong> {{ project.rfp.name }}</h4>
+                <p><strong>Team Leader:</strong> <a href = "{% url 'user_profile' %}">{{ user.userprofile }}</a></p>
+                <p><strong>Research Unit:</strong> {{ user.userprofile.organization }} - {{ user.userprofile.insitute_research_unit}}</p>
+
+
+               <table class="table">
+
+                <thead>
+                        <tr>
+                            <th>Contact</th>
+                            <th>Email</th>
+                            <th>City</th>
+                            <th>Country</th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for r in proposed_reviewers %}
+
+                    <tr>
+                        <td>{{ r }}</a></td>
+                        <td>{{ r.email }}</td>
+                        <td>{{ r.city }}</td>
+                        <td>{{ r.country }}</td>
+                        <td><a href = "{% url 'edit_reviewer' r.pk %}">Edit</a></td>
+                    </tr>
+
+                    {% endfor %}
+                    </tbody>
+                </table>
+            <span clas="pull-right">
+                <a href="{% url 'propose_reviewer' project.id %}">
+                Add a new reviewer
+                </a>
+            </span>
+            </div>
+
+        </div>
+
+
+</div>
+
+
+
+{% endblock %}

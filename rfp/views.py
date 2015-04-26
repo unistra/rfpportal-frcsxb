@@ -7,9 +7,10 @@ from django.forms.models import model_to_dict
 
 from user_profile.models import UserProfile
 
-from models import Project,Review,RequestForProposal,RfpCampaign,File_Test
-from forms import ProjectForm,file_test,UpdateForm,ReviewForm
+from models import Project,Review,RequestForProposal,RfpCampaign,File_Test,ProposedReviewer
+from forms import ProjectForm,file_test,UpdateForm,ReviewForm,ProposedReviewerFormSet,ProposedReviewerForm
 from django.core.urlresolvers import reverse
+
 def is_reviewer(User):
     return User.groups.filter(name='Reviewer').exists()
 
@@ -33,11 +34,9 @@ def create_project(request):
         if p.is_valid():
            p.save (commit=False)
            p.user = user.pk
-           p.save()
+           project = p.save()
 
-           url=('../../user_profile/profile/')
-
-           return HttpResponseRedirect(url)
+           return HttpResponseRedirect(reverse('propose_reviewer', args=[project.pk]))
 
     else:
         p = ProjectForm()
@@ -97,13 +96,61 @@ def project_detail(request,projectId):
     project=Project.objects.get(id=projectId)
 
     project_data = UpdateForm(data=model_to_dict(project))
+    prop_rev_list = ProposedReviewer.objects.filter(project = project)
 
     is_p = is_pi(user)
     is_rev = is_reviewer(user)
 
-    context_dict={'project' : project,'user' : user,'project_data' : project_data,'is_pi': is_p, 'is_rev' : is_rev}
+    context_dict={'project' : project,'user' : user,'project_data' : project_data,'is_pi': is_p,
+                  'is_rev' : is_rev, 'prop_rev_list' : prop_rev_list}
 
     return render_to_response('rfp/project_details.html',context_dict,context)
+
+def propose_reviewer(request,projectId):
+    context = RequestContext(request)
+    user = request.user
+    project = Project.objects.get( pk = projectId )
+
+    if request.method == 'POST':
+        r = ProposedReviewerFormSet(request.POST)
+        if r.is_valid():
+           reviewers = r.save(commit = False)
+           for rev in reviewers:
+               rev.project = project
+               rev.save()
+
+           return HttpResponseRedirect(reverse('user_profile'))
+
+    else:
+        r = ProposedReviewerFormSet(queryset=ProposedReviewer.objects.filter(project = project.id))
+
+    return render_to_response('rfp/propose_reviewer.html',{'formset' : r, 'user' : user, 'project' : project}, context)
+
+def edit_reviewer(request,proposedreviewerId):
+    context = RequestContext(request)
+    user = request.user
+    prop_rev = ProposedReviewer.objects.get( pk = proposedreviewerId )
+
+    if request.method == 'POST':
+        r = ProposedReviewerForm(request.POST, instance = prop_rev)
+        if r.is_valid():
+            r.save()
+
+            return HttpResponseRedirect(reverse('prop_reviewer_list', args = [prop_rev.project.pk]))
+    else:
+        r = ProposedReviewerForm(instance= prop_rev)
+
+    return render_to_response('rfp/edit_proposed_reviewer.html', {'form' : r, 'user' : user, 'prop_rev' : prop_rev},context)
+
+def prop_reviewer_list(request,projectId):
+    context = RequestContext(request)
+    user = request.user
+    project = Project.objects.get( pk = projectId )
+
+    prop_rev_list = ProposedReviewer.objects.filter(project = project)
+
+    return render_to_response('rfp/list_of_proposed_reviewer.html', {'user' : user, 'project' : project, 'proposed_reviewers' : prop_rev_list}, context)
+
 
 def rfp_campaign(request,rfpcampaignId):
     context = RequestContext(request)

@@ -46,7 +46,20 @@ class Project(models.Model):
     def __unicode__(self):
         return self.name
 
+class ProposedReviewer(models.Model):
+    project=models.ForeignKey(Project)
+    first_name = models.CharField(max_length=255,blank=True,null=True)
+    last_name = models.CharField(max_length=255,blank=True,null=True)
+    email = models.EmailField(blank=True,null=True)
+    institution = models.CharField(max_length=255,blank=True,null=True)
+    address = models.CharField(max_length=255,blank=True,null=True)
+    city = models.CharField(max_length=255,blank=True,null=True)
+    state = models.CharField(max_length=255,blank=True,null=True)
+    postcode = models.IntegerField(blank=True,null=True)
+    country = models.CharField(max_length=255,blank=True,null=True)
 
+    def __unicode__(self):
+        return (str(self.first_name) + " " + str(self.last_name) + " - " + str(self.institution))
 
 
 class BudgetLine(models.Model):

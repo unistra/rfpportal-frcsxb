@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Propose your Reviewers{% endblock %}
+
+{% block body_block %}
+
+<div class="container">
+    <h2><a style="text-decoration:none; color:black;" href="{% url 'project_detail' project.pk %}">{{ project.name }}</a></h2>
+    <h4><strong>Category:</strong> {{ project.rfp.name }}</h4>
+    <p><strong>Team Leader:</strong> <a href = "{% url 'user_profile' %}">{{ user.userprofile }}</a></p>
+    <p><strong>Research Unit:</strong> {{ user.userprofile.organization }} - {{ user.userprofile.insitute_research_unit}}</p>
+
+<form method="post" action="{% url 'propose_reviewer' project.id %}">
+    {% csrf_token %}
+
+    {{ formset.management_form }}
+    {% for form in formset %}
+    <h3>Reviewer Contact Information</h3>
+    <div class="form-group">
+        {% if form.label == 'do_not_show' %}
+
+        {% else %}  {{ form.label }}
+
+        {% endif %}
+
+        {{ form }}
+        {{ form.errors }}
+    </div>
+    <hr>
+    {% endfor %}
+
+    <input class="save_btn btn btn-primary pull-right" type="submit" value="Save"  />
+    <input type="hidden" name="next" value="{% url 'user_profile' %}" />
+
+</form>
+
+</div>
+
+{% endblock %}

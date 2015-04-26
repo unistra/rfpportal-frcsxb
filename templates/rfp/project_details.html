@@ -18,16 +18,16 @@ $( document ).ready(function() {
 
     <div class="row proj_header">
         <div class="col-xs-10 col-md-10">
-        <h2>{{ project.name }}</h2>
-        <h4> {{ project.rfp.name }}</h4>
-        <p>Team Leader: <a href = "{% url 'user_profile' %}">{{ user.userprofile }}</a></p>
-        <p>Research Unit: {{ user.userprofile.organization }} - {{ user.userprofile.insitute_research_unit}}</p>
-        <p>Email: <a href = "matilto: {{ user.email }}">{{ user.email }}</a></p>
+        <h2><a style="text-decoration:none; color:black;" href="{% url 'project_detail' project.pk %}">{{ project.name }}</a></h2>
+        <h4><strong>Category:</strong> {{ project.rfp.name }}</h4>
+        <p><strong>Team Leader:</strong> <a href = "{% url 'user_profile' %}">{{ user.userprofile }}</a> - {{ user.email }}</p>
+        <p><strong>Research Unit:</strong> {{ user.userprofile.organization }} - {{ user.userprofile.insitute_research_unit}}</p>
 
         </div>
 
     <div class="col-xs-2 col-md-2">
         {% if is_pi %}<h2><a href="{% url 'edit_project' project.id %}"><button class="btn btn-primary" id="edit">Edit</button></a></h2> {% endif %}
+        <!--{% if is_pi %}<h2><a href="{% url 'prop_reviewer_list' project.id %}"><button class="btn btn-primary" id="propose_reviewer">See and edit proposed reviewers</button></a></h2> {% endif %}-->
         {% if is_rev %}<h2><a href="{% url 'post_review' project.id %}"><button class="btn btn-primary" id="post_review">Post a review</button></a></h2> {% endif %}
     </div>
 
@@ -58,6 +58,46 @@ $( document ).ready(function() {
 
 {% endfor %}
     </div>
+</div>
+
+
+        <div class="row">
+            <h3>Proposed Reviewer</h3> <span class="pull-right">
+                <a href="{% url 'propose_reviewer' project.id %}">
+                Add a new reviewer
+                </a>
+            </span>
+               <table class="table">
+
+                <thead>
+                        <tr>
+                            <th>Contact</th>
+                            <th>Email</th>
+                            <th>City</th>
+                            <th>Country</th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for r in prop_rev_list %}
+
+                    <tr>
+                        <td>{{ r }}</a></td>
+                        <td>{{ r.email }}</td>
+                        <td>{{ r.city }}</td>
+                        <td>{{ r.country }}</td>
+                        <td><a href = "{% url 'edit_reviewer' r.pk %}">Edit</a></td>
+                    </tr>
+
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
     </div>
 
 </div>
