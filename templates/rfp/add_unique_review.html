@@ -4,19 +4,19 @@
 
 {% block body_block %}
 
-<div class="container">
-    <h2><a style="text-decoration:none; color:black;" href="{% url 'project_detail' project.pk %}">{{ project.name }}</a></h2>
-    <h4><strong>Category:</strong> {{ project.rfp.name }}</h4>
-    <p><strong>Team Leader:</strong> <a href = "{% url 'user_profile' %}">{{ user.userprofile }}</a></p>
-    <p><strong>Research Unit:</strong> {{ user.userprofile.organization }} - {{ user.userprofile.insitute_research_unit}}</p>
-    <p>Please add contact information for each of your proposed Reviewers. <br></p>
-<form method="post" action="{% url 'propose_reviewer' project.id %}">
+<div class = "container no_l_pad">
+        <div class = "">
+        <h2>{{ project.name }}</h2>
+        <h4> {{ project.rfp.name }}</h4>
+        <p>Team Leader: <a href = "{% url 'user_profile' %}">{{ user.userprofile }}</a></p>
+        <p>Research Unit: {{ user.userprofile.organization }} - {{ user.userprofile.insitute_research_unit}}</p>
+        </div>
+
+    <form class=""  method = "post" enctype="multipart/form-data"  action="{% url 'add_unique_reviewer' project.pk %}" >
+
     {% csrf_token %}
 
-    {{ formset.management_form }}
-    {% for f in formset %}
-    <h4>Reviewer Contact Information</h4>
-    <div class="form-group">
+        <div class="form-group">
         {% for form in f %}
         {% if form.label == 'First name' %}
         <div class = "row">
@@ -98,15 +98,15 @@
 
         {% endfor %}
 
-    </div>
-    <hr>
-    {% endfor %}
 
     <input class="save_btn btn btn-primary pull-right" type="submit" value="Save"  />
     <input type="hidden" name="next" value="{% url 'user_profile' %}" />
-
+    </div>
 </form>
 
+
 </div>
+
+
 
 {% endblock %}

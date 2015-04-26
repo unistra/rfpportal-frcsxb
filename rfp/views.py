@@ -130,17 +130,37 @@ def edit_reviewer(request,proposedreviewerId):
     context = RequestContext(request)
     user = request.user
     prop_rev = ProposedReviewer.objects.get( pk = proposedreviewerId )
+    project = Project.objects.get(pk = prop_rev.project.pk)
 
     if request.method == 'POST':
         r = ProposedReviewerForm(request.POST, instance = prop_rev)
         if r.is_valid():
             r.save()
 
-            return HttpResponseRedirect(reverse('prop_reviewer_list', args = [prop_rev.project.pk]))
+            return HttpResponseRedirect(reverse('project_detail', args = [prop_rev.project.pk]))
     else:
         r = ProposedReviewerForm(instance= prop_rev)
 
-    return render_to_response('rfp/edit_proposed_reviewer.html', {'form' : r, 'user' : user, 'prop_rev' : prop_rev},context)
+    return render_to_response('rfp/edit_proposed_reviewer.html', {'f' : r, 'project' : project, 'user' : user, 'prop_rev' : prop_rev},context)
+
+def add_unique_reviewer(request, projectId):
+    context = RequestContext(request)
+    user = request.user
+    project = Project.objects.get(pk = projectId)
+
+    if request.method == 'POST':
+        r = ProposedReviewerForm(request.POST)
+        if r.is_valid():
+            reviewer = r.save(commit = False)
+            reviewer.project = project
+            reviewer.save()
+
+            return HttpResponseRedirect(reverse('project_detail', args = [project.pk]))
+    else:
+        r = ProposedReviewerForm()
+
+    return render_to_response('rfp/add_unique_review.html', {'f' : r, 'project' : project, 'user' : user},context)
+
 
 def prop_reviewer_list(request,projectId):
     context = RequestContext(request)
@@ -150,7 +170,6 @@ def prop_reviewer_list(request,projectId):
     prop_rev_list = ProposedReviewer.objects.filter(project = project)
 
     return render_to_response('rfp/list_of_proposed_reviewer.html', {'user' : user, 'project' : project, 'proposed_reviewers' : prop_rev_list}, context)
-
 
 def rfp_campaign(request,rfpcampaignId):
     context = RequestContext(request)

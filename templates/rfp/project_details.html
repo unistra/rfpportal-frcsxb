@@ -27,7 +27,6 @@ $( document ).ready(function() {
 
     <div class="col-xs-2 col-md-2">
         {% if is_pi %}<h2><a href="{% url 'edit_project' project.id %}"><button class="btn btn-primary" id="edit">Edit</button></a></h2> {% endif %}
-        <!--{% if is_pi %}<h2><a href="{% url 'prop_reviewer_list' project.id %}"><button class="btn btn-primary" id="propose_reviewer">See and edit proposed reviewers</button></a></h2> {% endif %}-->
         {% if is_rev %}<h2><a href="{% url 'post_review' project.id %}"><button class="btn btn-primary" id="post_review">Post a review</button></a></h2> {% endif %}
     </div>
 
@@ -62,11 +61,14 @@ $( document ).ready(function() {
 
 
         <div class="row">
-            <h3>Proposed Reviewer</h3> <span class="pull-right">
-                <a href="{% url 'propose_reviewer' project.id %}">
+            <div class="col-xs-12 col-md-12">
+            <h3>Proposed Reviewer <span class="" style="font-size:12px;">
+                <a href="{% url 'add_unique_reviewer' project.pk %}">
                 Add a new reviewer
-                </a>
-            </span>
+                </a> </span>
+            </h3>
+
+
                <table class="table">
 
                 <thead>
@@ -96,10 +98,7 @@ $( document ).ready(function() {
                 </table>
 
             </div>
-
         </div>
-    </div>
-
 </div>
 
 {% endblock %}

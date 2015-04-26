@@ -60,6 +60,10 @@ font-weight:bold;
     padding-left:0px;
 }
 
+.no_r_pad{
+    padding-right:0px;
+}
+
 
 .save_btn{
     width:100px;

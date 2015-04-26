@@ -2,14 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e051374b-9e41-4791-aaf1-35c1811c9e86" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/rfp/edit_proposed_reviewer.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/rfp/list_of_proposed_reviewer.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/rfp/propose_reviewer.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rfp/admin.py" afterPath="$PROJECT_DIR$/rfp/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dashboard.py" afterPath="$PROJECT_DIR$/dashboard.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rfp/forms.py" afterPath="$PROJECT_DIR$/rfp/forms.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/rfp/add_unique_review.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/rfp/edit_project.html" afterPath="$PROJECT_DIR$/templates/rfp/edit_project.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/rfp/edit_proposed_reviewer.html" afterPath="$PROJECT_DIR$/templates/rfp/edit_proposed_reviewer.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rfp/models.py" afterPath="$PROJECT_DIR$/rfp/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/rfp/project_details.html" afterPath="$PROJECT_DIR$/templates/rfp/project_details.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/rfp/propose_reviewer.html" afterPath="$PROJECT_DIR$/templates/rfp/propose_reviewer.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/style.css" afterPath="$PROJECT_DIR$/static/css/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rfp/urls.py" afterPath="$PROJECT_DIR$/rfp/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rfp/views.py" afterPath="$PROJECT_DIR$/rfp/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
@@ -40,8 +39,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rfp/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="274" max-vertical-offset="1241">
-              <caret line="104" column="51" selection-start-line="104" selection-start-column="38" selection-end-line="104" selection-end-column="51" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="687" max-vertical-offset="1751">
+              <caret line="143" column="68" selection-start-line="143" selection-start-column="68" selection-end-line="143" selection-end-column="68" />
               <folding>
                 <element signature="e#0#88#0" expanded="true" />
                 <element signature="e#684#735#0" expanded="false" />
@@ -50,12 +49,54 @@
                 <element signature="e#1089#1569#0" expanded="false" />
                 <element signature="e#1691#2361#0" expanded="false" />
                 <element signature="e#2422#2962#0" expanded="false" />
-                <element signature="e#3655#4312#0" expanded="false" />
-                <element signature="e#4365#4932#0" expanded="false" />
-                <element signature="e#5364#5618#0" expanded="false" />
-                <element signature="e#5647#5899#0" expanded="false" />
-                <element signature="e#5929#6577#0" expanded="false" />
+                <element signature="e#3071#3608#0" expanded="false" />
+                <element signature="e#5683#6018#0" expanded="false" />
+                <element signature="e#6065#6319#0" expanded="false" />
+                <element signature="e#6348#6600#0" expanded="false" />
+                <element signature="e#6630#7278#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="add_unique_review.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/rfp/add_unique_review.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-32.807693" vertical-offset="898" max-vertical-offset="1989">
+              <caret line="103" column="4" selection-start-line="103" selection-start-column="4" selection-end-line="103" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="edit_proposed_reviewer.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/rfp/edit_proposed_reviewer.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-52.423077" vertical-offset="303" max-vertical-offset="2006">
+              <caret line="98" column="0" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="propose_reviewer.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/rfp/propose_reviewer.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-36.615383" vertical-offset="0" max-vertical-offset="1989">
+              <caret line="56" column="37" selection-start-line="56" selection-start-column="37" selection-end-line="56" selection-end-column="37" />
+              <folding>
+                <element signature="n#style#0;n#a#0;n#h2#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/css/style.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-10.344828" vertical-offset="958" max-vertical-offset="3077">
+              <caret line="74" column="5" selection-start-line="74" selection-start-column="4" selection-end-line="74" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -63,44 +104,10 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rfp/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="799" max-vertical-offset="1615">
-              <caret line="61" column="95" selection-start-line="61" selection-start-column="95" selection-end-line="61" selection-end-column="95" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="430" max-vertical-offset="1615">
+              <caret line="50" column="13" selection-start-line="50" selection-start-column="4" selection-end-line="50" selection-end-column="14" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/rfp/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="442">
-              <caret line="8" column="95" selection-start-line="8" selection-start-column="79" selection-end-line="8" selection-end-column="95" />
-              <folding>
-                <element signature="e#25#67#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/user_profile/urls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="289">
-              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="list_of_proposed_reviewer.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/rfp/list_of_proposed_reviewer.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-23.192308" vertical-offset="9" max-vertical-offset="1088">
-              <caret line="36" column="45" selection-start-line="36" selection-start-column="45" selection-end-line="36" selection-end-column="45" />
-              <folding>
-                <element signature="n#style#0;n#a#0;n#h2#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -109,11 +116,22 @@
       <file leaf-file-name="project_details.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/rfp/project_details.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.38169256" vertical-offset="119" max-vertical-offset="1870">
-              <caret line="20" column="8" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="8" />
+            <state vertical-scroll-proportion="0.6050885" vertical-offset="541" max-vertical-offset="1853">
+              <caret line="64" column="47" selection-start-line="64" selection-start-column="47" selection-end-line="64" selection-end-column="47" />
               <folding>
                 <element signature="n#style#0;n#a#0;n#h2#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#h3#0;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="create_profile.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/user_profile/create_profile.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-7.1923075" vertical-offset="0" max-vertical-offset="493">
+              <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -121,8 +139,8 @@
       <file leaf-file-name="forms.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rfp/forms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="389" max-vertical-offset="1173">
-              <caret line="122" column="34" selection-start-line="122" selection-start-column="34" selection-end-line="122" selection-end-column="34" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1173">
+              <caret line="135" column="22" selection-start-line="135" selection-start-column="22" selection-end-line="135" selection-end-column="22" />
               <folding>
                 <element signature="e#25#49#0" expanded="true" />
                 <element signature="e#353#405#0" expanded="false" />
@@ -135,14 +153,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="propose_reviewer.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/rfp/propose_reviewer.html">
+      <file leaf-file-name="create_project.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/rfp/create_project.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.076923" vertical-offset="0" max-vertical-offset="748">
-              <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-              <folding>
-                <element signature="n#style#0;n#a#0;n#h2#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="-13.730769" vertical-offset="0" max-vertical-offset="2346">
+              <caret line="21" column="43" selection-start-line="21" selection-start-column="43" selection-end-line="21" selection-end-column="43" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -171,7 +187,6 @@
         <option value="$PROJECT_DIR$/custom_storages.py" />
         <option value="$PROJECT_DIR$/templates/rfp/rfp_list.html" />
         <option value="$PROJECT_DIR$/templates/index.html" />
-        <option value="$PROJECT_DIR$/static/css/style.css" />
         <option value="$PROJECT_DIR$/portal_frc/urls.py" />
         <option value="$PROJECT_DIR$/templates/registration/login.html" />
         <option value="$PROJECT_DIR$/templates/admin/login.html" />
@@ -182,19 +197,21 @@
         <option value="$PROJECT_DIR$/templates/user_profile/profile.html" />
         <option value="$PROJECT_DIR$/note" />
         <option value="$PROJECT_DIR$/templates/rfp/rfp_details.html" />
-        <option value="$PROJECT_DIR$/templates/rfp/edit_project.html" />
         <option value="$PROJECT_DIR$/user_profile/admin.py" />
         <option value="$PROJECT_DIR$/templates/base.html" />
         <option value="$PROJECT_DIR$/rfp/admin.py" />
         <option value="$PROJECT_DIR$/dashboard.py" />
         <option value="$PROJECT_DIR$/templates/rfp/create_project.html" />
-        <option value="$PROJECT_DIR$/rfp/urls.py" />
-        <option value="$PROJECT_DIR$/templates/rfp/edit_proposed_reviewer.html" />
-        <option value="$PROJECT_DIR$/rfp/models.py" />
-        <option value="$PROJECT_DIR$/templates/rfp/propose_reviewer.html" />
-        <option value="$PROJECT_DIR$/rfp/forms.py" />
         <option value="$PROJECT_DIR$/templates/rfp/list_of_proposed_reviewer.html" />
+        <option value="$PROJECT_DIR$/templates/rfp/edit_project.html" />
+        <option value="$PROJECT_DIR$/rfp/urls.py" />
+        <option value="$PROJECT_DIR$/rfp/models.py" />
+        <option value="$PROJECT_DIR$/static/css/style.css" />
+        <option value="$PROJECT_DIR$/rfp/forms.py" />
+        <option value="$PROJECT_DIR$/templates/rfp/propose_reviewer.html" />
         <option value="$PROJECT_DIR$/rfp/views.py" />
+        <option value="$PROJECT_DIR$/templates/rfp/edit_proposed_reviewer.html" />
+        <option value="$PROJECT_DIR$/templates/rfp/add_unique_review.html" />
         <option value="$PROJECT_DIR$/templates/rfp/project_details.html" />
       </list>
     </option>
@@ -205,8 +222,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
     <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="754" />
+    <option name="width" value="1936" />
+    <option name="height" value="1066" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -295,7 +312,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="user_profile" />
+              <option name="myItemId" value="rfp" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -309,11 +326,25 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ancient-peak-6942" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rfpportal" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="rfp" />
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -608,11 +639,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.193265" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17239584" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32985386" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -654,18 +685,11 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="17" />
+      <option name="time" value="18" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/user_profile/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="221" max-vertical-offset="1360">
-          <caret line="13" column="32" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/rfp/admin.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="238">
@@ -685,11 +709,11 @@
             <element signature="e#1089#1569#0" expanded="false" />
             <element signature="e#1691#2361#0" expanded="false" />
             <element signature="e#2422#2962#0" expanded="false" />
-            <element signature="e#3655#4312#0" expanded="false" />
-            <element signature="e#4365#4932#0" expanded="false" />
-            <element signature="e#5364#5618#0" expanded="false" />
-            <element signature="e#5647#5899#0" expanded="false" />
-            <element signature="e#5929#6577#0" expanded="false" />
+            <element signature="e#3071#3608#0" expanded="false" />
+            <element signature="e#5683#6018#0" expanded="false" />
+            <element signature="e#6065#6319#0" expanded="false" />
+            <element signature="e#6348#6600#0" expanded="false" />
+            <element signature="e#6630#7278#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -806,24 +830,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/user_profile/create_profile.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3158784" vertical-offset="0" max-vertical-offset="592">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/manage.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="272">
           <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2391" max-vertical-offset="3009">
-          <caret line="156" column="43" selection-start-line="156" selection-start-column="43" selection-end-line="156" selection-end-column="43" />
         </state>
       </provider>
     </entry>
@@ -948,19 +958,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/rfp/create_project.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-17.384615" vertical-offset="1656" max-vertical-offset="2346">
-          <caret line="124" column="0" selection-start-line="124" selection-start-column="0" selection-end-line="124" selection-end-column="0" />
-          <folding>
-            <element signature="n#style#0;n#div#2;n#form#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#3;n#form#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#4;n#form#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#5;n#form#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/rfp/tests.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3576052" vertical-offset="0" max-vertical-offset="618">
@@ -968,14 +965,6 @@
           <folding>
             <element signature="e#0#32#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/rfp/edit_project.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4662162" vertical-offset="489" max-vertical-offset="1700">
-          <caret line="45" column="29" selection-start-line="45" selection-start-column="29" selection-end-line="45" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -987,35 +976,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/rfp/edit_proposed_reviewer.html">
+    <entry file="file://$PROJECT_DIR$/templates/rfp/list_of_proposed_reviewer.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3158784" vertical-offset="0" max-vertical-offset="646">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/rfp/propose_reviewer.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.076923" vertical-offset="0" max-vertical-offset="748">
-          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+        <state vertical-scroll-proportion="-23.192308" vertical-offset="9" max-vertical-offset="1088">
+          <caret line="36" column="45" selection-start-line="36" selection-start-column="45" selection-end-line="36" selection-end-column="45" />
           <folding>
-            <element signature="n#style#0;n#a#0;n#h2#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rfp/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="389" max-vertical-offset="1173">
-          <caret line="122" column="34" selection-start-line="122" selection-start-column="34" selection-end-line="122" selection-end-column="34" />
-          <folding>
-            <element signature="e#25#49#0" expanded="true" />
-            <element signature="e#353#405#0" expanded="false" />
-            <element signature="e#442#2199#0" expanded="false" />
-            <element signature="e#2236#4031#0" expanded="false" />
-            <element signature="e#4072#4144#0" expanded="false" />
-            <element signature="e#4179#4643#0" expanded="false" />
+            <element signature="n#style#0;n#a#0;n#h2#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1028,30 +994,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/rfp/edit_project.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.461538" vertical-offset="0" max-vertical-offset="1700">
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/rfp/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="442">
-          <caret line="8" column="95" selection-start-line="8" selection-start-column="79" selection-end-line="8" selection-end-column="95" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="459">
+          <caret line="10" column="104" selection-start-line="10" selection-start-column="85" selection-end-line="10" selection-end-column="104" />
           <folding>
             <element signature="e#25#67#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.344828" vertical-offset="958" max-vertical-offset="3077">
+          <caret line="74" column="5" selection-start-line="74" selection-start-column="4" selection-end-line="74" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/rfp/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="799" max-vertical-offset="1615">
-          <caret line="61" column="95" selection-start-line="61" selection-start-column="95" selection-end-line="61" selection-end-column="95" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="430" max-vertical-offset="1615">
+          <caret line="50" column="13" selection-start-line="50" selection-start-column="4" selection-end-line="50" selection-end-column="14" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/user_profile/create_profile.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.1923075" vertical-offset="0" max-vertical-offset="493">
+          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/rfp/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="274" max-vertical-offset="1241">
-          <caret line="104" column="51" selection-start-line="104" selection-start-column="38" selection-end-line="104" selection-end-column="51" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="687" max-vertical-offset="1751">
+          <caret line="143" column="68" selection-start-line="143" selection-start-column="68" selection-end-line="143" selection-end-column="68" />
           <folding>
             <element signature="e#0#88#0" expanded="true" />
             <element signature="e#684#735#0" expanded="false" />
@@ -1060,31 +1050,71 @@
             <element signature="e#1089#1569#0" expanded="false" />
             <element signature="e#1691#2361#0" expanded="false" />
             <element signature="e#2422#2962#0" expanded="false" />
-            <element signature="e#3655#4312#0" expanded="false" />
-            <element signature="e#4365#4932#0" expanded="false" />
-            <element signature="e#5364#5618#0" expanded="false" />
-            <element signature="e#5647#5899#0" expanded="false" />
-            <element signature="e#5929#6577#0" expanded="false" />
+            <element signature="e#3071#3608#0" expanded="false" />
+            <element signature="e#5683#6018#0" expanded="false" />
+            <element signature="e#6065#6319#0" expanded="false" />
+            <element signature="e#6348#6600#0" expanded="false" />
+            <element signature="e#6630#7278#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/rfp/list_of_proposed_reviewer.html">
+    <entry file="file://$PROJECT_DIR$/rfp/forms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-23.192308" vertical-offset="9" max-vertical-offset="1088">
-          <caret line="36" column="45" selection-start-line="36" selection-start-column="45" selection-end-line="36" selection-end-column="45" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1173">
+          <caret line="135" column="22" selection-start-line="135" selection-start-column="22" selection-end-line="135" selection-end-column="22" />
           <folding>
-            <element signature="n#style#0;n#a#0;n#h2#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="e#25#49#0" expanded="true" />
+            <element signature="e#353#405#0" expanded="false" />
+            <element signature="e#442#2199#0" expanded="false" />
+            <element signature="e#2236#4031#0" expanded="false" />
+            <element signature="e#4072#4144#0" expanded="false" />
+            <element signature="e#4179#4643#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/rfp/create_project.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.730769" vertical-offset="0" max-vertical-offset="2346">
+          <caret line="21" column="43" selection-start-line="21" selection-start-column="43" selection-end-line="21" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/rfp/propose_reviewer.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-36.615383" vertical-offset="0" max-vertical-offset="1989">
+          <caret line="56" column="37" selection-start-line="56" selection-start-column="37" selection-end-line="56" selection-end-column="37" />
+          <folding>
+            <element signature="n#style#0;n#a#0;n#h2#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/rfp/add_unique_review.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-32.807693" vertical-offset="898" max-vertical-offset="1989">
+          <caret line="103" column="4" selection-start-line="103" selection-start-column="4" selection-end-line="103" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/rfp/edit_proposed_reviewer.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-52.423077" vertical-offset="303" max-vertical-offset="2006">
+          <caret line="98" column="0" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/rfp/project_details.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.38169256" vertical-offset="119" max-vertical-offset="1870">
-          <caret line="20" column="8" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="8" />
+        <state vertical-scroll-proportion="0.6050885" vertical-offset="541" max-vertical-offset="1853">
+          <caret line="64" column="47" selection-start-line="64" selection-start-column="47" selection-end-line="64" selection-end-column="47" />
           <folding>
             <element signature="n#style#0;n#a#0;n#h2#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#h3#0;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

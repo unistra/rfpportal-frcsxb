@@ -47,7 +47,7 @@ class Project(models.Model):
         return self.name
 
 class ProposedReviewer(models.Model):
-    project=models.ForeignKey(Project)
+    project=models.ForeignKey(Project,null=True)
     first_name = models.CharField(max_length=255,blank=True,null=True)
     last_name = models.CharField(max_length=255,blank=True,null=True)
     email = models.EmailField(blank=True,null=True)
