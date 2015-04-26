@@ -66,7 +66,7 @@ def post_review(request,projectId):
 
     return render_to_response('rfp/post_review.html',{'form' : r, 'project' : project, 'user' : user, 'up' : user_profile}, context)
 
-@login_required()
+@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
 def edit_project(request,projectId):
     context = RequestContext(request)
     user=request.user
@@ -89,7 +89,7 @@ def edit_project(request,projectId):
 
     return render_to_response('rfp/edit_project.html',context_dict,context)
 
-@login_required(login_url='/login/',redirect_field_name='next')
+@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
 def project_detail(request,projectId):
     context = RequestContext(request)
     user = request.user
@@ -106,6 +106,7 @@ def project_detail(request,projectId):
 
     return render_to_response('rfp/project_details.html',context_dict,context)
 
+@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
 def propose_reviewer(request,projectId):
     context = RequestContext(request)
     user = request.user
@@ -126,6 +127,7 @@ def propose_reviewer(request,projectId):
 
     return render_to_response('rfp/propose_reviewer.html',{'formset' : r, 'user' : user, 'project' : project}, context)
 
+@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
 def edit_reviewer(request,proposedreviewerId):
     context = RequestContext(request)
     user = request.user
@@ -143,6 +145,7 @@ def edit_reviewer(request,proposedreviewerId):
 
     return render_to_response('rfp/edit_proposed_reviewer.html', {'f' : r, 'project' : project, 'user' : user, 'prop_rev' : prop_rev},context)
 
+@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
 def add_unique_reviewer(request, projectId):
     context = RequestContext(request)
     user = request.user
@@ -161,7 +164,7 @@ def add_unique_reviewer(request, projectId):
 
     return render_to_response('rfp/add_unique_review.html', {'f' : r, 'project' : project, 'user' : user},context)
 
-
+@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
 def prop_reviewer_list(request,projectId):
     context = RequestContext(request)
     user = request.user

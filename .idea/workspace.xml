@@ -2,16 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e051374b-9e41-4791-aaf1-35c1811c9e86" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/rfp/add_unique_review.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/rfp/edit_project.html" afterPath="$PROJECT_DIR$/templates/rfp/edit_project.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/rfp/edit_proposed_reviewer.html" afterPath="$PROJECT_DIR$/templates/rfp/edit_proposed_reviewer.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rfp/models.py" afterPath="$PROJECT_DIR$/rfp/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/rfp/project_details.html" afterPath="$PROJECT_DIR$/templates/rfp/project_details.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/rfp/propose_reviewer.html" afterPath="$PROJECT_DIR$/templates/rfp/propose_reviewer.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/style.css" afterPath="$PROJECT_DIR$/static/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rfp/urls.py" afterPath="$PROJECT_DIR$/rfp/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rfp/views.py" afterPath="$PROJECT_DIR$/rfp/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ancient-peak-6942.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,11 +28,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/rfp/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="687" max-vertical-offset="1751">
-              <caret line="143" column="68" selection-start-line="143" selection-start-column="68" selection-end-line="143" selection-end-column="68" />
+            <state vertical-scroll-proportion="0.7258065" vertical-offset="22" max-vertical-offset="969">
+              <caret line="147" column="0" selection-start-line="147" selection-start-column="0" selection-end-line="147" selection-end-column="0" />
               <folding>
                 <element signature="e#0#88#0" expanded="true" />
                 <element signature="e#684#735#0" expanded="false" />
@@ -48,12 +40,15 @@
                 <element signature="e#872#917#0" expanded="false" />
                 <element signature="e#1089#1569#0" expanded="false" />
                 <element signature="e#1691#2361#0" expanded="false" />
-                <element signature="e#2422#2962#0" expanded="false" />
-                <element signature="e#3071#3608#0" expanded="false" />
-                <element signature="e#5683#6018#0" expanded="false" />
-                <element signature="e#6065#6319#0" expanded="false" />
-                <element signature="e#6348#6600#0" expanded="false" />
-                <element signature="e#6630#7278#0" expanded="false" />
+                <element signature="e#2476#3016#0" expanded="false" />
+                <element signature="e#3133#3670#0" expanded="false" />
+                <element signature="e#3789#4446#0" expanded="false" />
+                <element signature="e#4571#5212#0" expanded="false" />
+                <element signature="e#5335#5911#0" expanded="false" />
+                <element signature="e#6032#6367#0" expanded="false" />
+                <element signature="e#6414#6668#0" expanded="false" />
+                <element signature="e#6697#6949#0" expanded="false" />
+                <element signature="e#6979#7627#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -113,11 +108,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="project_details.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="project_details.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/rfp/project_details.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6050885" vertical-offset="541" max-vertical-offset="1853">
-              <caret line="64" column="47" selection-start-line="64" selection-start-column="47" selection-end-line="64" selection-end-column="47" />
+            <state vertical-scroll-proportion="-19.73077" vertical-offset="932" max-vertical-offset="1836">
+              <caret line="85" column="0" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
               <folding>
                 <element signature="n#style#0;n#a#0;n#h2#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#span#0;n#h3#0;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
@@ -209,10 +204,10 @@
         <option value="$PROJECT_DIR$/static/css/style.css" />
         <option value="$PROJECT_DIR$/rfp/forms.py" />
         <option value="$PROJECT_DIR$/templates/rfp/propose_reviewer.html" />
-        <option value="$PROJECT_DIR$/rfp/views.py" />
         <option value="$PROJECT_DIR$/templates/rfp/edit_proposed_reviewer.html" />
         <option value="$PROJECT_DIR$/templates/rfp/add_unique_review.html" />
         <option value="$PROJECT_DIR$/templates/rfp/project_details.html" />
+        <option value="$PROJECT_DIR$/rfp/views.py" />
       </list>
     </option>
   </component>
@@ -643,7 +638,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17239584" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1890625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32985386" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -685,7 +680,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="18" />
+      <option name="time" value="19" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -708,12 +703,15 @@
             <element signature="e#872#917#0" expanded="false" />
             <element signature="e#1089#1569#0" expanded="false" />
             <element signature="e#1691#2361#0" expanded="false" />
-            <element signature="e#2422#2962#0" expanded="false" />
-            <element signature="e#3071#3608#0" expanded="false" />
-            <element signature="e#5683#6018#0" expanded="false" />
-            <element signature="e#6065#6319#0" expanded="false" />
-            <element signature="e#6348#6600#0" expanded="false" />
-            <element signature="e#6630#7278#0" expanded="false" />
+            <element signature="e#2476#3016#0" expanded="false" />
+            <element signature="e#3133#3670#0" expanded="false" />
+            <element signature="e#3789#4446#0" expanded="false" />
+            <element signature="e#4571#5212#0" expanded="false" />
+            <element signature="e#5335#5911#0" expanded="false" />
+            <element signature="e#6032#6367#0" expanded="false" />
+            <element signature="e#6414#6668#0" expanded="false" />
+            <element signature="e#6697#6949#0" expanded="false" />
+            <element signature="e#6979#7627#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1038,27 +1036,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rfp/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="687" max-vertical-offset="1751">
-          <caret line="143" column="68" selection-start-line="143" selection-start-column="68" selection-end-line="143" selection-end-column="68" />
-          <folding>
-            <element signature="e#0#88#0" expanded="true" />
-            <element signature="e#684#735#0" expanded="false" />
-            <element signature="e#758#825#0" expanded="false" />
-            <element signature="e#872#917#0" expanded="false" />
-            <element signature="e#1089#1569#0" expanded="false" />
-            <element signature="e#1691#2361#0" expanded="false" />
-            <element signature="e#2422#2962#0" expanded="false" />
-            <element signature="e#3071#3608#0" expanded="false" />
-            <element signature="e#5683#6018#0" expanded="false" />
-            <element signature="e#6065#6319#0" expanded="false" />
-            <element signature="e#6348#6600#0" expanded="false" />
-            <element signature="e#6630#7278#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/rfp/forms.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1173">
@@ -1110,11 +1087,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/rfp/project_details.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6050885" vertical-offset="541" max-vertical-offset="1853">
-          <caret line="64" column="47" selection-start-line="64" selection-start-column="47" selection-end-line="64" selection-end-column="47" />
+        <state vertical-scroll-proportion="-19.73077" vertical-offset="932" max-vertical-offset="1836">
+          <caret line="85" column="0" selection-start-line="85" selection-start-column="0" selection-end-line="85" selection-end-column="0" />
           <folding>
             <element signature="n#style#0;n#a#0;n#h2#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#0;n#h3#0;n#div#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rfp/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7258065" vertical-offset="22" max-vertical-offset="969">
+          <caret line="147" column="0" selection-start-line="147" selection-start-column="0" selection-end-line="147" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#88#0" expanded="true" />
+            <element signature="e#684#735#0" expanded="false" />
+            <element signature="e#758#825#0" expanded="false" />
+            <element signature="e#872#917#0" expanded="false" />
+            <element signature="e#1089#1569#0" expanded="false" />
+            <element signature="e#1691#2361#0" expanded="false" />
+            <element signature="e#2476#3016#0" expanded="false" />
+            <element signature="e#3133#3670#0" expanded="false" />
+            <element signature="e#3789#4446#0" expanded="false" />
+            <element signature="e#4571#5212#0" expanded="false" />
+            <element signature="e#5335#5911#0" expanded="false" />
+            <element signature="e#6032#6367#0" expanded="false" />
+            <element signature="e#6414#6668#0" expanded="false" />
+            <element signature="e#6697#6949#0" expanded="false" />
+            <element signature="e#6979#7627#0" expanded="false" />
           </folding>
         </state>
       </provider>
