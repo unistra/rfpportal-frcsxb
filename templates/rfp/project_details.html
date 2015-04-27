@@ -59,55 +59,14 @@ $( document ).ready(function() {
     </div>
 </div>
 
-
-        <div class="row">
-            <div class="col-xs-12 col-md-12">
-            <h3>Proposed Reviewer <span class="" style="font-size:12px;">
-                <a href="{% url 'add_unique_reviewer' project.pk %}">
-                Add a new reviewer
-                </a> </span>
-            </h3>
-
-               <table class="table">
-
-                <thead>
-                        <tr>
-                            <th>Contact</th>
-                            <th>Email</th>
-                            <th>City</th>
-                            <th>Country</th>
-                            <th></th>
-
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                    {% for r in prop_rev_list %}
-
-                    <tr>
-                        <td>{{ r }}</a></td>
-                        <td>{{ r.email }}</td>
-                        <td>{{ r.city }}</td>
-                        <td>{{ r.country }}</td>
-                        <td><a href = "{% url 'edit_reviewer' r.pk %}">Edit</a></td>
-                    </tr>
-
-                    {% endfor %}
-                    </tbody>
-                </table>
-
-            </div>
-        </div>
-
-
-         <div class="row">
+    <div class="row">
             <div class="col-xs-12 col-md-12">
             <h3>Budget<span class="" style="font-size:12px;">
                 <a href="{% url 'add_budget' project.pk %}">
                 {% if bl %} Edit the budget {% else %} Add your budget {% endif %}
                 </a> </span>
             </h3>
-                <h4>Total budgeted: <strong>{{ total }}€</strong> <br><br></h4>
+                <h4>Total budgeted: <strong>{{ total }} €</strong> <span style = "font-size:14px;">(Total requested: {{ project.requested_amount }} €)<br><br></span></h4>
 
                 <h4>Recruitment</h4>
                 <table class="table">
@@ -192,6 +151,48 @@ $( document ).ready(function() {
 
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+            <h3>Proposed Reviewer <span class="" style="font-size:12px;">
+                <a href="{% url 'add_unique_reviewer' project.pk %}">
+                Add a new reviewer
+                </a> </span>
+            </h3>
+
+               <table class="table">
+
+                <thead>
+                        <tr>
+                            <th>Contact</th>
+                            <th>Email</th>
+                            <th>City</th>
+                            <th>Country</th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for r in prop_rev_list %}
+
+                    <tr>
+                        <td>{{ r }}</a></td>
+                        <td>{{ r.email }}</td>
+                        <td>{{ r.city }}</td>
+                        <td>{{ r.country }}</td>
+                        <td><a href = "{% url 'edit_reviewer' r.pk %}">Edit</a></td>
+                    </tr>
+
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+
+
 </div>
 
 {% endblock %}

@@ -12,7 +12,7 @@
         <p>Research Unit: {{ user.userprofile.organization }} - {{ user.userprofile.insitute_research_unit}}</p>
         <p>Email: <a href = "matilto: {{ user.email }}">{{ user.email }}</a></p>
         </div>
-
+<h4>Edit the Reviewer Information</h4>
     <form class=""  method = "post" enctype="multipart/form-data"  action="{% url 'edit_reviewer' prop_rev.pk %}" >
 
     {% csrf_token %}
