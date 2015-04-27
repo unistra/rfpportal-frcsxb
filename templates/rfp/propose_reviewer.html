@@ -10,10 +10,12 @@
     <p><strong>Team Leader:</strong> <a href = "{% url 'user_profile' %}">{{ user.userprofile }}</a></p>
     <p><strong>Research Unit:</strong> {{ user.userprofile.organization }} - {{ user.userprofile.insitute_research_unit}}</p>
     <p>Please add contact information for each of your proposed Reviewers. <br></p>
+
 <form method="post" action="{% url 'propose_reviewer' project.id %}">
     {% csrf_token %}
 
     {{ formset.management_form }}
+
     {% for f in formset %}
     <h4>Reviewer Contact Information</h4>
     <div class="form-group">

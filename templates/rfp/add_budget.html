@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}Propose your Reviewers{% endblock %}
+
+{% block body_block %}
+
+<div class="container">
+    <div class = "row">
+    <h2><a style="text-decoration:none; color:black;" href="{% url 'project_detail' project.pk %}">{{ project.name }}</a></h2>
+    <h4><strong>Category:</strong> {{ project.rfp.name }}</h4>
+    <p><strong>Team Leader:</strong> <a href = "{% url 'user_profile' %}">{{ user.userprofile }}</a></p>
+    <p><strong>Research Unit:</strong> {{ user.userprofile.organization }} - {{ user.userprofile.insitute_research_unit}}</p>
+    <p>Please add contact information for each of your proposed Reviewers. <br></p>
+    </div>
+
+    <form class="" method="post" action="{% url 'add_budget' project.id %}">
+    {% csrf_token %}
+
+    {{ hr_formset.management_form }}
+    {{ oc_formset.management_form }}
+    {{ eq_formset.management_form }}
+
+        <h1>Add Budgeted item</h1>
+        <h2>Recruitment</h2>
+        {% for form in hr_formset %}
+        <div class = "row">
+            {% for field in form %}
+            {% if not field.is_hidden %}
+            <div class = "col-xs-12 col-md-4">
+                     <div class="form-group">
+                                {{ field.label }}
+                                {{ field }}
+                                {{ field.errors }}
+                     </div>
+            </div>
+            {% elif field.is_hidden %}
+                {{ field }}
+
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endfor %}
+        <h2>Operating Cost</h2>
+
+
+        {% for form in oc_formset %}
+        <div class = "row">
+            {% for field in form %}
+            {% if not field.is_hidden %}
+            <div class = "col-xs-12 col-md-4">
+                                <div class="form-group">
+                                {{ field.label }}
+                                {{ field }}
+                                {{ field.errors }}
+                                </div>
+            </div>
+            {% elif field.is_hidden %}
+                {{ field }}
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endfor %}
+
+        <h2>Equipement</h2>
+
+        {% for form in eq_formset %}
+        <div class = "row">
+            {% for field in form %}
+            {% if not field.is_hidden %}
+
+                        <div class = "col-xs-12 col-md-4">
+                              <div class="form-group">
+                                  {{ field.label }}
+                                  {{ field }}
+                                  {{ field.errors }}
+                              </div>
+                        </div>
+
+            {% elif field.is_hidden %}
+                {{ field }}
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endfor %}
+
+    <input class="save_btn btn btn-primary pull-right" type="submit" value="Save"  />
+    <input type="hidden" name="next" value="#" />
+
+</form>
+</div>
+
+{% endblock %}
+

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import Project,RfpCampaign,Review,RequestForProposal,File_Test,ProposedReviewer
+from models import Project,RfpCampaign,Review,RequestForProposal,File_Test,ProposedReviewer,BudgetLine
 # Register your models here.
 
 class RfpCampaignInline(admin.TabularInline):
@@ -45,7 +45,7 @@ class ProjectAdmin(admin.ModelAdmin):
         ReviewInLine,
     ]
 
-
+admin.site.register(BudgetLine)
 admin.site.register(ProposedReviewer)
 admin.site.register(Project,ProjectAdmin)
 admin.site.register(RfpCampaign, RfpCampaignAdmin)

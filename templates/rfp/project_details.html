@@ -98,6 +98,100 @@ $( document ).ready(function() {
 
             </div>
         </div>
+
+
+         <div class="row">
+            <div class="col-xs-12 col-md-12">
+            <h3>Budget<span class="" style="font-size:12px;">
+                <a href="{% url 'add_budget' project.pk %}">
+                {% if bl %} Edit the budget {% else %} Add your budget {% endif %}
+                </a> </span>
+            </h3>
+                <h4>Total budgeted: <strong>{{ total }}€</strong> <br><br></h4>
+
+                <h4>Recruitment</h4>
+                <table class="table">
+                <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Amount</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for line in hr_budget_lines_list %}
+                    <tr>
+                        <td>{{ line }}</a></td>
+                        <td>{{ line.amount|floatformat:-1 }} €</td>
+                        <td><a href = "{% url 'add_budget' project.pk %}">Edit</a></td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td><strong>TOTAL</strong></td>
+                        <td><strong>{{ hr_total }} €</strong></td>
+                        <td> </td>
+                    </tr>
+                    </tbody>
+                    </table>
+
+                    <h4>Equipement</h4>
+                <table class="table">
+                <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Amount</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for line in eq_budget_lines_list %}
+                    <tr>
+                        <td>{{ line }}</a></td>
+                        <td>{{ line.amount|floatformat:-1 }} €</td>
+                        <td><a href = "{% url 'add_budget' project.pk %}">Edit</a></td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td><strong>TOTAL</strong></td>
+                        <td><strong>{{ eq_total }} €</strong></td>
+                        <td> </td>
+                    </tr>
+                    </tbody>
+                    </table>
+
+                <table class="table">
+                <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Amount</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                    <h4>Operating Costs</h4>
+                    {% for line in oc_budget_lines_list %}
+                    <tr>
+                        <td>{{ line }}</a></td>
+                        <td>{{ line.amount|floatformat:-1 }} €</td>
+                        <td><a href = "{% url 'add_budget' project.pk %}">Edit</a></td>
+                    </tr>
+                    {% endfor %}
+
+                    <tr>
+                        <td><strong>TOTAL</strong></td>
+                        <td><strong>{{ oc_total }} €</strong></td>
+                        <td> </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
 </div>
 
 {% endblock %}

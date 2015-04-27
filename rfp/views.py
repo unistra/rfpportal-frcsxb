@@ -7,8 +7,8 @@ from django.forms.models import model_to_dict
 
 from user_profile.models import UserProfile
 
-from models import Project,Review,RequestForProposal,RfpCampaign,File_Test,ProposedReviewer
-from forms import ProjectForm,file_test,UpdateForm,ReviewForm,ProposedReviewerFormSet,ProposedReviewerForm
+from models import Project,Review,RequestForProposal,RfpCampaign,File_Test,ProposedReviewer,BudgetLine
+from forms import ProjectForm,file_test,UpdateForm,ReviewForm,ProposedReviewerFormSet,ProposedReviewerForm,HRBudgetLineFormSet,EQBudgetLineFormSet,OCBudgetLineFormSet
 from django.core.urlresolvers import reverse
 
 def is_reviewer(User):
@@ -20,6 +20,14 @@ def is_pi(User):
 def get_absolute_url(view,object):
           return reverse('view', args=[str(object.id)])
 
+
+def budget_line_sum(budget_list):
+    total_budgeted = 0
+
+    for line in budget_list :
+        bl_dict = model_to_dict(line)
+        total_budgeted += int(bl_dict["amount"])
+    return total_budgeted
 # Create your views here.
 
 #@login_required(login_url='/login/')
@@ -97,12 +105,23 @@ def project_detail(request,projectId):
 
     project_data = UpdateForm(data=model_to_dict(project))
     prop_rev_list = ProposedReviewer.objects.filter(project = project)
+    budget_line_list = BudgetLine.objects.filter(project = project)
+    hr_budget_line_list = BudgetLine.objects.filter(project = project,category = 'HR')
+    oc_budget_line_list = BudgetLine.objects.filter(project = project,category = 'OC')
+    eq_budget_line_list = BudgetLine.objects.filter(project = project,category = 'EQ')
 
     is_p = is_pi(user)
     is_rev = is_reviewer(user)
+    oc_total = budget_line_sum(oc_budget_line_list)
+    hr_total = budget_line_sum(hr_budget_line_list)
+    eq_total = budget_line_sum(eq_budget_line_list)
+    total = oc_total + hr_total + eq_total
 
-    context_dict={'project' : project,'user' : user,'project_data' : project_data,'is_pi': is_p,
-                  'is_rev' : is_rev, 'prop_rev_list' : prop_rev_list}
+    context_dict={'project' : project,'user' : user,'project_data' : project_data,'is_pi': is_p, 'bl' : budget_line_list,
+    'is_rev' : is_rev, 'prop_rev_list' : prop_rev_list,
+    'hr_budget_lines_list' : hr_budget_line_list, 'oc_budget_lines_list' : oc_budget_line_list,
+    'eq_budget_lines_list' : eq_budget_line_list,
+   'oc_total' : oc_total, 'hr_total' : hr_total, 'eq_total' : eq_total, 'total' : total}
 
     return render_to_response('rfp/project_details.html',context_dict,context)
 
@@ -163,6 +182,55 @@ def add_unique_reviewer(request, projectId):
         r = ProposedReviewerForm()
 
     return render_to_response('rfp/add_unique_review.html', {'f' : r, 'project' : project, 'user' : user},context)
+
+@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
+def add_budget(request, projectId):
+    context = RequestContext(request)
+    user = request.user
+    project = Project.objects.get(pk = projectId)
+
+    if request.method == 'POST':
+        hr = HRBudgetLineFormSet(request.POST,prefix='hr')
+        eq = EQBudgetLineFormSet(request.POST,prefix='eq')
+        oc = OCBudgetLineFormSet(request.POST,prefix='oc')
+
+        if hr.is_valid() and eq.is_valid() and oc.is_valid():
+            hrlines = hr.save(commit=False)
+            for line in hrlines:
+                line.project = project
+                line.category = 'HR'
+                line.save()
+            for obj in hr.deleted_objects:
+                obj.delete()
+
+
+            eqlines = eq.save(commit=False)
+            for line in eqlines:
+                line.project = project
+                line.category = 'EQ'
+                line.save()
+
+            for obj in eq.deleted_objects:
+                obj.delete()
+
+            oclines = oc.save(commit=False)
+            for line in oclines:
+                line.project = project
+                line.category = 'OC'
+                line.save()
+
+            for obj in oc.deleted_objects:
+                obj.delete()
+
+        return HttpResponseRedirect(reverse('project_detail', args = [project.pk]))
+
+    else:
+        hr = HRBudgetLineFormSet(prefix = 'hr', queryset=BudgetLine.objects.filter(category='HR', project = project))
+        eq = EQBudgetLineFormSet(prefix = 'eq', queryset=BudgetLine.objects.filter(category='EQ', project = project))
+        oc = OCBudgetLineFormSet(prefix = 'oc', queryset=BudgetLine.objects.filter(category='OC', project = project))
+
+    return render_to_response('rfp/add_budget.html',{'hr_formset' : hr,'eq_formset' : eq, 'oc_formset' : oc, 'user' : user, 'project' : project},context)
+
 
 @user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
 def prop_reviewer_list(request,projectId):

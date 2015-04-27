@@ -70,7 +70,7 @@ class CustomIndexDashboard(Dashboard):
                 modules.ModelList(
                 title = 'Proposals',
                 css_classes=('collapse closed',),
-                models = ('rfp.models.Project','rfp.models.Review'),
+                models = ('rfp.models.Project','rfp.models.Review','rfp.models.BudgetLine'),
                 exclude=('django.contrib.*',),),
 
                 modules.ModelList(

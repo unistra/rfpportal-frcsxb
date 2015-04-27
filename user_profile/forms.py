@@ -23,7 +23,7 @@ class sign_up(forms.Form):
     organization = forms.CharField(max_length=255,widget=forms.TextInput(attrs={'class' : 'form-control'}))
 
     address = forms.CharField(required=False,max_length=255,widget=forms.TextInput(attrs={'class' : 'form-control'}))
-    zip = forms.IntegerField(required=False,widget=forms.TextInput(attrs={'class' : 'form-control'}))
+    zip = forms.CharField(max_length=255,required=False,widget=forms.TextInput(attrs={'class' : 'form-control'}))
     city = forms.CharField(required=False,max_length=255,widget=forms.TextInput(attrs={'class' : 'form-control'}))
     country = forms.CharField(required=False,max_length=255,widget=forms.TextInput(attrs={'class' : 'form-control'}))
     is_pi = forms.BooleanField(required=False,widget=forms.CheckboxInput(attrs={'class' : 'form-control'}))

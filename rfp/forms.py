@@ -3,7 +3,7 @@ from django import forms
 from django.forms import ModelForm
 from django.forms.models import modelformset_factory
 from django.utils.translation import ugettext_lazy as _
-from models import Project,RfpCampaign,RequestForProposal,Review,File_Test,ProposedReviewer
+from models import Project,RfpCampaign,RequestForProposal,Review,File_Test,ProposedReviewer,BudgetLine
 
 class  RequestForProposalForm(ModelForm):
     class Meta:
@@ -113,9 +113,10 @@ class ProposedReviewerForm(ModelForm):
             'address' : forms.TextInput(attrs={'class':'form-control'}),
             'city' : forms.TextInput(attrs={'class':'form-control'}),
             'state' : forms.TextInput(attrs={'class':'form-control'}),
-            'postcode' : forms.NumberInput(attrs={'class':'form-control'}),
+            'postcode' : forms.TextInput(attrs={'class':'form-control'}),
             'country' : forms.TextInput(attrs={'class':'form-control'}),
         }
+
 
 
 ProposedReviewerFormSet = modelformset_factory(
@@ -130,7 +131,7 @@ ProposedReviewerFormSet = modelformset_factory(
             'address' : forms.TextInput(attrs={'class':'form-control'}),
             'city' : forms.TextInput(attrs={'class':'form-control'}),
             'state' : forms.TextInput(attrs={'class':'form-control'}),
-            'postcode' : forms.NumberInput(attrs={'class':'form-control'}),
+            'postcode' : forms.TextInput(attrs={'class':'form-control'}),
             'country' : forms.TextInput(attrs={'class':'form-control'}),
         },
             labels = {
@@ -138,7 +139,77 @@ ProposedReviewerFormSet = modelformset_factory(
             },
             extra = 3,
                                                )
+category_choices = (
+    ('OC', 'Operating Cost'),
+    ('HR', 'Recruitment'),
+    ('EQ', 'Equipment'),
+)
 
+class BudgetLineForm(ModelForm):
+
+    class Meta:
+        model = BudgetLine
+        exclude = {'project','category'}
+        widgets = {
+        'item' : forms.TextInput(attrs={'class':'form-control'}),
+        'amount' : forms.NumberInput(attrs={'class':'form-control'}),
+        }
+        labels = {
+        'item' : _('Item'),
+        'amount' : _('Amount'),
+        'category' : _('Category'),
+        'project' : _(' ')
+        }
+
+OCBudgetLineFormSet = modelformset_factory(
+    BudgetLine,
+
+    exclude = {'project','category'},
+    widgets = {
+        'item' : forms.TextInput(attrs={'class':'form-control'}),
+        'amount' : forms.NumberInput(attrs={'class':'form-control'}),
+    },
+    labels = {
+        'item' : _('Item'),
+        'amount' : _('Amount'),
+    },
+    extra = 3,
+    max_num = 5,
+    can_delete= True,
+)
+
+EQBudgetLineFormSet = modelformset_factory(
+    BudgetLine,
+
+    exclude = {'project','category'},
+    widgets = {
+        'item' : forms.TextInput(attrs={'class':'form-control'}),
+        'amount' : forms.NumberInput(attrs={'class':'form-control'}),
+    },
+    labels = {
+        'item' : _('Item'),
+        'amount' : _('Amount'),
+    },
+    extra = 3,
+    max_num = 5,
+    can_delete= True,
+)
+
+HRBudgetLineFormSet = modelformset_factory(
+    BudgetLine,
+    exclude = {'project','category'},
+    widgets = {
+        'item' : forms.TextInput(attrs={'class':'form-control'}),
+        'amount' : forms.NumberInput(attrs={'class':'form-control'}),
+    },
+    labels = {
+        'item' : _('Item'),
+        'amount' : _('Amount'),
+    },
+    extra = 3,
+    max_num = 5,
+    can_delete= True,
+)
 
 class file_test (forms.Form):
     name=forms.CharField(label='File Name:',widget=forms.TextInput(attrs={'class':'form-control'}))

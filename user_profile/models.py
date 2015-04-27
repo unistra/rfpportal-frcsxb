@@ -16,7 +16,7 @@ class UserProfile(models.Model):
     address = models.CharField(max_length=255,null=True)
     city = models.CharField(max_length=255,null=True)
     state = models.CharField(max_length=255,null=True,blank=True)
-    zip = models.PositiveIntegerField(null=True)
+    zip = models.CharField(max_length=255,null=True)
     country = models.CharField(max_length= 255,null=True)
     is_pi = models.BooleanField(default=False)
     is_reviewer = models.BooleanField(default=False)
