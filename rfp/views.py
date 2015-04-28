@@ -40,11 +40,11 @@ def create_project(request):
         p = ProjectForm(request.POST,request.FILES)
 
         if p.is_valid():
-           p.save (commit=False)
-           p.user = user.pk
+           proj = p.save (commit=False)
+           proj.user = user
            project = p.save()
 
-           return HttpResponseRedirect(reverse('propose_reviewer', args=[project.pk]))
+           return HttpResponseRedirect(reverse('add_budget', args=[project.pk]))
 
     else:
         p = ProjectForm()
@@ -222,7 +222,7 @@ def add_budget(request, projectId):
             for obj in oc.deleted_objects:
                 obj.delete()
 
-        return HttpResponseRedirect(reverse('project_detail', args = [project.pk]))
+        return HttpResponseRedirect(reverse('propose_reviewer', args = [project.pk]))
 
     else:
         hr = HRBudgetLineFormSet(prefix = 'hr', queryset=BudgetLine.objects.filter(category='HR', project = project))
