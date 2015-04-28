@@ -52,7 +52,7 @@ INSTALLED_APPS = (
     'widget_tweaks',
     'bootstrap3',
     'djrill',
-
+    'import_export',
 )
 
 MIDDLEWARE_CLASSES = (
