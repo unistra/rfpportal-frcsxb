@@ -15,14 +15,15 @@
     <form class="" method="post" action="{% url 'add_budget_op' project.id %}">
     {% csrf_token %}
 
-        <legend>Equipement</legend>
+        <legend>Operation Costs</legend>
 
+         <div class = "row">
         {% for f in form %}
-        <div class = "row">
+
 
             {% if not f.is_hidden %}
 
-                        <div class = "col-xs-12 col-md-4">
+                        <div class = "col-xs-12 col-md-6">
                               <div class="form-group">
                                   {{ f.label }}
                                   {{ f }}
@@ -34,9 +35,9 @@
                 {{ f }}
             {% endif %}
 
-        </div>
-        {% endfor %}
 
+        {% endfor %}
+ </div>
     <input class="save_btn btn btn-primary pull-right" type="submit" value="Save"  />
     <input type="hidden" name="next" value="#" />
 

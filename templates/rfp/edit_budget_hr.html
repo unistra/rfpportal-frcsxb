@@ -3,16 +3,15 @@
 {% block title %}Propose your Reviewers{% endblock %}
 
 {% block body_block %}
-
 <div class="container">
 
-    <h2>{{ project.name }}</a></h2>
+ <h2>{{ project.name }}</a></h2>
 
     <h4><strong>Category:</strong> {{ project.rfp.name }}</h4>
     <p><strong>Team Leader:</strong> <a href = "{% url 'user_profile' %}">{{ user.userprofile }}</a></p>
     <p><strong>Research Unit:</strong> {{ user.userprofile.organization }} - {{ user.userprofile.insitute_research_unit}}</p>
 
-    <form class="" method="post" action="{% url 'add_budget_hr' project.id %}">
+    <form class="" method="post" action="{% url 'edit_budget_hr' bl.id %}">
     {% csrf_token %}
 
         <legend>Recruitment</legend>
@@ -37,14 +36,16 @@
 
 
         {% endfor %}
+
 </div>
 
-        <input class="save_btn btn btn-primary pull-right" type="submit" value="Save"  />
-
+    <input class="save_btn btn btn-primary pull-right" type="submit" value="Save"  />
+    <input name="delete" style="margin-right:10px;" class="save_btn btn btn-danger pull-right" type="submit" value="Delete"  />
     <input type="hidden" name="next" value="#" />
 
 </form>
 </div>
 
-{% endblock %}
 
+</div>
+{% endblock %}

@@ -12,6 +12,11 @@ urlpatterns = patterns('',
     url(r'^add_budget_op/(?P<projectId>\d+)/$',views.add_budget_op,name='add_budget_op'),
     url(r'^add_budget_hr/(?P<projectId>\d+)/$',views.add_budget_hr,name='add_budget_hr'),
 
+    url(r'^edit_budget_hr/(?P<budgetlineId>\d+)/$',views.edit_budget_hr,name='edit_budget_hr'),
+    url(r'^edit_budget_eq/(?P<budgetlineId>\d+)/$',views.edit_budget_eq,name='edit_budget_eq'),
+    url(r'^edit_budget_op/(?P<budgetlineId>\d+)/$',views.edit_budget_op,name='edit_budget_op'),
+
+
     url(r'^edit_project/(?P<projectId>\d+)/$',views.edit_project,name='edit_project'),
     url(r'^propose_reviewer/(?P<projectId>\d+)/$',views.propose_reviewer,name='propose_reviewer'),
     url(r'^edit_reviewer/(?P<proposedreviewerId>\d+)/$',views.edit_reviewer,name='edit_reviewer'),

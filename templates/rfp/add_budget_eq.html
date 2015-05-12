@@ -17,8 +17,8 @@
 
         <legend>Equipement</legend>
 
+<div class = "row">
         {% for f in form %}
-        <div class = "row">
 
             {% if not f.is_hidden %}
 
@@ -34,8 +34,8 @@
                 {{ f }}
             {% endif %}
 
-        </div>
         {% endfor %}
+</div>
 
     <input class="save_btn btn btn-primary pull-right" type="submit" value="Save"  />
     <input type="hidden" name="next" value="#" />

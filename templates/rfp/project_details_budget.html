@@ -25,7 +25,6 @@ $( document ).ready(function() {
         </div>
 
         <div class="col-xs-2 col-md-2">
-            {% if is_pi %}<h2><a href="{% url 'edit_project' project.id %}"><button class="btn btn-primary" id="edit">Edit</button></a></h2> {% endif %}
             {% if is_rev %}<h2><a href="{% url 'post_review' project.id %}"><button class="btn btn-primary" id="post_review">Post a review</button></a></h2> {% endif %}
         </div>
     </div>
@@ -52,8 +51,10 @@ $( document ).ready(function() {
                 <table class="table">
                 <thead>
                         <tr>
-                            <th>Item</th>
-                            <th>Amount</th>
+                            <th>Type of contract</th>
+                            <th>Duration</th>
+                            <th>Monthly Salary</th>
+                            <th>Total</th>
                             <th> </th>
                         </tr>
                     </thead>
@@ -61,9 +62,11 @@ $( document ).ready(function() {
                     <tbody>
                     {% for line in hr_budget_lines_list %}
                     <tr>
-                        <td>{{ line }}</a></td>
+                        <td>{{ line }}</td>
+                        <td>{{ line.duration }}</td>
+                        <td>{{ line.monthly_salary }}</td>
                         <td>{{ line.amount|floatformat:-1 }} €</td>
-                        <td><a href = "#">Edit</a></td>
+                        <td><a href = "{% url 'edit_budget_hr' line.id %}">Edit</a></td>
                     </tr>
                     {% endfor %}
                     <tr><td><a href="{% url 'add_budget_hr' project.id %}">Add recruitment</a></td>
@@ -82,8 +85,9 @@ $( document ).ready(function() {
                 <table class="table">
                 <thead>
                         <tr>
-                            <th>Item</th>
+                            <th>Equipment</th>
                             <th>Amount</th>
+                            <th>Quote</th>
                             <th> </th>
                         </tr>
                     </thead>
@@ -93,7 +97,8 @@ $( document ).ready(function() {
                     <tr>
                         <td>{{ line }}</a></td>
                         <td>{{ line.amount|floatformat:-1 }} €</td>
-                        <td><a href = "#">Edit</a></td>
+                        <td>{{ line.quote }}</td>
+                        <td><a href = "{% url 'edit_budget_eq' line.id %}">Edit</a></td>
                     </tr>
                     {% endfor %}
                     <tr><td><a href="{% url 'add_budget_eq' project.id %}">Add equipment</a></td>
@@ -125,7 +130,7 @@ $( document ).ready(function() {
                     <tr>
                         <td>{{ line }}</a></td>
                         <td>{{ line.amount|floatformat:-1 }} €</td>
-                        <td><a href = "#">Edit</a></td>
+                        <td><a href = "{% url 'edit_budget_op' line.id %}">Edit</a></td>
                     </tr>
                     {% endfor %}
                     <tr><td><a href="{% url 'add_budget_op' project.id %}">Add operating cost</a></td>
