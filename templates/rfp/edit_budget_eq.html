@@ -11,7 +11,7 @@
     <p><strong>Team Leader:</strong> <a href = "{% url 'user_profile' %}">{{ user.userprofile }}</a></p>
     <p><strong>Research Unit:</strong> {{ user.userprofile.organization }} - {{ user.userprofile.insitute_research_unit}}</p>
 
-    <form class="" method="post" action="{% url 'edit_budget_eq' bl.id %}">
+    <form class="" method="post" enctype="multipart/form-data" action="{% url 'edit_budget_eq' bl.id %}">
     {% csrf_token %}
 
         <legend>Recruitment</legend>

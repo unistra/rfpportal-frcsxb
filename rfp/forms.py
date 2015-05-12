@@ -169,12 +169,13 @@ class BudgetLineEQ(ModelForm):
         widgets = {
         'item' : forms.TextInput(attrs={'class':'form-control'}),
         'amount' : forms.NumberInput(attrs={'class':'form-control'}),
+        'quote' : forms.FileInput(attrs={'class':'form-control'}),
         }
         labels = {
         'item' : _('Item'),
         'amount' : _('Amount'),
         'category' : _('Category'),
-        'project' : _(' ')
+        'quote' : _('Quote')
         }
 
 class BudgetLineHR(ModelForm):

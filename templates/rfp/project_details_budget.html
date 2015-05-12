@@ -4,16 +4,6 @@
 
 {% block body_block %}
 
-
-<script>
-
-$( document ).ready(function() {
-    var rfp_id = {{ project.rfp.id }};
-    $('#id_rfp_id').val(rfp_id);
-});
-
-</script>
-
 <div class="container project_container">
 
     <div class="row proj_header">
@@ -74,7 +64,7 @@ $( document ).ready(function() {
                     <td></td>
                     </tr>
                     <tr>
-                        <td><strong>TOTAL</strong></td>
+                        <td><strong>TOTAL RECRUITMENT</strong></td>
                         <td><strong>{{ hr_total }} €</strong></td>
                         <td> </td>
                     </tr>
@@ -97,7 +87,7 @@ $( document ).ready(function() {
                     <tr>
                         <td>{{ line }}</a></td>
                         <td>{{ line.amount|floatformat:-1 }} €</td>
-                        <td>{{ line.quote }}</td>
+                        <td>{% if line.quote %} <a href="{{ line.quote.url }}">{{ line.quote }}</a> {% endif %}</td>
                         <td><a href = "{% url 'edit_budget_eq' line.id %}">Edit</a></td>
                     </tr>
                     {% endfor %}
@@ -106,7 +96,7 @@ $( document ).ready(function() {
                     <td></td>
                     </tr>
                     <tr>
-                        <td><strong>TOTAL</strong></td>
+                        <td><strong>TOTAL EQUIPMENT</strong></td>
                         <td><strong>{{ eq_total }} €</strong></td>
                         <td> </td>
                     </tr>
@@ -138,9 +128,9 @@ $( document ).ready(function() {
                     <td></td>
                     </tr>
                     <tr>
-                        <td><strong>TOTAL</strong></td>
+                        <td><strong>TOTAL OPERATING COSTS</strong></td>
                         <td><strong>{{ oc_total }} €</strong></td>
-                        <td> </td>
+
                     </tr>
 
                     </tbody>

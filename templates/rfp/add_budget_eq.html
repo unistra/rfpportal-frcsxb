@@ -12,7 +12,7 @@
     <p><strong>Team Leader:</strong> <a href = "{% url 'user_profile' %}">{{ user.userprofile }}</a></p>
     <p><strong>Research Unit:</strong> {{ user.userprofile.organization }} - {{ user.userprofile.insitute_research_unit}}</p>
 
-    <form class="" method="post" action="{% url 'add_budget_eq' project.id %}">
+    <form class="" method="post" enctype="multipart/form-data" action="{% url 'add_budget_eq' project.id %}">
     {% csrf_token %}
 
         <legend>Equipement</legend>
