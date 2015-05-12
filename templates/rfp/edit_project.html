@@ -18,14 +18,14 @@
         </div>
     </div>
 
-<form class="form-horizontal"  method = "post" enctype="multipart/form-data"  action="{% url 'edit_project' project.id %}" >
+<form class="form-horizontal no_m_h"  method = "post" enctype="multipart/form-data"  action="{% url 'edit_project' project.id %}" >
 
     {% csrf_token %}
 
     {% for f in form %}
     {% if f.label == 'Select a document to update the current file: ' %}
     <div class = "row">
-        <div class = "form-group">
+        <div class = "form-group no_m_h">
             <div class = "row">
 
                 <div class="col-xs-12 col-md-4">
@@ -57,7 +57,7 @@
     </div>
     {% else %}
     <div class = "row">
-        <div class = "form-group">
+        <div class = "form-group no_m_h">
             <div class="col-xs-12 col-md-4">
 
                 {{ f.label }} {% if f.field.required = True %}*{% endif %}:

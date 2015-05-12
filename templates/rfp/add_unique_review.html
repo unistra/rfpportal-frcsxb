@@ -3,17 +3,16 @@
 {% block title %}Propose your Reviewers{% endblock %}
 
 {% block body_block %}
-
-<div class = "container no_l_pad">
+<div class="container">
         <div class = "">
         <h2>{{ project.name }}</h2>
         <h4> {{ project.rfp.name }}</h4>
         <p>Team Leader: <a href = "{% url 'user_profile' %}">{{ user.userprofile }}</a></p>
         <p>Research Unit: {{ user.userprofile.organization }} - {{ user.userprofile.insitute_research_unit}}</p>
+        <legend>Propose a reviewer for this project</legend>
         </div>
 
-
-    <form class=""  method = "post" enctype="multipart/form-data"  action="{% url 'add_unique_reviewer' project.pk %}" >
+<form class=""  method = "post" enctype="multipart/form-data"  action="{% url 'add_unique_reviewer' project.pk %}" >
 
     {% csrf_token %}
 
@@ -105,9 +104,8 @@
     </div>
 </form>
 
-
 </div>
 
-
+</div>
 
 {% endblock %}

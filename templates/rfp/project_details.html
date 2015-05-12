@@ -18,23 +18,34 @@ $( document ).ready(function() {
 
     <div class="row proj_header">
         <div class="col-xs-10 col-md-10">
-        <h2><a style="text-decoration:none; color:black;" href="{% url 'project_detail' project.pk %}">{{ project.name }}</a></h2>
-        <h4><strong>Category:</strong> {{ project.rfp.name }}</h4>
-        <p><strong>Team Leader:</strong> <a href = "{% url 'user_profile' %}">{{ user.userprofile }}</a> - {{ user.email }}</p>
-        <p><strong>Research Unit:</strong> {{ user.userprofile.organization }} - {{ user.userprofile.insitute_research_unit}}</p>
-
+            <h2><a style="text-decoration:none; color:black;" href="{% url 'project_detail' project.pk %}">{{ project.name }}</a></h2>
+            <h4><strong>Category:</strong> {{ project.rfp.name }}</h4>
+            <p><strong>Team Leader:</strong> <a href = "{% url 'user_profile' %}">{{ user.userprofile }}</a> - {{ user.email }}</p>
+            <p><strong>Research Unit:</strong> {{ user.userprofile.organization }} - {{ user.userprofile.insitute_research_unit}}</p>
         </div>
 
-    <div class="col-xs-2 col-md-2">
-        {% if is_pi %}<h2><a href="{% url 'edit_project' project.id %}"><button class="btn btn-primary" id="edit">Edit</button></a></h2> {% endif %}
-        {% if is_rev %}<h2><a href="{% url 'post_review' project.id %}"><button class="btn btn-primary" id="post_review">Post a review</button></a></h2> {% endif %}
+        <div class="col-xs-2 col-md-2">
+
+            {% if is_rev %}<h2><a href="{% url 'post_review' project.id %}"><button class="btn btn-primary" id="post_review">Post a review</button></a></h2> {% endif %}
+        </div>
     </div>
 
+<!--Project Tab-->
+<div class="row project_tab">
+    <div class="col-xs-12 col-md-12">
+    <ul class="nav nav-tabs">
+        <li class="tab_role active" role="presentation"><a href="{% url 'project_detail' project.id %}">Project details</a></li>
+        <li class="tab_role" role="presentation"><a href="{% url 'project_budget' project.id %}">Budget</a></li>
+        <li class="tab_role" role="presentation"><a href="{% url 'project_reviewer' project.id %}">Reviewers</a></li>
+        <li class="pull-right">{% if is_pi %}<a href="{% url 'edit_project' project.id %}">Edit the project details</a> {% endif %}</li>
+    </ul>
+        </div>
+</div>
 
-    </div>
+<!-- Project Details -->
+<div class="row" id="project_detail">
 
-<div class="row">
-   <div class="col-xs-12 col-md-12">
+<div class="col-xs-12 col-md-12">
 
 {% for p in project_data %}
     {% if p.label == '' %}
@@ -58,139 +69,6 @@ $( document ).ready(function() {
 {% endfor %}
     </div>
 </div>
-
-    <div class="row">
-            <div class="col-xs-12 col-md-12">
-            <h3>Budget<span class="" style="font-size:12px;">
-                <a href="{% url 'add_budget' project.pk %}">
-                {% if bl %} Edit the budget {% else %} Add your budget {% endif %}
-                </a> </span>
-            </h3>
-                <h4>Total budgeted: <strong>{{ total }} €</strong> <span style = "font-size:14px;">(Total requested: {{ project.requested_amount }} €)<br><br></span></h4>
-
-                <h4>Recruitment</h4>
-                <table class="table">
-                <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Amount</th>
-                            <th> </th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                    {% for line in hr_budget_lines_list %}
-                    <tr>
-                        <td>{{ line }}</a></td>
-                        <td>{{ line.amount|floatformat:-1 }} €</td>
-                        <td><a href = "{% url 'add_budget' project.pk %}">Edit</a></td>
-                    </tr>
-                    {% endfor %}
-                    <tr>
-                        <td><strong>TOTAL</strong></td>
-                        <td><strong>{{ hr_total }} €</strong></td>
-                        <td> </td>
-                    </tr>
-                    </tbody>
-                    </table>
-
-                    <h4>Equipement</h4>
-                <table class="table">
-                <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Amount</th>
-                            <th> </th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                    {% for line in eq_budget_lines_list %}
-                    <tr>
-                        <td>{{ line }}</a></td>
-                        <td>{{ line.amount|floatformat:-1 }} €</td>
-                        <td><a href = "{% url 'add_budget' project.pk %}">Edit</a></td>
-                    </tr>
-                    {% endfor %}
-                    <tr>
-                        <td><strong>TOTAL</strong></td>
-                        <td><strong>{{ eq_total }} €</strong></td>
-                        <td> </td>
-                    </tr>
-                    </tbody>
-                    </table>
-
-                <table class="table">
-                <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Amount</th>
-                            <th> </th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-
-                    <h4>Operating Costs</h4>
-                    {% for line in oc_budget_lines_list %}
-                    <tr>
-                        <td>{{ line }}</a></td>
-                        <td>{{ line.amount|floatformat:-1 }} €</td>
-                        <td><a href = "{% url 'add_budget' project.pk %}">Edit</a></td>
-                    </tr>
-                    {% endfor %}
-
-                    <tr>
-                        <td><strong>TOTAL</strong></td>
-                        <td><strong>{{ oc_total }} €</strong></td>
-                        <td> </td>
-                    </tr>
-
-                    </tbody>
-                </table>
-
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-xs-12 col-md-12">
-            <h3>Proposed Reviewer <span class="" style="font-size:12px;">
-                <a href="{% url 'add_unique_reviewer' project.pk %}">
-                Add a new reviewer
-                </a> </span>
-            </h3>
-
-               <table class="table">
-
-                <thead>
-                        <tr>
-                            <th>Contact</th>
-                            <th>Email</th>
-                            <th>City</th>
-                            <th>Country</th>
-                            <th></th>
-
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                    {% for r in prop_rev_list %}
-
-                    <tr>
-                        <td>{{ r }}</a></td>
-                        <td>{{ r.email }}</td>
-                        <td>{{ r.city }}</td>
-                        <td>{{ r.country }}</td>
-                        <td><a href = "{% url 'edit_reviewer' r.pk %}">Edit</a></td>
-                    </tr>
-
-                    {% endfor %}
-                    </tbody>
-                </table>
-
-            </div>
-        </div>
-
 
 
 </div>

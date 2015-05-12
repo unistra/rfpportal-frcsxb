@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Propose your Reviewers{% endblock %}
+
+{% block body_block %}
+
+<div class="container">
+
+    <h2>{{ project.name }}</a></h2>
+
+    <h4><strong>Category:</strong> {{ project.rfp.name }}</h4>
+    <p><strong>Team Leader:</strong> <a href = "{% url 'user_profile' %}">{{ user.userprofile }}</a></p>
+    <p><strong>Research Unit:</strong> {{ user.userprofile.organization }} - {{ user.userprofile.insitute_research_unit}}</p>
+
+    <form class="" method="post" action="{% url 'add_budget_hr' project.id %}">
+    {% csrf_token %}
+
+        <legend>Equipement</legend>
+
+        {% for f in form %}
+        <div class = "row">
+
+            {% if not f.is_hidden %}
+
+                        <div class = "col-xs-12 col-md-4">
+                              <div class="form-group">
+                                  {{ f.label }}
+                                  {{ f }}
+                                  {{ f.errors }}
+                              </div>
+                        </div>
+
+            {% elif f.is_hidden %}
+                {{ f }}
+            {% endif %}
+
+        </div>
+        {% endfor %}
+
+    <input class="save_btn btn btn-primary pull-right" type="submit" value="Save"  />
+    <input type="hidden" name="next" value="#" />
+
+</form>
+</div>
+
+{% endblock %}
+

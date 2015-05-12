@@ -161,6 +161,57 @@ class BudgetLineForm(ModelForm):
         'project' : _(' ')
         }
 
+class BudgetLineEQ(ModelForm):
+
+    class Meta:
+        model = BudgetLine
+        exclude = {'project','category','monthly_salary','duration'}
+        widgets = {
+        'item' : forms.TextInput(attrs={'class':'form-control'}),
+        'amount' : forms.NumberInput(attrs={'class':'form-control'}),
+        }
+        labels = {
+        'item' : _('Item'),
+        'amount' : _('Amount'),
+        'category' : _('Category'),
+        'project' : _(' ')
+        }
+
+class BudgetLineHR(ModelForm):
+
+    class Meta:
+        model = BudgetLine
+        exclude = {'project','category','quote'}
+        widgets = {
+        'item' : forms.TextInput(attrs={'class':'form-control'}),
+        'duration' : forms.NumberInput(attrs={'class':'form-control'}),
+        'monthly_salary' : forms.NumberInput(attrs={'class':'form-control'}),
+        'amount' : forms.NumberInput(attrs={'class':'form-control'}),
+        }
+        labels = {
+        'item' : _('Contract Type (PhD, Post-doc...)'),
+        'amount' : _('Total'),
+        'duration' : _('Duration'),
+        'monthly_salary' : _("Monthly Salary")
+        }
+
+class BudgetLineOP(ModelForm):
+
+    class Meta:
+        model = BudgetLine
+        exclude = {'project','category','quote','duration','monthly_salary'}
+        widgets = {
+        'item' : forms.TextInput(attrs={'class':'form-control'}),
+        'amount' : forms.NumberInput(attrs={'class':'form-control'}),
+        }
+        labels = {
+        'item' : _('Item'),
+        'amount' : _('Amount'),
+        'category' : _('Category'),
+        'project' : _(' ')
+        }
+
+
 OCBudgetLineFormSet = modelformset_factory(
     BudgetLine,
 

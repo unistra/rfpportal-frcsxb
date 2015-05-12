@@ -64,8 +64,11 @@ class ProposedReviewer(models.Model):
 class BudgetLine(models.Model):
     project = models.ForeignKey(Project,null = True,editable=False)
     item = models.CharField(max_length = 255, null=True, blank=True)
-    amount = models.FloatField(null=True, blank = True)
     category = models.CharField(max_length = 255, null=True, blank=True)
+    duration = models.IntegerField(null=True,blank=True)
+    monthly_salary = models.IntegerField(null=True,blank=True)
+    quote=models.FileField(upload_to='quote',null=True,blank=True)
+    amount = models.FloatField(null=True, blank = True)
 
     def __unicode__(self):
         return  (str(self.category) + " " +str(self.item))

@@ -13,7 +13,6 @@ body {
 .navbar
 {
     background-color:white;
-    color:RGB(153,51,153);
 }
 
 .navbar-default{
@@ -54,6 +53,75 @@ font-weight:bold;
     padding: 10px 0px 10px 0px;
     text-align:center;
     border-radius: 5px;
+}
+
+.progress_step{
+    width:100%;
+    background-color: #c8c8c8;
+    border:none;
+}
+
+.active {
+    background-color:RGB(0,94,167) !important;
+    color:white;
+}
+
+.no_m_h{
+    margin-left: 0px !important;
+    margin-right:0px !important;
+}
+
+.steps{
+    margin:20px 0px 20px 0px;
+    height:25px;
+}
+
+.project_tab{
+    margin-bottom: 10px !important;
+}
+
+.project_tab > ul > li {
+
+}
+
+.project_tab > ul > li > p {
+    padding-top:15px;
+}
+
+.nav-tabs>li>a {margin:0px;}
+
+.tab_role>a:focus{color:black;}
+
+.tab_role{
+    background-color:RGB(0,94,167);
+    color:white;
+    border-radius:5px 5px 0px 0px;
+    border:none;
+}
+
+.tab_role.active{
+    background-color:white;
+    color:RGB(0,94,167);
+    border-radius:5px 5px 0px 0px;
+    border:none;
+}
+
+
+.tab_role:hover{
+    background-color:white;
+    color:RGB(0,94,167);
+    border-radius:5px 5px 0px 0px;
+    border:none;
+}
+
+.tab_role > a {
+    text-descoration:none;
+    color:white;
+}
+
+.tab_role > a:hover {
+    text-descoration:none;
+    color:RGB(0,94,167);
 }
 
 .no_l_pad{

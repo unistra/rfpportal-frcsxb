@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block body_block %}
+
+
+<script>
+
+$( document ).ready(function() {
+    var rfp_id = {{ project.rfp.id }};
+    $('#id_rfp_id').val(rfp_id);
+});
+
+</script>
+
+<div class="container project_container">
+
+    <div class="row proj_header">
+        <div class="col-xs-10 col-md-10">
+            <h2><a style="text-decoration:none; color:black;" href="{% url 'project_detail' project.pk %}">{{ project.name }}</a></h2>
+            <h4><strong>Category:</strong> {{ project.rfp.name }}</h4>
+            <p><strong>Team Leader:</strong> <a href = "{% url 'user_profile' %}">{{ user.userprofile }}</a> - {{ user.email }}</p>
+            <p><strong>Research Unit:</strong> {{ user.userprofile.organization }} - {{ user.userprofile.insitute_research_unit}}</p>
+        </div>
+
+        <div class="col-xs-2 col-md-2">
+            {% if is_pi %}<h2><a href="{% url 'edit_project' project.id %}"><button class="btn btn-primary" id="edit">Edit</button></a></h2> {% endif %}
+            {% if is_rev %}<h2><a href="{% url 'post_review' project.id %}"><button class="btn btn-primary" id="post_review">Post a review</button></a></h2> {% endif %}
+        </div>
+    </div>
+
+<!--Project Tab-->
+<div class="row project_tab">
+    <div class="col-xs-12 col-md-12">
+    <ul class="nav nav-tabs">
+        <li class="tab_role" role="presentation"><a href="{% url 'project_detail' project.id %}">Project details</a></li>
+        <li class="tab_role" role="presentation"><a href="{% url 'project_budget' project.id %}">Budget</a></li>
+        <li class="tab_role active" role="presentation"><a href="{% url 'project_reviewer' project.id %}">Reviewers</a></li>
+        <li class="pull-right">{% if is_pi %}<a href="{% url 'edit_reviewer' project.id %}">Edit the reviewers details</a> {% endif %}</li>
+    </ul>
+        </div>
+</div>
+
+
+<!--Reviewer Detail-->
+<div class="row " id="reviewer_detail">
+            <div class="col-xs-12 col-md-12">
+            <h3>Proposed Reviewer
+            </h3>
+
+               <table class="table">
+
+                <thead>
+                        <tr>
+                            <th>Contact</th>
+                            <th>Email</th>
+                            <th>City</th>
+                            <th>Country</th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for r in prop_rev_list %}
+
+                    <tr>
+                        <td>{{ r }}</a></td>
+                        <td>{{ r.email }}</td>
+                        <td>{{ r.city }}</td>
+                        <td>{{ r.country }}</td>
+                        <td><a href = "{% url 'edit_reviewer' r.pk %}">Edit</a></td>
+                    </tr>
+
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <span class="" style="font-size:12px;">
+                <a href="{% url 'add_unique_reviewer' project.pk %}">
+                Add a reviewer
+                </a> </span>
+            </div>
+        </div>
+
+</div>
+
+{% endblock %}
