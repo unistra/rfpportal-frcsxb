@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required,user_passes_test
 from django.contrib.auth.models import User,Group,Permission
 from django.contrib.auth import authenticate, login
 from django.forms.models import model_to_dict
+import datetime
 
 from user_profile.models import UserProfile
 
@@ -17,9 +18,14 @@ def is_reviewer(User):
 def is_pi(User):
     return User.groups.filter(name = 'Principal_Investigator').exists()
 
+def is_pi_or_reviewer(User):
+    state = False
+    if is_pi(User) or is_reviewer(User):
+        state = True
+    return state
+
 def get_absolute_url(view,object):
           return reverse('view', args=[str(object.id)])
-
 
 def budget_line_sum(budget_list):
     total_budgeted = 0
@@ -74,7 +80,7 @@ def edit_project(request,projectId):
 
     return render_to_response('rfp/edit_project.html',context_dict,context)
 
-@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
+@user_passes_test(is_pi_or_reviewer,login_url='/login/',redirect_field_name='next')
 def project_detail(request,projectId):
     context = RequestContext(request)
     user = request.user
@@ -102,7 +108,7 @@ def project_detail(request,projectId):
 
     return render_to_response('rfp/project_details.html',context_dict,context)
 
-@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
+@user_passes_test(is_pi_or_reviewer,login_url='/login/',redirect_field_name='next')
 def project_detail_budget(request,projectId):
     context = RequestContext(request)
     user = request.user
@@ -129,7 +135,7 @@ def project_detail_budget(request,projectId):
 
     return render_to_response('rfp/project_details_budget.html',context_dict,context)
 
-@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
+@user_passes_test(is_pi_or_reviewer,login_url='/login/',redirect_field_name='next')
 def project_detail_reviewers(request,projectId):
     context = RequestContext(request)
     user = request.user
@@ -169,16 +175,18 @@ def post_review(request,projectId):
         r = ReviewForm(request.POST,request.FILES,instance = review)
 
         if r.is_valid:
+            r.save(commit = False)
+            r.name = (str(project.user.last_name) + " - "+ str(project.user.first_name) + " - " + str(project.name))
+            r.date = datetime.date.today()
+            r.project = project
             r.save()
-            url = ('../../../user_profile/profile')
 
-            return HttpResponseRedirect(url)
+            return HttpResponseRedirect(reverse('user_profile'))
 
     else:
         r = ReviewForm(instance = review)
 
     return render_to_response('rfp/post_review.html',{'form' : r, 'project' : project, 'user' : user, 'up' : user_profile}, context)
-
 
 @user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
 def edit_reviewer(request,proposedreviewerId):
@@ -240,7 +248,7 @@ def add_budget_hr(request, projectId):
             bl.category = 'HR'
             bl.save()
 
-        return HttpResponseRedirect(reverse('project_budget', args = [project.pk]))
+            return HttpResponseRedirect(reverse('project_budget', args = [project.pk]))
 
     else:
         form = BudgetLineHR()
@@ -265,8 +273,7 @@ def edit_budget_hr(request, budgetlineId):
 
             if form.is_valid():
               form.save()
-
-            return HttpResponseRedirect(reverse('project_budget', args = [project_id]))
+              return HttpResponseRedirect(reverse('project_budget', args = [project_id]))
 
     else:
         form = BudgetLineHR(instance=bl)
@@ -283,14 +290,13 @@ def add_budget_eq(request, projectId):
 
         form = BudgetLineEQ(request.POST,request.FILES)
 
-
         if form.is_valid():
             bl = form.save(commit=False)
             bl.project = project
             bl.category = 'EQ'
             bl.save()
 
-        return HttpResponseRedirect(reverse('project_budget', args = [project.pk]))
+            return HttpResponseRedirect(reverse('project_budget', args = [project.pk]))
 
     else:
         form = BudgetLineEQ()
@@ -315,7 +321,7 @@ def edit_budget_eq(request, budgetlineId):
             if form.is_valid():
                 form.save()
 
-            return HttpResponseRedirect(reverse('project_budget', args = [project_id]))
+                return HttpResponseRedirect(reverse('project_budget', args = [project_id]))
 
     else:
         form = BudgetLineEQ(instance=bl)
@@ -338,7 +344,7 @@ def add_budget_op(request, projectId):
             bl.category = 'OC'
             bl.save()
 
-        return HttpResponseRedirect(reverse('project_budget', args = [project.pk]))
+            return HttpResponseRedirect(reverse('project_budget', args = [project.pk]))
 
     else:
         form = BudgetLineOP()
@@ -363,13 +369,12 @@ def edit_budget_op(request, budgetlineId):
             if form.is_valid() :
                 form.save()
 
-            return HttpResponseRedirect(reverse('project_budget', args = [project_id]))
+                return HttpResponseRedirect(reverse('project_budget', args = [project_id]))
 
     else:
         form = BudgetLineOP(instance=bl)
 
     return render_to_response('rfp/edit_budget_op.html',{'form' : form, 'user' : user,'bl': bl},context)
-
 
 @user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
 def propose_reviewer(request,projectId):
@@ -385,7 +390,7 @@ def propose_reviewer(request,projectId):
                rev.project = project
                rev.save()
 
-           return HttpResponseRedirect(reverse('user_profile'))
+               return HttpResponseRedirect(reverse('user_profile'))
 
     else:
         r = ProposedReviewerFormSet(queryset=ProposedReviewer.objects.filter(project = project.id))

@@ -91,24 +91,27 @@ class RfpCampaignForm(ModelForm):
 class ReviewForm(ModelForm):
     class Meta:
         model = Review
-        exclude = {'user','project'}
+        exclude = {'user','project','name','date'}
         widgets = {
-            'name' : forms.TextInput(attrs={'class':'form-control'}),
             'question_1' : forms.Textarea(attrs={'class':'form-control'}),
             'question_2' : forms.Textarea(attrs={'class':'form-control'}),
-            'date' : forms.DateInput(attrs={'class':'form-control'}),
             'document' : forms.FileInput(attrs={'class':'form-control'})
+        }
+        labels = {
+            'question_1' : _('Describe innovation'),
+            'question_2' : _('Describe outputs and impact on subject'),
         }
 
 
 class ProposedReviewerForm(ModelForm):
+    first_name = forms.CharField(required=True,widget=forms.TextInput(attrs={'class':'form-control'}))
+    last_name = forms.CharField(required=True,widget=forms.TextInput(attrs={'class':'form-control'}))
+    email = forms.EmailField(required=True,widget=forms.TextInput(attrs={'class':'form-control'}))
+
     class Meta:
         model = ProposedReviewer
         exclude = {'project'}
         widgets = {
-            'first_name' : forms.TextInput(attrs={'class':'form-control'}),
-            'last_name' : forms.TextInput(attrs={'class':'form-control'}),
-            'email' : forms.EmailInput(attrs={'class':'form-control'}),
             'institution' : forms.TextInput(attrs={'class':'form-control'}),
             'address' : forms.TextInput(attrs={'class':'form-control'}),
             'city' : forms.TextInput(attrs={'class':'form-control'}),
@@ -146,13 +149,13 @@ category_choices = (
 )
 
 class BudgetLineForm(ModelForm):
+    item = forms.CharField(required=True,widget=forms.TextInput(attrs={'class':'form-control'}))
+    amount = forms.IntegerField(required=True,widget=forms.NumberInput(attrs={'class':'form-control'}))
 
     class Meta:
         model = BudgetLine
         exclude = {'project','category'}
         widgets = {
-        'item' : forms.TextInput(attrs={'class':'form-control'}),
-        'amount' : forms.NumberInput(attrs={'class':'form-control'}),
         }
         labels = {
         'item' : _('Item'),
@@ -162,6 +165,8 @@ class BudgetLineForm(ModelForm):
         }
 
 class BudgetLineEQ(ModelForm):
+    item = forms.CharField(required=True,widget=forms.TextInput(attrs={'class':'form-control'}))
+    amount = forms.IntegerField(required=True,widget=forms.NumberInput(attrs={'class':'form-control'}))
 
     class Meta:
         model = BudgetLine
@@ -179,6 +184,10 @@ class BudgetLineEQ(ModelForm):
         }
 
 class BudgetLineHR(ModelForm):
+    item = forms.CharField(required=True,widget=forms.TextInput(attrs={'class':'form-control'}))
+    amount = forms.IntegerField(required=True,widget=forms.NumberInput(attrs={'class':'form-control'}))
+    duration = forms.IntegerField(required=True,widget=forms.NumberInput(attrs={'class':'form-control'}))
+    monthly_salary = forms.IntegerField(required=True,widget=forms.NumberInput(attrs={'class':'form-control'}))
 
     class Meta:
         model = BudgetLine
@@ -197,6 +206,8 @@ class BudgetLineHR(ModelForm):
         }
 
 class BudgetLineOP(ModelForm):
+    item = forms.CharField(required=True,widget=forms.TextInput(attrs={'class':'form-control'}))
+    amount = forms.IntegerField(required=True,widget=forms.NumberInput(attrs={'class':'form-control'}))
 
     class Meta:
         model = BudgetLine

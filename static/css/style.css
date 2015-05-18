@@ -132,6 +132,12 @@ font-weight:bold;
     padding-right:0px;
 }
 
+.req{
+    color:red;
+    font-size:12px;
+}
+
+
 
 .save_btn{
     width:100px;

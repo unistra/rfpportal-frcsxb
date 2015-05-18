@@ -6,35 +6,30 @@
 
 <div class="container project_container">
 
-    <div class="row proj_header">
+     <div class="row proj_header">
         <div class="col-xs-10 col-md-10">
             <h2><a style="text-decoration:none; color:black;" href="{% url 'project_detail' project.pk %}">{{ project.name }}</a></h2>
             <h4><strong>Category:</strong> {{ project.rfp.name }}</h4>
-            <p><strong>Team Leader:</strong> <a href = "{% url 'user_profile' %}">{{ user.userprofile }}</a> - {{ user.email }}</p>
-            <p><strong>Research Unit:</strong> {{ user.userprofile.organization }} - {{ user.userprofile.insitute_research_unit}}</p>
-        </div>
-
-        <div class="col-xs-2 col-md-2">
-            {% if is_rev %}<h2><a href="{% url 'post_review' project.id %}"><button class="btn btn-primary" id="post_review">Post a review</button></a></h2> {% endif %}
+            <p><strong>Team Leader:</strong> <a href = "{% url 'user_profile' %}">{{ project.user.userprofile }}</a> - {{ project.user.email }}</p>
+            <p><strong>Research Unit:</strong> {{ project.user.userprofile.organization }} - {{ project.user.userprofile.insitute_research_unit}}</p>
         </div>
     </div>
 
 <!--Project Tab-->
 <div class="row project_tab">
     <div class="col-xs-12 col-md-12">
-    <ul class="nav nav-tabs">
-        <li class="tab_role " role="presentation"><a href="{% url 'project_detail' project.id %}">Project details</a></li>
-        <li class="tab_role active" role="presentation"><a href="{% url 'project_budget' project.id %}">Budget</a></li>
-        <li class="tab_role" role="presentation"><a href="{% url 'project_reviewer' project.id %}">Reviewers</a></li>
-    </ul>
-        </div>
+        <ul class="nav nav-tabs">
+            <li class="tab_role " role="presentation"><a href="{% url 'project_detail' project.id %}">Project details</a></li>
+            <li class="tab_role active" role="presentation"><a href="{% url 'project_budget' project.id %}">Budget</a></li>
+            <li class="tab_role" role="presentation"><a href="{% url 'project_reviewer' project.id %}">Reviewers</a></li>
+            <li class="pull-right">{% if is_pi %}<a href="{% url 'edit_project' project.id %}">Edit the project details</a> {% elif is_rev %}<a href="{% url 'post_review' project.id %}">Post a review</a> {% endif %} </li>
+        </ul>
+    </div>
 </div>
 
 <div class="row" id="budget_detail">
             <div class="col-xs-12 col-md-12">
-            <h3>Budget<span class="" style="font-size:12px;">
-
-            </h3>
+            <h3>Budget</h3>
                 <h4>Total budgeted: <strong>{{ total }} €</strong> <span style = "font-size:14px;">(Total requested: {{ project.requested_amount }} €)<br><br></span></h4>
 
                 <h4>Recruitment</h4>
@@ -56,10 +51,10 @@
                         <td>{{ line.duration }}</td>
                         <td>{{ line.monthly_salary }}</td>
                         <td>{{ line.amount|floatformat:-1 }} €</td>
-                        <td><a href = "{% url 'edit_budget_hr' line.id %}">Edit</a></td>
+                        <td>{% if is_pi %}<a href = "{% url 'edit_budget_hr' line.id %}">Edit</a>{% endif %}</td>
                     </tr>
                     {% endfor %}
-                    <tr><td><a href="{% url 'add_budget_hr' project.id %}">Add recruitment</a></td>
+                    <tr>{% if is_pi %}<td><a href="{% url 'add_budget_hr' project.id %}">Add recruitment</a></td>{% endif %}
                     <td></td>
                     <td></td>
                     </tr>
@@ -88,10 +83,10 @@
                         <td>{{ line }}</a></td>
                         <td>{{ line.amount|floatformat:-1 }} €</td>
                         <td>{% if line.quote %} <a href="{{ line.quote.url }}">{{ line.quote }}</a> {% endif %}</td>
-                        <td><a href = "{% url 'edit_budget_eq' line.id %}">Edit</a></td>
+                        <td>{% if is_pi %}<a href = "{% url 'edit_budget_eq' line.id %}">Edit</a>{% endif %}</td>
                     </tr>
                     {% endfor %}
-                    <tr><td><a href="{% url 'add_budget_eq' project.id %}">Add equipment</a></td>
+                    <tr><td>{% if is_pi %}<a href="{% url 'add_budget_eq' project.id %}">Add equipment</a>{% endif %}</td>
                     <td></td>
                     <td></td>
                     </tr>
@@ -120,10 +115,10 @@
                     <tr>
                         <td>{{ line }}</a></td>
                         <td>{{ line.amount|floatformat:-1 }} €</td>
-                        <td><a href = "{% url 'edit_budget_op' line.id %}">Edit</a></td>
+                        <td>{% if is_pi %}<a href = "{% url 'edit_budget_op' line.id %}">Edit</a>{% endif %}</td>
                     </tr>
                     {% endfor %}
-                    <tr><td><a href="{% url 'add_budget_op' project.id %}">Add operating cost</a></td>
+                    <tr><td>{% if is_pi %}<a href="{% url 'add_budget_op' project.id %}">Add operating cost</a>{% endif %}</td>
                     <td></td>
                     <td></td>
                     </tr>
