@@ -78,12 +78,12 @@ WSGI_APPLICATION = 'portal_frc.wsgi.application'
 if os.getenv('DATABASE_URL'):
     DATABASES = {
                 'default': {
-                        'ENGINE': 'postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-                        'NAME': 'd9pmli5c2jt4i6',                      # Or path to database file if using sqlite3.
-                        #The following settings are not used with sqlite3:
-                        'USER': 'qviasannlxqkov',
-                        'PASSWORD': '3ZqmRyWulBDKf-mhIiJy-0OoEm',
-                        'HOST': 'ec2-23-23-215-150.compute-1.amazonaws.com',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+                        'ENGINE': 'postgresql_psycopg2',                       # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+                        'NAME': os.getenv('DB_NAME'),                          # Or path to database file if using sqlite3.
+                                                                               #The following settings are not used with sqlite3:
+                        'USER': os.getenv('DB_USER'),
+                        'PASSWORD': os.getenv('DB_PWD'),
+                        'HOST': 'ec2-23-23-215-150.compute-1.amazonaws.com',   # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
                         'PORT': '5432',
                 }
             }
