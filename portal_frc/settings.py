@@ -133,6 +133,7 @@ if not os.getenv('DATABASE_URL'):
     STATICFILES_LOCATION = 'static'
 
 else:
+# Static asset configuration for hosted dev:
     STATICFILES_LOCATION = 'static'
     STATICFILES_STORAGE = 'custom_storages.StaticStorage'
     STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
