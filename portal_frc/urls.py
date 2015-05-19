@@ -15,7 +15,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url('^', include('django.contrib.auth.urls',)),
     url(r'^/logout/$', 'django.contrib.auth.views.logout', {'template_name': 'registration/logout.html'}),
-    url(r'^/login/?next=/$', 'django.contrib.auth.views.login',),
+    url(r'^/login/?next=/$', 'django.contrib.auth.views.login'),
     url(r'^$',views.index,name='home_page'),
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

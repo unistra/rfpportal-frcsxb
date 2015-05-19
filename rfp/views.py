@@ -1,15 +1,14 @@
 from django.shortcuts import render,render_to_response,HttpResponse,HttpResponseRedirect
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required,user_passes_test
-from django.contrib.auth.models import User,Group,Permission
-from django.contrib.auth import authenticate, login
+
 from django.forms.models import model_to_dict
 import datetime
 
 from user_profile.models import UserProfile
 
 from models import Project,Review,RequestForProposal,RfpCampaign,File_Test,ProposedReviewer,BudgetLine
-from forms import ProjectForm,file_test,UpdateForm,ReviewForm,ProposedReviewerFormSet,ProposedReviewerForm,HRBudgetLineFormSet,EQBudgetLineFormSet,OCBudgetLineFormSet,BudgetLineEQ,BudgetLineHR,BudgetLineOP
+from forms import ProjectForm,file_test,UpdateForm,ReviewForm,ProposedReviewerFormSet,ProposedReviewerForm,BudgetLineEQ,BudgetLineHR,BudgetLineOP
 from django.core.urlresolvers import reverse
 
 def is_reviewer(User):
@@ -34,9 +33,9 @@ def budget_line_sum(budget_list):
         bl_dict = model_to_dict(line)
         total_budgeted += int(bl_dict["amount"])
     return total_budgeted
-# Create your views here.
 
-#@login_required(login_url='/login/')
+
+# Views start here.
 @user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
 def create_project(request):
     context = RequestContext(request)
@@ -49,7 +48,6 @@ def create_project(request):
            proj = p.save (commit=False)
            proj.user = user
            project = p.save()
-
            return HttpResponseRedirect(reverse('project_budget', args=[project.pk]))
 
     else:
@@ -68,10 +66,7 @@ def edit_project(request,projectId):
 
         if p.is_valid():
            p.save()
-
-           url = ('../../'+ projectId + "/")
-
-           return HttpResponseRedirect(url)
+           return HttpResponseRedirect(reverse('project_detail', args=[project.pk]))
 
     else:
         p = UpdateForm(instance=project)
@@ -144,22 +139,12 @@ def project_detail_reviewers(request,projectId):
     project_data = UpdateForm(data=model_to_dict(project))
     prop_rev_list = ProposedReviewer.objects.filter(project = project)
     budget_line_list = BudgetLine.objects.filter(project = project)
-    hr_budget_line_list = BudgetLine.objects.filter(project = project,category = 'HR')
-    oc_budget_line_list = BudgetLine.objects.filter(project = project,category = 'OC')
-    eq_budget_line_list = BudgetLine.objects.filter(project = project,category = 'EQ')
 
     is_p = is_pi(user)
     is_rev = is_reviewer(user)
-    oc_total = budget_line_sum(oc_budget_line_list)
-    hr_total = budget_line_sum(hr_budget_line_list)
-    eq_total = budget_line_sum(eq_budget_line_list)
-    total = oc_total + hr_total + eq_total
 
     context_dict={'project' : project,'user' : user,'project_data' : project_data,'is_pi': is_p, 'bl' : budget_line_list,
-    'is_rev' : is_rev, 'prop_rev_list' : prop_rev_list,
-    'hr_budget_lines_list' : hr_budget_line_list, 'oc_budget_lines_list' : oc_budget_line_list,
-    'eq_budget_lines_list' : eq_budget_line_list,
-   'oc_total' : oc_total, 'hr_total' : hr_total, 'eq_total' : eq_total, 'total' : total}
+    'is_rev' : is_rev, 'prop_rev_list' : prop_rev_list}
 
     return render_to_response('rfp/project_details_reviewer.html',context_dict,context)
 

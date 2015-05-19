@@ -1,18 +1,20 @@
 {% extends 'base.html' %}
 
-{% block title %} Your Profile {% endblock %}
+{% block title %} Log In {% endblock %}
 
 {% block body_block %}
 
 {% csrf_token %}
-<script>
-
-   console.log('Actife le script on page ?');
-   $('#id_password').addClass("hide");
-</script>
 
 <div class="container">
 <div class="row">
+
+    {% if form.errors %}
+    <div class="alert alert-danger" role="alert">
+    <p style="text-align:center;">Username/Password does not match. Please try again. If you're having issues accessing your account please <a href="mailto:loison@icfrc.fr">contact us</a>.</p>
+    </div>
+    {% endif %}
+
 <div class="col-md-4"></div>
 
 {% load widget_tweaks %}
@@ -20,24 +22,21 @@
 
 <form method="post" action="{% url 'django.contrib.auth.views.login' %}?next={{ request.path }}">
 {% csrf_token %}
-<div class="form-group">
 
-    {{ form.username.label_tag }}
-    {{ form.username|add_class:"form-control" }}
-    {{ form.username.errors }}
 
-</div>
+    {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field|add_class:"form-control" }}
+                {{ field.errors }}
+            </div>
+    {% endfor %}
 
-<div class="form-group">
-    {{ form.password.label_tag }}
-    {{ form.password|add_class:"form-control" }}
-    {{ form.password.errors }}
-</div>
         <input class="btn btn-primary pull-right" type="submit" value="Login" />
         <input type="hidden" name="next" value="{{ next }}" />
 </form>
+
 </div>
-    <div class="col-xs-12 col-md-4"></div>
 
 </div>
 
