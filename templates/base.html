@@ -42,6 +42,7 @@
         <div class="collapse navbar-collapse navbar-responsive-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li id="home"><a href="/">{% bootstrap_icon "home" %}</a></li>
+                <!--
                 <li class="dropdown">
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">About <span class="caret"></span></a>
                               <ul class="dropdown-menu" role="menu">
@@ -78,17 +79,18 @@
                 </li>
                 <li><a href="#">Scholarships</a></li>
                 <li><a href="#">Donate</a></li>
-
+            -->
             </ul>
+
 
             <ul class="nav navbar-nav pull-right">
                 {% if user.is_authenticated %}
 
                 <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{% bootstrap_icon "user" %} My Profile <span class="caret"></span></a>
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{% bootstrap_icon "user" %}  My Profile <span class="caret"></span></a>
                               <ul class="dropdown-menu" role="menu">
                                 <li id="profile_nabar"><a href="{% url 'user_profile' %}">Profile</a></li>
-                                <li><a href="{% url 'django.contrib.auth.views.logout' %}?next={% url 'home_page' %}"> Log out</a></li>
+                                <li><a href="{% url 'django.contrib.auth.views.logout' %}?next={% url 'home_page' %}">Log out</a></li>
                               </ul>
                 </li>
 

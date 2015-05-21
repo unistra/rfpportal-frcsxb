@@ -31,7 +31,7 @@ class UserProfile(models.Model):
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
-        UserProfile.objects.create(user=instance,num_connection=0)
+        UserProfile.objects.create(user=instance,num_connection=0,first_name = instance.first_name,last_name=instance.last_name)
 
 def update_userprofile(sender, instance, created, **kwargs):
     if not created:

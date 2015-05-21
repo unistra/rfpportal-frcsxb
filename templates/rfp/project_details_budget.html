@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Home {% endblock %}
+{% block title %} Budget for {{ project.name }} {% endblock %}
 
 {% block body_block %}
 
@@ -22,7 +22,6 @@
             <li class="tab_role " role="presentation"><a href="{% url 'project_detail' project.id %}">Project details</a></li>
             <li class="tab_role active" role="presentation"><a href="{% url 'project_budget' project.id %}">Budget</a></li>
             <li class="tab_role" role="presentation"><a href="{% url 'project_reviewer' project.id %}">Reviewers</a></li>
-            <li class="pull-right">{% if is_pi %}<a href="{% url 'edit_project' project.id %}">Edit the project details</a> {% elif is_rev %}<a href="{% url 'post_review' project.id %}">Post a review</a> {% endif %} </li>
         </ul>
     </div>
 </div>

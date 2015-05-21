@@ -164,8 +164,8 @@ font-weight:bold;
     margin: 10px 0px 10px 0px;
  }
 
-.project_data{
-
+.no_border{
+    border:None;
 }
 
 #edit{

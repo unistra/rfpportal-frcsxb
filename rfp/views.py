@@ -17,6 +17,7 @@ def is_reviewer(User):
 def is_pi(User):
     return User.groups.filter(name = 'Principal_Investigator').exists()
 
+
 def is_pi_or_reviewer(User):
     state = False
     if is_pi(User) or is_reviewer(User):
@@ -34,9 +35,8 @@ def budget_line_sum(budget_list):
         total_budgeted += int(bl_dict["amount"])
     return total_budgeted
 
-
 # Views start here.
-@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
+@user_passes_test(is_pi,login_url='/login/')
 def create_project(request):
     context = RequestContext(request)
     user = request.user
@@ -409,7 +409,7 @@ def rfp_list(request):
 
     context_dict = {'rfp_list': rfp_list, 'rfp_c' : rfp_c}
 
-    return render_to_response('rfp/rfp_list.html',context_dict,context)
+    return render_to_response('index.html',context_dict,context)
 
 def test_file(request):
     context= RequestContext(request)
