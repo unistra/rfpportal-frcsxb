@@ -1,0 +1,15 @@
+{% load i18n %}{% autoescape off %}
+{% blocktrans %}You're receiving this email because you've been invited to use the FRC portal.{% endblocktrans %}
+
+{% trans "Please go to the following page to set up your password:" %}
+{% block reset_link %}
+{{ protocol }}://{{ domain }}{% url 'django.contrib.auth.views.password_reset_confirm' uidb64=uid token=token %}
+{% endblock %}
+
+{% trans "Please take note of your username:" %} {{ user.get_username }}
+
+{% trans "If you have any questions, or feel that you received this email by mistake, please contact us." %}
+
+{% blocktrans %}The International Center for Frontier Research in Chemistry team.{% endblocktrans %}
+
+{% endautoescape %}

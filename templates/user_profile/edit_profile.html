@@ -15,8 +15,9 @@
     {% for f in form %}
     <div class = "form-group">
 
-            <label>{{ f.label }}</label>
+            <label>{{ f.label }} {% if f.field.required %} <span class="req"> *</span>{% endif %}</label>
             {{ f }}
+            {{ f.errors }}
 
     </div>
 

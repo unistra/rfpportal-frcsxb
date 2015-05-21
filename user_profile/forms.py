@@ -4,6 +4,7 @@ from models import UserProfile
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
+
 class sign_up(forms.Form):
 
     TITLE_CHOICES = (
@@ -53,4 +54,6 @@ class UserUpdate(forms.ModelForm):
             'state' : _('State/Region:'),
             'zip' : _('Postcode:')
         }
+
+
 
