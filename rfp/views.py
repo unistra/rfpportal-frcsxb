@@ -8,7 +8,7 @@ import datetime
 from user_profile.models import UserProfile
 
 from models import Project,Review,RequestForProposal,RfpCampaign,File_Test,ProposedReviewer,BudgetLine
-from forms import ProjectForm,file_test,UpdateForm,ReviewForm,ProposedReviewerFormSet,ProposedReviewerForm,BudgetLineEQ,BudgetLineHR,BudgetLineOP
+from forms import ProjectForm,file_test,UpdateForm,ReviewForm,ProposedReviewerFormSet,ProposedReviewerForm,BudgetLineEQ,BudgetLineHR,BudgetLineOP,ExcludedReviewerForm
 from django.core.urlresolvers import reverse
 
 def is_reviewer(User):
@@ -198,6 +198,30 @@ def edit_reviewer(request,proposedreviewerId):
     return render_to_response('rfp/edit_proposed_reviewer.html', {'f' : r, 'project' : project, 'user' : user, 'prop_rev' : prop_rev},context)
 
 @user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
+def edit_excluded_reviewer(request,proposedreviewerId):
+    context = RequestContext(request)
+    user = request.user
+    prop_rev = ProposedReviewer.objects.get( pk = proposedreviewerId )
+    project = Project.objects.get(pk = prop_rev.project.pk)
+
+    if request.method == 'POST':
+        if 'delete' in request.POST:
+             prop_rev.delete()
+             return HttpResponseRedirect(reverse('project_reviewer', args = [project.pk]))
+        else:
+            r = ExcludedReviewerForm(request.POST, instance = prop_rev)
+
+            if r.is_valid():
+                r.save()
+
+                return HttpResponseRedirect(reverse('project_reviewer', args = [prop_rev.project.pk]))
+
+    else:
+        r = ExcludedReviewerForm(instance= prop_rev)
+
+    return render_to_response('rfp/edit_excluded_reviewer.html', {'f' : r, 'project' : project, 'user' : user, 'prop_rev' : prop_rev},context)
+
+@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
 def add_unique_reviewer(request, projectId):
     context = RequestContext(request)
     user = request.user
@@ -217,25 +241,28 @@ def add_unique_reviewer(request, projectId):
 
     return render_to_response('rfp/add_unique_review.html', {'f' : r, 'project' : project, 'user' : user},context)
 
-
+@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
 def exclude_unique_reviewer(request, projectId):
     context = RequestContext(request)
     user = request.user
     project = Project.objects.get(pk = projectId)
 
     if request.method == 'POST':
-        r = ProposedReviewerForm(request.POST)
+        r = ExcludedReviewerForm(request.POST)
         if r.is_valid():
             reviewer = r.save(commit = False)
             reviewer.project = project
             reviewer.type = 'excluded'
+            reviewer.email = ''
             reviewer.save()
 
             return HttpResponseRedirect(reverse('project_reviewer', args = [project.pk]))
     else:
-        r = ProposedReviewerForm()
+        r = ExcludedReviewerForm()
 
     return render_to_response('rfp/exclude_unique_review.html', {'f' : r, 'project' : project, 'user' : user},context)
+
+
 
 @user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
 def add_budget_hr(request, projectId):

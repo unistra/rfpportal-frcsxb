@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     url(r'^edit_project/(?P<projectId>\d+)/$',views.edit_project,name='edit_project'),
     url(r'^propose_reviewer/(?P<projectId>\d+)/$',views.propose_reviewer,name='propose_reviewer'),
     url(r'^edit_reviewer/(?P<proposedreviewerId>\d+)/$',views.edit_reviewer,name='edit_reviewer'),
+    url(r'^edit_excluded_reviewer/(?P<proposedreviewerId>\d+)/$',views.edit_excluded_reviewer,name='edit_excluded_reviewer'),
     url(r'^add_unique_reviewer/(?P<projectId>\d+)/$',views.add_unique_reviewer,name='add_unique_reviewer'),
     url(r'^exclude_unique_reviewer/(?P<projectId>\d+)/$',views.exclude_unique_reviewer,name='exclude_unique_reviewer'),
 

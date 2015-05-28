@@ -4,17 +4,17 @@
 
 {% block body_block %}
 
-
-<div class="container">
-        <div class = "">
+<div class = "container">
+        <div class = "no-padding">
         <h2>{{ project.name }}</h2>
         <h4> {{ project.rfp.name }}</h4>
         <p>Team Leader: <a href = "{% url 'user_profile' %}">{{ user.userprofile }}</a></p>
         <p>Research Unit: {{ user.userprofile.organization }} - {{ user.userprofile.insitute_research_unit}}</p>
-        <legend>Excluded Reviewer information</legend>
+        <p>Email: <a href = "matilto: {{ user.email }}">{{ user.email }}</a></p>
         </div>
+<h4>Edit the Reviewer Information</h4>
 
-<form class=""  method = "post" enctype="multipart/form-data"  action="{% url 'exclude_unique_reviewer' project.pk %}" >
+<form class=""  method = "post" enctype="multipart/form-data"  action="{% url 'edit_excluded_reviewer' prop_rev.pk %}" >
 
     {% csrf_token %}
         <p>{{ f.errors }}</p>
@@ -33,11 +33,11 @@
 
 
     <input class="save_btn btn btn-primary" type="submit" value="Save"  />
+    <input name="delete" style="margin-right:20px;" class="save_btn btn btn-danger" type="submit" value="Delete"  />
     <input type="hidden" name="next" value="{% url 'user_profile' %}" />
 
 </form>
 
-</div>
 
 </div>
 

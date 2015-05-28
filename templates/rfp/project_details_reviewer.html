@@ -73,8 +73,8 @@
                 <thead>
                         <tr>
                             <th>Contact</th>
-                            <th>Email</th>
-                            <th>City</th>
+
+                            <th>Institution</th>
                             <th>Country</th>
                             <th></th>
 
@@ -85,11 +85,11 @@
                     {% for r in prop_rev_list %}
                     {% if r.type == "excluded" %}
                     <tr>
-                        <td>{{ r }}</td>
-                        <td>{{ r.email }}</td>
-                        <td>{{ r.city }}</td>
+                        <td>{{ r.first_name }} {{ r.last_name }}</td>
+
+                        <td>{{ r.institution }}</td>
                         <td>{{ r.country }}</td>
-                        <td>{% if is_pi %}<a href = "{% url 'edit_reviewer' r.pk %}">Edit</a> {% endif %}</td>
+                        <td>{% if is_pi %}<a href = "{% url 'edit_excluded_reviewer' r.pk %}">Edit</a> {% endif %}</td>
                     </tr>
                     {% endif %}
                     {% endfor %}

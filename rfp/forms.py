@@ -119,6 +119,19 @@ class ProposedReviewerForm(ModelForm):
             'country' : forms.TextInput(attrs={'class':'form-control'}),
         }
 
+class ExcludedReviewerForm(ModelForm):
+    first_name = forms.CharField(required=True,widget=forms.TextInput(attrs={'class':'form-control'}))
+    last_name = forms.CharField(required=True,widget=forms.TextInput(attrs={'class':'form-control'}))
+
+    class Meta:
+        model = ProposedReviewer
+        exclude = {'project','type','email','address','state','postcode'}
+        widgets = {
+            'institution' : forms.TextInput(attrs={'class':'form-control'}),
+            'city' : forms.TextInput(attrs={'class':'form-control'}),
+            'country' : forms.TextInput(attrs={'class':'form-control'}),
+        }
+
 
 ProposedReviewerFormSet = modelformset_factory(
             ProposedReviewer,
