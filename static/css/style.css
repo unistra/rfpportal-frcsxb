@@ -137,11 +137,41 @@ font-weight:bold;
     font-size:12px;
 }
 
-
-
 .save_btn{
     width:100px;
     margin-top:20px;
+}
+
+.rfp_title{
+    margin:0px 0px 25px 0px;
+}
+
+.btn-apply{
+    margin-top:30px;
+    width:150px;
+    padding:10px 0px 10px 0px;
+    background-color:RGB(0,94,167) !important;
+    color:white;
+}
+
+.btn-apply:hover,.btn-apply:focus,.btn-action:hover,.btn-action:focus{
+    background-color:white !important;
+    color:RGB(0,94,167);
+    border: 1px solid RGB(0,94,167);
+}
+
+.btn-apply:active,.btn-action:active{
+    background-color:RGBA(0,94,167,0.7)!important;
+    color:white;
+    border: 1px solid RGB(0,94,167);
+    border:none;
+}
+
+.btn-action{
+    margin-top:30px;
+    padding:10px 20px 10px 20px;
+    background-color:RGB(0,94,167) !important;
+    color:white;
 }
 
 .edit_link > a

@@ -102,7 +102,6 @@ class ReviewForm(ModelForm):
             'question_2' : _('Describe outputs and impact on subject'),
         }
 
-
 class ProposedReviewerForm(ModelForm):
     first_name = forms.CharField(required=True,widget=forms.TextInput(attrs={'class':'form-control'}))
     last_name = forms.CharField(required=True,widget=forms.TextInput(attrs={'class':'form-control'}))
@@ -110,7 +109,7 @@ class ProposedReviewerForm(ModelForm):
 
     class Meta:
         model = ProposedReviewer
-        exclude = {'project'}
+        exclude = {'project','type'}
         widgets = {
             'institution' : forms.TextInput(attrs={'class':'form-control'}),
             'address' : forms.TextInput(attrs={'class':'form-control'}),
@@ -119,7 +118,6 @@ class ProposedReviewerForm(ModelForm):
             'postcode' : forms.TextInput(attrs={'class':'form-control'}),
             'country' : forms.TextInput(attrs={'class':'form-control'}),
         }
-
 
 
 ProposedReviewerFormSet = modelformset_factory(

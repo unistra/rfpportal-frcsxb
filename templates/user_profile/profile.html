@@ -71,7 +71,9 @@
         {% if is_pi %}
         <div class="row">
             <div class="col-xs-12 col-md-12">
-                <h2>Projects <span style="font-size:12px; line-height:50px;"><a href="{% url 'rfp_list' %}">Add a new projet</a></span></h2>
+                <h2>Projects</h2>
+                    <a class = "btn btn-action" href="{% url 'rfp_list' %}">Add a new project</a>
+
                 <table class="table">
 
                     <thead>

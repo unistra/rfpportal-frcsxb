@@ -21,10 +21,11 @@ urlpatterns = patterns('',
     url(r'^propose_reviewer/(?P<projectId>\d+)/$',views.propose_reviewer,name='propose_reviewer'),
     url(r'^edit_reviewer/(?P<proposedreviewerId>\d+)/$',views.edit_reviewer,name='edit_reviewer'),
     url(r'^add_unique_reviewer/(?P<projectId>\d+)/$',views.add_unique_reviewer,name='add_unique_reviewer'),
+    url(r'^exclude_unique_reviewer/(?P<projectId>\d+)/$',views.exclude_unique_reviewer,name='exclude_unique_reviewer'),
+
     url(r'^proposed_reviewer_list/(?P<projectId>\d+)/$',views.prop_reviewer_list,name='prop_reviewer_list'),
     url(r'^post_review/(?P<projectId>\d+)/$',views.post_review,name='post_review'),
     url(r'^rfp/(?P<rfpcampaignId>\d+)/$',views.rfp_campaign,name='rfpcampaign_detail'),
-    url(r'^rfp/$',views.rfp_list,name='rfp_list'),
+    url(r'^rfp/$',views.list_of_call_for_proposal,name='rfp_list'),
     url(r'^file_test/$',views.test_file,name='file_test'),
 )
-

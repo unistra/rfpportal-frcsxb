@@ -57,6 +57,8 @@ class ProposedReviewer(models.Model):
     state = models.CharField(max_length=255,blank=True,null=True)
     postcode = models.CharField(max_length = 255,blank=True,null=True)
     country = models.CharField(max_length=255,blank=True,null=True)
+    type = models.CharField(max_length=255,null=True,blank=True)
+
 
     def __unicode__(self):
         return (str(self.first_name) + " " + str(self.last_name) + " - " + str(self.institution))
@@ -75,13 +77,13 @@ class BudgetLine(models.Model):
 
 
 class Review(models.Model):
-    user=models.ForeignKey(User,verbose_name=u"Reviewer")
-    project=models.ForeignKey(Project, verbose_name=u"Project")
-    name=models.CharField(max_length=255,blank=True)
+    user = models.ForeignKey(User,verbose_name=u"Reviewer")
+    project = models.ForeignKey(Project, verbose_name=u"Project")
+    name = models.CharField(max_length=255,blank=True)
     question_1 = models.CharField(max_length=4000,null=True,blank=True)
     question_2 = models.CharField(max_length=4000,null=True,blank=True)
     date = models.DateField(null=True,blank=True)
-    document=models.FileField(upload_to=('reviews'),null=True,blank=True)
+    document = models.FileField(upload_to=('reviews'),null=True,blank=True)
 
     def __unicode__(self):
         return (str(self.user.first_name) + " " + str(self.user.last_name) + " for: " + str(self.project.name))

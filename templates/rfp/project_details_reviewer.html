@@ -48,7 +48,7 @@
 
                     <tbody>
                     {% for r in prop_rev_list %}
-
+                    {% if r.type == "proposed" %}
                     <tr>
                         <td>{{ r }}</a></td>
                         <td>{{ r.email }}</td>
@@ -56,13 +56,48 @@
                         <td>{{ r.country }}</td>
                         <td>{% if is_pi %}<a href = "{% url 'edit_reviewer' r.pk %}">Edit</a> {% endif %}</td>
                     </tr>
-
+                    {% endif %}
                     {% endfor %}
                     </tbody>
                 </table>
                 {% if is_pi %}<p>
                 <a href="{% url 'add_unique_reviewer' project.pk %}">
-                Add another reviewer
+                Propose another reviewer
+                </a></p>{% endif %}
+            </div>
+        </div>
+    <h3>Excluded Reviewer</h3>
+
+               <table class="table">
+
+                <thead>
+                        <tr>
+                            <th>Contact</th>
+                            <th>Email</th>
+                            <th>City</th>
+                            <th>Country</th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for r in prop_rev_list %}
+                    {% if r.type == "excluded" %}
+                    <tr>
+                        <td>{{ r }}</td>
+                        <td>{{ r.email }}</td>
+                        <td>{{ r.city }}</td>
+                        <td>{{ r.country }}</td>
+                        <td>{% if is_pi %}<a href = "{% url 'edit_reviewer' r.pk %}">Edit</a> {% endif %}</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% if is_pi %}<p>
+                <a href="{% url 'exclude_unique_reviewer' project.pk %}">
+                Exclude another reviewer
                 </a></p>{% endif %}
             </div>
         </div>

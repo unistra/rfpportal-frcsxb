@@ -208,6 +208,7 @@ def add_unique_reviewer(request, projectId):
         if r.is_valid():
             reviewer = r.save(commit = False)
             reviewer.project = project
+            reviewer.type = 'proposed'
             reviewer.save()
 
             return HttpResponseRedirect(reverse('project_reviewer', args = [project.pk]))
@@ -215,6 +216,26 @@ def add_unique_reviewer(request, projectId):
         r = ProposedReviewerForm()
 
     return render_to_response('rfp/add_unique_review.html', {'f' : r, 'project' : project, 'user' : user},context)
+
+
+def exclude_unique_reviewer(request, projectId):
+    context = RequestContext(request)
+    user = request.user
+    project = Project.objects.get(pk = projectId)
+
+    if request.method == 'POST':
+        r = ProposedReviewerForm(request.POST)
+        if r.is_valid():
+            reviewer = r.save(commit = False)
+            reviewer.project = project
+            reviewer.type = 'excluded'
+            reviewer.save()
+
+            return HttpResponseRedirect(reverse('project_reviewer', args = [project.pk]))
+    else:
+        r = ProposedReviewerForm()
+
+    return render_to_response('rfp/exclude_unique_review.html', {'f' : r, 'project' : project, 'user' : user},context)
 
 @user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
 def add_budget_hr(request, projectId):
@@ -392,6 +413,7 @@ def prop_reviewer_list(request,projectId):
 
     return render_to_response('rfp/list_of_proposed_reviewer.html', {'user' : user, 'project' : project, 'proposed_reviewers' : prop_rev_list}, context)
 
+@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
 def rfp_campaign(request,rfpcampaignId):
     context = RequestContext(request)
     user = request.user
@@ -401,7 +423,8 @@ def rfp_campaign(request,rfpcampaignId):
 
     return render_to_response('rfp/rfp_details.html',context_dict,context)
 
-def rfp_list(request):
+@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
+def list_of_call_for_proposal(request):
     context= RequestContext(request)
 
     rfp_list = RequestForProposal.objects.all()
@@ -409,7 +432,7 @@ def rfp_list(request):
 
     context_dict = {'rfp_list': rfp_list, 'rfp_c' : rfp_c}
 
-    return render_to_response('index.html',context_dict,context)
+    return render_to_response('rfp/rfp_list.html',context_dict,context)
 
 def test_file(request):
     context= RequestContext(request)
