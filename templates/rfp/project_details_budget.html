@@ -6,6 +6,8 @@
 
 <div class="container project_container">
 
+<!--Project Header-->
+{% block project_header %}
      <div class="row proj_header">
         <div class="col-xs-10 col-md-10">
             <h2><a style="text-decoration:none; color:black;" href="{% url 'project_detail' project.pk %}">{{ project.name }}</a></h2>
@@ -14,18 +16,23 @@
             <p><strong>Research Unit:</strong> {{ project.user.userprofile.organization }} - {{ project.user.userprofile.insitute_research_unit}}</p>
         </div>
     </div>
+{% endblock %}
 
 <!--Project Tab-->
+{% block project_tab %}
 <div class="row project_tab">
     <div class="col-xs-12 col-md-12">
         <ul class="nav nav-tabs">
-            <li class="tab_role " role="presentation"><a href="{% url 'project_detail' project.id %}">Project details</a></li>
+            <li class="tab_role " role="presentation"><a href="{% url 'project_detail' project.id %}">Details</a></li>
             <li class="tab_role active" role="presentation"><a href="{% url 'project_budget' project.id %}">Budget</a></li>
             <li class="tab_role" role="presentation"><a href="{% url 'project_reviewer' project.id %}">Reviewers</a></li>
         </ul>
     </div>
 </div>
+{% endblock %}
 
+<!-- Project Budget for HR-->
+{% block project_budget_html %}
 <div class="row" id="budget_detail">
             <div class="col-xs-12 col-md-12">
             <h3>Budget</h3>
@@ -129,11 +136,11 @@
 
                     </tbody>
                 </table>
-
+            {% block project_next %} {% endblock %}
             </div>
         </div>
+{%endblock %}
 
 
 </div>
-
 {% endblock %}

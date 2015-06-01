@@ -25,9 +25,19 @@
 
     <div class = "row">
         <div class = "col-xs-12 col-md-12">
-            <h1>Introduction</h1>
-                <p>The International Center for Frontier Research in Chemistry offers scientific grant opportunities for members of the FRC network.</p>
-                    <div align="center"><a class="btn btn-action" href="{% url 'user_profile' %}">{% if user.is_anonymous %}Login to your Account {% else %}Account Information{% endif %}</a></div>
+            <div class="col-xs-12 col-md-2"></div>
+            <div class = "col-xs-12 col-md-4">
+                <form action="{% url 'rfp_list' %}">
+                <button class="index_menu" type="submit">Call for Proposals</button>
+                </form>
+            </div>
+
+            <div class = "col-xs-12 col-md-4">
+                <form action="{% url 'user_profile' %}">
+                <button class="index_menu" type="submit">{% if user.is_anonymous %}Login to your Account {% else %}Account Information{% endif %}</button>
+                </form>
+            </div>
+            <div class="col-xs-12 col-md-2"></div>
         </div>
     </div>
 

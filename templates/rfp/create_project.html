@@ -6,6 +6,13 @@
 
 <div class="container">
 
+<ol class="progtrckr" data-progtrckr-steps="3">
+    <li class="progtrckr-todo">Details</li>
+    <li class="progtrckr-todo">Budget</li>
+    <li class="progtrckr-todo">Reviewers</li>
+</ol>
+
+
 <div class="col-xs-12 col-md-12">
 
     <h1> Create a Project</h1>
@@ -119,7 +126,7 @@
             {% endif %}
         {% endfor %}
 
-     <input class="save_btn btn btn-primary pull-right" type="submit" value="Save"  />
+     <input class="btn btn-apply pull-right" type="submit" value="Next"  />
      <input type="hidden" name="next" value="{% url 'user_profile' %}" />
 
 </form>

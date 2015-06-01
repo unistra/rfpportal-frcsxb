@@ -14,11 +14,11 @@
             <div class="col-xs-12 col-md-4">
                 <h3>Account information</h3>
                 <p>Username: {{ user }}<br>
-                <span style="font-size : 12px;">Click <a href = "{% url 'password_change' %}">here</a> to change your password.</span></p>
+                <span class="small_link">Click <a href = "{% url 'password_change' %}">here</a> to change your password.</span></p>
             </div>
             
             <div class="col-xs-12 col-md-4">
-                <h3>Contact information <span style="font-size : 12px;"><a href = "{% url 'edit_profile' %}">Edit</a></span></h3>
+                <h3>Contact information <span class="small_link"><a href = "{% url 'edit_profile' %}">Edit your information</a></span></h3>
                 <p> {{ user_profile.first_name }} {{ user_profile.last_name }}<br/>
                 Email: {{ user.email }}</p>
                 <p> Organization: <strong>{{ user_profile.organization }}</strong><br>
@@ -71,15 +71,14 @@
         {% if is_pi %}
         <div class="row">
             <div class="col-xs-12 col-md-12">
-                <h2>Projects</h2>
-                    <a class = "btn btn-action" href="{% url 'rfp_list' %}">Add a new project</a>
+                <h2>Projects <a class = "small_link" href="{% url 'rfp_list' %}">Add a new projet</a></h2>
 
                 <table class="table">
 
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Requested ($)</th>
+                            <th>Requested</th>
                             <th>Call for Proposal</th>
                             <th>Starting Date</th>
                             <th>Project Duration</th>

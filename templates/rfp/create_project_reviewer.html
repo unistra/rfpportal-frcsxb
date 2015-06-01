@@ -1,0 +1,21 @@
+{% extends 'rfp/project_details_reviewer.html' %}
+
+{% block title %}Create the Budget for {{ project.name }} {% endblock %}
+
+
+{% block project_header %}
+
+<ol class="progtrckr" data-progtrckr-steps="3">
+    <li class="progtrckr-done">Details</li>
+    <li class="progtrckr-done">Budget</li>
+    <li class="progtrckr-todo">Reviewers</li>
+</ol>
+
+
+{% endblock %}
+
+{% block project_tab %} {% endblock %}
+
+{% block project_next %}
+    <a class="btn btn-apply" href="{% url 'user_profile' %}">Next</a>
+{% endblock %}

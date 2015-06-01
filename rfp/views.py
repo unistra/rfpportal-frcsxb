@@ -40,6 +40,7 @@ def budget_line_sum(budget_list):
 def create_project(request):
     context = RequestContext(request)
     user = request.user
+    progress_status = 30
 
     if request.method == 'POST':
         p = ProjectForm(request.POST,request.FILES)
@@ -48,12 +49,59 @@ def create_project(request):
            proj = p.save (commit=False)
            proj.user = user
            project = p.save()
-           return HttpResponseRedirect(reverse('project_budget', args=[project.pk]))
+           return HttpResponseRedirect(reverse('create_project_budget', args=[project.pk]))
 
     else:
         p = ProjectForm()
 
-    return render_to_response('rfp/create_project.html',{'form' : p, 'user' : user}, context)
+    return render_to_response('rfp/create_project.html',{'form' : p, 'user' : user, 'progress_status' : progress_status}, context)
+
+@user_passes_test(is_pi_or_reviewer,login_url='/login/',redirect_field_name='next')
+def create_project_budget(request,projectId):
+    context = RequestContext(request)
+    user = request.user
+    project=Project.objects.get(id=projectId)
+
+
+    budget_line_list = BudgetLine.objects.filter(project = project)
+    hr_budget_line_list = BudgetLine.objects.filter(project = project,category = 'HR')
+    oc_budget_line_list = BudgetLine.objects.filter(project = project,category = 'OC')
+    eq_budget_line_list = BudgetLine.objects.filter(project = project,category = 'EQ')
+
+    is_p = is_pi(user)
+    is_rev = is_reviewer(user)
+    oc_total = budget_line_sum(oc_budget_line_list)
+    hr_total = budget_line_sum(hr_budget_line_list)
+    eq_total = budget_line_sum(eq_budget_line_list)
+    total = oc_total + hr_total + eq_total
+
+    progress_status = 60
+
+    context_dict={'project' : project,'user' : user,'is_pi': is_p, 'bl' : budget_line_list,
+    'is_rev' : is_rev,'progress_status' : progress_status,
+    'hr_budget_lines_list' : hr_budget_line_list, 'oc_budget_lines_list' : oc_budget_line_list,
+    'eq_budget_lines_list' : eq_budget_line_list,
+    'oc_total' : oc_total, 'hr_total' : hr_total, 'eq_total' : eq_total, 'total' : total}
+
+    return render_to_response('rfp/create_project_budget.html',context_dict,context)
+
+def create_project_reviewer(request,projectId):
+    context = RequestContext(request)
+    user = request.user
+    project=Project.objects.get(id=projectId)
+
+    project_data = UpdateForm(data=model_to_dict(project))
+    prop_rev_list = ProposedReviewer.objects.filter(project = project)
+    budget_line_list = BudgetLine.objects.filter(project = project)
+
+    is_p = is_pi(user)
+    is_rev = is_reviewer(user)
+
+    context_dict={'project' : project,'user' : user,'project_data' : project_data,'is_pi': is_p, 'bl' : budget_line_list,
+    'is_rev' : is_rev, 'prop_rev_list' : prop_rev_list}
+
+    return render_to_response('rfp/create_project_reviewer.html',context_dict,context)
+
 
 @user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
 def edit_project(request,projectId):
@@ -261,8 +309,6 @@ def exclude_unique_reviewer(request, projectId):
         r = ExcludedReviewerForm()
 
     return render_to_response('rfp/exclude_unique_review.html', {'f' : r, 'project' : project, 'user' : user},context)
-
-
 
 @user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
 def add_budget_hr(request, projectId):

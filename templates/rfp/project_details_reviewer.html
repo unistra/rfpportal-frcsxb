@@ -6,6 +6,7 @@
 
 <div class="container project_container">
 
+{% block project_header %}
     <div class="row proj_header">
         <div class="col-xs-10 col-md-10">
             <h2><a style="text-decoration:none; color:black;" href="{% url 'project_detail' project.pk %}">{{ project.name }}</a></h2>
@@ -14,19 +15,22 @@
             <p><strong>Research Unit:</strong> {{ project.user.userprofile.organization }} - {{ project.user.userprofile.insitute_research_unit}}</p>
         </div>
     </div>
+{% endblock %}
 
+{% block project_tab %}
 <!--Project Tab-->
 <div class="row project_tab">
     <div class="col-xs-12 col-md-12">
     <ul class="nav nav-tabs">
-        <li class="tab_role" role="presentation"><a href="{% url 'project_detail' project.id %}">Project details</a></li>
+        <li class="tab_role" role="presentation"><a href="{% url 'project_detail' project.id %}">Details</a></li>
         <li class="tab_role" role="presentation"><a href="{% url 'project_budget' project.id %}">Budget</a></li>
         <li class="tab_role active" role="presentation"><a href="{% url 'project_reviewer' project.id %}">Reviewers</a></li>
     </ul>
         </div>
 </div>
+{% endblock %}
 
-
+{% block reviewer_details %}
 <!--Reviewer Detail-->
 <div class="row " id="reviewer_detail">
             <div class="col-xs-12 col-md-12">
@@ -67,8 +71,7 @@
             </div>
         </div>
     <h3>Excluded Reviewer</h3>
-
-               <table class="table">
+            <table class="table">
 
                 <thead>
                         <tr>
@@ -99,9 +102,10 @@
                 <a href="{% url 'exclude_unique_reviewer' project.pk %}">
                 Exclude another reviewer
                 </a></p>{% endif %}
-            </div>
-        </div>
+
+    {% block project_next %} {% endblock %}
 
 </div>
+{% endblock %}
 
 {% endblock %}
