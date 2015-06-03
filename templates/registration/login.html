@@ -26,6 +26,8 @@
 
 <div class="row">
 
+    {% block permission_message %} {% endblock %}
+
     {% if form.errors %}
     <div class="alert alert-danger" role="alert">
     <p style="text-align:center;">Username/Password does not match. Please try again. If you're having issues accessing your account please <a href="mailto:loison@icfrc.fr">contact us</a>.</p>
@@ -63,6 +65,7 @@
 
 <div class="col-xs-12 col-md-4">
     <p>Forgot your password? <a href="{% url 'password_reset' %}">Click here.</a></p>
+    <p> Click <a href="{% url 'home_page' %}">here</a> to go back to the homepage.</p>
     <!--<p>Need an account? Click <a href="{% url 'create_profile' %}">here</a> to create.</p>-->
 </div>
 

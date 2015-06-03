@@ -14,9 +14,9 @@ from django.core.urlresolvers import reverse
 def is_reviewer(User):
     return User.groups.filter(name='Reviewer').exists()
 
+
 def is_pi(User):
     return User.groups.filter(name = 'Principal_Investigator').exists()
-
 
 def is_pi_or_reviewer(User):
     state = False
@@ -56,7 +56,7 @@ def create_project(request):
 
     return render_to_response('rfp/create_project.html',{'form' : p, 'user' : user, 'progress_status' : progress_status}, context)
 
-@user_passes_test(is_pi_or_reviewer,login_url='/login/',redirect_field_name='next')
+@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
 def create_project_budget(request,projectId):
     context = RequestContext(request)
     user = request.user
@@ -85,6 +85,7 @@ def create_project_budget(request,projectId):
 
     return render_to_response('rfp/create_project_budget.html',context_dict,context)
 
+@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
 def create_project_reviewer(request,projectId):
     context = RequestContext(request)
     user = request.user
@@ -101,7 +102,6 @@ def create_project_reviewer(request,projectId):
     'is_rev' : is_rev, 'prop_rev_list' : prop_rev_list}
 
     return render_to_response('rfp/create_project_reviewer.html',context_dict,context)
-
 
 @user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
 def edit_project(request,projectId):
@@ -178,7 +178,7 @@ def project_detail_budget(request,projectId):
 
     return render_to_response('rfp/project_details_budget.html',context_dict,context)
 
-@user_passes_test(is_pi_or_reviewer,login_url='/login/',redirect_field_name='next')
+@user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def project_detail_reviewers(request,projectId):
     context = RequestContext(request)
     user = request.user
@@ -221,7 +221,7 @@ def post_review(request,projectId):
 
     return render_to_response('rfp/post_review.html',{'form' : r, 'project' : project, 'user' : user, 'up' : user_profile}, context)
 
-@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
+@user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def edit_reviewer(request,proposedreviewerId):
     context = RequestContext(request)
     user = request.user
@@ -245,7 +245,7 @@ def edit_reviewer(request,proposedreviewerId):
 
     return render_to_response('rfp/edit_proposed_reviewer.html', {'f' : r, 'project' : project, 'user' : user, 'prop_rev' : prop_rev},context)
 
-@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
+@user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def edit_excluded_reviewer(request,proposedreviewerId):
     context = RequestContext(request)
     user = request.user
@@ -269,7 +269,7 @@ def edit_excluded_reviewer(request,proposedreviewerId):
 
     return render_to_response('rfp/edit_excluded_reviewer.html', {'f' : r, 'project' : project, 'user' : user, 'prop_rev' : prop_rev},context)
 
-@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
+@user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def add_unique_reviewer(request, projectId):
     context = RequestContext(request)
     user = request.user
@@ -289,7 +289,7 @@ def add_unique_reviewer(request, projectId):
 
     return render_to_response('rfp/add_unique_review.html', {'f' : r, 'project' : project, 'user' : user},context)
 
-@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
+@user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def exclude_unique_reviewer(request, projectId):
     context = RequestContext(request)
     user = request.user
@@ -310,7 +310,7 @@ def exclude_unique_reviewer(request, projectId):
 
     return render_to_response('rfp/exclude_unique_review.html', {'f' : r, 'project' : project, 'user' : user},context)
 
-@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
+@user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def add_budget_hr(request, projectId):
     context = RequestContext(request)
     user = request.user
@@ -334,7 +334,7 @@ def add_budget_hr(request, projectId):
 
     return render_to_response('rfp/add_budget_hr.html',{'form' : form, 'user' : user, 'project' : project},context)
 
-@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
+@user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def edit_budget_hr(request, budgetlineId):
     context = RequestContext(request)
     user = request.user
@@ -359,7 +359,7 @@ def edit_budget_hr(request, budgetlineId):
 
     return render_to_response('rfp/edit_budget_hr.html',{'form' : form, 'user' : user,'bl': bl},context)
 
-@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
+@user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def add_budget_eq(request, projectId):
     context = RequestContext(request)
     user = request.user
@@ -382,7 +382,7 @@ def add_budget_eq(request, projectId):
 
     return render_to_response('rfp/add_budget_eq.html',{'form' : form, 'user' : user, 'project' : project},context)
 
-@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
+@user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def edit_budget_eq(request, budgetlineId):
     context = RequestContext(request)
     user = request.user
@@ -407,7 +407,7 @@ def edit_budget_eq(request, budgetlineId):
 
     return render_to_response('rfp/edit_budget_eq.html',{'form' : form, 'user' : user,'bl': bl},context)
 
-@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
+@user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def add_budget_op(request, projectId):
     context = RequestContext(request)
     user = request.user
@@ -430,7 +430,7 @@ def add_budget_op(request, projectId):
 
     return render_to_response('rfp/add_budget_op.html',{'form' : form, 'user' : user, 'project' : project},context)
 
-@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
+@user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def edit_budget_op(request, budgetlineId):
     context = RequestContext(request)
     user = request.user
@@ -455,7 +455,7 @@ def edit_budget_op(request, budgetlineId):
 
     return render_to_response('rfp/edit_budget_op.html',{'form' : form, 'user' : user,'bl': bl},context)
 
-@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
+@user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def propose_reviewer(request,projectId):
     context = RequestContext(request)
     user = request.user
@@ -476,7 +476,7 @@ def propose_reviewer(request,projectId):
 
     return render_to_response('rfp/propose_reviewer.html',{'formset' : r, 'user' : user, 'project' : project}, context)
 
-@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
+@user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def prop_reviewer_list(request,projectId):
     context = RequestContext(request)
     user = request.user
@@ -486,7 +486,7 @@ def prop_reviewer_list(request,projectId):
 
     return render_to_response('rfp/list_of_proposed_reviewer.html', {'user' : user, 'project' : project, 'proposed_reviewers' : prop_rev_list}, context)
 
-@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
+@user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def rfp_campaign(request,rfpcampaignId):
     context = RequestContext(request)
     user = request.user
@@ -496,7 +496,7 @@ def rfp_campaign(request,rfpcampaignId):
 
     return render_to_response('rfp/rfp_details.html',context_dict,context)
 
-@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
+@user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def list_of_call_for_proposal(request):
     context= RequestContext(request)
 

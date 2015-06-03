@@ -21,8 +21,8 @@
         <ul class="nav nav-tabs">
             <li class="tab_role active" role="presentation"><a href="{% url 'project_detail' project.id %}">Details</a></li>
             <li class="tab_role" role="presentation"><a href="{% url 'project_budget' project.id %}">Budget</a></li>
-            <li class="tab_role" role="presentation"><a href="{% url 'project_reviewer' project.id %}">Reviewers</a></li>
-            <li class="pull-right">{% if is_pi %}<a href="{% url 'edit_project' project.id %}">Edit the project details</a> {% elif is_rev %}<a href="{% url 'post_review' project.id %}">Post a review</a> {% endif %} </li>
+            {% if is_pi %}<li class="tab_role" role="presentation"><a href="{% url 'project_reviewer' project.id %}">Reviewers</a></li>{% endif %}
+            {% if is_rev %}<li class="tab_role review_tab pull-right"><a href="{% url 'post_review' project.id %}">Post a review</a> </li>{% endif %}
         </ul>
     </div>
 </div>
@@ -31,6 +31,8 @@
 <div class="row" id="project_detail">
 
 <div class="col-xs-12 col-md-12">
+
+{% if is_pi %}<a href="{% url 'edit_project' project.id %}">Edit the project details</a>{% endif %}
 
 {% for p in project_data %}
     {% if p.label == '' %}

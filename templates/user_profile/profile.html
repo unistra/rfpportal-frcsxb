@@ -94,7 +94,7 @@
                             <td><a href="{% url 'project_detail' p.id %}">{{ p.name }}</a></td>
                             <td>{{ p.requested_amount }}</td>
                             <td><a href="{% url 'rfpcampaign_detail' p.rfp.id %}">{{ p.rfp.name }}</a></td>
-                            <td>{{ p.starting_date }}</a></td>
+                            <td>{{ p.starting_date|date:"SHORT_DATE_FORMAT" }}</a></td>
                             <td>{{ p.project_duration }}</a></td>
                             <td>{% if p.document %} <a href="{{ p.document.url }}">{{ p.document.name }}</a> {% else %} <em>No File</em> {% endif %}</td>
                             <td>Pending</td>
