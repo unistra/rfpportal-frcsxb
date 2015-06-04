@@ -94,7 +94,7 @@ def edit_profile(request):
     context_dict = {'user' : user, 'form' : form, 'UP' : up}
     return render_to_response('user_profile/edit_profile.html', context_dict, context)
 
-#Access an exiting profile
+#Access an existing profile
 @login_required(login_url="/login/?next={% 'user_profile' %}")
 #@user_passes_test(is_pi, login_url='/')
 def index_profile(request):

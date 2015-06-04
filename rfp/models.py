@@ -1,6 +1,10 @@
 from django.db import models
 from user_profile.models import UserProfile
 from django.core.files.storage import FileSystemStorage
+from django.core.mail import send_mail
+from django.db.models.signals import post_save
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import render_to_string
 
 from django.contrib.auth.models import User
 
@@ -92,3 +96,21 @@ class Review(models.Model):
 class File_Test(models.Model):
     name=models.CharField(max_length=255)
     document=models.FileField(null=True)
+
+def send_project_confirmation_email(sender, instance, created, **kwargs):
+    if created:
+
+        c = {'project' : instance}
+
+        msg_plain = render_to_string('rfp/email/project_confirmation.txt',c)
+        msg_html = render_to_string('rfp/email/project_confirmation.html',c)
+
+        send_mail('Your project has been succesfully submitted',
+                  msg_plain, 'contact@icfrc.fr', [instance.user.email],
+                  html_message=msg_html, fail_silently=False)
+
+        print('Confirmation Email Sent ?')
+
+post_save.connect(send_project_confirmation_email,sender = Project)
+
+

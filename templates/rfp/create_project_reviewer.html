@@ -1,21 +1,24 @@
 {% extends 'rfp/project_details_reviewer.html' %}
 
-{% block title %}Create the Budget for {{ project.name }} {% endblock %}
+{% block title %}Propose reviewer for {{ project.name }} {% endblock %}
 
 
 {% block project_header %}
-
-<ol class="progtrckr" data-progtrckr-steps="3">
-    <li class="progtrckr-done">Details</li>
-    <li class="progtrckr-done">Budget</li>
-    <li class="progtrckr-todo">Reviewers</li>
-</ol>
-
-
+<!--Project Header-->
+{% include 'rfp/project/project_header.html' %}
+{% include 'rfp/project/progress_bar.html' %}
 {% endblock %}
 
 {% block project_tab %} {% endblock %}
 
 {% block project_next %}
-    <a class="btn btn-apply" href="{% url 'user_profile' %}">Next</a>
+    <a class="btn btn-apply pull-right" href="{% url 'user_profile' %}">Next</a>
+
+<script>
+    $('#step_1').removeClass('progtrckr-todo').addClass('progtrckr-done');
+    $('#step_2').removeClass('progtrckr-todo').addClass('progtrckr-done');
+    $('#step_3').removeClass('progtrckr-todo').addClass('progtrckr-focus');
+</script>
+
 {% endblock %}
+

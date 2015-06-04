@@ -193,6 +193,12 @@ ol.progtrckr li.progtrckr-todo {
     border-bottom: 4px solid RGB(0,94,167);
 }
 
+ol.progtrckr li.progtrckr-focus{
+    color: black;
+    font-weight: bold;
+    border-bottom: 4px solid RGB(0,94,167);
+}
+
 ol.progtrckr li:after {
     content: "\00a0\00a0";
 }
@@ -216,6 +222,14 @@ ol.progtrckr li.progtrckr-done:before {
 ol.progtrckr li.progtrckr-todo:before {
     content: "\039F";
     color: silver;
+    background-color: white;
+    font-size: 1.5em;
+    bottom: -1.6em;
+}
+
+ol.progtrckr li.progtrckr-focus:before {
+    content: "\039F";
+    color: black;
     background-color: white;
     font-size: 1.5em;
     bottom: -1.6em;

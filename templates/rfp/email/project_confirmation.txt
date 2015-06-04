@@ -1,0 +1,9 @@
+Dear Sir,
+
+Thank you for submitting your project: {{ project }}.
+
+We will review carefully this application.
+
+Best,
+
+The FRC Team.

@@ -14,7 +14,6 @@ from django.core.urlresolvers import reverse
 def is_reviewer(User):
     return User.groups.filter(name='Reviewer').exists()
 
-
 def is_pi(User):
     return User.groups.filter(name = 'Principal_Investigator').exists()
 
@@ -310,6 +309,21 @@ def exclude_unique_reviewer(request, projectId):
 
     return render_to_response('rfp/exclude_unique_review.html', {'f' : r, 'project' : project, 'user' : user},context)
 
+
+def redirect_add_form(request,project,create_form,existing_form):
+    """
+    Redirect the user to the point of entry to the Add Budget Line. Uses "redirect" url parameter and jquery update.
+    :param request: HTTP request
+    :param project: rfp.models.Project
+    :param create_form: String
+    :param existing_form: String
+    :return: HttpResponseRedirect
+    """
+    if 'redirect' in request.POST:
+                    return HttpResponseRedirect(reverse(existing_form, args = [project.pk]))
+    else:
+                    return HttpResponseRedirect(reverse(create_form, args = [project.pk]))
+
 @user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def add_budget_hr(request, projectId):
     context = RequestContext(request)
@@ -319,15 +333,21 @@ def add_budget_hr(request, projectId):
 
     if request.method == 'POST':
         form = BudgetLineHR(request.POST)
-        print form
 
         if form.is_valid() :
-            bl = form.save(commit=False)
-            bl.project = project
-            bl.category = 'HR'
-            bl.save()
 
-            return HttpResponseRedirect(reverse('project_budget', args = [project.pk]))
+                bl = form.save(commit=False)
+                bl.project = project
+                bl.category = 'HR'
+                bl.save()
+
+                #redirect_add_form(request,project,'create_project_budget','project_budget')
+
+                if 'redirect' in request.POST:
+                    return HttpResponseRedirect(reverse('create_project_budget', args = [project.pk]))
+                else:
+                    return HttpResponseRedirect(reverse('project_budget', args = [project.pk]))
+
 
     else:
         form = BudgetLineHR()

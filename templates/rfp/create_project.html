@@ -6,12 +6,7 @@
 
 <div class="container">
 
-<ol class="progtrckr" data-progtrckr-steps="3">
-    <li class="progtrckr-todo">Details</li>
-    <li class="progtrckr-todo">Budget</li>
-    <li class="progtrckr-todo">Reviewers</li>
-</ol>
-
+    {% include 'rfp/project/progress_bar.html' %}
 
 <div class="col-xs-12 col-md-12">
 
@@ -133,6 +128,10 @@
 </div>
 
 </div>
+
+<script>
+    $('#step_1').removeClass('progtrckr-todo').addClass('progtrckr-focus');
+</script>
 
 {% endblock %}
 

@@ -36,7 +36,7 @@ def create_user_profile(sender, instance, created, **kwargs):
 def update_userprofile(sender, instance, created, **kwargs):
     if not created:
         UserProfile.objects.filter(user=instance.pk).update(first_name = instance.first_name, last_name = instance.last_name)
-        print('UserProfile information updated?')
+
 
 def udpate_num_of_connection(sender, request, user, **kwargs):
     u_num = UserProfile.objects.get(user = user.pk).num_connection

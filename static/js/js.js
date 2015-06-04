@@ -16,13 +16,19 @@ $( document ).ready(function() {
 
    var rfp = getUrlParameter('rfp');
    var id = getUrlParameter('u');
-   console.log(rfp);
+   var redirect = getUrlParameter('redirect');
+
+   console.log(redirect);
 
    $('#id_rfp').val(rfp);
    $('#id_user').val(id);
+
+
+   if (redirect != 'undefined') {
+       $('#redirect').attr('name', 'redirect');
+   }
+
    $('#id_ending_date').datepicker();
    $('#id_starting_date').datepicker();
-
-
 
 });
