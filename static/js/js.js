@@ -25,7 +25,7 @@ $( document ).ready(function() {
 
 
    if (redirect != 'undefined') {
-       $('#redirect').attr('name', 'redirect');
+       $('#redirect').attr('value', redirect);
    }
 
    $('#id_ending_date').datepicker();

@@ -74,10 +74,10 @@ def create_project_budget(request,projectId):
     eq_total = budget_line_sum(eq_budget_line_list)
     total = oc_total + hr_total + eq_total
 
-    progress_status = 60
+    current_url = reverse('create_project_budget', args = [project.pk])
 
     context_dict={'project' : project,'user' : user,'is_pi': is_p, 'bl' : budget_line_list,
-    'is_rev' : is_rev,'progress_status' : progress_status,
+    'is_rev' : is_rev,'current_url' : current_url,
     'hr_budget_lines_list' : hr_budget_line_list, 'oc_budget_lines_list' : oc_budget_line_list,
     'eq_budget_lines_list' : eq_budget_line_list,
     'oc_total' : oc_total, 'hr_total' : hr_total, 'eq_total' : eq_total, 'total' : total}
@@ -96,8 +96,9 @@ def create_project_reviewer(request,projectId):
 
     is_p = is_pi(user)
     is_rev = is_reviewer(user)
+    current_url = reverse('create_project_reviewer', args = [project.pk])
 
-    context_dict={'project' : project,'user' : user,'project_data' : project_data,'is_pi': is_p, 'bl' : budget_line_list,
+    context_dict={'current_url' : current_url,'project' : project,'user' : user,'project_data' : project_data,'is_pi': is_p, 'bl' : budget_line_list,
     'is_rev' : is_rev, 'prop_rev_list' : prop_rev_list}
 
     return render_to_response('rfp/create_project_reviewer.html',context_dict,context)
@@ -141,9 +142,10 @@ def project_detail(request,projectId):
     hr_total = budget_line_sum(hr_budget_line_list)
     eq_total = budget_line_sum(eq_budget_line_list)
     total = oc_total + hr_total + eq_total
+    current_url = reverse('project_budget', args = [project.pk])
 
     context_dict={'project' : project,'user' : user,'project_data' : project_data,'is_pi': is_p, 'bl' : budget_line_list,
-    'is_rev' : is_rev, 'prop_rev_list' : prop_rev_list,
+    'is_rev' : is_rev, 'prop_rev_list' : prop_rev_list,'current_url':current_url,
     'hr_budget_lines_list' : hr_budget_line_list, 'oc_budget_lines_list' : oc_budget_line_list,
     'eq_budget_lines_list' : eq_budget_line_list,
    'oc_total' : oc_total, 'hr_total' : hr_total, 'eq_total' : eq_total, 'total' : total}
@@ -168,9 +170,10 @@ def project_detail_budget(request,projectId):
     hr_total = budget_line_sum(hr_budget_line_list)
     eq_total = budget_line_sum(eq_budget_line_list)
     total = oc_total + hr_total + eq_total
+    current_url = reverse('project_budget', args = [project.pk])
 
     context_dict={'project' : project,'user' : user,'is_pi': is_p, 'bl' : budget_line_list,
-    'is_rev' : is_rev,
+    'is_rev' : is_rev,'current_url' : current_url,
     'hr_budget_lines_list' : hr_budget_line_list, 'oc_budget_lines_list' : oc_budget_line_list,
     'eq_budget_lines_list' : eq_budget_line_list,
    'oc_total' : oc_total, 'hr_total' : hr_total, 'eq_total' : eq_total, 'total' : total}
@@ -189,8 +192,9 @@ def project_detail_reviewers(request,projectId):
 
     is_p = is_pi(user)
     is_rev = is_reviewer(user)
+    current_url = reverse('project_reviewer', args = [project.pk])
 
-    context_dict={'project' : project,'user' : user,'project_data' : project_data,'is_pi': is_p, 'bl' : budget_line_list,
+    context_dict={'current_url' : current_url,'project' : project,'user' : user,'project_data' : project_data,'is_pi': is_p, 'bl' : budget_line_list,
     'is_rev' : is_rev, 'prop_rev_list' : prop_rev_list}
 
     return render_to_response('rfp/project_details_reviewer.html',context_dict,context)
@@ -204,6 +208,8 @@ def post_review(request,projectId):
     review = Review.objects.get(user = user.pk, project = project.pk)
 
     if request.method == 'POST':
+        alldata = request.POST
+        redirect = alldata.get('redirect','0')
         r = ReviewForm(request.POST,request.FILES,instance = review)
 
         if r.is_valid:
@@ -213,7 +219,7 @@ def post_review(request,projectId):
             r.project = project
             r.save()
 
-            return HttpResponseRedirect(reverse('user_profile'))
+            return HttpResponseRedirect(redirect)
 
     else:
         r = ReviewForm(instance = review)
@@ -226,18 +232,21 @@ def edit_reviewer(request,proposedreviewerId):
     user = request.user
     prop_rev = ProposedReviewer.objects.get( pk = proposedreviewerId )
     project = Project.objects.get(pk = prop_rev.project.pk)
+    alldata = request.POST
+    redirect = alldata.get('redirect','0')
 
     if request.method == 'POST':
+
         if 'delete' in request.POST:
              prop_rev.delete()
-             return HttpResponseRedirect(reverse('project_reviewer', args = [project.pk]))
+             return HttpResponseRedirect(redirect)
         else:
             r = ProposedReviewerForm(request.POST, instance = prop_rev)
 
             if r.is_valid():
                 r.save()
 
-                return HttpResponseRedirect(reverse('project_reviewer', args = [prop_rev.project.pk]))
+                return HttpResponseRedirect(redirect)
 
     else:
         r = ProposedReviewerForm(instance= prop_rev)
@@ -252,16 +261,18 @@ def edit_excluded_reviewer(request,proposedreviewerId):
     project = Project.objects.get(pk = prop_rev.project.pk)
 
     if request.method == 'POST':
+        alldata = request.POST
+        redirect = alldata.get('redirect','0')
         if 'delete' in request.POST:
              prop_rev.delete()
-             return HttpResponseRedirect(reverse('project_reviewer', args = [project.pk]))
+             return HttpResponseRedirect(redirect)
         else:
             r = ExcludedReviewerForm(request.POST, instance = prop_rev)
 
             if r.is_valid():
                 r.save()
 
-                return HttpResponseRedirect(reverse('project_reviewer', args = [prop_rev.project.pk]))
+                return HttpResponseRedirect(redirect)
 
     else:
         r = ExcludedReviewerForm(instance= prop_rev)
@@ -275,6 +286,8 @@ def add_unique_reviewer(request, projectId):
     project = Project.objects.get(pk = projectId)
 
     if request.method == 'POST':
+        alldata = request.POST
+        redirect = alldata.get('redirect','0')
         r = ProposedReviewerForm(request.POST)
         if r.is_valid():
             reviewer = r.save(commit = False)
@@ -282,7 +295,7 @@ def add_unique_reviewer(request, projectId):
             reviewer.type = 'proposed'
             reviewer.save()
 
-            return HttpResponseRedirect(reverse('project_reviewer', args = [project.pk]))
+            return HttpResponseRedirect(redirect)
     else:
         r = ProposedReviewerForm()
 
@@ -295,6 +308,9 @@ def exclude_unique_reviewer(request, projectId):
     project = Project.objects.get(pk = projectId)
 
     if request.method == 'POST':
+        alldata = request.POST
+        redirect = alldata.get('redirect','0')
+
         r = ExcludedReviewerForm(request.POST)
         if r.is_valid():
             reviewer = r.save(commit = False)
@@ -303,36 +319,34 @@ def exclude_unique_reviewer(request, projectId):
             reviewer.email = ''
             reviewer.save()
 
-            return HttpResponseRedirect(reverse('project_reviewer', args = [project.pk]))
+            return HttpResponseRedirect(redirect)
     else:
         r = ExcludedReviewerForm()
 
     return render_to_response('rfp/exclude_unique_review.html', {'f' : r, 'project' : project, 'user' : user},context)
 
+#Make it DRY
+def redirect_add_form(request,project,form_1,form_2):
 
-def redirect_add_form(request,project,create_form,existing_form):
-    """
-    Redirect the user to the point of entry to the Add Budget Line. Uses "redirect" url parameter and jquery update.
-    :param request: HTTP request
-    :param project: rfp.models.Project
-    :param create_form: String
-    :param existing_form: String
-    :return: HttpResponseRedirect
-    """
-    if 'redirect' in request.POST:
-                    return HttpResponseRedirect(reverse(existing_form, args = [project.pk]))
+    alldata = request.POST
+    redirect = alldata.get('redirect','0')
+    if redirect:
+                    redirect_url = reverse('create_project_budget', args = [project.pk])
+                    return redirect_url
     else:
-                    return HttpResponseRedirect(reverse(create_form, args = [project.pk]))
+                    redirect_url = reverse('project_budget', args = [project.pk])
+                    return redirect_url
 
 @user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def add_budget_hr(request, projectId):
     context = RequestContext(request)
     user = request.user
     project = Project.objects.get(pk = projectId)
-    print project
 
     if request.method == 'POST':
         form = BudgetLineHR(request.POST)
+        alldata = request.POST
+        redirect = alldata.get('redirect','0')
 
         if form.is_valid() :
 
@@ -341,13 +355,9 @@ def add_budget_hr(request, projectId):
                 bl.category = 'HR'
                 bl.save()
 
-                #redirect_add_form(request,project,'create_project_budget','project_budget')
+                print(redirect)
 
-                if 'redirect' in request.POST:
-                    return HttpResponseRedirect(reverse('create_project_budget', args = [project.pk]))
-                else:
-                    return HttpResponseRedirect(reverse('project_budget', args = [project.pk]))
-
+                return HttpResponseRedirect(redirect)
 
     else:
         form = BudgetLineHR()
@@ -363,16 +373,19 @@ def edit_budget_hr(request, budgetlineId):
 
 
     if request.method == 'POST':
+        alldata = request.POST
+        redirect = alldata.get('redirect','0')
+
         if 'delete' in request.POST:
              bl.delete()
-             return HttpResponseRedirect(reverse('project_budget', args = [project_id]))
+             return HttpResponseRedirect(redirect)
 
         else:
             form = BudgetLineHR(request.POST,instance=bl)
 
             if form.is_valid():
               form.save()
-              return HttpResponseRedirect(reverse('project_budget', args = [project_id]))
+              return HttpResponseRedirect(redirect)
 
     else:
         form = BudgetLineHR(instance=bl)
@@ -386,7 +399,8 @@ def add_budget_eq(request, projectId):
     project = Project.objects.get(pk = projectId)
 
     if request.method == 'POST':
-
+        alldata = request.POST
+        redirect = alldata.get('redirect','0')
         form = BudgetLineEQ(request.POST,request.FILES)
 
         if form.is_valid():
@@ -395,7 +409,7 @@ def add_budget_eq(request, projectId):
             bl.category = 'EQ'
             bl.save()
 
-            return HttpResponseRedirect(reverse('project_budget', args = [project.pk]))
+            return HttpResponseRedirect(redirect)
 
     else:
         form = BudgetLineEQ()
@@ -410,9 +424,12 @@ def edit_budget_eq(request, budgetlineId):
     project_id = bl.project.pk
 
     if request.method == 'POST':
+        alldata = request.POST
+        redirect = alldata.get('redirect','0')
+
         if 'delete' in request.POST:
              bl.delete()
-             return HttpResponseRedirect(reverse('project_budget', args = [project_id]))
+             return HttpResponseRedirect(redirect)
 
         else:
             form = BudgetLineEQ(request.POST,request.FILES,instance=bl)
@@ -420,7 +437,7 @@ def edit_budget_eq(request, budgetlineId):
             if form.is_valid():
                 form.save()
 
-                return HttpResponseRedirect(reverse('project_budget', args = [project_id]))
+                return HttpResponseRedirect(redirect)
 
     else:
         form = BudgetLineEQ(instance=bl)
@@ -432,6 +449,8 @@ def add_budget_op(request, projectId):
     context = RequestContext(request)
     user = request.user
     project = Project.objects.get(pk = projectId)
+    alldata = request.POST
+    redirect = alldata.get('redirect','0')
 
     if request.method == 'POST':
 
@@ -443,7 +462,7 @@ def add_budget_op(request, projectId):
             bl.category = 'OC'
             bl.save()
 
-            return HttpResponseRedirect(reverse('project_budget', args = [project.pk]))
+            return HttpResponseRedirect(redirect)
 
     else:
         form = BudgetLineOP()
@@ -458,9 +477,12 @@ def edit_budget_op(request, budgetlineId):
     project_id = bl.project.pk
 
     if request.method == 'POST':
+        alldata = request.POST
+        redirect = alldata.get('redirect','0')
+
         if 'delete' in request.POST:
              bl.delete()
-             return HttpResponseRedirect(reverse('project_budget', args = [project_id]))
+             return HttpResponseRedirect(redirect)
 
         else:
             form = BudgetLineOP(request.POST,instance=bl)
@@ -468,7 +490,7 @@ def edit_budget_op(request, budgetlineId):
             if form.is_valid() :
                 form.save()
 
-                return HttpResponseRedirect(reverse('project_budget', args = [project_id]))
+                return HttpResponseRedirect(redirect)
 
     else:
         form = BudgetLineOP(instance=bl)
@@ -482,6 +504,7 @@ def propose_reviewer(request,projectId):
     project = Project.objects.get( pk = projectId )
 
     if request.method == 'POST':
+
         r = ProposedReviewerFormSet(request.POST)
         if r.is_valid():
            reviewers = r.save(commit = False)
