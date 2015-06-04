@@ -196,7 +196,7 @@ class BudgetLineEQ(ModelForm):
 
 class BudgetLineHR(ModelForm):
     item = forms.CharField(required=True,widget=forms.TextInput(attrs={'class':'form-control'}))
-    amount = forms.IntegerField(required=True,widget=forms.NumberInput(attrs={'class':'form-control'}))
+    amount = forms.FloatField(required=True,widget=forms.NumberInput(attrs={'class':'form-control'}))
     duration = forms.IntegerField(required=True,widget=forms.NumberInput(attrs={'class':'form-control'}))
     monthly_salary = forms.IntegerField(required=True,widget=forms.NumberInput(attrs={'class':'form-control'}))
 

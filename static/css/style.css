@@ -89,10 +89,13 @@ font-weight:bold;
     padding-top:15px;
 }
 
-.nav-tabs>li>a {margin:0px;}
 
 /* Tab style */
-.tab_role>a:focus{color:black;}
+.nav-tabs>li>a {margin:0px;}
+
+.nav-tabs>li>a:hover,.nav-tabs>li>a:focus{
+    background-color:white;
+}
 
 .tab_role{
     background-color:RGB(0,94,167);
@@ -109,20 +112,20 @@ font-weight:bold;
 }
 
 
-.tab_role:hover{
-    background-color:white;
+.tab_role:hover,.tab_role:focus{
     color:RGB(0,94,167);
     border-radius:5px 5px 0px 0px;
     border:none;
 }
 
 .tab_role > a {
-    text-descoration:none;
+    text-decoration:none;
     color:white;
 }
 
 .tab_role > a:hover {
-    text-descoration:none;
+    background-color:white;
+    text-decoration:none;
     color:RGB(0,94,167);
 }
 
@@ -250,6 +253,21 @@ ol.progtrckr li.progtrckr-todo:before {
     background-color:RGB(0,94,167) !important;
     color:white;
 }
+
+.btn-review{
+    padding:10px 20px 10px 20px;
+    background-color:#333;
+    color:white;
+}
+
+.btn-review:hover{
+    padding:10px 20px 10px 20px;
+    background-color:white;
+    color:#333;
+    border: 1px solid #333;
+}
+
+
 
 .edit_link > a
 {
