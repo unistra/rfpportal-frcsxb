@@ -6,7 +6,8 @@ urlpatterns = patterns('',
 #Create a new project
     url(r'^create_project/$',views.create_project,name='create_project'),
     url(r'^create_project_budget/(?P<projectId>\d+)/$',views.create_project_budget,name='create_project_budget'),
-    url(r'^create_project/(?P<projectId>\d+)/$',views.create_project_reviewer,name='create_project_reviewer'),
+    url(r'^create_project_reviewers/(?P<projectId>\d+)/$',views.create_project_reviewer,name='create_project_reviewer'),
+    url(r'^create_project_summary/(?P<projectId>\d+)/$',views.create_project_summary,name='create_project_summary'),
 
 #Add new Budget Line to a Project
     url(r'^add_budget_eq/(?P<projectId>\d+)/$',views.add_budget_eq,name='add_budget_eq'),

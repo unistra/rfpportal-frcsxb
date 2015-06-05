@@ -281,6 +281,9 @@ ol.progtrckr li.progtrckr-focus:before {
     border: 1px solid #333;
 }
 
+.btn-login{
+    margin:5px 0px 10px 0px;
+}
 
 
 .edit_link > a

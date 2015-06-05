@@ -104,6 +104,29 @@ def create_project_reviewer(request,projectId):
 
     return render_to_response('rfp/create_project_reviewer.html',context_dict,context)
 
+@user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
+def create_project_summary(request,projectId):
+    context = RequestContext(request)
+
+    project = Project.objects.get(pk = projectId)
+    project_data = UpdateForm(data=model_to_dict(project))
+
+    budget_line_list = BudgetLine.objects.filter(project = project)
+    hr_budget_line_list = BudgetLine.objects.filter(project = project,category = 'HR')
+    oc_budget_line_list = BudgetLine.objects.filter(project = project,category = 'OC')
+    eq_budget_line_list = BudgetLine.objects.filter(project = project,category = 'EQ')
+
+    prop_rev_list = ProposedReviewer.objects.filter(project = project)
+    total_budgeted = budget_line_sum(budget_line_list)
+
+    project.send_project_confirmation_email()
+
+    context_dict = {'project':project,'project_data' : project_data,'budget_line_list': budget_line_list,
+                    'total' : total_budgeted,'hr_budget_lines_list' : hr_budget_line_list, 'oc_budget_lines_list' : oc_budget_line_list,
+                    'eq_budget_lines_list' : eq_budget_line_list,'prop_rev_list' : prop_rev_list}
+
+    return render_to_response('rfp/create_project_summary.html',context_dict,context)
+
 @user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
 def edit_project(request,projectId):
     context = RequestContext(request)

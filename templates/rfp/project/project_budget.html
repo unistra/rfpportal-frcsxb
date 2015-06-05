@@ -1,0 +1,106 @@
+<div class="row" id="budget_detail">
+            <div class="col-xs-12 col-md-12">
+            <h3>Budget</h3>
+                <h4>Total budgeted: <strong>{{ total }} €</strong> <span style = "font-size:14px;">(Total requested: {{ project.requested_amount }} €)<br><br></span></h4>
+
+                <h4>Recruitment</h4>
+                <table class="table">
+                <thead>
+                        <tr>
+                            <th>Type of contract</th>
+                            <th>Duration</th>
+                            <th>Monthly Salary</th>
+                            <th>Total</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for line in hr_budget_lines_list %}
+                    <tr>
+                        <td>{{ line }}</td>
+                        <td>{{ line.duration }}</td>
+                        <td>{{ line.monthly_salary }}</td>
+                        <td>{{ line.amount|floatformat:-1 }} €</td>
+                        <td>{% if is_pi %}<a href = "{% url 'edit_budget_hr' line.id %}?redirect={{ current_url }}">Edit</a>{% endif %}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr>{% if is_pi %}<td><a href="{% url 'add_budget_hr' project.id %}?redirect={{ current_url }}">Add recruitment</a></td>{% endif %}
+                    <td></td>
+                    <td></td>
+                    </tr>
+                    <tr>
+                        <td><strong>TOTAL RECRUITMENT</strong></td>
+                        <td><strong>{{ hr_total }} €</strong></td>
+                        <td> </td>
+                    </tr>
+                    </tbody>
+                    </table>
+
+                    <h4>Equipement</h4>
+                <table class="table">
+                <thead>
+                        <tr>
+                            <th>Equipment</th>
+                            <th>Amount</th>
+                            <th>Quote</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for line in eq_budget_lines_list %}
+                    <tr>
+                        <td>{{ line }}</a></td>
+                        <td>{{ line.amount|floatformat:-1 }} €</td>
+                        <td>{% if line.quote %} <a href="{{ line.quote.url }}">{{ line.quote }}</a> {% endif %}</td>
+                        <td>{% if is_pi %}<a href = "{% url 'edit_budget_eq' line.id %}?redirect={{ current_url }}">Edit</a>{% endif %}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr><td>{% if is_pi %}<a href="{% url 'add_budget_eq' project.id %}?redirect={{ current_url }}">Add equipment</a>{% endif %}</td>
+                    <td></td>
+                    <td></td>
+                    </tr>
+                    <tr>
+                        <td><strong>TOTAL EQUIPMENT</strong></td>
+                        <td><strong>{{ eq_total }} €</strong></td>
+                        <td> </td>
+                    </tr>
+
+                    </tbody>
+                    </table>
+
+                <table class="table">
+                <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Amount</th>
+                            <th> </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                    <h4>Operating Costs</h4>
+                    {% for line in oc_budget_lines_list %}
+                    <tr>
+                        <td>{{ line }}</a></td>
+                        <td>{{ line.amount|floatformat:-1 }} €</td>
+                        <td>{% if is_pi %}<a href = "{% url 'edit_budget_op' line.id %}?redirect={{ current_url }}">Edit</a>{% endif %}</td>
+                    </tr>
+                    {% endfor %}
+                    <tr><td>{% if is_pi %}<a href="{% url 'add_budget_op' project.id %}?redirect={{ current_url }}">Add operating cost</a>{% endif %}</td>
+                    <td></td>
+                    <td></td>
+                    </tr>
+                    <tr>
+                        <td><strong>TOTAL OPERATING COSTS</strong></td>
+                        <td><strong>{{ oc_total }} €</strong></td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>

@@ -1,0 +1,77 @@
+<!--Reviewer Detail-->
+<div class="row " id="reviewer_detail">
+            <div class="col-xs-12 col-md-12">
+            <h3>Proposed Reviewer
+            </h3>
+
+               <table class="table">
+
+                <thead>
+                        <tr>
+                            <th>Contact</th>
+                            <th>Email</th>
+                            <th>City</th>
+                            <th>Country</th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for r in prop_rev_list %}
+                    {% if r.type == "proposed" %}
+                    <tr>
+                        <td>{{ r }}</a></td>
+                        <td>{{ r.email }}</td>
+                        <td>{{ r.city }}</td>
+                        <td>{{ r.country }}</td>
+                        <td>{% if is_pi %}<a href = "{% url 'edit_reviewer' r.pk %}?redirect={{ current_url }}">Edit</a> {% endif %}</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% if is_pi %}<p>
+                <a href="{% url 'add_unique_reviewer' project.pk %}?redirect={{ current_url }}">
+                Propose another reviewer
+                </a></p>{% endif %}
+            </div>
+
+    <div class="col-xs-12 col-md-12">
+    <h3>Excluded Reviewer</h3>
+            <table class="table">
+
+                <thead>
+                        <tr>
+                            <th>Contact</th>
+
+                            <th>Institution</th>
+                            <th>Country</th>
+                            <th></th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for r in prop_rev_list %}
+                    {% if r.type == "excluded" %}
+                    <tr>
+                        <td>{{ r.first_name }} {{ r.last_name }}</td>
+
+                        <td>{{ r.institution }}</td>
+                        <td>{{ r.country }}</td>
+                        <td>{% if is_pi %}<a href = "{% url 'edit_excluded_reviewer' r.pk %}?redirect={{ current_url }}">Edit</a> {% endif %}</td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% if is_pi %}<p>
+                <a href="{% url 'exclude_unique_reviewer' project.pk %}?redirect={{ current_url }}">
+                Exclude another reviewer
+                </a></p>{% endif %}
+
+    {% block project_next %} {% endblock %}
+
+    </div>
+</div>

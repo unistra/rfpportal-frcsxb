@@ -1,0 +1,28 @@
+{% extends 'rfp/project_details.html' %}
+
+{% block project_tab %}
+<div class="alert alert-success" role="alert">
+
+<p style="text-align:center">
+    Your project has been succesfully submitted. You will recieve a confirmation email soon at this address: {{ user.email }}. Click <a href="#" onclick="window.print();return false;">here</a> to print this page.
+</p>
+
+</div>
+
+<div class="col-xs-12 col-md-4"></div>
+<div class="col-xs-12 col-md-4">
+<a href="{% url 'user_profile' %}" class="center btn btn-apply" style="width:100%;margin:Auto;">
+        Go to your profile to follow the review process
+</a>
+</div>
+<div class="col-xs-12 col-md-4"></div>
+{% endblock %}
+
+{% block budget_summary %}
+    {% include 'rfp/project/project_budget.html' %}
+{% endblock %}
+
+{% block reviewer_summary %}
+    {% include 'rfp/project/project_reviewer.html' %}
+
+{% endblock %}

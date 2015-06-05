@@ -12,7 +12,7 @@
 {% block project_tab %} {% endblock %}
 
 {% block project_next %}
-    <a class="btn btn-apply pull-right" href="{% url 'user_profile' %}">Next</a>
+    <a class="btn btn-apply pull-right" href="{% url 'create_project_summary' project.id %}">Save and Submit</a>
 
 <script>
     $('#step_1').removeClass('progtrckr-todo').addClass('progtrckr-done');

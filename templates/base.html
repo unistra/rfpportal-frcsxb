@@ -119,12 +119,16 @@
       <div class="container">
         <div class ="footer-text">
 
-        <p><a href="/about-us/">About Us </a>| {% if user.id > 0 %}
+        <p>
+            {% if user.is_authenticated %}
                     <a href="{% url 'django.contrib.auth.views.logout' %}?next={% url 'home_page' %}">Log out</a>
-                {% else %}
+            {% else %}
                     <a href="{% url 'django.contrib.auth.views.login' %}?next={% url 'user_profile' %}">Log in</a>
-                {% endif %} | <a href="mailto: contact@icfrc.fr">Contact Us</a> | <a href="/sitemap.xml">Sitemap</a> | <a href="/admin/">Admin</a></p>
-        <p>Powered by Django - 2014</p>
+            {% endif %} |
+                    <a href="mailto: contact@icfrc.fr">Contact Us</a> | <a href="/admin/">Admin</a>
+        </p>
+
+        <p>Powered by Django - 2015</p>
         </div>
       </div>
     </div>

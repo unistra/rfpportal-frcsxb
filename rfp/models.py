@@ -47,10 +47,29 @@ class Project(models.Model):
     anticipated_impact=models.CharField(max_length=4000,null=True,blank=True)
     document=models.FileField(upload_to='project',null=True,blank=True)
     status=models.CharField(max_length=255,blank=True,null=True)
+    confirmation_email_sent = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.name
 
+    def send_project_confirmation_email(self):
+        status = self.confirmation_email_sent
+        print (status)
+        if not self.confirmation_email_sent:
+            self.confirmation_email_sent = True
+            c = {'project' : self}
+
+            msg_plain = render_to_string('rfp/email/project_confirmation.txt',c)
+            msg_html = render_to_string('rfp/email/project_confirmation.html',c)
+
+            send_mail('Your project has been succesfully submitted',
+                      msg_plain, 'contact@icfrc.fr', [self.user.email],
+                      html_message=msg_html, fail_silently=False)
+            self.confirmation_email_sent = True
+            self.save()
+
+            print('Coonfirmation_Email_Sent!!!!!')
+        print ("It is sent so status is now " + str(status))
 class ProposedReviewer(models.Model):
     project=models.ForeignKey(Project,null=True)
     first_name = models.CharField(max_length=255,blank=True,null=True)
@@ -98,17 +117,7 @@ class File_Test(models.Model):
     name=models.CharField(max_length=255)
     document=models.FileField(null=True)
 
-def send_project_confirmation_email(sender, instance, created, **kwargs):
-    if created:
-
-        c = {'project' : instance}
-
-        msg_plain = render_to_string('rfp/email/project_confirmation.txt',c)
-        msg_html = render_to_string('rfp/email/project_confirmation.html',c)
-
-        send_mail('Your project has been succesfully submitted',
-                  msg_plain, 'contact@icfrc.fr', [instance.user.email],
-                  html_message=msg_html, fail_silently=False)
 
 
-post_save.connect(send_project_confirmation_email,sender = Project)
+
+#post_save.connect(send_project_confirmation_email,sender = Project)
