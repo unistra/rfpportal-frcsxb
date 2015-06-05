@@ -1,0 +1,11 @@
+Hello
+
+A project has been submitted to the {{ project.rfp.year }} - {{ project.rfp.name }} call for proposal.
+
+    Name: {{ project }}
+    PI: {{ project.user.first_name }} {{ project.user.last_name }}
+    Requested Amount: Eur. {{ project.requested_amount }}
+
+Best,
+
+The Request for Proposal Portal.

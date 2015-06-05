@@ -53,23 +53,30 @@ class Project(models.Model):
         return self.name
 
     def send_project_confirmation_email(self):
-        status = self.confirmation_email_sent
-        print (status)
-        if not self.confirmation_email_sent:
+    #Send a Thank you for your project confirmation email.
+         print(self.confirmation_email_sent)
+
+         if not self.confirmation_email_sent:
             self.confirmation_email_sent = True
             c = {'project' : self}
 
             msg_plain = render_to_string('rfp/email/project_confirmation.txt',c)
             msg_html = render_to_string('rfp/email/project_confirmation.html',c)
 
+            conf_plain = render_to_string('rfp/email/project_admin_confirmation.txt',c)
+            conf_html = render_to_string('rfp/email/project_admin_confirmation.html',c)
+
             send_mail('Your project has been succesfully submitted',
                       msg_plain, 'contact@icfrc.fr', [self.user.email],
                       html_message=msg_html, fail_silently=False)
+            send_mail('Project Submitted',
+                      conf_plain, 'contact@icfrc.fr', ['contact@icfrc.fr'],
+                      html_message=conf_html, fail_silently=False)
+
             self.confirmation_email_sent = True
             self.save()
+            print('Email Sent ??)')
 
-            print('Coonfirmation_Email_Sent!!!!!')
-        print ("It is sent so status is now " + str(status))
 class ProposedReviewer(models.Model):
     project=models.ForeignKey(Project,null=True)
     first_name = models.CharField(max_length=255,blank=True,null=True)
