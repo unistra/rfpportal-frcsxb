@@ -14,7 +14,7 @@ class ProjectForm(ModelForm):
 
     class Meta:
         model = Project
-        exclude = {}
+        exclude = {'status'}
         widgets = {
             'name' : forms.TextInput(attrs={'class':'form-control'}),
             'requested_amount' : forms.NumberInput(attrs={'class':'form-control'}),
@@ -50,7 +50,7 @@ class UpdateForm(ModelForm):
 
     class Meta:
         model = Project
-        exclude = ['rfp','user']
+        exclude = ['rfp','user','status']
         widgets = {
             'name' : forms.TextInput(attrs={'class':'form-control'}),
             'requested_amount' : forms.NumberInput(attrs={'class':'form-control'}),

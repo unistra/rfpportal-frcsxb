@@ -97,7 +97,7 @@
                             <td>{{ p.starting_date|date:"SHORT_DATE_FORMAT" }}</a></td>
                             <td>{{ p.project_duration }}</a></td>
                             <td>{% if p.document %} <a href="{{ p.document.url }}">{{ p.document.name }}</a> {% else %} <em>No File</em> {% endif %}</td>
-                            <td>Pending</td>
+                            <td><em>{{ p.status|capfirst }}</em></td>
                     </tr>
 
                     {% endfor %}

@@ -46,6 +46,7 @@ class Project(models.Model):
     scope_of_work=models.CharField(max_length=4000,null=True,blank=True)
     anticipated_impact=models.CharField(max_length=4000,null=True,blank=True)
     document=models.FileField(upload_to='project',null=True,blank=True)
+    status=models.CharField(max_length=255,blank=True,null=True)
 
     def __unicode__(self):
         return self.name
@@ -109,8 +110,5 @@ def send_project_confirmation_email(sender, instance, created, **kwargs):
                   msg_plain, 'contact@icfrc.fr', [instance.user.email],
                   html_message=msg_html, fail_silently=False)
 
-        print('Confirmation Email Sent ?')
 
 post_save.connect(send_project_confirmation_email,sender = Project)
-
-

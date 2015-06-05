@@ -163,7 +163,7 @@ font-weight:bold;
 }
 
 .small_link{
-    font-size:14px;
+    font-size:12px;
     text-decoration:none;
 }
 
@@ -305,6 +305,8 @@ ol.progtrckr li.progtrckr-focus:before {
 
 .no_border{
     border:None;
+    webkit-box-shadow: None;
+    box-shadow: None;
 }
 
 #edit{

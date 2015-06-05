@@ -5,6 +5,7 @@ from django.contrib.auth.models import User,Group,Permission
 from django.contrib.auth import authenticate, login
 from forms import sign_up,UserUpdate
 from models import UserProfile
+from django.core.urlresolvers import reverse
 
 from rfp.models import Project,Review,RequestForProposal,RfpCampaign
 
@@ -96,7 +97,6 @@ def edit_profile(request):
 
 #Access an existing profile
 @login_required(login_url="/login/?next={% 'user_profile' %}")
-#@user_passes_test(is_pi, login_url='/')
 def index_profile(request):
 
     context = RequestContext(request)
@@ -114,3 +114,19 @@ def index_profile(request):
 
     return render_to_response('user_profile/profile.html',context_dict,context)
 
+@login_required(login_url="/")
+def post_homepage_login_landing_page(request):
+    context = RequestContext(request)
+    user=request.user
+
+    is_pi = user.groups.filter(name = 'Principal_Investigator').exists()
+    is_rev = user.groups.filter(name = 'Reviewer').exists()
+    rfp_list = RequestForProposal.objects.all()
+    rfp_c = RfpCampaign.objects.all()
+    projects = Project.objects.filter(user = user).order_by('-id')[:3]
+
+    reviews = Review.objects.filter(user=user.pk)
+
+    context_dict = {'reviews' : reviews, 'is_pi' : is_pi, 'is_rev' : is_rev,'rfp_list': rfp_list, 'rfp_c' : rfp_c, 'projects':projects}
+
+    return render_to_response('user_profile/post_homepage_login_landing_page.html',context_dict,context)

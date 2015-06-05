@@ -47,6 +47,7 @@ def create_project(request):
         if p.is_valid():
            proj = p.save (commit=False)
            proj.user = user
+           proj.status = 'pending'
            project = p.save()
            return HttpResponseRedirect(reverse('create_project_budget', args=[project.pk]))
 
@@ -550,7 +551,7 @@ def list_of_call_for_proposal(request):
 
     return render_to_response('rfp/rfp_list.html',context_dict,context)
 
-def test_file(request):
+def test_file (request):
     context= RequestContext(request)
 
     if request.method == 'POST':

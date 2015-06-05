@@ -41,7 +41,7 @@
         <a class="navbar-brand" href="/"></a>
         <div class="collapse navbar-collapse navbar-responsive-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li id="home"><a href="/">{% bootstrap_icon "home" %}</a></li>
+                <li id="home"><a href="{% url 'post_homepage_login_landing_page' %}">{% bootstrap_icon "home" %}</a></li>
                 <li><a href="{% url 'user_profile' %}">Your Account</a></li>
                 <li><a href="{% url 'rfp_list' %}">Call for proposals</a></li>
                 <!--

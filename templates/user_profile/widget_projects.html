@@ -1,0 +1,26 @@
+<h3>Your projects <span class="small_link"><a href = "{% url 'user_profile' %}">See all your projects</a></span></h3>
+
+    <table class="table">
+
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                    {% for p in projects %}
+
+                    <tr>
+                            <td><a href="{% url 'project_detail' p.id %}">{{ p.name }}</a></td>
+                            <td><em>{{ p.status|capfirst }}</em></td>
+                    </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+
+    </table>
+

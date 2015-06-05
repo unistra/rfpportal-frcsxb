@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Welcome to the ICFRC Request for Proposal Portal{% endblock %}
+
+{% block body_block %}
+
+{% csrf_token %}
+
+{% include 'user_profile/user_profile_header.html' %}
+
+{% if is_pi %}
+{% include 'user_profile/list_request_for_proposal.html' %}
+
+{% elif is_rev %}
+{% include 'user_profile/list_reviews.html' %}
+
+{% endif %}
+
+{% endblock %}
