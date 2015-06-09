@@ -7,7 +7,7 @@ from forms import sign_up,UserUpdate
 from models import UserProfile
 from django.core.urlresolvers import reverse
 
-from rfp.models import Project,Review,RequestForProposal,RfpCampaign
+from rfp.models import Project,Review,RfpCampaign
 
 # Create your views here.
 def is_reviewer(User):
@@ -121,12 +121,12 @@ def post_homepage_login_landing_page(request):
 
     is_pi = user.groups.filter(name = 'Principal_Investigator').exists()
     is_rev = user.groups.filter(name = 'Reviewer').exists()
-    rfp_list = RequestForProposal.objects.all()
     rfp_c = RfpCampaign.objects.all()
     projects = Project.objects.filter(user = user).order_by('-id')[:3]
 
     reviews = Review.objects.filter(user=user.pk)
 
-    context_dict = {'reviews' : reviews, 'is_pi' : is_pi, 'is_rev' : is_rev,'rfp_list': rfp_list, 'rfp_c' : rfp_c, 'projects':projects}
+    context_dict = {'reviews' : reviews, 'is_pi' : is_pi, 'is_rev' : is_rev, 'rfp_c' : rfp_c, 'projects':projects}
 
     return render_to_response('user_profile/post_homepage_login_landing_page.html',context_dict,context)
+

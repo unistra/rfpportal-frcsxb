@@ -8,19 +8,7 @@ from django.template.loader import render_to_string
 
 from django.contrib.auth.models import User
 
-class RequestForProposal(models.Model):
-    name=models.CharField(max_length=255)
-    description=models.TextField(max_length=4000,null=True)
-
-    def __unicode__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = "Fund"
-        verbose_name_plural = "Funds"
-
 class RfpCampaign(models.Model):
-    request_for_proposal=models.ForeignKey(RequestForProposal)
     name=models.CharField(max_length=255,null=True)
     year=models.PositiveIntegerField(null=True)
     instructions=models.TextField(max_length=4000,null=True)
@@ -106,7 +94,6 @@ class BudgetLine(models.Model):
     def __unicode__(self):
         return  (str(self.category) + " " +str(self.item))
 
-
 class Review(models.Model):
     user = models.ForeignKey(User,verbose_name=u"Reviewer")
     project = models.ForeignKey(Project, verbose_name=u"Project")
@@ -119,12 +106,8 @@ class Review(models.Model):
     def __unicode__(self):
         return (str(self.user.first_name) + " " + str(self.user.last_name) + " for: " + str(self.project.name))
 
-
 class File_Test(models.Model):
     name=models.CharField(max_length=255)
     document=models.FileField(null=True)
-
-
-
 
 #post_save.connect(send_project_confirmation_email,sender = Project)

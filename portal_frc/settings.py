@@ -55,6 +55,7 @@ INSTALLED_APPS = (
     'bootstrap3',
     'djrill',
     'import_export',
+    'urlcrypt',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -65,9 +66,10 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'urlcrypt.auth_backends.UrlCryptBackend',
 )
 
-#AUTH_USER_MODEL = 'user_profile.UserProfile'
+
 
 ROOT_URLCONF = 'portal_frc.urls'
 
@@ -93,15 +95,18 @@ if os.getenv('DATABASE_URL'):
 
     import dj_database_url
     DATABASES['default'] =  dj_database_url.config()
+
     #AWS configuration
     AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
     AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
     AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
     #Email configuration
     MANDRILL_API_KEY = os.getenv('MANDRILL_API_KEY')
     EMAIL_BACKEND = 'djrill.mail.backends.djrill.DjrillBackend'
     DEFAULT_FROM_EMAIL = 'contact@icfrc.fr'
+
     # Static asset configuration for hosted dev:
     STATICFILES_LOCATION = 'static'
     STATICFILES_STORAGE = 'custom_storages.StaticStorage'

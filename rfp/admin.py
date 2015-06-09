@@ -1,9 +1,9 @@
 from django.contrib import admin
-from models import Project,RfpCampaign,Review,RequestForProposal,File_Test,ProposedReviewer,BudgetLine
+from models import Project,RfpCampaign,Review,File_Test,ProposedReviewer,BudgetLine
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 
-# Register your models here.
+#Register your models here.
 
 #InLine forms
 class BudgetLineInline(admin.TabularInline):
@@ -49,7 +49,6 @@ def get_user_institution(obj):
     return v
 get_user_institution.short_description = "User_Research_Unit"
 
-
 def get_user_rfp_year(obj):
     if obj.user:
         v = (str(obj.rfp.year))
@@ -64,6 +63,7 @@ def file_link(self):
         else:
             return "No attachment"
 
+#Export and import for Project, Review, RFP, BudgetLine and Reviewers
 class ProjectAdmin(ImportExportModelAdmin):
     list_display = ["name","requested_amount","rfp",get_user_rfp_year,get_user_fullname, get_user_email]
     search_fields = ["name","rfp"]
@@ -90,16 +90,9 @@ class ReviewOptions(ImportExportModelAdmin):
     }
 
 class RfpCampaignAdmin(admin.ModelAdmin):
-    list_display = ["year","name","request_for_proposal"]
+    list_display = ["year","name"]
     list_filter = ["year"]
-    search_fields = ['request_for_proposal__name']
-
-class RequestForProposalAdmin(admin.ModelAdmin):
-    search_field = ["name"]
-    list_display = ["name"]
-    inlines = [
-       RfpCampaignInline,
-    ]
+    search_fields = ['name']
 
 class BudgetLineAdmin(ImportExportModelAdmin):
     list_display = ["item", "amount", "category", "project"]
@@ -114,11 +107,9 @@ class ProposedReviewerAdmin(ImportExportModelAdmin):
     ordering = ["project","last_name"]
     actions = [valid_reviewer]
 
-
 admin.site.register(BudgetLine,BudgetLineAdmin)
 admin.site.register(ProposedReviewer,ProposedReviewerAdmin)
 admin.site.register(Project,ProjectAdmin)
 admin.site.register(RfpCampaign, RfpCampaignAdmin)
 admin.site.register(Review,ReviewOptions )
-admin.site.register(RequestForProposal, RequestForProposalAdmin)
 admin.site.register(File_Test)

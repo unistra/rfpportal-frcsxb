@@ -43,7 +43,7 @@ urlpatterns = patterns('',
     url(r'^rfp/$',views.list_of_call_for_proposal,name='rfp_list'),
 
 #Testing
-    url(r'^file_test/$',views.test_file,name='file_test'),
+    url(r'^test/$',views.test,name='test'),
     url(r'^propose_reviewer/(?P<projectId>\d+)/$',views.propose_reviewer,name='propose_reviewer'),
     url(r'^proposed_reviewer_list/(?P<projectId>\d+)/$',views.prop_reviewer_list,name='prop_reviewer_list'),
     url(r'^login_no_permission/$', 'django.contrib.auth.views.login',{'template_name': 'registration/no_permission_login.html'},name='login_no_permission'),

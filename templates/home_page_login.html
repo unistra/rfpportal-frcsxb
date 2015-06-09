@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %} ICFRC Call for Proposals Portal {% endblock %}
+
+
+{% block body_block %}
+<div class="container">
+<div class="row">
+
+{% include 'registration/main_header.html' %}
+
+<div class="row">
+        <div class="col-xs-12 col-md-2"></div>
+        <div class="col-xs-12 col-md-8">
+                <p>
+                    Ut at magna eu lacus aliquam tincidunt.
+                    Praesent lobortis augue eget urna tincidunt fermentum.
+                    Etiam pulvinar sagittis dui, vitae fringilla ante convallis id.
+                    In ornare augue euismod, tempus libero ac, volutpat metus. Proin luctus libero at metus convallis, et iaculis sapien congue.
+                    Sed bibendum vehicula ullamcorper. Phasellus ut cursus felis, eu euismod urna. Nulla vehicula vel massa sodales aliquet. Morbi pretium consectetur ullamcorper. Curabitur sapien quam, vestibulum sed nibh vestibulum, fermentum luctus lacus. Donec auctor nec risus sed feugiat. Morbi tincidunt, mi at sagittis iaculis, ex dui ultrices augue, ac accumsan nulla purus et lorem. Fusce quis dui aliquam, lacinia lacus nec, volutpat urna.
+                </p>
+        </div>
+        <div class="col-xs-12 col-md-2"></div>
+</div>
+
+    {% if not user.is_authenticated %}
+        {% include 'registration/login_form.html' %}
+
+
+    {% else %}
+    <div class="col-xs-12 col-md-4"></div>
+
+    <div class="col-xs-12 col-md-4">
+      <a class="btn btn-apply" style="width:100%" href="{% url 'post_homepage_login_landing_page' %}">Access your Account</a>
+    </div>
+
+    <div class="col-xs-12 col-md=4"></div>
+    {% endif %}
+
+  </div>
+</div>
+
+{% endblock %}

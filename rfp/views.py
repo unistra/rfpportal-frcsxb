@@ -7,7 +7,7 @@ import datetime
 
 from user_profile.models import UserProfile
 
-from models import Project,Review,RequestForProposal,RfpCampaign,File_Test,ProposedReviewer,BudgetLine
+from models import Project,Review,RfpCampaign,File_Test,ProposedReviewer,BudgetLine
 from forms import ProjectForm,file_test,UpdateForm,ReviewForm,ProposedReviewerFormSet,ProposedReviewerForm,BudgetLineEQ,BudgetLineHR,BudgetLineOP,ExcludedReviewerForm
 from django.core.urlresolvers import reverse
 
@@ -567,31 +567,31 @@ def rfp_campaign(request,rfpcampaignId):
 def list_of_call_for_proposal(request):
     context= RequestContext(request)
 
-    rfp_list = RequestForProposal.objects.all()
     rfp_c = RfpCampaign.objects.all()
 
-    context_dict = {'rfp_list': rfp_list, 'rfp_c' : rfp_c}
+    context_dict = {'rfp_c' : rfp_c}
 
     return render_to_response('rfp/rfp_list.html',context_dict,context)
 
-def test_file (request):
+def test (request):
+    from django.template.loader import render_to_string
+    from django.core.mail import send_mail
     context= RequestContext(request)
+    user = request.user
+    from urlcrypt import lib as urlcrypt
+    token = urlcrypt.generate_login_token(user, reverse('user_profile'))
+    encoded_url = reverse('urlcrypt_redirect', args=(token,))
 
-    if request.method == 'POST':
-        f = file_test(request.POST, request.FILES)
-        if f.is_valid():
-                name = f.cleaned_data['name']
-                new_doc=File_Test(name=name)
-                new_doc.save()
-                print('Doc is created')
+    c = {'user' : user, 'url' : encoded_url}
+    msg_plain = render_to_string('rfp/email/invitation_link.txt',c)
+    msg_html = render_to_string('rfp/email/invitation_link.html',c)
 
-                instance = File_Test(document=request.FILES['document'])
-                instance.save()
-                print('Document is added')
+    send_mail('Your project has been succesfully submitted',
+    msg_plain, 'contact@icfrc.fr', ['sgug@outlook.com'],
+    html_message=msg_html, fail_silently=False)
 
-                return HttpResponse('File Saved !!')
-    else:
-        f = file_test()
+    print('Email Sent ?')
 
-    context_dict = {'form' : f }
-    return render_to_response('rfp/file_test.html',context_dict,context)
+    context_dict = {'user' : user, 'url' : encoded_url}
+
+    return render_to_response('rfp/test.html',context_dict,context)

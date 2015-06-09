@@ -3,12 +3,7 @@ from django import forms
 from django.forms import ModelForm
 from django.forms.models import modelformset_factory
 from django.utils.translation import ugettext_lazy as _
-from models import Project,RfpCampaign,RequestForProposal,Review,File_Test,ProposedReviewer,BudgetLine
-
-class  RequestForProposalForm(ModelForm):
-    class Meta:
-        model = RequestForProposal
-        fields = ['name']
+from models import Project,RfpCampaign,Review,File_Test,ProposedReviewer,BudgetLine
 
 class ProjectForm(ModelForm):
 
@@ -45,7 +40,6 @@ class ProjectForm(ModelForm):
             'additional_funding' : _('Additional co-funding, if any (please specify funding body and amount):')
         }
 
-
 class UpdateForm(ModelForm):
 
     class Meta:
@@ -81,7 +75,6 @@ class UpdateForm(ModelForm):
             'additional_funding' : _('Additional co-funding, if any (please specify funding body and amount):'),
             'document' : _('Select a document to update the current file: ')
         }
-
 
 class RfpCampaignForm(ModelForm):
     class Meta:
