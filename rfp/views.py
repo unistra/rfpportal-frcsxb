@@ -37,6 +37,23 @@ def budget_line_sum(budget_list):
         total_budgeted += int(bl_dict["amount"])
     return total_budgeted
 
+def get_custom_answers(review_dict,request):
+                    dict = {}
+                    for row in review_dict:
+                        for p in request.POST:
+                           if str(p) == row:
+                                v = request.POST.get(p)
+                                dict[str(row)] = v
+                    return dict
+
+def find_user_review_for_project(user,project):
+        try:
+            review=Review.objects.get(user=user,project=project)
+        except Review.DoesNotExist:
+            review={}
+
+        return review
+
 # Views start here.
 @user_passes_test(is_pi,login_url='/login/')
 def create_project(request):
@@ -150,12 +167,16 @@ def edit_project(request,projectId):
 
     return render_to_response('rfp/edit_project.html',context_dict,context)
 
+
 @user_passes_test(is_pi_or_reviewer,login_url='/login/',redirect_field_name='next')
 def project_detail(request,projectId):
     context = RequestContext(request)
     user = request.user
+    is_p = is_pi(user)
+    is_rev = is_reviewer(user)
+
     project=Project.objects.get(id=projectId)
-    review=Review.objects.get(user=user,project=project)
+    review = find_user_review_for_project(user,project)
 
     project_data = UpdateForm(data=model_to_dict(project))
     prop_rev_list = ProposedReviewer.objects.filter(project = project)
@@ -185,7 +206,7 @@ def project_detail_budget(request,projectId):
     context = RequestContext(request)
     user = request.user
     project=Project.objects.get(id=projectId)
-    review=Review.objects.get(user=user,project=project)
+    review = find_user_review_for_project(user,project)
 
     budget_line_list = BudgetLine.objects.filter(project = project)
     hr_budget_line_list = BudgetLine.objects.filter(project = project,category = 'HR')
@@ -245,14 +266,7 @@ def project_review(request,projectId):
 
     return render_to_response('rfp/project_review.html',context_dict,context)
 
-def get_custom_answers(review_dict,request):
-                    dict = {}
-                    for row in review_dict:
-                        for p in request.POST:
-                           if str(p) == row:
-                                v = request.POST.get(p)
-                                dict[str(row)] = v
-                    return dict
+
 
 @user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def edit_reviewer(request,proposedreviewerId):
