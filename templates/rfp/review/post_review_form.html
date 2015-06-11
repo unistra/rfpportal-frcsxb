@@ -9,8 +9,7 @@
                 {% csrf_token %}
                 {{ form.as_p }}
 
-                 <input class="btn btn-primary pull-right" type="submit" value="Submit"  />
-                 <input type="hidden" name="next" value="{% url 'user_profile' %}" />
+                 <input class="btn btn-primary pull-right" type="submit" value="Save"  />
 
             </form>
         </div>

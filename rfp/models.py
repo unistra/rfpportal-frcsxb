@@ -103,6 +103,7 @@ class BudgetLine(models.Model):
 class Review(models.Model):
     user = models.ForeignKey(User,verbose_name=u"Reviewer")
     project = models.ForeignKey(Project, verbose_name=u"Project")
+    rating = models.CharField(max_length=255, null=True,blank=True)
     custom_0 = models.CharField(max_length=4000,null=True,blank=True)
     custom_1 = models.CharField(max_length=4000,null=True,blank=True)
     custom_2 = models.CharField(max_length=4000,null=True,blank=True)

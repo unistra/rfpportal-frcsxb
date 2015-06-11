@@ -571,9 +571,6 @@ def prop_reviewer_list(request,projectId):
 
     return render_to_response('rfp/list_of_proposed_reviewer.html', {'user' : user, 'project' : project, 'proposed_reviewers' : prop_rev_list}, context)
 
-
-
-
 @user_passes_test(is_reviewer,login_url='/login/',redirect_field_name='next')
 def post_review(request,reviewId):
     context = RequestContext(request)
@@ -599,16 +596,11 @@ def post_review(request,reviewId):
 
                     return HttpResponseRedirect(reverse('project_review', args=[project.pk]))
 
-        else:
-                    return HttpResponseRedirect('Form is not valid')
-
     else:
         form = ReviewForm(initial= review_model_dict,questions = questions)
 
     return render_to_response('rfp/post_review.html',{'is_pi' : is_p, 'is_rev': is_rev,
         'form' : form, 'project' : project, 'user' : user, 'up' : user_profile,'review' : review}, context)
-
-
 
 @user_passes_test(is_reviewer,login_url='/project/login_no_permission/',redirect_field_name='next')
 def post_review_waiver(request,reviewId):

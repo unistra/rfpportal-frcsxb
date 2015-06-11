@@ -5,6 +5,22 @@ from django.forms.models import modelformset_factory
 from django.utils.translation import ugettext_lazy as _
 from models import Project,RfpCampaign,Review,File_Test,ProposedReviewer,BudgetLine
 
+category_choices = (
+    ('OC', 'Operating Cost'),
+    ('HR', 'Recruitment'),
+    ('EQ', 'Equipment'),
+)
+
+ratings = (
+    ('N/A',''),
+    ('A', 'A: superb proposal; fund fully as requested with highest priority'),
+    ('B', 'B: excellent proposal; fund with high priority'),
+    ('C', 'C: very good proposal; fund with priority'),
+    ('D', 'D: good proposal; fund'),
+    ('E', 'E: promising proposal; recommend to refine based on comments and re-submit'),
+    ('F', 'F: insufficiently detailed proposal'),
+)
+
 class ProjectForm(ModelForm):
 
     class Meta:
@@ -82,6 +98,7 @@ class RfpCampaignForm(ModelForm):
         fields = ['name','year']
 
 class ReviewForm(forms.Form):
+    rating = forms.ChoiceField(required=True,choices = ratings,label='Project ranking as a whole (between A and F, A as the highest):', widget=forms.Select(attrs={'class':'form-control'}))
 
     def __init__(self, *args, **kwargs):
             questions = kwargs.pop('questions')
