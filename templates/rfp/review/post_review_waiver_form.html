@@ -1,0 +1,19 @@
+<!--Waiver form-->
+<form method="post" action="{% url 'post_review_waiver' review.id %}" >
+{% csrf_token %}
+
+    <div class="radio">
+        <label><input type="radio" id="no_conflict" name="optradio"  value="no_conflict">No conflict of interest</label>
+    </div>
+
+    <div class="radio">
+        <label><input type="radio" id="agreement" name="optradio" value="agreement" >Confidentiality agreement</label>
+    </div>
+
+    <div class="radio">
+        <label><input type="radio" id="refuse" name="optradio"  value="refuse">I will not be able to review this project</label>
+    </div>
+
+  <button type="submit" class="btn pull-right">Submit</button>
+
+</form>

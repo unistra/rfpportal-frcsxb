@@ -1,0 +1,18 @@
+
+
+
+<!--Review Form-->
+    <div class = "row">
+        <div class = "col-xs-12 col-md-12">
+            <form class="" method="post" enctype="multipart/form-data" action="{% url 'post_review' review.id %}">
+
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                 <input class="btn btn-primary pull-right" type="submit" value="Submit"  />
+                 <input type="hidden" name="next" value="{% url 'user_profile' %}" />
+
+            </form>
+        </div>
+    </div>
+

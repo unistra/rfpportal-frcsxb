@@ -81,19 +81,20 @@ class RfpCampaignForm(ModelForm):
         model = RfpCampaign
         fields = ['name','year']
 
-class ReviewForm(ModelForm):
-    class Meta:
-        model = Review
-        exclude = {'user','project','name','date'}
-        widgets = {
-            'question_1' : forms.Textarea(attrs={'class':'form-control'}),
-            'question_2' : forms.Textarea(attrs={'class':'form-control'}),
-            'document' : forms.FileInput(attrs={'class':'form-control'})
-        }
-        labels = {
-            'question_1' : _('Describe innovation'),
-            'question_2' : _('Describe outputs and impact on subject'),
-        }
+class ReviewForm(forms.Form):
+
+    def __init__(self, *args, **kwargs):
+            questions = kwargs.pop('questions')
+            super(ReviewForm,self).__init__(*args, **kwargs)
+
+            for i, label in enumerate(questions):
+                self.fields['custom_%s' % i] = forms.CharField(label=label,required=False,widget=forms.Textarea(attrs={'class':'form-control'}))
+
+    def extra_answers(self):
+        for name, value in self.cleaned_data.items():
+            if name.startswith('custom_'):
+                yield (self.fields[name].label, value)
+
 
 class ProposedReviewerForm(ModelForm):
     first_name = forms.CharField(required=True,widget=forms.TextInput(attrs={'class':'form-control'}))

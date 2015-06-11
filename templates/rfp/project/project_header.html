@@ -5,7 +5,7 @@
             <h4><strong>Category:</strong> {{ project.rfp.name }}</h4>
             <p><strong>Team Leader:</strong> <a href = "{% url 'user_profile' %}">{{ project.user.userprofile }}</a> - {{ project.user.email }}</p>
             <p><strong>Research Unit:</strong> {{ project.user.userprofile.organization }} - {{ project.user.userprofile.insitute_research_unit}}</p>
-            {% if is_rev %}<a class="btn btn-review" href="{% url 'post_review' project.id %}">Post a review</a>{% endif %}
+
         </div>
 
 </div>

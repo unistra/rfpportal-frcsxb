@@ -4,7 +4,7 @@
 
 {% block body_block %}
 
-<div class="container project_container">
+<div class="container">
 
 {% block project_header %}
 <!--Project Header-->
@@ -21,6 +21,7 @@
 {% block project_budget_html %}
 <div class="row" id="budget_detail">
             <div class="col-xs-12 col-md-12">
+
             <h3>Budget</h3>
                 <h4>Total budgeted: <strong>{{ total }} €</strong> <span style = "font-size:14px;">(Total requested: {{ project.requested_amount }} €)<br><br></span></h4>
 

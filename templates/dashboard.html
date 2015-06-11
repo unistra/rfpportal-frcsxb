@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %} Your Dashboard {% endblock %}
+
+
+{% block body_block %}
+
+<div class = "container">
+
+<h2>Synergy</h2>
+<table class="table table-hover">
+    <th>
+        <td><strong>Status</strong></td>
+        <td><strong>Requested</strong></td>
+
+    </th>
+
+    {% for project in list_of_projects %}
+        {% if project.rfp.name == 'Synergy' %}
+                <tr>
+                    <td>{{ project.name }}</td>
+                    <td>{{ project.status }}</td>
+                    <td>Eur. {{ project.requested_amount}}</td>
+                </tr>
+        {% endif %}
+
+    {% endfor %}
+
+</table>
+
+</div>
+
+{% endblock %}

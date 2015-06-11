@@ -13,9 +13,15 @@ class RfpCampaign(models.Model):
     year=models.PositiveIntegerField(null=True)
     instructions=models.TextField(max_length=4000,null=True)
     logo = models.ImageField(upload_to='image',null=True,blank=True)
+    review_questions = models.CharField(max_length = 4000, null=True, blank=True)
 
     def __unicode__(self):
         return self.name
+
+    def get_questions(self):
+        list = str(self.review_questions).split(',')
+        b = tuple(list)
+        return b
 
     class Meta:
         verbose_name = "Call for proposal"
@@ -97,9 +103,16 @@ class BudgetLine(models.Model):
 class Review(models.Model):
     user = models.ForeignKey(User,verbose_name=u"Reviewer")
     project = models.ForeignKey(Project, verbose_name=u"Project")
-    name = models.CharField(max_length=255,blank=True)
-    question_1 = models.CharField(max_length=4000,null=True,blank=True)
-    question_2 = models.CharField(max_length=4000,null=True,blank=True)
+    custom_0 = models.CharField(max_length=4000,null=True,blank=True)
+    custom_1 = models.CharField(max_length=4000,null=True,blank=True)
+    custom_2 = models.CharField(max_length=4000,null=True,blank=True)
+    custom_3 = models.CharField(max_length=4000,null=True,blank=True)
+    custom_4 = models.CharField(max_length=4000,null=True,blank=True)
+    custom_5 = models.CharField(max_length=4000,null=True,blank=True)
+    custom_6 = models.CharField(max_length=4000,null=True,blank=True)
+    custom_7 = models.CharField(max_length=4000,null=True,blank=True)
+    custom_8 = models.CharField(max_length=4000,null=True,blank=True)
+    custom_9 = models.CharField(max_length=4000,null=True,blank=True)
     date = models.DateField(null=True,blank=True)
     document = models.FileField(upload_to=('reviews'),null=True,blank=True)
 

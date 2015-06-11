@@ -23,6 +23,9 @@ def is_pi_or_reviewer(User):
         state = True
     return state
 
+def is_staff(User):
+    return User.is_staff
+
 def get_absolute_url(view,object):
           return reverse('view', args=[str(object.id)])
 
@@ -152,6 +155,7 @@ def project_detail(request,projectId):
     context = RequestContext(request)
     user = request.user
     project=Project.objects.get(id=projectId)
+    review=Review.objects.get(user=user,project=project)
 
     project_data = UpdateForm(data=model_to_dict(project))
     prop_rev_list = ProposedReviewer.objects.filter(project = project)
@@ -169,7 +173,7 @@ def project_detail(request,projectId):
     current_url = reverse('project_budget', args = [project.pk])
 
     context_dict={'project' : project,'user' : user,'project_data' : project_data,'is_pi': is_p, 'bl' : budget_line_list,
-    'is_rev' : is_rev, 'prop_rev_list' : prop_rev_list,'current_url':current_url,
+    'is_rev' : is_rev, 'prop_rev_list' : prop_rev_list,'current_url':current_url,'review':review,
     'hr_budget_lines_list' : hr_budget_line_list, 'oc_budget_lines_list' : oc_budget_line_list,
     'eq_budget_lines_list' : eq_budget_line_list,
    'oc_total' : oc_total, 'hr_total' : hr_total, 'eq_total' : eq_total, 'total' : total}
@@ -181,7 +185,7 @@ def project_detail_budget(request,projectId):
     context = RequestContext(request)
     user = request.user
     project=Project.objects.get(id=projectId)
-
+    review=Review.objects.get(user=user,project=project)
 
     budget_line_list = BudgetLine.objects.filter(project = project)
     hr_budget_line_list = BudgetLine.objects.filter(project = project,category = 'HR')
@@ -199,7 +203,7 @@ def project_detail_budget(request,projectId):
     context_dict={'project' : project,'user' : user,'is_pi': is_p, 'bl' : budget_line_list,
     'is_rev' : is_rev,'current_url' : current_url,
     'hr_budget_lines_list' : hr_budget_line_list, 'oc_budget_lines_list' : oc_budget_line_list,
-    'eq_budget_lines_list' : eq_budget_line_list,
+    'eq_budget_lines_list' : eq_budget_line_list,'review' : review,
    'oc_total' : oc_total, 'hr_total' : hr_total, 'eq_total' : eq_total, 'total' : total}
 
     return render_to_response('rfp/project_details_budget.html',context_dict,context)
@@ -223,32 +227,32 @@ def project_detail_reviewers(request,projectId):
 
     return render_to_response('rfp/project_details_reviewer.html',context_dict,context)
 
-@user_passes_test(is_reviewer,login_url='/login/',redirect_field_name='next')
-def post_review(request,projectId):
+@user_passes_test(is_reviewer,login_url='/project/login_no_permission/',redirect_field_name='next')
+def project_review(request,projectId):
     context = RequestContext(request)
     user = request.user
-    user_profile = UserProfile.objects.get(user = user.pk)
-    project = Project.objects.get( pk = projectId)
-    review = Review.objects.get(user = user.pk, project = project.pk)
+    project=Project.objects.get(id=projectId)
+    review = Review.objects.get(project=projectId,user=user.pk)
+    questions = project.rfp.get_questions()
+    review_data = ReviewForm(data=model_to_dict(review),questions=questions)
 
-    if request.method == 'POST':
-        alldata = request.POST
-        redirect = alldata.get('redirect','0')
-        r = ReviewForm(request.POST,request.FILES,instance = review)
+    is_p = is_pi(user)
+    is_rev = is_reviewer(user)
+    current_url = reverse('project_reviewer', args = [project.pk])
 
-        if r.is_valid:
-            r.save(commit = False)
-            r.name = (str(project.user.last_name) + " - "+ str(project.user.first_name) + " - " + str(project.name))
-            r.date = datetime.date.today()
-            r.project = project
-            r.save()
+    context_dict={'current_url' : current_url,'project' : project,'user' : user,'review_data' : review_data,
+                  'is_pi': is_p,'is_rev' : is_rev,'review':review}
 
-            return HttpResponseRedirect(redirect)
+    return render_to_response('rfp/project_review.html',context_dict,context)
 
-    else:
-        r = ReviewForm(instance = review)
-
-    return render_to_response('rfp/post_review.html',{'form' : r, 'project' : project, 'user' : user, 'up' : user_profile}, context)
+def get_custom_answers(review_dict,request):
+                    dict = {}
+                    for row in review_dict:
+                        for p in request.POST:
+                           if str(p) == row:
+                                v = request.POST.get(p)
+                                dict[str(row)] = v
+                    return dict
 
 @user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def edit_reviewer(request,proposedreviewerId):
@@ -553,6 +557,69 @@ def prop_reviewer_list(request,projectId):
 
     return render_to_response('rfp/list_of_proposed_reviewer.html', {'user' : user, 'project' : project, 'proposed_reviewers' : prop_rev_list}, context)
 
+
+
+
+@user_passes_test(is_reviewer,login_url='/login/',redirect_field_name='next')
+def post_review(request,reviewId):
+    context = RequestContext(request)
+    user = request.user
+    user_profile = UserProfile.objects.get(user = user.pk)
+    review = Review.objects.get(pk = reviewId, user=user.pk)
+    project = Project.objects.get(pk = review.project.pk)
+    rfp = RfpCampaign.objects.get(id = project.rfp.id)
+    questions = rfp.get_questions()
+    is_p = is_pi(user)
+    is_rev = is_reviewer(user)
+
+    review_item = Review.objects.get(user = user.pk, project = project.pk)
+    review_model_dict = model_to_dict(review_item)
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST,request.FILES,questions=questions)
+
+        if form.is_valid():
+                    form_data = form.cleaned_data
+                    updated_review = Review.objects.update_or_create(user = user.pk, project = project.pk, defaults=form_data)
+                    print(updated_review)
+
+                    return HttpResponseRedirect(reverse('project_review', args=[project.pk]))
+
+        else:
+                    return HttpResponseRedirect('Form is not valid')
+
+    else:
+        form = ReviewForm(initial= review_model_dict,questions = questions)
+
+    return render_to_response('rfp/post_review.html',{'is_pi' : is_p, 'is_rev': is_rev,
+        'form' : form, 'project' : project, 'user' : user, 'up' : user_profile,'review' : review}, context)
+
+
+
+@user_passes_test(is_reviewer,login_url='/project/login_no_permission/',redirect_field_name='next')
+def post_review_waiver(request,reviewId):
+    context = RequestContext(request)
+    user = request.user
+    review = Review.objects.get(pk = reviewId, user=user.pk)
+    project = Project.objects.get(pk = review.project.pk)
+    print (request.POST)
+
+    if review.user.pk == user.pk:
+        if request.method =='POST':
+            if ('no_conflict') in request.POST['optradio'] or ('agreement') in request.POST['optradio']:
+                return HttpResponseRedirect(reverse('project_detail', args = [project.pk]))
+            elif ('refuse') in request.POST['optradio']:
+                return HttpResponseRedirect(reverse('logout'))
+
+    else:
+        return HttpResponseRedirect(reverse('login'))
+
+
+    context_dict = {'review' : review, 'project' : project}
+
+    return render_to_response('rfp/post_review_waiver.html', context_dict, context)
+
+
 @user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def rfp_campaign(request,rfpcampaignId):
     context = RequestContext(request)
@@ -572,6 +639,10 @@ def list_of_call_for_proposal(request):
     context_dict = {'rfp_c' : rfp_c}
 
     return render_to_response('rfp/rfp_list.html',context_dict,context)
+
+
+
+
 
 def test (request):
     from django.template.loader import render_to_string
@@ -595,3 +666,16 @@ def test (request):
     context_dict = {'user' : user, 'url' : encoded_url}
 
     return render_to_response('rfp/test.html',context_dict,context)
+
+@user_passes_test(is_staff,login_url='/project/login_no_permission/',redirect_field_name='next')
+def dashboard(request):
+    context = RequestContext(request)
+    user = request.user
+
+    list_of_projects = Project.objects.all()
+    list_of_review = Review.objects.all()
+
+    context_dict = {'list_of_projects' : list_of_projects, 'list_of_review': list_of_review, 'user': user }
+
+    return render_to_response('dashboard.html', context_dict, context)
+

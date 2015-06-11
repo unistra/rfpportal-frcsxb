@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ project.name }} {% endblock %}
+
+{% block body_block %}
+
+<div class="container">
+
+{% block project_header %}
+<!--Project Header-->
+{% include 'rfp/project/project_header.html' %}
+{% endblock %}
+
+{% block project_tab %}
+<!--Project Tab-->
+{% include 'rfp/project/project_tab.html' %}
+{% endblock %}
+
+<!--Review details-->
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+
+
+    <h3>Your Review {% if is_rev %} <a class="small_link" href="{% url 'post_review' review.id %}">Edit your Review</a>{% endif %}</h3>
+
+    {% for p in review_data %}
+
+           <p class="project_data" id="{{ p.label|slugify }}"><strong>{{ p.label }} </strong>{{ p.data|linebreaksbr }}</p>
+
+    {% endfor %}
+
+
+    </div>
+</div>
+
+</div>
+
+<script>
+    $('#your_review').addClass('active');
+</script>
+{% endblock %}

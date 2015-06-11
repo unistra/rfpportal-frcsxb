@@ -4,6 +4,8 @@
             <li id="project_tab" class="tab_role" role="presentation"><a href="{% url 'project_detail' project.id %}">Details</a></li>
             <li id ="budget_tab" class="tab_role" role="presentation"><a href="{% url 'project_budget' project.id %}">Budget</a></li>
             {% if is_pi %}<li  id="reviewer_tab" class="tab_role" role="presentation"><a href="{% url 'project_reviewer' project.id %}">Reviewers</a></li>{% endif %}
+            {% if is_rev %}<li  id="your_review" class="tab_role" role="presentation"><a href="{% url 'project_review' project.id %}">Your Review</a></li>{% endif %}
+
         </ul>
     </div>
 </div>

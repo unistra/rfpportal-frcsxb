@@ -14,9 +14,10 @@ urlpatterns = patterns('',
     #Grappelli admin CMS url
     (r'^grappelli/', include('grappelli.urls')),
 
+
     url(r'^admin/', include(admin.site.urls)),
     url('^', include('django.contrib.auth.urls',)),
-    url(r'^/logout/$', 'django.contrib.auth.views.logout', {'template_name': 'registration/logout.html'}),
+    url(r'^/logout/$', 'django.contrib.auth.views.logout', {'template_name': 'registration/logout.html'}, name = 'logout'),
     url(r'^/login/?next=/$', 'django.contrib.auth.views.login',name='login'),
     url(r'^$','django.contrib.auth.views.login',{'template_name': 'home_page_login.html'},name='home_page'),
 

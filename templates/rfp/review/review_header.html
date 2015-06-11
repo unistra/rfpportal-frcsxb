@@ -1,0 +1,7 @@
+<!--review header-->
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+            <legend>Review: {{ project.name }}</legend>
+        <h5>Reviewer: <a href="{% url 'user_profile' %}">{{ up.first_name }} {{ up.last_name }}</a></h5>
+        </div>
+    </div>

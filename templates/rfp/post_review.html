@@ -6,55 +6,19 @@
 
 <div class="container">
 
-    <div class="row proj_header">
+    <div class="row">
         <div class="col-xs-12 col-md-12">
-        <h2>Review for: {{ project.name }}</h2>
-        <h4>Category: {{ project.rfp.name }}</h4>
-        <h5>Reviewer: <a href="{% url 'user_profile' %}">{{ up.first_name }} {{ up.last_name }}</a></h5>
+           {% include 'rfp/review/review_header.html' %}
         </div>
     </div>
 
-    <div class = "row">
-        <div class = "col-xs-12 col-md-12">
-            <form class="" method="post" enctype="multipart/form-data" action="{% url 'post_review' project.id %}">
 
-                {% csrf_token %}
-
-                    {% for f in form %}
-                            {% if f.label == 'Document' %}
-                                 <div class = "col-xs-12 col-md-12">
-                                             <p>{{ f.label }} : {% if project.document %} <a href="{{ project.document.url }}">{{ project.document.name }}</a>
-                                                {% else %}
-                                             <em>No file</em>
-                                                 {% endif %}
-                                             </p>
-                                 </div>
-
-                                <div class="col-xs-12 col-md-12">
-                                    <div class="form-group">
-
-                                                    {{ f }}
-                                                    {{ f.errors }}
-
-                                    </div>
-
-
-                            {% else %}
-                                <div class="form-group">
-                                    {{ f.label }}{% if f.field.required = True %} * {% endif %}
-                                    {{ f }}
-                                    {{ f.errors }}
-                                </div>
-                            {% endif %}
-
-                    {% endfor %}
-
-                 <input class="btn btn-primary pull-right" type="submit" value="Submit"  />
-                 <input type="hidden" name="next" value="{% url 'user_profile' %}" />
-             </div>
-            </form>
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+           {% include 'rfp/review/post_review_form.html' %}
         </div>
     </div>
+
+
 </div>
-
 {% endblock %}

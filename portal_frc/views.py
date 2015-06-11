@@ -27,3 +27,5 @@ def index(request):
     context_dict = {}
 
     return render_to_response('registration/home_page_login.html',context_dict,context)
+
+

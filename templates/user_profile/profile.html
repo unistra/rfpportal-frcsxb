@@ -8,8 +8,9 @@
 
 <div class="container">
 
-    <div class="container">
+
         <div class="row">
+
             <div class="col-xs-12 col-md-4">
                 <h3>Account information</h3>
                 <p>Username: {{ user }}<br>
@@ -28,49 +29,22 @@
                 </p>
             </div>
 
-            <div class="col-xs-12 col-md-4">            </div>
+            <div class="col-xs-12 col-md-4"></div>
+
         </div>
 
         {% if is_rev %}
-
         <div class="row">
             <div class="col-xs-12 col-md-12">
-               <table class="table">
-                   <h2>Reviews</h2>
-                <thead>
-                        <tr>
-                            <th>Project</th>
-                            <th>File</th>
-                            <th></th>
-                            <th>Category</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                    {% for r in reviews %}
-
-                    <tr>
-                        <td><a href="{% url 'project_detail' r.project.id %}">{{ r.project.name }}</a></td>
-                        <td>{% if r.document %}<a href="{{ r.document.url }}">{{ r.document.name }}</a> {% endif %}</td>
-                        <td>Click <a href="{% url 'post_review' r.project.id %}"> here </a> to {% if r.question_1 %}edit{% else %}complete{% endif %} your review.</td>
-                        <td>{{ r.project.rfp.name }}</a></td>
-                        <td>{% if r.question_1 %}Completed{% else %}Pending{% endif %}</td>
-                    </tr>
-
-                    {% endfor %}
-                    </tbody>
-                </table>
-
+        {% include 'user_profile/list_reviews.html' %}
             </div>
         </div>
-
         {% endif %}
 
         {% if is_pi %}
         <div class="row">
             <div class="col-xs-12 col-md-12">
-                <h2>Projects <a class = "small_link" href="{% url 'rfp_list' %}">Add a new projet</a></h2>
+                <h2>Your Projects <a class = "small_link" href="{% url 'rfp_list' %}">Add a new projet</a></h2>
 
                 <table class="table">
 
@@ -108,9 +82,8 @@
         </div>
         {% endif %}
 
-    </div>
-
 </div>
+
 
 
 {% endblock %}

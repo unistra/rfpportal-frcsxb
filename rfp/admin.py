@@ -76,8 +76,8 @@ class ProjectAdmin(ImportExportModelAdmin):
     ]
 
 class ReviewOptions(ImportExportModelAdmin):
-    list_display = ["name","project","user"]
-    search_fields = ["name"]
+    list_display = ["project","user"]
+    search_fields = []
     list_filter = ["user","project"]
     change_list_filter_template = "admin/filter_listing.html"
 

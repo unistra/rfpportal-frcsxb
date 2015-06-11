@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     url(r'^(?P<projectId>\d+)/$',views.project_detail,name='project_detail'),
     url(r'^(?P<projectId>\d+)/budget/$',views.project_detail_budget,name='project_budget'),
     url(r'^(?P<projectId>\d+)/reviewer/$',views.project_detail_reviewers,name='project_reviewer'),
+    url(r'^(?P<projectId>\d+)/your_review/$',views.project_review,name='project_review'),
 
 #Edit existing Budget Line
     url(r'^edit_budget_hr/(?P<budgetlineId>\d+)/$',views.edit_budget_hr,name='edit_budget_hr'),
@@ -36,11 +37,16 @@ urlpatterns = patterns('',
     url(r'^exclude_unique_reviewer/(?P<projectId>\d+)/$',views.exclude_unique_reviewer,name='exclude_unique_reviewer'),
 
 #Post a Review for an existing project
-    url(r'^post_review/(?P<projectId>\d+)/$',views.post_review,name='post_review'),
+    url(r'^post_review/(?P<reviewId>\d+)/$',views.post_review,name='post_review'),
+    url(r'^post_review_waiver/(?P<reviewId>\d+)/$',views.post_review_waiver,name='post_review_waiver'),
 
 #List of open Call For Proposals
     url(r'^rfp/(?P<rfpcampaignId>\d+)/$',views.rfp_campaign,name='rfpcampaign_detail'),
     url(r'^rfp/$',views.list_of_call_for_proposal,name='rfp_list'),
+
+#Dashboard and Admin controls
+    url(r'^dashboard/$',views.dashboard,name='dashboard'),
+
 
 #Testing
     url(r'^test/$',views.test,name='test'),
