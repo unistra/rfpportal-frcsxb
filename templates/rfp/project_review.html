@@ -22,7 +22,7 @@
 
 
     <h3>Your Review {% if is_rev %} <a class="small_link" href="{% url 'post_review' review.id %}">Edit your Review</a>{% endif %}</h3>
-
+    <h5><strong>Author:</strong> {{ review.user.get_full_name }}</h5>
     {% for p in review_data %}
 
            <p class="project_data" id="{{ p.label|slugify }}"><strong>{{ p.label }} </strong>{{ p.data|linebreaksbr }}</p>
