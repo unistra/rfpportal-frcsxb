@@ -47,11 +47,9 @@ class Project(models.Model):
         return self.name
 
     def send_project_confirmation_email(self):
-    #Send a Thank you for your project confirmation email.
-         print(self.confirmation_email_sent)
 
          if not self.confirmation_email_sent:
-            self.confirmation_email_sent = True
+
             c = {'project' : self}
 
             msg_plain = render_to_string('rfp/email/project_confirmation.txt',c)
@@ -69,7 +67,6 @@ class Project(models.Model):
 
             self.confirmation_email_sent = True
             self.save()
-            print('Email Sent ??)')
 
 class ProposedReviewer(models.Model):
     project=models.ForeignKey(Project,null=True)
@@ -104,6 +101,7 @@ class Review(models.Model):
     user = models.ForeignKey(User,verbose_name=u"Reviewer")
     project = models.ForeignKey(Project, verbose_name=u"Project")
     rating = models.CharField(max_length=255, null=True,blank=True)
+    status = models.CharField(max_length=255,default='pending',blank=True)
     custom_0 = models.CharField(max_length=4000,null=True,blank=True)
     custom_1 = models.CharField(max_length=4000,null=True,blank=True)
     custom_2 = models.CharField(max_length=4000,null=True,blank=True)
@@ -120,7 +118,32 @@ class Review(models.Model):
     def __unicode__(self):
         return (str(self.user.first_name) + " " + str(self.user.last_name) + " for: " + str(self.project.name))
 
+    def set_review_as_completed(self):
+        if self.rating:
+            self.status = 'completed'
+            self.save()
+        return self.status
 
+    def send_confirmation_email_to_reviewer(self):
+        if self.status == 'completed':
+
+            c = {'review' : self}
+
+            msg_plain = render_to_string('rfp/email/review_confirmation.txt',c)
+            msg_html = render_to_string('rfp/email/review_confirmation.html',c)
+
+            conf_plain = render_to_string('rfp/email/review_admin_confirmation.txt',c)
+            conf_html = render_to_string('rfp/email/review_admin_confirmation.html',c)
+
+            send_mail('Thank you! Your review has been succesfully submitted.',
+                      msg_plain, 'contact@icfrc.fr', [self.user.email],
+                      html_message=msg_html, fail_silently=False)
+
+            send_mail('Review Submitted',
+                      conf_plain, 'contact@icfrc.fr', ['contact@icfrc.fr'],
+                      html_message=conf_html, fail_silently=False)
+
+            print('Email Sent ??)')
 
 class File_Test(models.Model):
     name=models.CharField(max_length=255)

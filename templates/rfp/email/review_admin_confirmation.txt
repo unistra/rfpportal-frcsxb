@@ -1,0 +1,12 @@
+Hello,
+
+A review has been submitted for {{ review.project.name }} - {{ review.project.rfp.name }} {{ review.project.rfp.year }} call for proposal.
+    Reviewer: {{ review.user.get_full_name }}
+    PI: {{ review.project.user.get_full_name}}
+    Rating: {{ review.rating }}
+
+
+Best,
+
+The Request for Proposal Portal.
+

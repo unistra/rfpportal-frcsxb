@@ -1,0 +1,15 @@
+<html>
+<body>
+<p>Hello,</p>
+
+<p>A review has been submitted for {{ review.project.name }} - {{ review.project.rfp.name }} {{ review.project.rfp.year }} call for proposal.<br><br>
+    <strong>Reviewer:</strong> {{ review.user.get_full_name }}<br>
+    <strong>PI:</strong> {{ review.project.user.get_full_name}}<br>
+    <strong>Rating: </strong> {{ review.rating }}<br>
+</p>
+
+<p>Best,
+<br>
+The Request for Proposal Portal.
+</body>
+</html>

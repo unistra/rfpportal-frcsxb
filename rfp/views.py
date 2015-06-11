@@ -592,7 +592,9 @@ def post_review(request,reviewId):
         if form.is_valid():
                     form_data = form.cleaned_data
                     updated_review = Review.objects.update_or_create(user = user.pk, project = project.pk, defaults=form_data)
-                    print(updated_review)
+
+                    review.set_review_as_completed()
+                    review.send_confirmation_email_to_reviewer()
 
                     return HttpResponseRedirect(reverse('project_review', args=[project.pk]))
 
@@ -613,8 +615,12 @@ def post_review_waiver(request,reviewId):
     if review.user.pk == user.pk:
         if request.method =='POST':
             if ('no_conflict') in request.POST['optradio'] or ('agreement') in request.POST['optradio']:
+                review.status = 'accepted'
+                review.save()
                 return HttpResponseRedirect(reverse('project_detail', args = [project.pk]))
             elif ('refuse') in request.POST['optradio']:
+                review.status = 'refused'
+                review.save()
                 return HttpResponseRedirect(reverse('logout'))
 
     else:

@@ -1,0 +1,7 @@
+Hello,
+
+Thank you for your review. Your review submitted for {{ review.project.name }} - {{ review.project.rfp.name }} {{ review.project.rfp.year }} has been succesfully recorded.
+
+Best,
+
+The FRC Team.

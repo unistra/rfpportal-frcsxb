@@ -12,7 +12,7 @@ category_choices = (
 )
 
 ratings = (
-    ('N/A',''),
+    ('','----------'),
     ('A', 'A: superb proposal; fund fully as requested with highest priority'),
     ('B', 'B: excellent proposal; fund with high priority'),
     ('C', 'C: very good proposal; fund with priority'),
