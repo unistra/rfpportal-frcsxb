@@ -19,7 +19,7 @@ class RfpCampaign(models.Model):
         return self.name
 
     def get_questions(self):
-        list = str(self.review_questions).split(',')
+        list = self.review_questions.split('; ')
         b = tuple(list)
         return b
 
