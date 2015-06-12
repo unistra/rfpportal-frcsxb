@@ -50,7 +50,11 @@ div{
 /* Navigation Bar */
 .navbar
 {
-    background-color:white;
+    background-color:#333;
+}
+
+.nav_background{
+    background-color:#333;
 }
 
 .navbar-default{
@@ -58,25 +62,25 @@ background-image:none;
 }
 
 .navbar-default .navbar-nav>li>a{
-color:RGB(0,94,167);
+color:#fff;
 }
 
 .navbar-default .navbar-nav>li>a:hover{
-color:RGB(0,94,167);
+color:#fff;
 font-weight:bold;
 }
 
 .navbar-default .navbar-nav>li>a:focus{
-color:RGB(0,94,167);
+color:#fff;
 font-weight:bold;
 }
 
 .dropdown-menu>li>a{
-    color:RGB(0,94,167);
+    color:#fff;
 }
 
 .dropdown-menu>li>a:hover{
-    color:RGB(0,94,167);
+    color:#fff;
     font-weight:bold;
 }
 
@@ -387,13 +391,11 @@ ol.progtrckr li.progtrckr-focus:before {
 .footer {
   position:absolute;
   bottom:0;
-
   width: 100%;
   /* Set the fixed height of the footer here */
-
   height: 60px;
-  background-color:white;
-  color:RGB(0,94,167);
+  background-color:#333;
+  color:#ccc;
 }
 
 .footer-text
@@ -410,8 +412,14 @@ ol.progtrckr li.progtrckr-focus:before {
 .footer .footer-text p > a
 {
     font-size:12px;
-    color:RGB(0,94,167);
+    color:#ccc;
 }
+
+.ft_background {
+    background-color:#333;
+    height:60px !important;
+}
+
 
 .file_field{
     margin-left:-15px;

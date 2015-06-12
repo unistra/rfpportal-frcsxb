@@ -25,7 +25,7 @@
             <div class = "row">
 
                 <div  style="padding-top:7px;" class="col-xs-12 col-md-4">
-                    <strong>Category: *</strong>
+                    <strong>Category: <span class="req">*</span></strong>
                 </div>
                 <div class="col-xs-12 col-md-8">
                     {{ f }}
@@ -41,7 +41,7 @@
             <div class = "row">
             <div  class = "col-xs-12 col-md-4">
             <div class="form-group">
-            {{ f.label }}{% if f.field.required = True %} * {% endif %}
+            <strong>{{ f.label }}{% if f.field.required %} <span class="req">*</span> {% endif %}</strong>
                 <div class="input-group">
 
                         <div class="input-group-addon">
@@ -59,7 +59,7 @@
 
             <div style="padding-left:0px;" class = "col-xs-12 col-md-4">
             <div class="form-group">
-            {{ f.label }}{% if f.field.required = True %} * {% endif %}
+            <strong>{{ f.label }}{% if f.field.required %} <span class="req">*</span> {% endif %}</strong>
                 <div class="input-group">
 
                         <div class="input-group-addon">
@@ -76,7 +76,7 @@
 
             <div style="padding-left:0px;" class = "col-xs-12 col-md-4">
             <div class="form-group">
-            {{ f.label }}{% if f.field.required = True %} * {% endif %}
+            <strong>{{ f.label }}{% if f.field.required %} <span class="req">*</span> {% endif %}</strong>
                 <div class="input-group">
 
                         <div class="input-group-addon">
@@ -93,7 +93,7 @@
 
             <div style="padding-left:0px; padding-right:0px;" class = "col-xs-12 col-md-4">
             <div class="form-group">
-            {{ f.label }}{% if f.field.required = True %} * {% endif %}
+                            <strong>{{ f.label }}{% if f.field.required = True %} * {% endif %}</strong>
                             {{ f }}
                             {{ f.errors }}
                 </div>
@@ -103,7 +103,7 @@
 
             <div class="form-group">
                 <div  style="padding-top:7px;" class=" no_l_pad col-xs-12 col-md-4">
-                    <span class=""><strong>Upload your document: *</strong></span>
+                    <span class=""><strong>Upload your document: <span class="req">*</span></strong></span>
                 </div>
                 <div style="padding-right:0px;" class="col-xs-12 col-md-8">
                     {{ f }}
@@ -113,7 +113,7 @@
 
             {% elif f.label != '' %}
             <div class="form-group">
-                        {{ f.label }}{% if f.field.required = True %} * {% endif %}
+                        <strong>{{ f.label }}{% if f.field.required = True %} * {% endif %}</strong>
                         {{ f }}
                         {{ f.errors }}
             </div>
