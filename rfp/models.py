@@ -36,9 +36,9 @@ class Project(models.Model):
     project_duration=models.IntegerField(null=True,blank=True)
     requested_amount=models.IntegerField(null=True)
     additional_funding = models.CharField(max_length = 4000, null = True, blank = True)
-    purpose=models.CharField(max_length=4000,null=True,blank=True)
-    scope_of_work=models.CharField(max_length=4000,null=True,blank=True)
-    anticipated_impact=models.CharField(max_length=4000,null=True,blank=True)
+    purpose=models.CharField(max_length=4000,null=True,blank=True,verbose_name=U"Keywords")
+    scope_of_work=models.CharField(max_length=4000,null=True,blank=True,verbose_name=u"Abstract")
+    anticipated_impact=models.CharField(max_length=4000,null=True,blank=True,verbose_name=u"Link with other project")
     document=models.FileField(upload_to='project',null=True,blank=True)
     status=models.CharField(max_length=255,blank=True,null=True)
     confirmation_email_sent = models.BooleanField(default=False)
@@ -118,15 +118,8 @@ class Review(models.Model):
     def __unicode__(self):
         return (str(self.user.first_name) + " " + str(self.user.last_name) + " for: " + str(self.project.name))
 
-    def set_review_as_completed(self):
-        if self.rating:
-            self.status = 'completed'
-            self.save()
-        return self.status
-
     def send_confirmation_email_to_reviewer(self):
-        if self.status == 'completed':
-
+        if not self.status == 'completed':
             c = {'review' : self}
 
             msg_plain = render_to_string('rfp/email/review_confirmation.txt',c)
@@ -143,10 +136,40 @@ class Review(models.Model):
                       conf_plain, 'contact@icfrc.fr', ['contact@icfrc.fr'],
                       html_message=conf_html, fail_silently=False)
 
-            print('Email Sent ??)')
+
+def set_review_as_completed(sender, instance, created, **kwargs):
+        if instance.rating:
+            instance.send_confirmation_email_to_reviewer()
+            print('Confirmation Sent!')
+        return instance.status
+
+def send_invitation_to_review_email(sender, instance, created, **kwargs):
+    if created:
+        from urlcrypt import lib as urlcrypt
+        from django.core.urlresolvers import reverse
+        token_accept = urlcrypt.generate_login_token(instance.user, reverse('post_review_waiver', args=[instance.id]))
+
+        url_accept = reverse('urlcrypt_redirect', args=(token_accept,))
+        url_refuse = reverse('urlcrypt_redirect', args=(token_accept,))
+
+        c = {'url_accept' : url_accept, 'url_refuse' : url_refuse, 'review' : instance}
+        msg_plain = render_to_string('rfp/email/review_invitation.html', c)
+        msg_html = render_to_string('rfp/email/review_invitation.html', c)
+        msg_subject = render_to_string('rfp/email/review_invitation_subject.txt', c)
+
+        send_mail(msg_subject,msg_plain,'contact@icfrc.fr',[instance.user.email],html_message=msg_html,fail_silently=False)
+
+        print('Invitation sent')
+
+        instance.status = 'invited'
+        instance.save()
+        print('Review status changed')
 
 class File_Test(models.Model):
     name=models.CharField(max_length=255)
     document=models.FileField(null=True)
 
 #post_save.connect(send_project_confirmation_email,sender = Project)
+
+post_save.connect(send_invitation_to_review_email,sender= Review)
+#post_save.connect(set_review_as_completed, sender = Review)

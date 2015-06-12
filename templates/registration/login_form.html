@@ -1,42 +1,41 @@
+{% load widget_tweaks %}
+
 {% if form.errors %}
     <div class="alert alert-danger" role="alert">
     <p style="text-align:center;">Username/Password does not match. Please try again. If you're having issues accessing your account please <a href="mailto:loison@icfrc.fr">contact us</a>.</p>
     </div>
 {% endif %}
 
-<div class="col-md-4"></div>
+<div class="authentication_container is-centered-block">
+    <div>
+        <div class="l-padded-v-4 l-padded-h-2 pod">
 
-{% load widget_tweaks %}
-<div class="col-xs-12 col-md-4">
+            <form method="post" action="{% url 'django.contrib.auth.views.login' %}?next={{ request.path }}">
+            {% csrf_token %}
 
-<form method="post" action="{% url 'django.contrib.auth.views.login' %}?next={{ request.path }}">
-{% csrf_token %}
+                {% for field in form %}
+                        <div class="form-group">
+                            {{ field.label_tag }}
+                            {{ field|add_class:"form-control" }}
+                            {{ field.errors }}
+                        </div>
+                {% endfor %}
+
+                    <div class="form-group">
+                        <input class="btn btn-apply btn-login" type="submit" value="Login" />
+                        <input type="hidden" name="next" value="{{ next }}" />
+                    </div>
+            </form>
 
 
-    {% for field in form %}
-            <div class="form-group">
-                {{ field.label_tag }}
-                {{ field|add_class:"form-control" }}
-                {{ field.errors }}
-            </div>
-    {% endfor %}
+        <div class="text--centered">
+            <p>Forgot your password? <a href="{% url 'password_reset' %}">Click here.</a></p>
+        </div>
 
-        <input class="btn btn-apply btn-login pull-right" type="submit" value="Login" />
-        <input type="hidden" name="next" value="{{ next }}" />
-</form>
+        </div>
 
-</div>
 
-</div>
+    </div>
 
-<div class="row">
-
-    <div class="col-xs-12 col-md-4"></div>
-
-<div class="col-xs-12 col-md-4">
-    <p>Forgot your password? <a href="{% url 'password_reset' %}">Click here.</a></p>
-</div>
-
-<div class="col-xs-12 col-md-4"></div>
 
 </div>

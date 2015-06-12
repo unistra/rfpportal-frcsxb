@@ -18,7 +18,7 @@
             </div>
             
             <div class="col-xs-12 col-md-4">
-                <h3>Contact information <span class="small_link"><a href = "{% url 'edit_profile' %}">Edit your information</a></span></h3>
+                <h3>Contact information <span class="small_link"><a href = "{% url 'edit_profile' %}?redirect={{ current_url }}">Edit your information</a></span></h3>
                 <p> {{ user_profile.first_name }} {{ user_profile.last_name }}<br/>
                 Email: {{ user.email }}</p>
                 <p> Organization: <strong>{{ user_profile.organization }}</strong><br>
@@ -29,7 +29,7 @@
                 </p>
             </div>
 
-            <div class="col-xs-12 col-md-4"></div>
+        <div class="col-xs-12 col-md-4"></div>
 
         </div>
 

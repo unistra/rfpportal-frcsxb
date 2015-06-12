@@ -1,13 +1,17 @@
-
-
-
 <!--Review Form-->
+{% load bootstrap3 %}
     <div class = "row">
         <div class = "col-xs-12 col-md-12">
-            <form class="" method="post" enctype="multipart/form-data" action="{% url 'post_review' review.id %}">
+            <form method="post" enctype="multipart/form-data" action="{% url 'post_review' review.id %}">
 
                 {% csrf_token %}
-                {{ form.as_p }}
+                {% for field in form %}
+                    <div class="form-group">
+                        {% bootstrap_label field.label %}{% if field.field.required %} <span class="req"> *</span>{% endif %}
+                        {{ field }}
+                        {{ field.errors }}
+                    </div>
+                {% endfor %}
 
                  <input class="btn btn-apply pull-right" type="submit" value="Save"  />
 

@@ -1,0 +1,14 @@
+Hello,
+
+We would ike you to review this project: {{ review.project.name }}
+Author: {{ review.project.user.get_full_name }}.
+Abstract: {{ review.project.scope_of_work }}
+Keywords: {{ review.project.purpose }}
+
+To review this project, please click copy/paste this link in your browser: http://127.0.0.1:8000{{ url_accept }}
+
+To refuse to review this project, please copy/paste this link in your browser: http://127.0.0.1:8000{{ url_refuse }}
+
+Best,
+
+The FRC Team.

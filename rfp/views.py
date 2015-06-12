@@ -54,6 +54,18 @@ def find_user_review_for_project(user,project):
 
         return review
 
+def store_redirect_url(request):
+       request.session['redirect_url'] = request.get_full_path()
+       redirect_url = request.session.__getitem__('redirect_url')
+       return redirect_url
+
+def get_redirect_url(request):
+    if request.session.__contains__('redirect_url'):
+        redirect_url = request.session.__getitem__('redirect_url')
+        return redirect_url
+    else:
+        return reverse('post_homepage_login_landing_page')
+
 # Views start here.
 @user_passes_test(is_pi,login_url='/login/')
 def create_project(request):
@@ -95,10 +107,10 @@ def create_project_budget(request,projectId):
     eq_total = budget_line_sum(eq_budget_line_list)
     total = oc_total + hr_total + eq_total
 
-    current_url = reverse('create_project_budget', args = [project.pk])
+    store_redirect_url(request)
 
     context_dict={'project' : project,'user' : user,'is_pi': is_p, 'bl' : budget_line_list,
-    'is_rev' : is_rev,'current_url' : current_url,
+    'is_rev' : is_rev,
     'hr_budget_lines_list' : hr_budget_line_list, 'oc_budget_lines_list' : oc_budget_line_list,
     'eq_budget_lines_list' : eq_budget_line_list,
     'oc_total' : oc_total, 'hr_total' : hr_total, 'eq_total' : eq_total, 'total' : total}
@@ -117,9 +129,10 @@ def create_project_reviewer(request,projectId):
 
     is_p = is_pi(user)
     is_rev = is_reviewer(user)
-    current_url = reverse('create_project_reviewer', args = [project.pk])
 
-    context_dict={'current_url' : current_url,'project' : project,'user' : user,'project_data' : project_data,'is_pi': is_p, 'bl' : budget_line_list,
+    store_redirect_url(request)
+
+    context_dict={'project' : project,'user' : user,'project_data' : project_data,'is_pi': is_p, 'bl' : budget_line_list,
     'is_rev' : is_rev, 'prop_rev_list' : prop_rev_list}
 
     return render_to_response('rfp/create_project_reviewer.html',context_dict,context)
@@ -219,10 +232,11 @@ def project_detail_budget(request,projectId):
     hr_total = budget_line_sum(hr_budget_line_list)
     eq_total = budget_line_sum(eq_budget_line_list)
     total = oc_total + hr_total + eq_total
-    current_url = reverse('project_budget', args = [project.pk])
+
+    store_redirect_url(request)
 
     context_dict={'project' : project,'user' : user,'is_pi': is_p, 'bl' : budget_line_list,
-    'is_rev' : is_rev,'current_url' : current_url,
+    'is_rev' : is_rev,
     'hr_budget_lines_list' : hr_budget_line_list, 'oc_budget_lines_list' : oc_budget_line_list,
     'eq_budget_lines_list' : eq_budget_line_list,'review' : review,
    'oc_total' : oc_total, 'hr_total' : hr_total, 'eq_total' : eq_total, 'total' : total}
@@ -241,9 +255,10 @@ def project_detail_reviewers(request,projectId):
 
     is_p = is_pi(user)
     is_rev = is_reviewer(user)
-    current_url = reverse('project_reviewer', args = [project.pk])
 
-    context_dict={'current_url' : current_url,'project' : project,'user' : user,'project_data' : project_data,'is_pi': is_p, 'bl' : budget_line_list,
+    store_redirect_url(request)
+
+    context_dict={'project' : project,'user' : user,'project_data' : project_data,'is_pi': is_p, 'bl' : budget_line_list,
     'is_rev' : is_rev, 'prop_rev_list' : prop_rev_list}
 
     return render_to_response('rfp/project_details_reviewer.html',context_dict,context)
@@ -257,16 +272,18 @@ def project_review(request,projectId):
     questions = project.rfp.get_questions()
     review_data = ReviewForm(data=model_to_dict(review),questions=questions)
 
+    store_redirect_url(request)
+
     is_p = is_pi(user)
     is_rev = is_reviewer(user)
-    current_url = reverse('project_reviewer', args = [project.pk])
+    store_redirect_url(request)
 
-    context_dict={'current_url' : current_url,'project' : project,'user' : user,'review_data' : review_data,
+    store_redirect_url(request)
+
+    context_dict={'project' : project,'user' : user,'review_data' : review_data,
                   'is_pi': is_p,'is_rev' : is_rev,'review':review}
 
     return render_to_response('rfp/project_review.html',context_dict,context)
-
-
 
 @user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def edit_reviewer(request,proposedreviewerId):
@@ -274,8 +291,7 @@ def edit_reviewer(request,proposedreviewerId):
     user = request.user
     prop_rev = ProposedReviewer.objects.get( pk = proposedreviewerId )
     project = Project.objects.get(pk = prop_rev.project.pk)
-    alldata = request.POST
-    redirect = alldata.get('redirect','0')
+    redirect = get_redirect_url(request)
 
     if request.method == 'POST':
 
@@ -301,10 +317,10 @@ def edit_excluded_reviewer(request,proposedreviewerId):
     user = request.user
     prop_rev = ProposedReviewer.objects.get( pk = proposedreviewerId )
     project = Project.objects.get(pk = prop_rev.project.pk)
+    redirect = get_redirect_url(request)
 
     if request.method == 'POST':
-        alldata = request.POST
-        redirect = alldata.get('redirect','0')
+
         if 'delete' in request.POST:
              prop_rev.delete()
              return HttpResponseRedirect(redirect)
@@ -319,17 +335,17 @@ def edit_excluded_reviewer(request,proposedreviewerId):
     else:
         r = ExcludedReviewerForm(instance= prop_rev)
 
-    return render_to_response('rfp/edit_excluded_reviewer.html', {'f' : r, 'project' : project, 'user' : user, 'prop_rev' : prop_rev},context)
+    return render_to_response('rfp/edit_excluded_reviewer.html', {'form' : r, 'project' : project, 'user' : user, 'prop_rev' : prop_rev},context)
 
 @user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def add_unique_reviewer(request, projectId):
     context = RequestContext(request)
     user = request.user
     project = Project.objects.get(pk = projectId)
+    redirect = get_redirect_url(request)
 
     if request.method == 'POST':
-        alldata = request.POST
-        redirect = alldata.get('redirect','0')
+
         r = ProposedReviewerForm(request.POST)
         if r.is_valid():
             reviewer = r.save(commit = False)
@@ -348,12 +364,11 @@ def exclude_unique_reviewer(request, projectId):
     context = RequestContext(request)
     user = request.user
     project = Project.objects.get(pk = projectId)
+    redirect = get_redirect_url(request)
 
     if request.method == 'POST':
-        alldata = request.POST
-        redirect = alldata.get('redirect','0')
-
         r = ExcludedReviewerForm(request.POST)
+
         if r.is_valid():
             reviewer = r.save(commit = False)
             reviewer.project = project
@@ -365,7 +380,7 @@ def exclude_unique_reviewer(request, projectId):
     else:
         r = ExcludedReviewerForm()
 
-    return render_to_response('rfp/exclude_unique_review.html', {'f' : r, 'project' : project, 'user' : user},context)
+    return render_to_response('rfp/exclude_unique_review.html', {'form' : r, 'project' : project, 'user' : user},context)
 
 #Make it DRY
 def redirect_add_form(request,project,form_1,form_2):
@@ -384,11 +399,10 @@ def add_budget_hr(request, projectId):
     context = RequestContext(request)
     user = request.user
     project = Project.objects.get(pk = projectId)
+    redirect = get_redirect_url(request)
 
     if request.method == 'POST':
         form = BudgetLineHR(request.POST)
-        alldata = request.POST
-        redirect = alldata.get('redirect','0')
 
         if form.is_valid() :
 
@@ -412,11 +426,9 @@ def edit_budget_hr(request, budgetlineId):
     user = request.user
     bl = BudgetLine.objects.get(id = budgetlineId )
     project_id = bl.project.pk
-
+    redirect = get_redirect_url(request)
 
     if request.method == 'POST':
-        alldata = request.POST
-        redirect = alldata.get('redirect','0')
 
         if 'delete' in request.POST:
              bl.delete()
@@ -439,10 +451,10 @@ def add_budget_eq(request, projectId):
     context = RequestContext(request)
     user = request.user
     project = Project.objects.get(pk = projectId)
+    redirect = get_redirect_url(request)
 
     if request.method == 'POST':
-        alldata = request.POST
-        redirect = alldata.get('redirect','0')
+
         form = BudgetLineEQ(request.POST,request.FILES)
 
         if form.is_valid():
@@ -464,10 +476,9 @@ def edit_budget_eq(request, budgetlineId):
     user = request.user
     bl = BudgetLine.objects.get(id = budgetlineId )
     project_id = bl.project.pk
+    redirect = get_redirect_url(request)
 
     if request.method == 'POST':
-        alldata = request.POST
-        redirect = alldata.get('redirect','0')
 
         if 'delete' in request.POST:
              bl.delete()
@@ -491,8 +502,7 @@ def add_budget_op(request, projectId):
     context = RequestContext(request)
     user = request.user
     project = Project.objects.get(pk = projectId)
-    alldata = request.POST
-    redirect = alldata.get('redirect','0')
+    redirect = get_redirect_url(request)
 
     if request.method == 'POST':
 
@@ -517,10 +527,9 @@ def edit_budget_op(request, budgetlineId):
     user = request.user
     bl = BudgetLine.objects.get(id = budgetlineId )
     project_id = bl.project.pk
+    redirect = get_redirect_url(request)
 
     if request.method == 'POST':
-        alldata = request.POST
-        redirect = alldata.get('redirect','0')
 
         if 'delete' in request.POST:
              bl.delete()
@@ -538,28 +547,6 @@ def edit_budget_op(request, budgetlineId):
         form = BudgetLineOP(instance=bl)
 
     return render_to_response('rfp/edit_budget_op.html',{'form' : form, 'user' : user,'bl': bl},context)
-
-@user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
-def propose_reviewer(request,projectId):
-    context = RequestContext(request)
-    user = request.user
-    project = Project.objects.get( pk = projectId )
-
-    if request.method == 'POST':
-
-        r = ProposedReviewerFormSet(request.POST)
-        if r.is_valid():
-           reviewers = r.save(commit = False)
-           for rev in reviewers:
-               rev.project = project
-               rev.save()
-
-               return HttpResponseRedirect(reverse('user_profile'))
-
-    else:
-        r = ProposedReviewerFormSet(queryset=ProposedReviewer.objects.filter(project = project.id))
-
-    return render_to_response('rfp/propose_reviewer.html',{'formset' : r, 'user' : user, 'project' : project}, context)
 
 @user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def prop_reviewer_list(request,projectId):
@@ -586,17 +573,20 @@ def post_review(request,reviewId):
     review_item = Review.objects.get(user = user.pk, project = project.pk)
     review_model_dict = model_to_dict(review_item)
 
+    redirect_url = get_redirect_url(request)
+
     if request.method == 'POST':
         form = ReviewForm(request.POST,request.FILES,questions=questions)
 
         if form.is_valid():
-                    form_data = form.cleaned_data
-                    updated_review = Review.objects.update_or_create(user = user.pk, project = project.pk, defaults=form_data)
+               form_data = form.cleaned_data
+               updated_review = Review.objects.update_or_create(user = user.pk, project = project.pk, defaults=form_data)
+               up_rev = updated_review[0]
+               up_rev.send_confirmation_email_to_reviewer()
+               up_rev.status = 'completed'
+               up_rev.save()
 
-                    review.set_review_as_completed()
-                    review.send_confirmation_email_to_reviewer()
-
-                    return HttpResponseRedirect(reverse('project_review', args=[project.pk]))
+               return HttpResponseRedirect(redirect_url)
 
     else:
         form = ReviewForm(initial= review_model_dict,questions = questions)
@@ -631,7 +621,6 @@ def post_review_waiver(request,reviewId):
 
     return render_to_response('rfp/post_review_waiver.html', context_dict, context)
 
-
 @user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def rfp_campaign(request,rfpcampaignId):
     context = RequestContext(request)
@@ -652,9 +641,40 @@ def list_of_call_for_proposal(request):
 
     return render_to_response('rfp/rfp_list.html',context_dict,context)
 
+@user_passes_test(is_staff,login_url='/project/login_no_permission/',redirect_field_name='next')
+def dashboard(request):
+    context = RequestContext(request)
+    user = request.user
 
+    list_of_projects = Project.objects.all()
+    list_of_review = Review.objects.all()
 
+    context_dict = {'list_of_projects' : list_of_projects, 'list_of_review': list_of_review, 'user': user }
 
+    return render_to_response('dashboard.html', context_dict, context)
+
+#NOT USED and TESTS
+@user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
+def propose_reviewer(request,projectId):
+    context = RequestContext(request)
+    user = request.user
+    project = Project.objects.get( pk = projectId )
+
+    if request.method == 'POST':
+
+        r = ProposedReviewerFormSet(request.POST)
+        if r.is_valid():
+           reviewers = r.save(commit = False)
+           for rev in reviewers:
+               rev.project = project
+               rev.save()
+
+               return HttpResponseRedirect(reverse('user_profile'))
+
+    else:
+        r = ProposedReviewerFormSet(queryset=ProposedReviewer.objects.filter(project = project.id))
+
+    return render_to_response('rfp/propose_reviewer.html',{'formset' : r, 'user' : user, 'project' : project}, context)
 
 def test (request):
     from django.template.loader import render_to_string
@@ -678,16 +698,3 @@ def test (request):
     context_dict = {'user' : user, 'url' : encoded_url}
 
     return render_to_response('rfp/test.html',context_dict,context)
-
-@user_passes_test(is_staff,login_url='/project/login_no_permission/',redirect_field_name='next')
-def dashboard(request):
-    context = RequestContext(request)
-    user = request.user
-
-    list_of_projects = Project.objects.all()
-    list_of_review = Review.objects.all()
-
-    context_dict = {'list_of_projects' : list_of_projects, 'list_of_review': list_of_review, 'user': user }
-
-    return render_to_response('dashboard.html', context_dict, context)
-

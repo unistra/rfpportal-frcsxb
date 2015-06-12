@@ -4,6 +4,7 @@
 
 {% block body_block %}
 
+{% load bootstrap3 %}
 
 <div class="container">
         <div class = "">
@@ -14,25 +15,19 @@
         <legend>Excluded Reviewer information</legend>
         </div>
 
-<form class=""  method = "post" enctype="multipart/form-data"  action="{% url 'exclude_unique_reviewer' project.pk %}" >
+<form  method = "post" enctype="multipart/form-data"  action="{% url 'exclude_unique_reviewer' project.pk %}" >
 
     {% csrf_token %}
-        <p>{{ f.errors }}</p>
 
-
-        {% for form in f %}
-        <div class="form-group">
-        <div class = "row">
-            <div class = "col-xs-12 col-md-4">
-                {{ form.label }}{% if form.field.is_required %}<span class="req"> *</span>{% endif %}
-                {{ form }}
+        {% for field in form %}
+            <div class="form-group">
+                {% bootstrap_label field.label %}{% if field.field.required %} <span class="req"> *</span>{% endif %}
+                {{ field }}
+                {{ field.errors }}
             </div>
-        </div>
-        </div>
         {% endfor %}
 
-
-    <input class="save_btn btn btn-primary" type="submit" value="Save"  />
+    <input class="save_btn btn btn-apply" type="submit" value="Save"  />
     <input id="redirect" type="hidden" name="redirect" value="" />
 
 </form>

@@ -4,12 +4,13 @@
 
 {% block body_block %}
 
+{% load bootstrap3 %}
+{% load widget_tweaks %}
 
+<div class="container">
 
-<div class="container project_container">
-
-    <div class="row proj_header">
-        <div class="col-xs-10 col-md-10">
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
         <h2>{{ project.name }}</h2>
         <h4> {{ project.rfp.name }}</h4>
         <p>Team Leader: <a href = "{% url 'user_profile' %}">{{ user.userprofile }}</a></p>
@@ -18,15 +19,14 @@
         </div>
     </div>
 
-<form class="form-horizontal no_m_h"  method = "post" enctype="multipart/form-data"  action="{% url 'edit_project' project.id %}" >
+<form class="" method = "post" enctype="multipart/form-data"  action="{% url 'edit_project' project.id %}" >
 
     {% csrf_token %}
 
     {% for f in form %}
+
     {% if f.label == 'Select a document to update the current file: ' %}
-    <div class = "row">
-        <div class = "form-group no_m_h">
-            <div class = "row">
+    <div class="form-group">
 
                 <div class="col-xs-12 col-md-4">
                     <p>Current document: </p>
@@ -39,51 +39,36 @@
                     <p><em>No file</em></p>
                     {% endif %}
                 </div>
-            </div>
 
-            <div class = "row">
                 <div class="col-xs-12 col-md-4">
                 {{ f.label }}
                 </div>
 
+                <div class="col-xs-12 col-md-8">
+                                    {{ f }}
+                                    {{ f.errors }}
+                </div>
 
-            <div class="col-xs-12 col-md-8">
-                                {{ f }}
-                                {{ f.errors }}
-            </div>
+    </div>
 
-            </div>
-    </div>
-    </div>
+
     {% else %}
-    <div class = "row">
-        <div class = "form-group no_m_h">
-            <div class="col-xs-12 col-md-4">
 
-                {{ f.label }} {% if f.field.required = True %}<span class=req"> *</span>{% endif %}:
+        <div class = "form-group ">
 
-            </div>
-
-            <div class="col-xs-12 col-md-8">
-                                {{ f }}
-                                {{ f.errors }}
-            </div>
+                {% bootstrap_label  f.label %} {% if f.field.required = True %}<span class="req"> *</span>{% endif %}
+                {{ f|attr:"class:form_mar_bot form-control" }}
+                {{ f.errors }}
 
         </div>
-    </div>
-
     {% endif %}
 
     {% endfor %}
+        <div class = "form-group ">
 
-    <div class = "row">
-    <div class="col-xs-12 col-md-2 pull-right">
+            <input class="btn btn-apply save pull-right" type="submit" value="Save"  />
 
-        <input class="btn btn-primary save" type="submit" value="Save"  />
-        <input type="hidden" name="next" value="{% url 'user_profile' %}" />
-
-    </div>
-    </div>
+        </div>
 
 
 </form>

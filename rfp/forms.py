@@ -112,7 +112,6 @@ class ReviewForm(forms.Form):
             if name.startswith('custom_'):
                 yield (self.fields[name].label, value)
 
-
 class ProposedReviewerForm(ModelForm):
     first_name = forms.CharField(required=True,widget=forms.TextInput(attrs={'class':'form-control'}))
     last_name = forms.CharField(required=True,widget=forms.TextInput(attrs={'class':'form-control'}))
@@ -142,7 +141,6 @@ class ExcludedReviewerForm(ModelForm):
             'city' : forms.TextInput(attrs={'class':'form-control'}),
             'country' : forms.TextInput(attrs={'class':'form-control'}),
         }
-
 
 ProposedReviewerFormSet = modelformset_factory(
             ProposedReviewer,

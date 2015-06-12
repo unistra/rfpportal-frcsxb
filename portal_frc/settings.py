@@ -69,7 +69,10 @@ MIDDLEWARE_CLASSES = (
     'urlcrypt.auth_backends.UrlCryptBackend',
 )
 
-
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'urlcrypt.auth_backends.UrlCryptBackend',
+)
 
 ROOT_URLCONF = 'portal_frc.urls'
 
@@ -186,6 +189,9 @@ TEMPLATE_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
     TEMPLATE_PATH,
 )
+
+#urlcrypt settings
+URLCRYPT_LOGIN_URL = '/'
 
 GRAPPELLI_INDEX_DASHBOARD = 'dashboard.CustomIndexDashboard'
 

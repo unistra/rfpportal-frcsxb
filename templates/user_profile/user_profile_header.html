@@ -10,7 +10,7 @@
             
 <div class="col-xs-12 col-md-4">
 
-                <h3>Contact information <span class="small_link"><a href = "{% url 'edit_profile' %}">Edit your information</a></span></h3>
+                <h3>Contact information <span class="small_link"><a href = "{% url 'edit_profile' %}?redirect={{ current_url }}">Edit your information</a></span></h3>
                 <p> {{ user.userprofile.first_name }} {{ user.userprofile.last_name }}<br/>
                 Email: {{ user.email }}</p>
                 <p> Organization: <strong>{{ user.userprofile.organization }}</strong><br>

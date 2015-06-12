@@ -84,10 +84,12 @@ def edit_profile(request):
 
     if request.method == 'POST':
         form = UserUpdate(request.POST,instance = up)
+        alldata = request.POST
+        redirect = alldata.get('redirect','0')
 
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('../profile/')
+            return HttpResponseRedirect(redirect)
 
     else:
         form = UserUpdate(instance = up)
@@ -104,13 +106,14 @@ def index_profile(request):
 
     is_pi = user.groups.filter(name = 'Principal_Investigator').exists()
     is_rev = user.groups.filter(name = 'Reviewer').exists()
+    current_url = reverse('user_profile')
 
     user_account = UserProfile.objects.get(user = user.id)
     projects = Project.objects.filter(user = user.id).order_by('-starting_date')
     reviews = Review.objects.filter(user=user.pk)
 
 
-    context_dict = {'user_profile': user_account,'projects' : projects, 'reviews' : reviews, 'is_pi' : is_pi, 'is_rev' : is_rev}
+    context_dict = {'user_profile': user_account,'projects' : projects, 'reviews' : reviews, 'is_pi' : is_pi, 'is_rev' : is_rev,'current_url' : current_url}
 
     return render_to_response('user_profile/profile.html',context_dict,context)
 
@@ -123,10 +126,11 @@ def post_homepage_login_landing_page(request):
     is_rev = user.groups.filter(name = 'Reviewer').exists()
     rfp_c = RfpCampaign.objects.all()
     projects = Project.objects.filter(user = user).order_by('-id')[:3]
+    current_url = reverse('post_homepage_login_landing_page')
 
     reviews = Review.objects.filter(user=user.pk)
 
-    context_dict = {'reviews' : reviews, 'is_pi' : is_pi, 'is_rev' : is_rev, 'rfp_c' : rfp_c, 'projects':projects}
+    context_dict = {'reviews' : reviews, 'is_pi' : is_pi, 'is_rev' : is_rev, 'rfp_c' : rfp_c, 'projects':projects,'current_url' : current_url}
 
     return render_to_response('user_profile/post_homepage_login_landing_page.html',context_dict,context)
 
