@@ -6,32 +6,15 @@
 
 {% csrf_token %}
 
+<div class="container top_c">
+<!--Profile header-->
+<div class="row">
+{% include 'user_profile/user_profile_header.html' %}
+</div>
+</div>
+
+
 <div class="container">
-
-
-        <div class="row">
-
-            <div class="col-xs-12 col-md-4">
-                <h3>Account information</h3>
-                <p>Username: {{ user }}<br>
-                <span class="small_link">Click <a href = "{% url 'password_change' %}">here</a> to change your password.</span></p>
-            </div>
-            
-            <div class="col-xs-12 col-md-4">
-                <h3>Contact information <span class="small_link"><a href = "{% url 'edit_profile' %}?redirect={{ current_url }}">Edit your information</a></span></h3>
-                <p> {{ user_profile.first_name }} {{ user_profile.last_name }}<br/>
-                Email: {{ user.email }}</p>
-                <p> Organization: <strong>{{ user_profile.organization }}</strong><br>
-                {{ user.userprofile.insitute_research_unit}} <br>
-                {{ user_profile.address }}<br>
-                {{ user_profile.zip }}, {{ user_profile.city }}<br>
-                {{ user_profile.country }}
-                </p>
-            </div>
-
-        <div class="col-xs-12 col-md-4"></div>
-
-        </div>
 
         {% if is_rev %}
         <div class="row">
@@ -39,12 +22,13 @@
         {% include 'user_profile/list_reviews.html' %}
             </div>
         </div>
+
         {% endif %}
 
         {% if is_pi %}
         <div class="row">
             <div class="col-xs-12 col-md-12">
-                <h2>Your Projects <a class = "small_link" href="{% url 'rfp_list' %}">Add a new projet</a></h2>
+                <h2>Your Projects <a class = "small_link" href="{% url 'post_homepage_login_landing_page' %}">Add a new projet</a></h2>
 
                 <table class="table">
 
@@ -79,11 +63,10 @@
                 </table>
 
             </div>
-        </div>
+
         {% endif %}
 
+ </div>
+
 </div>
-
-
-
 {% endblock %}

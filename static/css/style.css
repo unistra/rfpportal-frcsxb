@@ -15,6 +15,15 @@ body {
 .container{
     background-color:white;
     padding-bottom:25px;
+    -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    -moz-box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+}
+
+.no_shadow{
+   -webkit-box-shadow:None;
+   -moz-box-shadow: None;
+   box-shadow: None;
 }
 
 .container-nav{
@@ -71,8 +80,6 @@ background-image:none;
     color:#fff;
 }
 
-
-
 .navbar-default .navbar-nav>li>a{
 color:#fff;
 }
@@ -128,6 +135,30 @@ font-weight:bold;
 }
 
 
+
+/*user_profile_header*/
+
+.top_title{
+    width:100%;
+    margin:15px 0px 15px 0px;
+    padding:10px 0px 10px 0px;
+    background-color:RGB(0,94,167);
+    text-align:center;
+    color:#fff;
+    border:none;
+    cursor:default;
+}
+
+.top_c{
+    margin-bottom:20px;
+}
+
+.widget_logo{
+    border:None;
+    margin-top:56.5px;
+}
+
+
 .jumbo_styling{
     /*background: url("") no-repeat center center;*/
     height:250px;
@@ -162,6 +193,8 @@ font-weight:bold;
     height:25px;
 }
 
+/* Tab */
+
 .project_tab{
     margin-bottom: 10px !important;
 }
@@ -174,33 +207,37 @@ font-weight:bold;
     padding-top:15px;
 }
 
-
-/* Tab style */
-.nav-tabs>li>a {margin:0px;}
-
-.nav-tabs>li>a:hover,.nav-tabs>li>a:focus{
-    background-color:white;
+.nav-tabs{
+    background-color:#f7f7f7;
 }
 
-.tab_role{
-    background-color:RGB(0,94,167);
-    color:white;
-    border-radius:5px 5px 0px 0px;
+.nav-tabs>li>a {
+    margin:0px;
+    border-radius:0px;
     border:none;
+
 }
 
-.tab_role.active{
-    background-color:white;
-    color:RGB(0,94,167);
-    border-radius:5px 5px 0px 0px;
+
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    background-color:RGB(0,94,167);
+    color:#fff;
     border:none;
 }
 
 
 .tab_role:hover,.tab_role:focus{
     color:RGB(0,94,167);
-    border-radius:5px 5px 0px 0px;
     border:none;
+}
+
+.tab_role{
+    background-color:RGB(0,94,167);
+    color:white;
+    border:none;
+    margin-right: 5px;
+
 }
 
 .tab_role > a {

@@ -127,10 +127,11 @@ def post_homepage_login_landing_page(request):
     rfp_c = RfpCampaign.objects.all()
     projects = Project.objects.filter(user = user).order_by('-id')[:3]
     current_url = reverse('post_homepage_login_landing_page')
+    widget = True
 
     reviews = Review.objects.filter(user=user.pk)
 
-    context_dict = {'reviews' : reviews, 'is_pi' : is_pi, 'is_rev' : is_rev, 'rfp_c' : rfp_c, 'projects':projects,'current_url' : current_url}
+    context_dict = {'widget' : widget, 'reviews' : reviews, 'is_pi' : is_pi, 'is_rev' : is_rev, 'rfp_c' : rfp_c, 'projects':projects,'current_url' : current_url}
 
     return render_to_response('user_profile/post_homepage_login_landing_page.html',context_dict,context)
 

@@ -3,31 +3,36 @@
 {% block title %}Welcome to the ICFRC Request for Proposal Portal{% endblock %}
 
 {% block body_block %}
-<div class="container">
-{% csrf_token %}
 
+{% csrf_token %}
+<div class="container top_c">
 <!--Profile header-->
 <div class="row">
 {% include 'user_profile/user_profile_header.html' %}
 </div>
+</div>
 
 {% if is_pi %}
+<div class="container">
 <!--List of open request for proposal-->
-<div class="row">
-    <div class="col-xs-12 col-md-12">
-        {% include 'user_profile/list_request_for_proposal.html' %}
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+            {% include 'user_profile/list_request_for_proposal.html' %}
+        </div>
     </div>
 </div>
 
-<!--reviewer list-->
 {% elif is_rev %}
-<div class="row">
-            <div class="col-xs-12 col-md-12">
-                {% include 'user_profile/list_reviews.html' %}
-            </div>
+<div class="container">
+<!--reviewer list-->
+    <div class="row">
+         <div class="col-xs-12 col-md-12">
+              {% include 'user_profile/list_reviews.html' %}
+         </div>
+    </div>
 </div>
 
 {% endif %}
-</div>
+
 
 {% endblock %}
