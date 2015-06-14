@@ -209,51 +209,46 @@ font-weight:bold;
 
 .nav-tabs{
     background-color:#f7f7f7;
+
 }
 
 .nav-tabs>li>a {
     margin:0px;
     border-radius:0px;
     border:none;
-
 }
 
-
-
-.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
-    background-color:RGB(0,94,167);
-    color:#fff;
-    border:none;
-}
-
-
-.tab_role:hover,.tab_role:focus{
+.nav-tabs>li>a:hover{
+    background-color: #fff;
     color:RGB(0,94,167);
-    border:none;
+}
+
+.nav-tabs>li.active>a {
+    background-color:#fff;
+    color:RGB(0,94,167);
+    border: 1px solid RGB(0,94,167);
+    border-bottom: none;
+    font-weight: bold;
 }
 
 .tab_role{
     background-color:RGB(0,94,167);
     color:white;
     border:none;
-    margin-right: 5px;
-
+    margin-right: 10px;
 }
 
-.tab_role > a {
+.tab_role>a {
     text-decoration:none;
     color:white;
 }
 
-.tab_role > a:hover {
+.tab_role>a:hover {
     background-color:white;
     text-decoration:none;
     color:RGB(0,94,167);
 }
 
-.review_tab{
-    background-color:green;
-}
 
 /*Home page items */
 

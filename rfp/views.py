@@ -180,7 +180,6 @@ def edit_project(request,projectId):
 
     return render_to_response('rfp/edit_project.html',context_dict,context)
 
-
 @user_passes_test(is_pi_or_reviewer,login_url='/login/',redirect_field_name='next')
 def project_detail(request,projectId):
     context = RequestContext(request)
