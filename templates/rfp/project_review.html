@@ -17,24 +17,18 @@
 {% endblock %}
 
 <!--Review details-->
-<div class="row">
-    <div class="col-xs-12 col-md-12">
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
 
+            <h3>Your Review {% if is_rev %} <a class="small_link" href="{% url 'post_review' review.id %}">Edit your Review</a>{% endif %}</h3>
+            <h5><strong>Author:</strong> {{ review.user.get_full_name }}</h5>
 
-    <h3>Your Review {% if is_rev %} <a class="small_link" href="{% url 'post_review' review.id %}">Edit your Review</a>{% endif %}</h3>
-    <h5><strong>Author:</strong> {{ review.user.get_full_name }}</h5>
-    {% for p in review_data %}
+                {% include 'rfp/review/review_details.html' %}
 
-           <p class="project_data" id="{{ p.label|slugify }}"><strong>{{ p.label }} </strong>{{ p.data|linebreaksbr }}</p>
-
-    {% endfor %}
-
-
+        </div>
     </div>
-</div>
 
 </div>
-
 <script>
     $('#your_review').addClass('active');
 </script>

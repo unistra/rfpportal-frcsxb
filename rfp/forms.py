@@ -25,7 +25,7 @@ class ProjectForm(ModelForm):
 
     class Meta:
         model = Project
-        exclude = {'status','confirmation_email_sent'}
+        exclude = {'status','confirmation_email_sent', 'rfp'}
         widgets = {
             'name' : forms.TextInput(attrs={'class':'form-control'}),
             'requested_amount' : forms.NumberInput(attrs={'class':'form-control'}),
@@ -35,7 +35,6 @@ class ProjectForm(ModelForm):
             'scope_of_work' : forms.Textarea(attrs={'class':'form-control'}),
             'anticipated_impact' : forms.Textarea(attrs={'class':'form-control'}),
             'document' : forms.FileInput(attrs={'class':'form-control'}),
-            'rfp' : forms.Select(attrs={'class':'form-control'}),
             'user' : forms.Select(attrs={'class':'hide'}),
             'ending_date' : forms.DateInput(attrs={'class':'form-control'}),
             'additional_funding' : forms.Textarea(attrs={'class':'form-control'}),
@@ -51,7 +50,6 @@ class ProjectForm(ModelForm):
             'scope_of_work' : _('Abstract (300 words max.):'),
             'anticipated_impact' : _('Link with other existing projects:'),
             'document' : _('Upload your document:'),
-            'rfp' : _('Category:'),
             'user' : _(' '),
             'additional_funding' : _('Additional co-funding, if any (please specify funding body and amount):')
         }
@@ -112,6 +110,7 @@ class ReviewForm(forms.Form):
             if name.startswith('custom_'):
                 yield (self.fields[name].label, value)
 
+
 class ProposedReviewerForm(ModelForm):
     first_name = forms.CharField(required=True,widget=forms.TextInput(attrs={'class':'form-control'}))
     last_name = forms.CharField(required=True,widget=forms.TextInput(attrs={'class':'form-control'}))
@@ -162,11 +161,6 @@ ProposedReviewerFormSet = modelformset_factory(
             },
             extra = 3,
                                                )
-category_choices = (
-    ('OC', 'Operating Cost'),
-    ('HR', 'Recruitment'),
-    ('EQ', 'Equipment'),
-)
 
 class BudgetLineForm(ModelForm):
     item = forms.CharField(required=True,widget=forms.TextInput(attrs={'class':'form-control'}))

@@ -11,7 +11,12 @@
 {% block project_tab %} {% endblock %}
 
 {% block project_next %}
+
+{% if project.rfp.add_reviewer %}
     <a class="btn btn-apply" href="{% url 'create_project_reviewer' project.pk %}">Next</a>
+{% else %}
+    <a class="btn btn-apply" href="{% url 'create_project_summary' project.pk %}">Save and Submit</a>
+{% endif %}
 
 <script>
     $('#step_1').removeClass('progtrckr-todo').addClass('progtrckr-done');

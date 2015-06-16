@@ -9,7 +9,13 @@ from django.template.loader import render_to_string
 from django.contrib.auth.models import User
 
 class RfpCampaign(models.Model):
+    CATEGORY_CHOICES = ( ('Synergy', 'Synergy'),
+                         ('Innovation', 'Innovation'),
+                         ('Labex_CSC', 'Labex CSC'),
+                         )
     name=models.CharField(max_length=255,null=True)
+    category=models.CharField(max_length=255,null=True,choices=CATEGORY_CHOICES)
+    add_reviewer=models.BooleanField(default=True)
     year=models.PositiveIntegerField(null=True)
     instructions=models.TextField(max_length=4000,null=True)
     logo = models.ImageField(upload_to='image',null=True,blank=True)
@@ -112,7 +118,7 @@ class Review(models.Model):
     custom_7 = models.CharField(max_length=4000,null=True,blank=True)
     custom_8 = models.CharField(max_length=4000,null=True,blank=True)
     custom_9 = models.CharField(max_length=4000,null=True,blank=True)
-    date = models.DateField(null=True,blank=True)
+    date = models.DateField(auto_now=True)
     document = models.FileField(upload_to=('reviews'),null=True,blank=True)
 
     def __unicode__(self):

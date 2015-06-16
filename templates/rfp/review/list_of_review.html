@@ -1,0 +1,29 @@
+
+{% for review in list_of_review %}
+
+    <div class="col-xs-12 col-md-12">
+
+        <table class="table">
+            <tr>
+                <th>Review</th>
+                <th>Date</th>
+                <th>Rating</th>
+            </tr>
+
+            <tr>
+                <td>
+                    <a href="{% url 'view_review' review.id %}" target="_blank">{{ review.custom_0|truncatewords:15 }}</a>
+                </td>
+                <td>{{ review.date }}</td>
+                <td>{{ review.rating }}</td>
+            </tr>
+        </table>
+
+     </div>
+{% empty %}
+<div class="col-xs-12 col-md-12">
+    <p><em>Sorry no reviews has been submitted yet.</em></p>
+</div>
+{% endfor %}
+
+

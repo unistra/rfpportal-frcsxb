@@ -1,9 +1,11 @@
 from django.shortcuts import render,render_to_response,HttpResponse,HttpResponseRedirect
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required,user_passes_test
+from django.http import Http404
 
 from django.forms.models import model_to_dict
 import datetime
+import logging
 
 from user_profile.models import UserProfile
 
@@ -66,12 +68,19 @@ def get_redirect_url(request):
     else:
         return reverse('post_homepage_login_landing_page')
 
+def user_is_owner(user,instance):
+    if not instance.user == user:
+        logger = logging.getLogger(__name__)
+        logger.error("User tries to access someone else record.")
+        raise Http404
+
 # Views start here.
 @user_passes_test(is_pi,login_url='/login/')
-def create_project(request):
+def create_project(request,rfpId):
     context = RequestContext(request)
     user = request.user
     progress_status = 30
+    rfp = RfpCampaign.objects.get(pk = rfpId)
 
     if request.method == 'POST':
         p = ProjectForm(request.POST,request.FILES)
@@ -80,13 +89,14 @@ def create_project(request):
            proj = p.save (commit=False)
            proj.user = user
            proj.status = 'pending'
+           proj.rfp = rfp
            project = p.save()
            return HttpResponseRedirect(reverse('create_project_budget', args=[project.pk]))
 
     else:
         p = ProjectForm()
 
-    return render_to_response('rfp/create_project.html',{'form' : p, 'user' : user, 'progress_status' : progress_status}, context)
+    return render_to_response('rfp/create_project.html',{'form' : p, 'user' : user, 'progress_status' : progress_status, 'rfp' : rfp}, context)
 
 @user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
 def create_project_budget(request,projectId):
@@ -108,7 +118,7 @@ def create_project_budget(request,projectId):
     total = oc_total + hr_total + eq_total
 
     store_redirect_url(request)
-
+    user_is_owner(user,project)
     context_dict={'project' : project,'user' : user,'is_pi': is_p, 'bl' : budget_line_list,
     'is_rev' : is_rev,
     'hr_budget_lines_list' : hr_budget_line_list, 'oc_budget_lines_list' : oc_budget_line_list,
@@ -131,7 +141,7 @@ def create_project_reviewer(request,projectId):
     is_rev = is_reviewer(user)
 
     store_redirect_url(request)
-
+    user_is_owner(user,project)
     context_dict={'project' : project,'user' : user,'project_data' : project_data,'is_pi': is_p, 'bl' : budget_line_list,
     'is_rev' : is_rev, 'prop_rev_list' : prop_rev_list}
 
@@ -140,6 +150,7 @@ def create_project_reviewer(request,projectId):
 @user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def create_project_summary(request,projectId):
     context = RequestContext(request)
+    user = request.user
 
     project = Project.objects.get(pk = projectId)
     project_data = UpdateForm(data=model_to_dict(project))
@@ -151,6 +162,8 @@ def create_project_summary(request,projectId):
 
     prop_rev_list = ProposedReviewer.objects.filter(project = project)
     total_budgeted = budget_line_sum(budget_line_list)
+
+    user_is_owner(user,project)
 
     project.send_project_confirmation_email()
 
@@ -165,6 +178,7 @@ def edit_project(request,projectId):
     context = RequestContext(request)
     user=request.user
     project = Project.objects.get( pk = projectId )
+    user_is_owner(user,project)
 
     if request.method == 'POST':
         p = UpdateForm(request.POST,request.FILES,instance=project)
@@ -205,6 +219,8 @@ def project_detail(request,projectId):
     total = oc_total + hr_total + eq_total
     current_url = reverse('project_budget', args = [project.pk])
 
+    user_is_owner(user,project)
+
     context_dict={'project' : project,'user' : user,'project_data' : project_data,'is_pi': is_p, 'bl' : budget_line_list,
     'is_rev' : is_rev, 'prop_rev_list' : prop_rev_list,'current_url':current_url,'review':review,
     'hr_budget_lines_list' : hr_budget_line_list, 'oc_budget_lines_list' : oc_budget_line_list,
@@ -232,6 +248,7 @@ def project_detail_budget(request,projectId):
     eq_total = budget_line_sum(eq_budget_line_list)
     total = oc_total + hr_total + eq_total
 
+    user_is_owner(user,project)
     store_redirect_url(request)
 
     context_dict={'project' : project,'user' : user,'is_pi': is_p, 'bl' : budget_line_list,
@@ -255,12 +272,31 @@ def project_detail_reviewers(request,projectId):
     is_p = is_pi(user)
     is_rev = is_reviewer(user)
 
+    user_is_owner(user,project)
     store_redirect_url(request)
 
     context_dict={'project' : project,'user' : user,'project_data' : project_data,'is_pi': is_p, 'bl' : budget_line_list,
     'is_rev' : is_rev, 'prop_rev_list' : prop_rev_list}
 
     return render_to_response('rfp/project_details_reviewer.html',context_dict,context)
+
+@user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
+def project_detail_recommendations(request,projectId):
+    context = RequestContext(request)
+    user = request.user
+    project = Project.objects.get(pk = projectId)
+
+    is_p = is_pi(user)
+    is_rev = is_reviewer(user)
+    list_of_review = Review.objects.filter(project = project, status='completed')
+
+    user_is_owner(user,project)
+
+    context_dict = {'project' : project,'user' : user,'is_pi': is_p,
+    'is_rev' : is_rev, 'list_of_review' : list_of_review}
+
+    return render_to_response('rfp/project_detail_recommendations.html',context_dict,context)
+
 
 @user_passes_test(is_reviewer,login_url='/project/login_no_permission/',redirect_field_name='next')
 def project_review(request,projectId):
@@ -271,11 +307,10 @@ def project_review(request,projectId):
     questions = project.rfp.get_questions()
     review_data = ReviewForm(data=model_to_dict(review),questions=questions)
 
-    store_redirect_url(request)
-
     is_p = is_pi(user)
     is_rev = is_reviewer(user)
-    store_redirect_url(request)
+
+    user_is_owner(user,review)
 
     store_redirect_url(request)
 
@@ -285,12 +320,29 @@ def project_review(request,projectId):
     return render_to_response('rfp/project_review.html',context_dict,context)
 
 @user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
+def view_review(request,reviewId):
+    context = RequestContext(request)
+    user = request.user
+    review = Review.objects.get(pk = reviewId)
+    project = Project.objects.get(id = review.project.id)
+    questions = project.rfp.get_questions()
+    review_data = ReviewForm(data=model_to_dict(review),questions=questions)
+
+    user_is_owner(user,project)
+
+    context_dict={'project' : project,'review_data' : review_data}
+
+    return render_to_response('rfp/view_review.html',context_dict,context)
+
+@user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def edit_reviewer(request,proposedreviewerId):
     context = RequestContext(request)
     user = request.user
     prop_rev = ProposedReviewer.objects.get( pk = proposedreviewerId )
     project = Project.objects.get(pk = prop_rev.project.pk)
     redirect = get_redirect_url(request)
+
+    user_is_owner(user,project)
 
     if request.method == 'POST':
 
@@ -317,6 +369,7 @@ def edit_excluded_reviewer(request,proposedreviewerId):
     prop_rev = ProposedReviewer.objects.get( pk = proposedreviewerId )
     project = Project.objects.get(pk = prop_rev.project.pk)
     redirect = get_redirect_url(request)
+    user_is_owner(user,project)
 
     if request.method == 'POST':
 
@@ -342,6 +395,7 @@ def add_unique_reviewer(request, projectId):
     user = request.user
     project = Project.objects.get(pk = projectId)
     redirect = get_redirect_url(request)
+    user_is_owner(user,project)
 
     if request.method == 'POST':
 
@@ -363,6 +417,8 @@ def exclude_unique_reviewer(request, projectId):
     context = RequestContext(request)
     user = request.user
     project = Project.objects.get(pk = projectId)
+    user_is_owner(user,project)
+
     redirect = get_redirect_url(request)
 
     if request.method == 'POST':
@@ -398,6 +454,8 @@ def add_budget_hr(request, projectId):
     context = RequestContext(request)
     user = request.user
     project = Project.objects.get(pk = projectId)
+    user_is_owner(user,project)
+
     redirect = get_redirect_url(request)
 
     if request.method == 'POST':
@@ -424,7 +482,10 @@ def edit_budget_hr(request, budgetlineId):
     context = RequestContext(request)
     user = request.user
     bl = BudgetLine.objects.get(id = budgetlineId )
-    project_id = bl.project.pk
+
+    project=Project.objects.get(id = budgetlineId.project.id)
+    user_is_owner(user,project)
+
     redirect = get_redirect_url(request)
 
     if request.method == 'POST':
@@ -450,6 +511,8 @@ def add_budget_eq(request, projectId):
     context = RequestContext(request)
     user = request.user
     project = Project.objects.get(pk = projectId)
+    user_is_owner(user,project)
+
     redirect = get_redirect_url(request)
 
     if request.method == 'POST':
@@ -474,7 +537,10 @@ def edit_budget_eq(request, budgetlineId):
     context = RequestContext(request)
     user = request.user
     bl = BudgetLine.objects.get(id = budgetlineId )
-    project_id = bl.project.pk
+
+    project=Project.objects.get(id = budgetlineId.project.id)
+    user_is_owner(user,project)
+
     redirect = get_redirect_url(request)
 
     if request.method == 'POST':
@@ -501,6 +567,7 @@ def add_budget_op(request, projectId):
     context = RequestContext(request)
     user = request.user
     project = Project.objects.get(pk = projectId)
+    user_is_owner(user,project)
     redirect = get_redirect_url(request)
 
     if request.method == 'POST':
@@ -525,7 +592,10 @@ def edit_budget_op(request, budgetlineId):
     context = RequestContext(request)
     user = request.user
     bl = BudgetLine.objects.get(id = budgetlineId )
-    project_id = bl.project.pk
+
+    project=Project.objects.get(id = budgetlineId.project.id)
+    user_is_owner(user,project)
+
     redirect = get_redirect_url(request)
 
     if request.method == 'POST':
@@ -552,6 +622,7 @@ def prop_reviewer_list(request,projectId):
     context = RequestContext(request)
     user = request.user
     project = Project.objects.get( pk = projectId )
+    user_is_owner(user,project)
 
     prop_rev_list = ProposedReviewer.objects.filter(project = project)
 
@@ -563,6 +634,8 @@ def post_review(request,reviewId):
     user = request.user
     user_profile = UserProfile.objects.get(user = user.pk)
     review = Review.objects.get(pk = reviewId, user=user.pk)
+    user_is_owner(user,review)
+
     project = Project.objects.get(pk = review.project.pk)
     rfp = RfpCampaign.objects.get(id = project.rfp.id)
     questions = rfp.get_questions()
@@ -598,6 +671,8 @@ def post_review_waiver(request,reviewId):
     context = RequestContext(request)
     user = request.user
     review = Review.objects.get(pk = reviewId, user=user.pk)
+    user_is_owner(user,review)
+
     project = Project.objects.get(pk = review.project.pk)
     print (request.POST)
 

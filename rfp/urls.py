@@ -4,7 +4,7 @@ import views
 
 urlpatterns = patterns('',
 #Create a new project
-    url(r'^create_project/$',views.create_project,name='create_project'),
+    url(r'^create_project/(?P<rfpId>\d+)/$',views.create_project,name='create_project'),
     url(r'^create_project_budget/(?P<projectId>\d+)/$',views.create_project_budget,name='create_project_budget'),
     url(r'^create_project_reviewers/(?P<projectId>\d+)/$',views.create_project_reviewer,name='create_project_reviewer'),
     url(r'^create_project_summary/(?P<projectId>\d+)/$',views.create_project_summary,name='create_project_summary'),
@@ -14,11 +14,15 @@ urlpatterns = patterns('',
     url(r'^add_budget_op/(?P<projectId>\d+)/$',views.add_budget_op,name='add_budget_op'),
     url(r'^add_budget_hr/(?P<projectId>\d+)/$',views.add_budget_hr,name='add_budget_hr'),
 
+
 #Consult an existing Project
     url(r'^(?P<projectId>\d+)/$',views.project_detail,name='project_detail'),
     url(r'^(?P<projectId>\d+)/budget/$',views.project_detail_budget,name='project_budget'),
     url(r'^(?P<projectId>\d+)/reviewer/$',views.project_detail_reviewers,name='project_reviewer'),
     url(r'^(?P<projectId>\d+)/your_review/$',views.project_review,name='project_review'),
+    url(r'^(?P<projectId>\d+)/recommendations/$',views.project_detail_recommendations,name='project_recommendations'),
+    url(r'^(?P<reviewId>\d+)/view_review/$',views.view_review,name='view_review'),
+
 
 #Edit existing Budget Line
     url(r'^edit_budget_hr/(?P<budgetlineId>\d+)/$',views.edit_budget_hr,name='edit_budget_hr'),

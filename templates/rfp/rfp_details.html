@@ -16,7 +16,7 @@
         {{ rfp_campaign.instructions|linebreaksbr }}
     {% endautoescape %}
 
-    <a class="btn btn-apply pull-right" href="{% url 'create_project' %}?rfp={{ rfp_campaign.id }}&u={{ user.id }}">Apply</a>
+    <a class="btn btn-apply pull-right" href="{% url 'create_project' rfp_campaign.id %}">Apply</a>
 
 </div>
 

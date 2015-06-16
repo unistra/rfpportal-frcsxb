@@ -1,0 +1,6 @@
+    {% for p in review_data %}
+
+           <p class="project_data" id="{{ p.label|slugify }}"><strong>{{ p.label }} </strong>{{ p.data|linebreaksbr }}</p>
+
+    {% endfor %}
+

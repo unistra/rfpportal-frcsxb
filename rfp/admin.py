@@ -90,7 +90,7 @@ class ReviewOptions(ImportExportModelAdmin):
     }
 
 class RfpCampaignAdmin(admin.ModelAdmin):
-    list_display = ["year","name"]
+    list_display = ["year","name","category"]
     list_filter = ["year"]
     search_fields = ['name']
 
