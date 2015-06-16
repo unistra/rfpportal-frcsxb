@@ -19,7 +19,6 @@ def is_reviewer(User):
 def is_pi(User):
      return User.groups.filter(name = 'Principal_Investigator').exists()
 
-
 def is_pi_or_reviewer(User):
     state = False
     if is_pi(User) or is_reviewer(User):
@@ -70,10 +69,22 @@ def get_redirect_url(request):
         return reverse('post_homepage_login_landing_page')
 
 def user_is_owner(user,instance):
-    if not instance.user == user:
-        logger = logging.getLogger(__name__)
-        logger.error("User tries to access someone else record.")
-        raise Http404
+       if hasattr(instance, 'requested_amount'):
+            if user in instance.list_of_reviewers_id():
+                return True
+            if instance.user == user:
+                return True
+            else:
+                logger = logging.getLogger(__name__)
+                logger.error("This is a Project, and a user that is not the owner is trying to access it.")
+                raise Http404
+       else:
+            if instance.user == user:
+                return True
+            else:
+                logger = logging.getLogger(__name__)
+                logger.error("This is a Review, and a user that is not the owner is trying to access it.")
+                raise Http404
 
 # Views start here.
 @user_passes_test(is_pi,login_url='/project/login_no_permission/')
@@ -219,6 +230,8 @@ def project_detail(request,projectId):
     eq_total = budget_line_sum(eq_budget_line_list)
     total = oc_total + hr_total + eq_total
     current_url = reverse('project_budget', args = [project.pk])
+
+    project.list_of_reviewers_id()
 
     user_is_owner(user,project)
 

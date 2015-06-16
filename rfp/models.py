@@ -52,6 +52,15 @@ class Project(models.Model):
     def __unicode__(self):
         return self.name
 
+    def list_of_reviewers_id(self):
+        l = list()
+        reviews = Review.objects.filter(project = self)
+
+        for r in reviews:
+            l.append(r.user.id)
+
+        return l
+
     def send_project_confirmation_email(self):
 
          if not self.confirmation_email_sent:
@@ -141,6 +150,7 @@ class Review(models.Model):
             send_mail('Review Submitted',
                       conf_plain, 'contact@icfrc.fr', ['contact@icfrc.fr'],
                       html_message=conf_html, fail_silently=False)
+
 
 
 def set_review_as_completed(sender, instance, created, **kwargs):
