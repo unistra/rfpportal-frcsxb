@@ -5,25 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e051374b-9e41-4791-aaf1-35c1811c9e86" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/rfp/review/list_of_review.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/rfp/project_detail_recommendations.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/rfp/review/review_details.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/rfp/view_review.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rfp/admin.py" afterPath="$PROJECT_DIR$/rfp/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/rfp/create_project.html" afterPath="$PROJECT_DIR$/templates/rfp/create_project.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/rfp/create_project_budget.html" afterPath="$PROJECT_DIR$/templates/rfp/create_project_budget.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/rfp/create_project_summary.html" afterPath="$PROJECT_DIR$/templates/rfp/create_project_summary.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rfp/forms.py" afterPath="$PROJECT_DIR$/rfp/forms.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rfp/models.py" afterPath="$PROJECT_DIR$/rfp/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/rfp/project/progress_bar.html" afterPath="$PROJECT_DIR$/templates/rfp/project/progress_bar.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/rfp/project_review.html" afterPath="$PROJECT_DIR$/templates/rfp/project_review.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/rfp/project/project_reviewer.html" afterPath="$PROJECT_DIR$/templates/rfp/project/project_reviewer.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/rfp/project/project_tab.html" afterPath="$PROJECT_DIR$/templates/rfp/project/project_tab.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/rfp/rfp_details.html" afterPath="$PROJECT_DIR$/templates/rfp/rfp_details.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/registration/no_permission_login.html" afterPath="$PROJECT_DIR$/templates/registration/no_permission_login.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portal_frc/settings.py" afterPath="$PROJECT_DIR$/portal_frc/settings.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rfp/urls.py" afterPath="$PROJECT_DIR$/rfp/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rfp/views.py" afterPath="$PROJECT_DIR$/rfp/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ancient-peak-6942.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -84,52 +69,93 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/rfp/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3063063">
-              <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="733" column="47" selection-start-line="733" selection-start-column="47" selection-end-line="733" selection-end-column="47" />
               <folding>
                 <element signature="e#0#88#0" expanded="true" />
-                <element signature="e#687#738#0" expanded="false" />
-                <element signature="e#761#828#0" expanded="false" />
-                <element signature="e#863#955#0" expanded="false" />
-                <element signature="e#1048#1093#0" expanded="false" />
-                <element signature="e#1133#1295#0" expanded="false" />
-                <element signature="e#1362#1646#0" expanded="false" />
-                <element signature="e#1704#1854#0" expanded="false" />
-                <element signature="e#1896#2046#0" expanded="false" />
-                <element signature="e#2603#3276#0" expanded="false" />
-                <element signature="e#3400#4590#0" expanded="false" />
-                <element signature="e#4716#5404#0" expanded="false" />
-                <element signature="e#5551#6684#0" expanded="false" />
-                <element signature="e#6799#7365#0" expanded="false" />
-                <element signature="e#7494#9056#0" expanded="false" />
-                <element signature="e#9192#10456#0" expanded="false" />
-                <element signature="e#10605#11295#0" expanded="false" />
-                <element signature="e#11450#11950#0" expanded="false" />
-                <element signature="e#12096#12732#0" expanded="false" />
-                <element signature="e#12867#13327#0" expanded="false" />
-                <element signature="e#13474#14294#0" expanded="false" />
-                <element signature="e#14450#15272#0" expanded="false" />
-                <element signature="e#15417#16068#0" expanded="false" />
-                <element signature="e#16217#16908#0" expanded="false" />
-                <element signature="e#16982#17325#0" expanded="false" />
-                <element signature="e#17464#18141#0" expanded="false" />
-                <element signature="e#18284#19020#0" expanded="false" />
-                <element signature="e#19159#19796#0" expanded="false" />
-                <element signature="e#19939#20694#0" expanded="false" />
-                <element signature="e#20833#21456#0" expanded="false" />
-                <element signature="e#21599#22341#0" expanded="false" />
-                <element signature="e#22484#22851#0" expanded="false" />
-                <element signature="e#22970#24375#0" expanded="false" />
-                <element signature="e#24523#25501#0" expanded="false" />
-                <element signature="e#25642#25896#0" expanded="false" />
-                <element signature="e#26036#26218#0" expanded="false" />
-                <element signature="e#26345#26671#0" expanded="false" />
-                <element signature="e#26832#27494#0" expanded="false" />
-                <element signature="e#27520#28353#0" expanded="false" />
+                <element signature="e#762#829#0" expanded="false" />
+                <element signature="e#865#957#0" expanded="false" />
+                <element signature="e#1050#1095#0" expanded="false" />
+                <element signature="e#1135#1297#0" expanded="false" />
+                <element signature="e#1364#1648#0" expanded="false" />
+                <element signature="e#1706#1856#0" expanded="false" />
+                <element signature="e#1898#2048#0" expanded="false" />
+                <element signature="e#2085#2297#0" expanded="false" />
+                <element signature="e#2337#2501#0" expanded="false" />
+                <element signature="e#2627#3300#0" expanded="false" />
+                <element signature="e#3446#4636#0" expanded="false" />
+                <element signature="e#4784#5472#0" expanded="false" />
+                <element signature="e#5619#6752#0" expanded="false" />
+                <element signature="e#6889#7455#0" expanded="false" />
+                <element signature="e#7606#9168#0" expanded="false" />
+                <element signature="e#9326#10590#0" expanded="false" />
+                <element signature="e#10739#11429#0" expanded="false" />
+                <element signature="e#11584#12084#0" expanded="false" />
+                <element signature="e#12230#12866#0" expanded="false" />
+                <element signature="e#13001#13461#0" expanded="false" />
+                <element signature="e#13608#14428#0" expanded="false" />
+                <element signature="e#14584#15406#0" expanded="false" />
+                <element signature="e#15551#16202#0" expanded="false" />
+                <element signature="e#16351#17042#0" expanded="false" />
+                <element signature="e#17116#17459#0" expanded="false" />
+                <element signature="e#17598#18275#0" expanded="false" />
+                <element signature="e#18418#19154#0" expanded="false" />
+                <element signature="e#19293#19930#0" expanded="false" />
+                <element signature="e#20073#20828#0" expanded="false" />
+                <element signature="e#20967#21590#0" expanded="false" />
+                <element signature="e#21733#22475#0" expanded="false" />
+                <element signature="e#23126#24531#0" expanded="false" />
+                <element signature="e#24679#25657#0" expanded="false" />
+                <element signature="e#26192#26374#0" expanded="false" />
+                <element signature="e#26501#26827#0" expanded="false" />
+                <element signature="e#27140#27802#0" expanded="false" />
+                <element signature="e#27830#28663#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="no_permission_login.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/registration/no_permission_login.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.118329465">
+              <caret line="6" column="150" selection-start-line="6" selection-start-column="150" selection-end-line="6" selection-end-column="150" />
+              <folding>
+                <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/rfp/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/portal_frc/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/portal_frc/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -155,7 +181,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/user_profile/models.py" />
         <option value="$PROJECT_DIR$/templates/rfp/post_review_waiver.html" />
         <option value="$PROJECT_DIR$/templates/rfp/project_details_budget.html" />
         <option value="$PROJECT_DIR$/templates/rfp/project_details.html" />
@@ -198,14 +223,15 @@
         <option value="$PROJECT_DIR$/templates/rfp/project_detail_recommendations.html" />
         <option value="$PROJECT_DIR$/templates/rfp/project/project_tab.html" />
         <option value="$PROJECT_DIR$/rfp/models.py" />
-        <option value="$PROJECT_DIR$/rfp/urls.py" />
         <option value="$PROJECT_DIR$/rfp/forms.py" />
         <option value="$PROJECT_DIR$/templates/rfp/review/review_details.html" />
         <option value="$PROJECT_DIR$/templates/rfp/view_review.html" />
         <option value="$PROJECT_DIR$/templates/rfp/project_review.html" />
         <option value="$PROJECT_DIR$/templates/rfp/review/list_of_review.html" />
-        <option value="$PROJECT_DIR$/rfp/views.py" />
         <option value="$PROJECT_DIR$/portal_frc/settings.py" />
+        <option value="$PROJECT_DIR$/rfp/urls.py" />
+        <option value="$PROJECT_DIR$/rfp/views.py" />
+        <option value="$PROJECT_DIR$/templates/registration/no_permission_login.html" />
       </list>
     </option>
   </component>
@@ -277,7 +303,39 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="user_profile" />
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ancient-peak-6942" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rfpportal" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="registration" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ancient-peak-6942" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rfpportal" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="rfp" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -619,19 +677,11 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="58" />
+      <option name="time" value="60" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/templates/rfp/email/review_confirmation.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="12" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/rfp/email/review_invitation_subject.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -861,14 +911,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/portal_frc/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="105" selection-start-line="21" selection-start-column="96" selection-end-line="21" selection-end-column="105" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/user_profile/list_request_for_proposal.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1003,14 +1045,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rfp/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4786036">
-          <caret line="26" column="26" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/rfp/review/review_details.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.118329465">
@@ -1068,56 +1102,81 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/portal_frc/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.3400901">
-          <caret line="160" column="20" selection-start-line="160" selection-start-column="20" selection-end-line="160" selection-end-column="20" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="39" column="0" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/portal_frc/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rfp/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="56" column="0" selection-start-line="56" selection-start-column="0" selection-end-line="56" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/rfp/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3063063">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="733" column="47" selection-start-line="733" selection-start-column="47" selection-end-line="733" selection-end-column="47" />
           <folding>
             <element signature="e#0#88#0" expanded="true" />
-            <element signature="e#687#738#0" expanded="false" />
-            <element signature="e#761#828#0" expanded="false" />
-            <element signature="e#863#955#0" expanded="false" />
-            <element signature="e#1048#1093#0" expanded="false" />
-            <element signature="e#1133#1295#0" expanded="false" />
-            <element signature="e#1362#1646#0" expanded="false" />
-            <element signature="e#1704#1854#0" expanded="false" />
-            <element signature="e#1896#2046#0" expanded="false" />
-            <element signature="e#2603#3276#0" expanded="false" />
-            <element signature="e#3400#4590#0" expanded="false" />
-            <element signature="e#4716#5404#0" expanded="false" />
-            <element signature="e#5551#6684#0" expanded="false" />
-            <element signature="e#6799#7365#0" expanded="false" />
-            <element signature="e#7494#9056#0" expanded="false" />
-            <element signature="e#9192#10456#0" expanded="false" />
-            <element signature="e#10605#11295#0" expanded="false" />
-            <element signature="e#11450#11950#0" expanded="false" />
-            <element signature="e#12096#12732#0" expanded="false" />
-            <element signature="e#12867#13327#0" expanded="false" />
-            <element signature="e#13474#14294#0" expanded="false" />
-            <element signature="e#14450#15272#0" expanded="false" />
-            <element signature="e#15417#16068#0" expanded="false" />
-            <element signature="e#16217#16908#0" expanded="false" />
-            <element signature="e#16982#17325#0" expanded="false" />
-            <element signature="e#17464#18141#0" expanded="false" />
-            <element signature="e#18284#19020#0" expanded="false" />
-            <element signature="e#19159#19796#0" expanded="false" />
-            <element signature="e#19939#20694#0" expanded="false" />
-            <element signature="e#20833#21456#0" expanded="false" />
-            <element signature="e#21599#22341#0" expanded="false" />
-            <element signature="e#22484#22851#0" expanded="false" />
-            <element signature="e#22970#24375#0" expanded="false" />
-            <element signature="e#24523#25501#0" expanded="false" />
-            <element signature="e#25642#25896#0" expanded="false" />
-            <element signature="e#26036#26218#0" expanded="false" />
-            <element signature="e#26345#26671#0" expanded="false" />
-            <element signature="e#26832#27494#0" expanded="false" />
-            <element signature="e#27520#28353#0" expanded="false" />
+            <element signature="e#762#829#0" expanded="false" />
+            <element signature="e#865#957#0" expanded="false" />
+            <element signature="e#1050#1095#0" expanded="false" />
+            <element signature="e#1135#1297#0" expanded="false" />
+            <element signature="e#1364#1648#0" expanded="false" />
+            <element signature="e#1706#1856#0" expanded="false" />
+            <element signature="e#1898#2048#0" expanded="false" />
+            <element signature="e#2085#2297#0" expanded="false" />
+            <element signature="e#2337#2501#0" expanded="false" />
+            <element signature="e#2627#3300#0" expanded="false" />
+            <element signature="e#3446#4636#0" expanded="false" />
+            <element signature="e#4784#5472#0" expanded="false" />
+            <element signature="e#5619#6752#0" expanded="false" />
+            <element signature="e#6889#7455#0" expanded="false" />
+            <element signature="e#7606#9168#0" expanded="false" />
+            <element signature="e#9326#10590#0" expanded="false" />
+            <element signature="e#10739#11429#0" expanded="false" />
+            <element signature="e#11584#12084#0" expanded="false" />
+            <element signature="e#12230#12866#0" expanded="false" />
+            <element signature="e#13001#13461#0" expanded="false" />
+            <element signature="e#13608#14428#0" expanded="false" />
+            <element signature="e#14584#15406#0" expanded="false" />
+            <element signature="e#15551#16202#0" expanded="false" />
+            <element signature="e#16351#17042#0" expanded="false" />
+            <element signature="e#17116#17459#0" expanded="false" />
+            <element signature="e#17598#18275#0" expanded="false" />
+            <element signature="e#18418#19154#0" expanded="false" />
+            <element signature="e#19293#19930#0" expanded="false" />
+            <element signature="e#20073#20828#0" expanded="false" />
+            <element signature="e#20967#21590#0" expanded="false" />
+            <element signature="e#21733#22475#0" expanded="false" />
+            <element signature="e#23126#24531#0" expanded="false" />
+            <element signature="e#24679#25657#0" expanded="false" />
+            <element signature="e#26192#26374#0" expanded="false" />
+            <element signature="e#26501#26827#0" expanded="false" />
+            <element signature="e#27140#27802#0" expanded="false" />
+            <element signature="e#27830#28663#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/registration/no_permission_login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.118329465">
+          <caret line="6" column="150" selection-start-line="6" selection-start-column="150" selection-end-line="6" selection-end-column="150" />
+          <folding>
+            <element signature="n#style#0;n#p#0;n#div#0;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

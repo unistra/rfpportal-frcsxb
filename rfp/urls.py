@@ -51,10 +51,13 @@ urlpatterns = patterns('',
 #Dashboard and Admin controls
     url(r'^dashboard/$',views.dashboard,name='dashboard'),
 
+#Redirect if lost
+    url(r'^login_no_permission/$', views.no_permission, name='no_permission'),
+    url(r'^no_permission/$', 'django.contrib.auth.views.login',{'template_name': 'registration/no_permission_login.html'},name='login_no_permission'),
 
 #Testing
     url(r'^test/$',views.test,name='test'),
     url(r'^propose_reviewer/(?P<projectId>\d+)/$',views.propose_reviewer,name='propose_reviewer'),
     url(r'^proposed_reviewer_list/(?P<projectId>\d+)/$',views.prop_reviewer_list,name='prop_reviewer_list'),
-    url(r'^login_no_permission/$', 'django.contrib.auth.views.login',{'template_name': 'registration/no_permission_login.html'},name='login_no_permission'),
+
 )

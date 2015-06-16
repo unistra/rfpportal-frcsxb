@@ -1,9 +1,11 @@
 {% extends 'registration/login.html' %}
 
-{% block permission_message %}
-    <div class="alert alert-danger" role="alert">
-        <p style="text-align:center;">Only Principal Investigator from the FRC network have access to this section. PI, please login to access this section of the portal.
-    </p>
-    </div>
-{% endblock %}
 
+{% block permission_message %}
+<div class="col-xs-12 col-md-12">
+    <div class="alert alert-danger" role="alert">
+        <p style="text-align:center;">Sorry, you do not have the privilege to access this part of the site. Please log back in to access your profile.</p>
+    </div>
+</div>
+
+{% endblock %}

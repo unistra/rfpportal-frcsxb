@@ -39,7 +39,6 @@ ALLOWED_HOSTS = ['*']
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Application definition
-
 INSTALLED_APPS = (
     'grappelli.dashboard',
     'grappelli',
@@ -194,6 +193,8 @@ TEMPLATE_DIRS = (
 #urlcrypt settings
 URLCRYPT_LOGIN_URL = '/'
 
+
+#Grappelli_Settings
 GRAPPELLI_INDEX_DASHBOARD = 'dashboard.CustomIndexDashboard'
 
 LANGUAGE_CODE = 'en-us'

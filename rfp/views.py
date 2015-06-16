@@ -17,7 +17,8 @@ def is_reviewer(User):
     return User.groups.filter(name='Reviewer').exists()
 
 def is_pi(User):
-    return User.groups.filter(name = 'Principal_Investigator').exists()
+     return User.groups.filter(name = 'Principal_Investigator').exists()
+
 
 def is_pi_or_reviewer(User):
     state = False
@@ -75,7 +76,7 @@ def user_is_owner(user,instance):
         raise Http404
 
 # Views start here.
-@user_passes_test(is_pi,login_url='/login/')
+@user_passes_test(is_pi,login_url='/project/login_no_permission/')
 def create_project(request,rfpId):
     context = RequestContext(request)
     user = request.user
@@ -98,7 +99,7 @@ def create_project(request,rfpId):
 
     return render_to_response('rfp/create_project.html',{'form' : p, 'user' : user, 'progress_status' : progress_status, 'rfp' : rfp}, context)
 
-@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
+@user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def create_project_budget(request,projectId):
     context = RequestContext(request)
     user = request.user
@@ -127,7 +128,7 @@ def create_project_budget(request,projectId):
 
     return render_to_response('rfp/create_project_budget.html',context_dict,context)
 
-@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
+@user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def create_project_reviewer(request,projectId):
     context = RequestContext(request)
     user = request.user
@@ -173,7 +174,7 @@ def create_project_summary(request,projectId):
 
     return render_to_response('rfp/create_project_summary.html',context_dict,context)
 
-@user_passes_test(is_pi,login_url='/login/',redirect_field_name='next')
+@user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def edit_project(request,projectId):
     context = RequestContext(request)
     user=request.user
@@ -194,7 +195,7 @@ def edit_project(request,projectId):
 
     return render_to_response('rfp/edit_project.html',context_dict,context)
 
-@user_passes_test(is_pi_or_reviewer,login_url='/login/',redirect_field_name='next')
+@user_passes_test(is_pi_or_reviewer,login_url='/project/login_no_permission/',redirect_field_name='next')
 def project_detail(request,projectId):
     context = RequestContext(request)
     user = request.user
@@ -229,7 +230,7 @@ def project_detail(request,projectId):
 
     return render_to_response('rfp/project_details.html',context_dict,context)
 
-@user_passes_test(is_pi_or_reviewer,login_url='/login/',redirect_field_name='next')
+@user_passes_test(is_pi_or_reviewer,login_url='/project/login_no_permission/',redirect_field_name='next')
 def project_detail_budget(request,projectId):
     context = RequestContext(request)
     user = request.user
@@ -628,7 +629,7 @@ def prop_reviewer_list(request,projectId):
 
     return render_to_response('rfp/list_of_proposed_reviewer.html', {'user' : user, 'project' : project, 'proposed_reviewers' : prop_rev_list}, context)
 
-@user_passes_test(is_reviewer,login_url='/login/',redirect_field_name='next')
+@user_passes_test(is_reviewer,login_url='/project/login_no_permission/',redirect_field_name='next')
 def post_review(request,reviewId):
     context = RequestContext(request)
     user = request.user
@@ -727,6 +728,11 @@ def dashboard(request):
 
     return render_to_response('dashboard.html', context_dict, context)
 
+from django.contrib.auth import logout
+def no_permission(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('login_no_permission'))
+
 #NOT USED and TESTS
 @user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def propose_reviewer(request,projectId):
@@ -749,6 +755,8 @@ def propose_reviewer(request,projectId):
         r = ProposedReviewerFormSet(queryset=ProposedReviewer.objects.filter(project = project.id))
 
     return render_to_response('rfp/propose_reviewer.html',{'formset' : r, 'user' : user, 'project' : project}, context)
+
+
 
 def test (request):
     from django.template.loader import render_to_string
