@@ -45,5 +45,33 @@
 </form>
 </div>
 
+<script>
+
+    $( document ).ready(function() {
+
+        function get_total() {
+                var month = $('#id_duration').val();
+                var salary = $('#id_monthly_salary').val();
+                var total;
+                total = month * salary;
+            return total;
+        };
+
+        $( "#id_monthly_salary" ).blur(function() {
+                total = get_total();
+                $('#id_amount').val(total);
+                console.log (total);
+        });
+
+        $( "#id_duration" ).blur(function() {
+                total = get_total();
+                $('#id_amount').val(total);
+                console.log (total);
+        });
+
+    });
+
+</script>
+
 {% endblock %}
 
