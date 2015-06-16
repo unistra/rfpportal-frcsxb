@@ -5,6 +5,7 @@ from django.core.mail import send_mail
 from django.db.models.signals import post_save
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
+import logging
 
 from django.contrib.auth.models import User
 
@@ -55,10 +56,8 @@ class Project(models.Model):
     def list_of_reviewers_id(self):
         l = list()
         reviews = Review.objects.filter(project = self)
-
         for r in reviews:
             l.append(r.user.id)
-
         return l
 
     def send_project_confirmation_email(self):

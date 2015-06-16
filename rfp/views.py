@@ -70,7 +70,7 @@ def get_redirect_url(request):
 
 def user_is_owner(user,instance):
        if hasattr(instance, 'requested_amount'):
-            if user in instance.list_of_reviewers_id():
+            if user.id in instance.list_of_reviewers_id():
                 return True
             if instance.user == user:
                 return True
