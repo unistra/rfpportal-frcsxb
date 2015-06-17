@@ -14,6 +14,11 @@ class RfpCampaign(models.Model):
                          ('Innovation', 'Innovation'),
                          ('Labex_CSC', 'Labex CSC'),
                          )
+    STATUS_CHOICES = ( ('open', 'Open, Call for proposal is open for submission.'),
+                         ('under_review', 'Under review, reviews are being collected prior to board meeting.'),
+                         ('closed', 'Closed, results have been communicated.'),
+                         )
+
     name=models.CharField(max_length=255,null=True)
     category=models.CharField(max_length=255,null=True,choices=CATEGORY_CHOICES)
     add_reviewer=models.BooleanField(default=True)
@@ -21,6 +26,8 @@ class RfpCampaign(models.Model):
     instructions=models.TextField(max_length=4000,null=True)
     logo = models.ImageField(upload_to='image',null=True,blank=True)
     review_questions = models.CharField(max_length = 4000, null=True, blank=True)
+    deadline = models.DateField()
+    status = models.CharField(max_length=255,null=True,choices=STATUS_CHOICES,default='open')
 
     def __unicode__(self):
         return self.name
@@ -35,6 +42,12 @@ class RfpCampaign(models.Model):
         verbose_name_plural = "Call for proposals"
 
 class Project(models.Model):
+    STATUS_CHOICES = (
+        ('pending','Pending'),
+        ('under_review','Under Review'),
+        ('granted','Granted'),
+        ('not_granted','Not Granted'),
+    )
     rfp=models.ForeignKey(RfpCampaign)
     name=models.CharField(max_length=255)
     user=models.ForeignKey(User,blank=True,null=True)
@@ -47,7 +60,7 @@ class Project(models.Model):
     scope_of_work=models.CharField(max_length=4000,null=True,blank=True,verbose_name=u"Abstract")
     anticipated_impact=models.CharField(max_length=4000,null=True,blank=True,verbose_name=u"Link with other project")
     document=models.FileField(upload_to='project',null=True,blank=True)
-    status=models.CharField(max_length=255,blank=True,null=True)
+    status=models.CharField(max_length=255,default='pending',choices=STATUS_CHOICES)
     confirmation_email_sent = models.BooleanField(default=False)
 
     def __unicode__(self):
@@ -95,9 +108,19 @@ class ProposedReviewer(models.Model):
     country = models.CharField(max_length=255,blank=True,null=True)
     type = models.CharField(max_length=255,null=True,blank=True)
 
-
     def __unicode__(self):
         return (str(self.first_name) + " " + str(self.last_name) + " - " + str(self.institution))
+
+    def check_if_email_registered_as_user(self):
+        """
+        Return True if self.email exists among Users emakils list.
+        """
+        l = list()
+
+        users = User.objects.all()
+        for u in users:
+            l.append(u.email)
+        return self.email in l
 
 class BudgetLine(models.Model):
     project = models.ForeignKey(Project,null = True,editable=False)
@@ -150,8 +173,6 @@ class Review(models.Model):
                       conf_plain, 'contact@icfrc.fr', ['contact@icfrc.fr'],
                       html_message=conf_html, fail_silently=False)
 
-
-
 def set_review_as_completed(sender, instance, created, **kwargs):
         if instance.rating:
             instance.send_confirmation_email_to_reviewer()
@@ -159,6 +180,14 @@ def set_review_as_completed(sender, instance, created, **kwargs):
         return instance.status
 
 def send_invitation_to_review_email(sender, instance, created, **kwargs):
+    """
+    Send invitation to review by email to user.review after the review is created.
+    :param sender:
+    :param instance:
+    :param created:
+    :param kwargs:
+    :return: send_email.
+    """
     if created:
         from urlcrypt import lib as urlcrypt
         from django.core.urlresolvers import reverse

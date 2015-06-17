@@ -123,7 +123,7 @@ def post_homepage_login_landing_page(request):
 
     is_pi = user.groups.filter(name = 'Principal_Investigator').exists()
     is_rev = user.groups.filter(name = 'Reviewer').exists()
-    rfp_c = RfpCampaign.objects.all()
+    rfp_c = RfpCampaign.objects.filter(status = 'open')
     projects = Project.objects.filter(user = user).order_by('-id')[:3]
     store_redirect_url(request)
 

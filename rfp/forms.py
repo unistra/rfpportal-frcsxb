@@ -215,7 +215,7 @@ class BudgetLineHR(ModelForm):
         labels = {
         'item' : _('Contract Type (PhD, Post-doc...)'),
         'amount' : _('Total'),
-        'duration' : _('Duration'),
+        'duration' : _('Duration (months)'),
         'monthly_salary' : _("Monthly Salary")
         }
 

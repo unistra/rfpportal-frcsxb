@@ -1946,6 +1946,8 @@
       <column name="review_questions" sqlType="varchar" precision="4000" scale="0" nullable="true" jdbcType="12"/>
       <column name="category" sqlType="varchar" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="add_reviewer" sqlType="bool" precision="1" scale="0" nullable="false" jdbcType="-7"/>
+      <column name="deadline" sqlType="date" precision="13" scale="0" nullable="false" jdbcType="91"/>
+      <column name="status" sqlType="varchar" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <primary-key name="rfp_rfpcampaign_pkey" columns="id"/>
       <exported-key name="rfp_project_rfp_id_2dcb625c_fk_rfp_rfpcampaign_id" table="rfp_project" schema="public" catalog="rfp_portal" columns="rfp_id"/>
     </table>

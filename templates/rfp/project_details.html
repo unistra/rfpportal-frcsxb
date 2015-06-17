@@ -22,7 +22,7 @@
 
     <div class="col-xs-12 col-md-12">
 
-    <h3>Project Details {% if is_pi %} <a class="small_link" href="{% url 'edit_project' project.id %}">Edit Project Details</a>{% endif %}</h3>
+    <h3>Project Details {% if is_pi and project.rfp.status == 'open' %} <a class="small_link" href="{% url 'edit_project' project.id %}">Edit Project Details</a>{% endif %}</h3>
 
     {% for p in project_data %}
         {% if p.label == '' %}

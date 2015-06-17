@@ -497,7 +497,7 @@ def edit_budget_hr(request, budgetlineId):
     user = request.user
     bl = BudgetLine.objects.get(id = budgetlineId )
 
-    project=Project.objects.get(id = budgetlineId.project.id)
+    project=Project.objects.get(id = bl.project.id)
     user_is_owner(user,project)
 
     redirect = get_redirect_url(request)
@@ -552,7 +552,7 @@ def edit_budget_eq(request, budgetlineId):
     user = request.user
     bl = BudgetLine.objects.get(id = budgetlineId )
 
-    project=Project.objects.get(id = budgetlineId.project.id)
+    project=Project.objects.get(id = bl.project.id)
     user_is_owner(user,project)
 
     redirect = get_redirect_url(request)
@@ -607,7 +607,7 @@ def edit_budget_op(request, budgetlineId):
     user = request.user
     bl = BudgetLine.objects.get(id = budgetlineId )
 
-    project=Project.objects.get(id = budgetlineId.project.id)
+    project=Project.objects.get(id = bl.project.id)
     user_is_owner(user,project)
 
     redirect = get_redirect_url(request)

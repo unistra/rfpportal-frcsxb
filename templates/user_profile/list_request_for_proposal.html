@@ -11,30 +11,35 @@
         Nullam pulvinar pellentesque orci, quis sodales purus tempus non.</p>
 
     <h2>Categories</h2>
-
+    {% if rfp_c %}
     {% for c in rfp_c %}
+                              <div class="row">
+                                  <div class="col-xs-12 col-md-4">
+                                      <div class="thumbnail no_border">
+                                        {% if c.logo %}
+                                            <a href="{% url 'rfpcampaign_detail' c.id %}"><img src="{{ c.logo.url }}" alt="{{ c.name }}"></a>
+                                        {% endif %}
+                                      </div>
+                                  </div>
 
-                    <div class="rfp_title">
-                            <h3>{{ c.name }}</h3>
-                    </div>
-                          <div class="row">
-                              <div class="col-xs-12 col-md-4">
-                                  <div class="thumbnail no_border">
-                                    {% if c.logo %}
-                                        <a href="{% url 'rfpcampaign_detail' c.id %}"><img src="{{ c.logo.url }}" alt="{{ c.name }}"></a>
-                                    {% endif %}
+                                  <div class="col-xs-12 col-md-6">
+                                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis placerat ex id lorem hendrerit, vel viverra turpis bibendum. Donec pretium condimentum neque quis eleifend.
+                                        Proin lacinia hendrerit eleifend. Suspendisse non tellus scelerisque, scelerisque ipsum venenatis, bibendum nulla. Donec faucibus at dolor nec mattis. Nullam molestie lorem augue, non consectetur sem ultrices at. Proin id urna enim. Vivamus elit turpis, sodales a semper vitae, dignissim eget dolor.
+                                      </p>
+                                  </div>
+
+                                  <div class="vertical-align col-xs-12 col-md-2">
+                                      <a class="btn btn-apply" href="{% url 'rfpcampaign_detail' c.id %}">Apply</a>
                                   </div>
                               </div>
-
-                              <div class="col-xs-12 col-md-6">
-                                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis placerat ex id lorem hendrerit, vel viverra turpis bibendum. Donec pretium condimentum neque quis eleifend.
-                                    Proin lacinia hendrerit eleifend. Suspendisse non tellus scelerisque, scelerisque ipsum venenatis, bibendum nulla. Donec faucibus at dolor nec mattis. Nullam molestie lorem augue, non consectetur sem ultrices at. Proin id urna enim. Vivamus elit turpis, sodales a semper vitae, dignissim eget dolor.
-                                  </p>
-                              </div>
-
-                              <div class="vertical-align col-xs-12 col-md-2">
-                                  <a class="btn btn-apply" href="{% url 'rfpcampaign_detail' c.id %}">Apply</a>
-                              </div>
-                          </div>
-
     {% endfor %}
+
+    {% else %}
+
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
+            <p><em>Sorry, no open call for proposals at this moment.</em></p>
+        </div>
+    </div>
+
+    {% endif %}

@@ -11,7 +11,7 @@
             {% endif %}
 
             {% if is_rev %}<li  id="your_review" class="tab_role" role="presentation"><a href="{% url 'project_review' project.id %}">Your Review</a></li>{% endif %}
-            {% if is_pi %}<li  id="recomendations_tab" class="tab_role" role="presentation"><a href="{% url 'project_recommendations' project.id %}">Recommendations</a></li>{% endif %}
+            {% if is_pi and project.rfp.status == 'closed' %}<li  id="recomendations_tab" class="tab_role" role="presentation"><a href="{% url 'project_recommendations' project.id %}">Recommendations</a></li>{% endif %}
 
         </ul>
     </div>
