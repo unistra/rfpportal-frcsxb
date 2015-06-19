@@ -9,7 +9,7 @@
     <h2> {{ rfp_campaign.name }}</h2>
 
     <div style="margin:5px 5px 5px 5px;" class="pull-left">
-        <img src="{{ rfp_campaign.logo.url }}" alt="{{ c.name }}">
+        {% if rfp_campaign.logo %}<img src="{{ rfp_campaign.logo.url }}" alt="{{ c.name }}">{% endif %}
     </div>
 
     {% autoescape off %}

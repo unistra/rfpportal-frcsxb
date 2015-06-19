@@ -48,9 +48,6 @@ urlpatterns = patterns('',
     url(r'^rfp/(?P<rfpcampaignId>\d+)/$',views.rfp_campaign,name='rfpcampaign_detail'),
     url(r'^rfp/$',views.list_of_call_for_proposal,name='rfp_list'),
 
-#Dashboard and Admin controls
-    url(r'^dashboard/$',views.dashboard,name='dashboard'),
-
 #Redirect if lost
     url(r'^login_no_permission/$', views.no_permission, name='no_permission'),
     url(r'^no_permission/$', 'django.contrib.auth.views.login',{'template_name': 'registration/no_permission_login.html'},name='login_no_permission'),

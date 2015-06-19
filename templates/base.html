@@ -86,7 +86,7 @@
             {% else %}
                     <a href="{% url 'django.contrib.auth.views.login' %}?next={% url 'user_profile' %}">Log in</a>
             {% endif %} |
-                    <a href="mailto: contact@icfrc.fr">Contact Us</a> | <a href="/admin/">Admin</a>
+                    <a href="mailto: contact@icfrc.fr">Contact Us</a> | <a href="{% url 'dashboard' %}">Admin</a>
         </p>
 
         <p>Powered by Django - 2015</p>

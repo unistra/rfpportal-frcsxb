@@ -9,5 +9,13 @@ urlpatterns = patterns('',
     url(r'^edit_profile/$',views.edit_profile,name='edit_profile'),
     url(r'^welcome/$',views.post_homepage_login_landing_page,name='post_homepage_login_landing_page'),
 
+    #user_dashboard and Admin controls
+    url(r'^dashboard/$',views.dashboard,name='dashboard'),
+    url(r'^dashboard/dashboard_rfp_listing/$',views.dashboard_rfp_listing,name='dashboard_rfp_listing'),
+    url(r'^dashboard/dashboard_rfp_details/(?P<rfpId>\d+)/$',views.dashboard_rfp_details,name='dashboard_rfp_details'),
+    url(r'^dashboard/dashboard_project_details/(?P<projectId>\d+)/$',views.dashboard_project_details,name='dashboard_project_details'),
+    url(r'^dashboard/dashboard_project_list/$',views.dashboard_project_list,name='dashboard_project_list'),
+    url(r'^dashboard/dashboard_create_rfp/$',views.dashboard_create_rfp,name='dashboard_create_rfp'),
+    url(r'^dashboard/dashboard_edit_rfp/(?P<rfpId>\d+)/$',views.dashboard_edit_rfp,name='dashboard_edit_rfp'),
 )
 

@@ -30,7 +30,7 @@ class RfpCampaign(models.Model):
     status = models.CharField(max_length=255,null=True,choices=STATUS_CHOICES,default='open')
 
     def __unicode__(self):
-        return self.name
+        return (str(self.year) + " " + str(self.name))
 
     def get_questions(self):
         list = self.review_questions.split('; ')
@@ -95,6 +95,7 @@ class Project(models.Model):
             self.confirmation_email_sent = True
             self.save()
 
+
 class ProposedReviewer(models.Model):
     project=models.ForeignKey(Project,null=True)
     first_name = models.CharField(max_length=255,blank=True,null=True)
@@ -135,10 +136,17 @@ class BudgetLine(models.Model):
         return  (str(self.category) + " " +str(self.item))
 
 class Review(models.Model):
+    STATUS_CHOICES = (
+        ('pending','pending'),
+        ('refused', 'refused'),
+        ('accepted', 'accepted'),
+        ('completed', 'completed'),
+    )
+
     user = models.ForeignKey(User,verbose_name=u"Reviewer")
     project = models.ForeignKey(Project, verbose_name=u"Project")
     rating = models.CharField(max_length=255, null=True,blank=True)
-    status = models.CharField(max_length=255,default='pending',blank=True)
+    status = models.CharField(max_length=255,default='pending',choices=STATUS_CHOICES)
     custom_0 = models.CharField(max_length=4000,null=True,blank=True)
     custom_1 = models.CharField(max_length=4000,null=True,blank=True)
     custom_2 = models.CharField(max_length=4000,null=True,blank=True)

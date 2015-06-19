@@ -1,9 +1,10 @@
 __author__ = 'Sylvestre'
-from django import forms
-from models import UserProfile
-from django.contrib.auth.models import User
-from django.utils.translation import ugettext_lazy as _
 
+from models import UserProfile
+from django import forms
+from django.forms import ModelForm
+from django.utils.translation import ugettext_lazy as _
+from rfp.models import Project,RfpCampaign,Review,File_Test,ProposedReviewer,BudgetLine
 
 class sign_up(forms.Form):
 
@@ -55,5 +56,10 @@ class UserUpdate(forms.ModelForm):
             'zip' : _('Postcode:')
         }
 
+class RfpCreate(ModelForm):
+
+    class Meta:
+        model = RfpCampaign
+        exclude = {}
 
 

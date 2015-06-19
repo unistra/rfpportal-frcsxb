@@ -3,12 +3,14 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.contrib.auth.models import User,Group,Permission
 from django.contrib.auth import authenticate, login
-from forms import sign_up,UserUpdate
+from forms import sign_up,UserUpdate,RfpCreate
 from models import UserProfile
 from django.core.urlresolvers import reverse
+from django.forms.models import model_to_dict
 
-from rfp.models import Project,Review,RfpCampaign
-from rfp.views import store_redirect_url,get_redirect_url
+from rfp.models import Project,Review,RfpCampaign,BudgetLine,ProposedReviewer
+from rfp.views import store_redirect_url,get_redirect_url,budget_line_sum
+from rfp.forms import UpdateForm
 
 # Create your views here.
 def is_reviewer(User):
@@ -16,6 +18,21 @@ def is_reviewer(User):
 
 def is_pi(User):
     return User.groups.filter(name = 'Principal_Investigator').exists()
+
+def is_staff(User):
+    return User.is_staff
+
+def status_choices(model):
+    """
+    Return a dict. with all status choices of the related model.
+    :param model: Object
+    :return: Dict
+    """
+
+    l = list()
+    for r in model.STATUS_CHOICES:
+                l.append(r[0])
+    return l
 
 #Create a new profile
 def create_profile(request):
@@ -135,3 +152,109 @@ def post_homepage_login_landing_page(request):
 
     return render_to_response('user_profile/post_homepage_login_landing_page.html',context_dict,context)
 
+#Dashboard_Admin_Views
+@user_passes_test(is_staff,login_url='/project/login_no_permission/',redirect_field_name='next')
+def dashboard(request):
+    context = RequestContext(request)
+    user = request.user
+
+    list_of_projects = Project.objects.all()
+    list_of_review = Review.objects.all()
+    list_of_rfp = RfpCampaign.objects.all()
+
+
+
+    context_dict = {'list_of_projects' : list_of_projects, 'list_of_review': list_of_review, 'user': user, 'list_of_rfp' : list_of_rfp}
+
+    return render_to_response('dashboard/dashboard.html', context_dict, context)
+
+@user_passes_test(is_staff,login_url='/project/login_no_permission/',redirect_field_name='next')
+def dashboard_create_rfp(request):
+    context = RequestContext(request)
+    user = request.user
+
+
+    if request.method == "POST":
+        form = RfpCreate(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('dashboard'))
+
+    else:
+        form = RfpCreate()
+
+    context_dict = {'form' : form, 'user' : user}
+
+    return render_to_response('dashboard/dashboard_create_rfp.html', context_dict, context)
+
+@user_passes_test(is_staff,login_url='/project/login_no_permission/',redirect_field_name='next')
+def dashboard_edit_rfp(request, rfpId):
+    context = RequestContext(request)
+    user = request.user
+    rfp = RfpCampaign.objects.get(id = rfpId)
+
+    if request.method == "POST":
+        form = RfpCreate(request.POST,instance=rfp)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('dashboard_rfp_listing'))
+
+    else:
+        form = RfpCreate(instance = rfp)
+
+    context_dict = {'form' : form, 'user' : user, 'rfp' : rfp}
+
+    return render_to_response('dashboard/dashboard_edit_rfp.html', context_dict, context)
+
+@user_passes_test(is_staff,login_url='/project/login_no_permission/',redirect_field_name='next')
+def dashboard_rfp_listing(request):
+    context = RequestContext(request)
+    user = request.user
+    rfp_list = RfpCampaign.objects.all().order_by('-year')
+
+    context_dict = {'rfp_list' : rfp_list, 'user' : user}
+
+    return render_to_response('dashboard/dashboard_rfp_listing.html', context_dict, context)
+
+@user_passes_test(is_staff,login_url='/project/login_no_permission/',redirect_field_name='next')
+def dashboard_rfp_details(request,rfpId):
+    context = RequestContext(request)
+    user = request.user
+    rfp = RfpCampaign.objects.get(id = rfpId)
+    project_list = Project.objects.filter(rfp = rfp.id)
+    review_status = status_choices(Review)
+
+    context_dict = {'rfp' : rfp, 'user' : user, 'project_list':project_list, 'review_status':review_status}
+
+    return render_to_response('dashboard/dashboard_rfp_details.html', context_dict, context)
+
+@user_passes_test(is_staff,login_url='/project/login_no_permission/',redirect_field_name='next')
+def dashboard_project_details(request,projectId):
+    context = RequestContext(request)
+    user = request.user
+    project = Project.objects.get(pk = projectId)
+    project_data = UpdateForm(data=model_to_dict(project))
+
+    budget_line_list = BudgetLine.objects.filter(project = project)
+    hr_budget_line_list = BudgetLine.objects.filter(project = project,category = 'HR')
+    oc_budget_line_list = BudgetLine.objects.filter(project = project,category = 'OC')
+    eq_budget_line_list = BudgetLine.objects.filter(project = project,category = 'EQ')
+
+    prop_rev_list = ProposedReviewer.objects.filter(project = project)
+    total_budgeted = budget_line_sum(budget_line_list)
+
+    context_dict = {'project':project,'project_data' : project_data,'budget_line_list': budget_line_list,
+                    'total' : total_budgeted,'hr_budget_lines_list' : hr_budget_line_list, 'oc_budget_lines_list' : oc_budget_line_list,
+                    'eq_budget_lines_list' : eq_budget_line_list,'prop_rev_list' : prop_rev_list}
+
+    return render_to_response('dashboard/dashboard_project_details.html', context_dict, context)
+
+@user_passes_test(is_staff,login_url='/project/login_no_permission/',redirect_field_name='next')
+def dashboard_project_list(request):
+    context = RequestContext(request)
+    user = request.user
+    project_list = Project.objects.all().order_by('status')
+
+    context_dict = {'project_list' : project_list}
+
+    return render_to_response('dashboard/dashboard_project_list.html', context_dict, context)

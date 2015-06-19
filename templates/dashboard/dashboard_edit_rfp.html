@@ -1,0 +1,14 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block title %} Create a new Call For Proposal Campaign {% endblock %}
+
+{% block dashboard_nav %}
+    {% include 'dashboard/dashboard_navigation_pane.html' %}
+{% endblock %}
+
+{% block dashboard_action %}
+    <h3>{{ rfp.name }}</h3>
+
+    {% include 'dashboard/dashboard_rfp_form.html' %}
+
+{% endblock %}

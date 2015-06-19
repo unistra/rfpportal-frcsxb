@@ -1,0 +1,32 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block title %} Create a new Call For Proposal Campaign {% endblock %}
+
+{% block dashboard_nav %}
+    {% include 'dashboard/dashboard_navigation_pane.html' %}
+{% endblock %}
+
+{% block dashboard_action %}
+
+<table class="table">
+    <thead>
+        <th>Name</th>
+        <th>Year</th>
+        <th>Status</th>
+        <th></th>
+    </thead>
+
+    <tbody>
+    {% for rfp in rfp_list %}
+        <tr>
+            <td><a href="{% url 'dashboard_rfp_details' rfp.id %}">{{ rfp.name }}</a></td>
+            <td>{{ rfp.year }}</td>
+            <td>{{ rfp.status }}</td>
+            <td><a href="{% url 'dashboard_edit_rfp' rfp.id %}">Edit</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+
+</table>
+
+{% endblock %}

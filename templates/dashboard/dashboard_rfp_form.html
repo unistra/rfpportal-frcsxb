@@ -1,0 +1,12 @@
+<!--RfpCreate ModelForm-->
+
+<form method="post" enctype="multipart/form-data" action="{{ request.path }}">
+
+    {% csrf_token %}
+
+    {% load bootstrap3 %}
+        {% bootstrap_form form %}
+
+    <button class="btn btn-apply" type="submit" value="Submit">Save</button>
+
+</form>

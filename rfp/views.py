@@ -729,18 +729,6 @@ def list_of_call_for_proposal(request):
 
     return render_to_response('rfp/rfp_list.html',context_dict,context)
 
-@user_passes_test(is_staff,login_url='/project/login_no_permission/',redirect_field_name='next')
-def dashboard(request):
-    context = RequestContext(request)
-    user = request.user
-
-    list_of_projects = Project.objects.all()
-    list_of_review = Review.objects.all()
-
-    context_dict = {'list_of_projects' : list_of_projects, 'list_of_review': list_of_review, 'user': user }
-
-    return render_to_response('dashboard.html', context_dict, context)
-
 from django.contrib.auth import logout
 def no_permission(request):
     logout(request)

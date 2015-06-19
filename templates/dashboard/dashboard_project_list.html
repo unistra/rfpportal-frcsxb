@@ -1,0 +1,46 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block title %} Projects {% endblock %}
+
+{% block dashboard_nav %}
+    {% include 'dashboard/dashboard_navigation_pane.html' %}
+{% endblock %}
+
+{% block dashboard_action %}
+
+<div class="row">
+            <div class="col-xs-12 col-md-12">
+                <h2>Projects</h2>
+
+                <table class="table">
+
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Requested (Eur.)</th>
+                            <th>File</th>
+                            <th>Category</th>
+                            <th>Status</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for p in project_list %}
+
+                    <tr>
+                            <td><a href="{% url 'dashboard_project_details' p.id %}">{{ p.name }}</a></td>
+                            <td>{{ p.requested_amount }}</td>
+                            <td>{% if p.document %} <a href="{{ p.document.url }}">{{ p.document.name }}</a> {% else %} <em>No File</em> {% endif %}</td>
+                            <td> {{ p.rfp }}</td>
+                            <td><em>{{ p.status|capfirst }}</em></td>
+                    </tr>
+
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+
+            </div>
+</div>
+{% endblock %}

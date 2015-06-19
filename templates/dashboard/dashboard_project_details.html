@@ -1,0 +1,54 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block title %} {{ project.name }} - Details {% endblock %}
+
+{% block dashboard_nav %}
+    {% include 'dashboard/dashboard_navigation_pane.html' %}
+{% endblock %}
+
+{% block dashboard_action %}
+
+<!-- Project Details -->
+<div class="row" id="project_detail">
+
+    <div class="col-xs-12 col-md-12">
+
+    <h3>Project Details</h3>
+    <h4>{{ project.user.get_full_name }}</h4>
+
+    {% for p in project_data %}
+        {% if p.label == '' %}
+           <p class="project_data hide" id=""><strong>{{ p.label }} </strong>{{ p.data|linebreaksbr }}</p>
+
+           {% elif p.name == 'document' %}
+
+           <div class = "col-xs-12 col-md-4">
+
+               <p class="file_field"><strong>Document: </strong></p>
+           </div>
+
+           <div class = col-md-8>
+              <p>{% if project.document %}<a href="{{ project.document.url }}" target="_blank"> {{ project.document.name }} </a> {% endif %}</p>
+           </div>
+           {% else %}
+
+           <p class="project_data" id="{{ p.label|slugify }}"><strong>{{ p.label }} </strong>{{ p.data|linebreaksbr }}</p>
+        {% endif %}
+
+    {% endfor %}
+
+        </div>
+</div>
+
+    {% block budget_summary %}
+    {% include 'rfp/project/project_budget.html' %}
+{% endblock %}
+
+
+{% block reviewer_summary %}
+    {% include 'rfp/project/project_reviewer.html' %}
+{% endblock %}
+
+</div>
+
+{% endblock %}

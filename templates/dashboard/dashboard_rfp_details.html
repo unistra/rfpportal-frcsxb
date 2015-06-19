@@ -1,0 +1,44 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block title %} Create a new Call For Proposal Campaign {% endblock %}
+
+{% block dashboard_nav %}
+    {% include 'dashboard/dashboard_navigation_pane.html' %}
+{% endblock %}
+
+{% block dashboard_action %}
+{% load user_extras %}
+
+<h2> {{ rfp.name }} </h2>
+
+<table class="table">
+
+<thead>
+    <th colspan="3">PROJECT</th>
+    <th colspan="4">REVIEWS</th>
+</thead>
+
+            <th>Name</th>
+            <th>PI</th>
+            <th>Status</th>
+
+            {% for r in review_status %} <th> {{ r }} </th> {% endfor %}
+
+
+
+    {% for p in project_list %}
+
+    <tr>
+        <td> <a href="{% url 'dashboard_project_details' p.id %}">{{ p.name|truncatewords:5 }}</a></td>
+        <td> {{ p.user.get_full_name }}</td>
+        <td> {{ p.status }}</td>
+
+            {% for r in review_status %} <td> {{ p|count_review:r }} </td> {% endfor %}
+
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+{% endblock %}
