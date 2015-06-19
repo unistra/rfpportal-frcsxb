@@ -74,6 +74,8 @@ def user_is_owner(user,instance):
                 return True
             if instance.user == user:
                 return True
+            if user.is_staff:
+                return True
             else:
                 logger = logging.getLogger(__name__)
                 logger.error("This is a Project, and a user that is not the owner is trying to access it.")
@@ -756,8 +758,6 @@ def propose_reviewer(request,projectId):
         r = ProposedReviewerFormSet(queryset=ProposedReviewer.objects.filter(project = project.id))
 
     return render_to_response('rfp/propose_reviewer.html',{'formset' : r, 'user' : user, 'project' : project}, context)
-
-
 
 def test (request):
     from django.template.loader import render_to_string

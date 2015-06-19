@@ -114,13 +114,13 @@ class ProposedReviewer(models.Model):
 
     def check_if_email_registered_as_user(self):
         """
-        Return True if self.email exists among Users emakils list.
+        Return True if self.email exists among Users emails list.
         """
         l = list()
-
         users = User.objects.all()
         for u in users:
             l.append(u.email)
+
         return self.email in l
 
 class BudgetLine(models.Model):

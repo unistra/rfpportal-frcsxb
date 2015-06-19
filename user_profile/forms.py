@@ -63,3 +63,5 @@ class RfpCreate(ModelForm):
         exclude = {}
 
 
+class SearchForm(forms.Form):
+    search = forms.CharField(max_length=255)

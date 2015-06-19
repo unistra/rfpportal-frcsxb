@@ -6,7 +6,6 @@ from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 from django import forms
 from django.contrib.auth.forms import UserCreationForm as CreationForm
 
-
 class UserCreationForm(CreationForm):
     """
     A UserCreationForm with optional password inputs.

@@ -3,7 +3,8 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.contrib.auth.models import User,Group,Permission
 from django.contrib.auth import authenticate, login
-from forms import sign_up,UserUpdate,RfpCreate
+from forms import sign_up,UserUpdate,RfpCreate,SearchForm
+
 from models import UserProfile
 from django.core.urlresolvers import reverse
 from django.forms.models import model_to_dict
@@ -163,7 +164,6 @@ def dashboard(request):
     list_of_rfp = RfpCampaign.objects.all()
 
 
-
     context_dict = {'list_of_projects' : list_of_projects, 'list_of_review': list_of_review, 'user': user, 'list_of_rfp' : list_of_rfp}
 
     return render_to_response('dashboard/dashboard.html', context_dict, context)
@@ -172,7 +172,6 @@ def dashboard(request):
 def dashboard_create_rfp(request):
     context = RequestContext(request)
     user = request.user
-
 
     if request.method == "POST":
         form = RfpCreate(request.POST)
@@ -224,6 +223,7 @@ def dashboard_rfp_details(request,rfpId):
     project_list = Project.objects.filter(rfp = rfp.id)
     review_status = status_choices(Review)
 
+
     context_dict = {'rfp' : rfp, 'user' : user, 'project_list':project_list, 'review_status':review_status}
 
     return render_to_response('dashboard/dashboard_rfp_details.html', context_dict, context)
@@ -243,9 +243,11 @@ def dashboard_project_details(request,projectId):
     prop_rev_list = ProposedReviewer.objects.filter(project = project)
     total_budgeted = budget_line_sum(budget_line_list)
 
+    review_list = Review.objects.filter(project = project.id)
+
     context_dict = {'project':project,'project_data' : project_data,'budget_line_list': budget_line_list,
                     'total' : total_budgeted,'hr_budget_lines_list' : hr_budget_line_list, 'oc_budget_lines_list' : oc_budget_line_list,
-                    'eq_budget_lines_list' : eq_budget_line_list,'prop_rev_list' : prop_rev_list}
+                    'eq_budget_lines_list' : eq_budget_line_list,'prop_rev_list' : prop_rev_list, 'list_of_review' : review_list}
 
     return render_to_response('dashboard/dashboard_project_details.html', context_dict, context)
 
@@ -258,3 +260,57 @@ def dashboard_project_list(request):
     context_dict = {'project_list' : project_list}
 
     return render_to_response('dashboard/dashboard_project_list.html', context_dict, context)
+
+def get_user_from_group(group):
+    gr = Group.objects.get(name=group)
+    if gr:
+        return gr.user_set.all()
+    else:
+        return HttpResponse('User Group does not exists')
+
+def value_in_model(model,lookup):
+    model_dict = model_to_dict(model)
+    for key, value in model_dict.items():
+        for v in value:
+            if lookup in v:
+                return True
+
+def dashboard_reviewers_list(request):
+    context = RequestContext(request)
+    user = request.user
+    group = Group.objects.get(name='Reviewer')
+    redirect = store_redirect_url(request)
+
+    if request.method =="POST":
+        form = SearchForm(request.POST)
+
+        if form.is_valid():
+            search = form.cleaned_data['search']
+
+            #Initialization of lists
+            reviewers_list = group.user_set.all()
+            users_id = list()
+
+            #Loop over users in reviewers group member
+            for u in reviewers_list:
+                print u
+                model_dict = model_to_dict(u)
+                print model_dict
+
+                #Check if the searched string is included in one of the User field
+                for key in model_dict:
+                    if search in str(model_dict[key]):
+                        #Add the users id in a list
+                        users_id.append(u.id)
+                        break
+            #Re-initialize the lists of reviewers including only the users with id found in the loop
+            reviewers_list = group.user_set.filter(pk__in = (users_id))
+
+    else:
+        form = SearchForm()
+        reviewers_list = group.user_set.all()
+        users_id = list()
+
+    context_dict = {'reviewers_list' : reviewers_list, 'form' : form, 'users_id' : users_id}
+
+    return render_to_response('dashboard/dashboard_reviewers_list.html', context_dict, context)

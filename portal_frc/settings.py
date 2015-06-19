@@ -40,8 +40,7 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Application definition
 INSTALLED_APPS = (
-    'grappelli.dashboard',
-    'grappelli',
+    'django_admin_bootstrapped',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -193,9 +192,16 @@ TEMPLATE_DIRS = (
 #urlcrypt settings
 URLCRYPT_LOGIN_URL = '/'
 
+#Boostrapped Admin Config.
+DAB_FIELD_RENDERER = 'django_admin_bootstrapped.renderers.BootstrapFieldRenderer'
 
-#Grappelli_Settings
-GRAPPELLI_INDEX_DASHBOARD = 'dashboard.CustomIndexDashboard'
+from django.contrib import messages
+
+MESSAGE_TAGS = {
+            messages.SUCCESS: 'alert-success success',
+            messages.WARNING: 'alert-warning warning',
+            messages.ERROR: 'alert-danger error'
+}
 
 LANGUAGE_CODE = 'en-us'
 

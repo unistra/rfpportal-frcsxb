@@ -40,7 +40,7 @@
         </div>
 </div>
 
-    {% block budget_summary %}
+{% block budget_summary %}
     {% include 'rfp/project/project_budget.html' %}
 {% endblock %}
 
@@ -49,6 +49,36 @@
     {% include 'rfp/project/project_reviewer.html' %}
 {% endblock %}
 
-</div>
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <h3>Reviews</h3>
 
+{% for review in list_of_review %}
+
+        <table class="table">
+            <thead>
+                <th>Reviewer</th>
+                <th>Review</th>
+                <th>Date</th>
+                <th>Rating</th>
+            </thead>
+
+            <tr>
+                <td>{{ review.user.get_full_name }}</td>
+                <td>
+                    <a href="{% url 'view_review' review.id %}" target="_blank">{{ review.custom_0|truncatewords:15 }}</a>
+                </td>
+                <td>{{ review.date }}</td>
+                <td>{{ review.rating }}</td>
+            </tr>
+        </table>
+
+{% empty %}
+
+    <p><em>Sorry no reviews has been submitted yet.</em></p>
+
+{% endfor %}
+
+</div>
+</div>
 {% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block title %} List of Reviewers {% endblock %}
+
+{% block dashboard_nav %}
+    {% include 'dashboard/dashboard_navigation_pane.html' %}
+{% endblock %}
+
+{% block dashboard_action %}
+
+{% load bootstrap3 %}
+
+<div class="row">
+<div class="col-xs-12 col-md-12">
+
+<div class="pull-left">
+<h3>Reviewers</h3>
+</div>
+
+<div class="search_box pull-right">
+<form class="form-inline" method="post" action="{% url 'dashboard_reviewers_list' %}">
+{% csrf_token %}
+
+  {% bootstrap_form form layout='inline' %}
+
+  <button type="submit" class="btn btn-primary">Search</button>
+</form>
+       <!--<span class="pull-right"> <small><a href="{% url 'dashboard_reviewers_list' %}">Refresh</a></small> </span>-->
+<hr>
+</div>
+</div>
+</div>
+
+<div class="row">
+
+    <div class="col-xs-12 col-md-12">
+
+
+        <table class="table">
+
+            <thead>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Member since</th>
+                <th>Invitations</th>
+                <th>Completed Reviews</th>
+            </thead>
+{% for r in reviewers_list %}
+            <tr>
+                <td>{{ r.get_full_name }}</td>
+                <td><a href="mailto:{{r.email}}">{{ r.email }}</a></td>
+                <td>{{ r.date_joined }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+{% endfor %}
+
+        </table>
+    </div>
+
+</div>
+
+{% endblock %}

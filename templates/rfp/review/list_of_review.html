@@ -4,13 +4,15 @@
     <div class="col-xs-12 col-md-12">
 
         <table class="table">
-            <tr>
+            <thead>
+                {% block extra_column_header %} {% endblock %}
                 <th>Review</th>
                 <th>Date</th>
                 <th>Rating</th>
-            </tr>
+            </thead>
 
             <tr>
+                {% block extra_column_data %} {% endblock %}
                 <td>
                     <a href="{% url 'view_review' review.id %}" target="_blank">{{ review.custom_0|truncatewords:15 }}</a>
                 </td>

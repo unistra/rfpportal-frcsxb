@@ -17,5 +17,7 @@ urlpatterns = patterns('',
     url(r'^dashboard/dashboard_project_list/$',views.dashboard_project_list,name='dashboard_project_list'),
     url(r'^dashboard/dashboard_create_rfp/$',views.dashboard_create_rfp,name='dashboard_create_rfp'),
     url(r'^dashboard/dashboard_edit_rfp/(?P<rfpId>\d+)/$',views.dashboard_edit_rfp,name='dashboard_edit_rfp'),
+    url(r'^dashboard/dashboard_reviewers_list/$',views.dashboard_reviewers_list,name='dashboard_reviewers_list'),
 )
+
 
