@@ -1,3 +1,4 @@
+<!--
 <h3>Menu</h3>
 <ol>
         <li> Request for Proposal
@@ -17,7 +18,7 @@
         <li>Reviewers
             <ul>
                 <li><a href="{% url 'dashboard_reviewers_list' %}">Reviewers</a></li>
-                <li>Reviews</li>
+                <li><a href="{% url 'dashboard_review_list' %}">Reviews</a></li>
             </ul>
         </li>
 
@@ -27,9 +28,55 @@
             </ul>
         </li>
 
-        <li>Settings
+        <li>Emails
             <ul>
-                <li></li>
+                <li><a href="https://www.mandrill.com" target="_blank">Mandrill</a></li>
             </ul>
         </li>
+
+        <li>Explore</li>
 </ol>
+-->
+
+<nav class="navbar navbar-default" role="navigation" style="margin:0px;">
+    <div class ="container container-nav nav_background no_shadow">
+
+        <button class="navbar-toggle" data-target=".navbar-responsive-collapse" data-toggle="collapse" type="button">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+
+        <div class="collapse navbar-collapse navbar-responsive-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+
+                <li><a href="{% url 'dashboard' %}">Home</a></li>
+
+                <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Request for Proposals<span class="caret"></span></a>
+                              <ul class="dropdown-menu" role="menu">
+                                <li><a href="{% url 'dashboard_rfp_listing' %}">Request for Proposal</a></li>
+                                <li><a href="{% url 'dashboard_create_rfp' %}">Create a new Request for proposal campaign</a></li>
+                              </ul>
+                </li>
+
+                <li><a href="{% url 'dashboard_project_list' %}">Projects</a></li>
+
+
+                <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Review<span class="caret"></span></a>
+                         <ul class="dropdown-menu" role="menu">
+                                <li><a href="{% url 'dashboard_reviewers_list' %}">Reviewers</a></li>
+                                <li><a href="{% url 'dashboard_review_list' %}">Reviews</a></li>
+                         </ul>
+                </li>
+
+                <li><a href="https://www.mandrill.com" target="_blank">Mandrill</a></li>
+
+            </ul>
+
+        </div> <!--end navbar collapse-->
+    </div>
+
+</nav>
+

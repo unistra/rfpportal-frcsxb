@@ -3,7 +3,9 @@ from django.template import RequestContext
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.contrib.auth.models import User,Group,Permission
 from django.contrib.auth import authenticate, login
+
 from forms import sign_up,UserUpdate,RfpCreate,SearchForm
+from rfp.forms import UpdateForm
 
 from models import UserProfile
 from django.core.urlresolvers import reverse
@@ -11,7 +13,7 @@ from django.forms.models import model_to_dict
 
 from rfp.models import Project,Review,RfpCampaign,BudgetLine,ProposedReviewer
 from rfp.views import store_redirect_url,get_redirect_url,budget_line_sum
-from rfp.forms import UpdateForm
+
 
 # Create your views here.
 def is_reviewer(User):
@@ -257,9 +259,12 @@ def dashboard_project_list(request):
     user = request.user
     project_list = Project.objects.all().order_by('status')
 
-    context_dict = {'project_list' : project_list}
+    form = SearchForm()
+
+    context_dict = {'project_list' : project_list,'form':form}
 
     return render_to_response('dashboard/dashboard_project_list.html', context_dict, context)
+
 
 def get_user_from_group(group):
     gr = Group.objects.get(name=group)
@@ -268,13 +273,7 @@ def get_user_from_group(group):
     else:
         return HttpResponse('User Group does not exists')
 
-def value_in_model(model,lookup):
-    model_dict = model_to_dict(model)
-    for key, value in model_dict.items():
-        for v in value:
-            if lookup in v:
-                return True
-
+@user_passes_test(is_staff,login_url='/project/login_no_permission/',redirect_field_name='next')
 def dashboard_reviewers_list(request):
     context = RequestContext(request)
     user = request.user
@@ -285,7 +284,7 @@ def dashboard_reviewers_list(request):
         form = SearchForm(request.POST)
 
         if form.is_valid():
-            search = form.cleaned_data['search']
+            search = str(form.cleaned_data['search']).lower()
 
             #Initialization of lists
             reviewers_list = group.user_set.all()
@@ -299,7 +298,7 @@ def dashboard_reviewers_list(request):
 
                 #Check if the searched string is included in one of the User field
                 for key in model_dict:
-                    if search in str(model_dict[key]):
+                    if search in str(model_dict[key]).lower():
                         #Add the users id in a list
                         users_id.append(u.id)
                         break
@@ -314,3 +313,42 @@ def dashboard_reviewers_list(request):
     context_dict = {'reviewers_list' : reviewers_list, 'form' : form, 'users_id' : users_id}
 
     return render_to_response('dashboard/dashboard_reviewers_list.html', context_dict, context)
+
+@user_passes_test(is_staff,login_url='/project/login_no_permission/',redirect_field_name='next')
+def dashboard_reviewer_detail(request, reviewerId):
+    context = RequestContext(request)
+    user = request.user
+    reviewer = User.objects.get(id = reviewerId)
+    reviewer_dict = model_to_dict(reviewer.userprofile)
+    list_of_review = Review.objects.filter(user = reviewer.id)
+
+    #Date of last review
+    last_review = Review.objects.filter(user = reviewer.id).order_by('-date')[:1]
+    if last_review:
+        for r in last_review:
+            last_review_date = r.date
+    else:
+        last_review_date = None
+
+    #Information of Reviewer presented in the UserUpdate form
+    reviewer_information = UserUpdate(reviewer_dict)
+
+    #Total number of review made by reviewer
+    num_of_review = Review.objects.filter(user = reviewer.id, status = 'completed').count()
+
+    context_dict = {'reviewer' : reviewer,'user' : user, 'list_of_review' : list_of_review,'reviewer_information':reviewer_information,'num_of_review' : num_of_review,
+                    'last_review_date' : last_review_date}
+
+    return render_to_response('dashboard/dashboard_reviewer_detail.html',context_dict,context)
+
+@user_passes_test(is_staff,login_url='/project/login_no_permission/',redirect_field_name='next')
+def dashboard_review_list(request):
+    context = RequestContext(request)
+    user = request.user
+    list_of_review = Review.objects.all().order_by('-date')
+    form = SearchForm()
+
+    context_dict = {'list_of_review' : list_of_review, 'user' : user, 'form' : form}
+
+    return render_to_response('dashboard/dashboard_review_list.html',context_dict,context)
+

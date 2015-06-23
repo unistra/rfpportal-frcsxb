@@ -1,0 +1,91 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block title %} {{ reviewer.get_full_name }} {% endblock %}
+
+{% block dashboard_nav %}
+    {% include 'dashboard/dashboard_navigation_pane.html' %}
+{% endblock %}
+
+{% block dashboard_action %}
+
+<!--Contact Information-->
+<div class="col-xs-12 col-md-12">
+<h3>User Information <small><a href="#">Edit User Information</a></small></h3>
+
+{% for p in reviewer_information %}
+
+          <p class="project_data" id="{{ p.label|slugify }}"><strong>{{ p.label }} </strong>{{ p.data|linebreaksbr }}</p>
+
+{% endfor %}
+
+</div>
+
+<!--Activity summary-->
+    <div class="col-xs-12 col-md-12">
+    <h3>Activities</h3>
+
+        <h4>Statistics</h4>
+        <table class="table">
+            <thead>
+                <th>Reviews completed</th>
+                <th>Last review</th>
+                <th>Invitation to review</th>
+                <th>Reliability</th>
+            </thead>
+
+            <tr>
+               <td>{{ num_of_review }}</td>
+               <td>{{ last_review_date }}</td>
+               <td></td>
+               <td></td>
+            </tr>
+
+        </table>
+
+            <h4>Details</h4>
+
+    {% if list_of_review %}
+
+
+
+        <table class="table">
+            <thead>
+                <th>Review</th>
+                <th>Project</th>
+                <th>PI</th>
+                <th>Date</th>
+                <th>Rating</th>
+                <th>Status</th>
+            </thead>
+
+    {% for review in list_of_review %}
+            <tr>
+                <td>
+                    <a href="{% url 'view_review' review.id %}" target="_blank">{{ review.custom_0|truncatechars:30 }}</a>
+                </td>
+                <td>
+                    <a href="{% url 'dashboard_project_details' review.project.id %}"> {{ review.project|truncatechars:50 }}</a>
+                </td>
+                <td>
+                    <a href="#">
+                        {{ review.project.user.get_full_name }}
+                    </a>
+                <td>{{ review.date }}</td>
+                <td>{{ review.rating }}</td>
+                <td>{{ review.status }}</td>
+            </tr>
+    {% endfor %}
+    </table>
+
+    {% else %}
+
+            <p><em>No reviews has been submitted yet.</em></p>
+
+    {% endif %}
+
+
+
+ </div>
+
+{% endblock %}
+

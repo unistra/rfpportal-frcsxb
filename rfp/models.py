@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.sites.models import Site
 from user_profile.models import UserProfile
 from django.core.files.storage import FileSystemStorage
 from django.core.mail import send_mail
@@ -6,6 +7,18 @@ from django.db.models.signals import post_save
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 import logging
+
+def send_mandrill_email(self,mandrill_template_name, context_dict):
+        """
+        Send a mandrill template email.
+        :param mandrill_template_name: str
+        """
+        from django.core.mail import EmailMessage
+
+        msg = EmailMessage(to=[self.user.email],)
+        msg.template_name = mandrill_template_name
+        msg.global_merge_vars = context_dict
+        msg.send()
 
 from django.contrib.auth.models import User
 
@@ -24,10 +37,16 @@ class RfpCampaign(models.Model):
     add_reviewer=models.BooleanField(default=True)
     year=models.PositiveIntegerField(null=True)
     instructions=models.TextField(max_length=4000,null=True)
+
     logo = models.ImageField(upload_to='image',null=True,blank=True)
     review_questions = models.CharField(max_length = 4000, null=True, blank=True)
     deadline = models.DateField()
     status = models.CharField(max_length=255,null=True,choices=STATUS_CHOICES,default='open')
+    email_template_project_confirmation = models.CharField(max_length=255,null=True,blank=True,default='project_submission_confirmation_email_default',verbose_name=u"Email template for project submission confirmation.")
+    email_template_review_invitation = models.CharField(max_length=255,null=True,blank=True, verbose_name=u"Email template for invitation to review.")
+    email_template_review_confirmation = models.CharField(max_length=255,null=True,blank=True,default='review_submission_confirmation_email_default', verbose_name=u"Email template for confirmation and thank you for your review.")
+    email_template_review_follow_up = models.CharField(max_length=255,null=True,blank=True, verbose_name=u"Email template for follow up with reviewer.")
+    email_template_rfp_closed = models.CharField(max_length=255,null=True,blank=True, verbose_name=u"Email template to anounce results.")
 
     def __unicode__(self):
         return (str(self.year) + " " + str(self.name))
@@ -74,27 +93,21 @@ class Project(models.Model):
         return l
 
     def send_project_confirmation_email(self):
+            if not self.confirmation_email_sent:
 
-         if not self.confirmation_email_sent:
+                c = {'project_name' : str(self), 'full_name' : (str(self.user.first_name) + " " + str(self.user.last_name))}
+                send_mandrill_email(self,self.rfp.email_template_project_confirmation,c)
 
-            c = {'project' : self}
+                c = {'project':self}
+                conf_plain = render_to_string('rfp/email/project_admin_confirmation.txt',c)
+                conf_html = render_to_string('rfp/email/project_admin_confirmation.html',c)
 
-            msg_plain = render_to_string('rfp/email/project_confirmation.txt',c)
-            msg_html = render_to_string('rfp/email/project_confirmation.html',c)
+                send_mail('Project Submitted',
+                          conf_plain, 'admin@icfrc.fr', ['admin@icfrc.fr','sgug@outlook.com'],
+                          html_message=conf_html, fail_silently=False)
 
-            conf_plain = render_to_string('rfp/email/project_admin_confirmation.txt',c)
-            conf_html = render_to_string('rfp/email/project_admin_confirmation.html',c)
-
-            send_mail('Your project has been succesfully submitted',
-                      msg_plain, 'contact@icfrc.fr', [self.user.email],
-                      html_message=msg_html, fail_silently=False)
-            send_mail('Project Submitted',
-                      conf_plain, 'contact@icfrc.fr', ['contact@icfrc.fr'],
-                      html_message=conf_html, fail_silently=False)
-
-            self.confirmation_email_sent = True
-            self.save()
-
+                self.confirmation_email_sent = True
+                self.save()
 
 class ProposedReviewer(models.Model):
     project=models.ForeignKey(Project,null=True)
@@ -165,63 +178,40 @@ class Review(models.Model):
 
     def send_confirmation_email_to_reviewer(self):
         if not self.status == 'completed':
+            c = {'full_name' : (str(self.user.first_name) + " " + str(self.user.last_name)), 'project_name': str(self.project.name), 'category_name' : str(self.project.rfp.category), 'category_year' : str(self.project.rfp.year)}
+            send_mandrill_email(self,self.rfp.email_template_review_confirmation,c)
+
             c = {'review' : self}
-
-            msg_plain = render_to_string('rfp/email/review_confirmation.txt',c)
-            msg_html = render_to_string('rfp/email/review_confirmation.html',c)
-
             conf_plain = render_to_string('rfp/email/review_admin_confirmation.txt',c)
             conf_html = render_to_string('rfp/email/review_admin_confirmation.html',c)
 
-            send_mail('Thank you! Your review has been succesfully submitted.',
-                      msg_plain, 'contact@icfrc.fr', [self.user.email],
-                      html_message=msg_html, fail_silently=False)
-
             send_mail('Review Submitted',
-                      conf_plain, 'contact@icfrc.fr', ['contact@icfrc.fr'],
+                      conf_plain, 'admin@icfrc.fr', ['admin@icfrc.fr','sgug@outlook.com'],
                       html_message=conf_html, fail_silently=False)
 
-def set_review_as_completed(sender, instance, created, **kwargs):
-        if instance.rating:
-            instance.send_confirmation_email_to_reviewer()
-            print('Confirmation Sent!')
-        return instance.status
+    def send_invitation_email_to_reviewer(self):
+            """
+            Send an email including a link. Clicking the link log the user in and redirect to the review survey page.
+            """
+            from urlcrypt import lib as urlcrypt
+            from django.core.urlresolvers import reverse
+            token_accept = urlcrypt.generate_login_token(self.user, reverse('post_review_waiver', args=[self.id]))
+            url_accept = reverse('urlcrypt_redirect', args=(token_accept,))
+            site = Site.objects.get(id=1)
+            url_refuse = reverse('urlcrypt_redirect', args=(token_accept,))
 
-def send_invitation_to_review_email(sender, instance, created, **kwargs):
-    """
-    Send invitation to review by email to user.review after the review is created.
-    :param sender:
-    :param instance:
-    :param created:
-    :param kwargs:
-    :return: send_email.
-    """
-    if created:
-        from urlcrypt import lib as urlcrypt
-        from django.core.urlresolvers import reverse
-        token_accept = urlcrypt.generate_login_token(instance.user, reverse('post_review_waiver', args=[instance.id]))
+            c = {'reviewer_full_name' : str(str(self.user.first_name) + " " + str(self.user.last_name)), 'project' : self.project.name,
+                 'author' : str(str(self.project.user.first_name) + str(self.project.user.last_name)),
+                 'abstract' : self.project.scope_of_work, 'keywords':self.project.purpose,
+                 'url_accept' : str(str(site.domain)+str(url_accept)),'url_refuse' : str(str(site.domain)+str(url_accept))}
 
-        url_accept = reverse('urlcrypt_redirect', args=(token_accept,))
-        url_refuse = reverse('urlcrypt_redirect', args=(token_accept,))
+            send_mandrill_email(self,self.project.rfp.email_template_review_invitation,c)
 
-        c = {'url_accept' : url_accept, 'url_refuse' : url_refuse, 'review' : instance}
-        msg_plain = render_to_string('rfp/email/review_invitation.html', c)
-        msg_html = render_to_string('rfp/email/review_invitation.html', c)
-        msg_subject = render_to_string('rfp/email/review_invitation_subject.txt', c)
-
-        send_mail(msg_subject,msg_plain,'contact@icfrc.fr',[instance.user.email],html_message=msg_html,fail_silently=False)
-
-        print('Invitation sent')
-
-        instance.status = 'invited'
-        instance.save()
-        print('Review status changed')
 
 class File_Test(models.Model):
     name=models.CharField(max_length=255)
     document=models.FileField(null=True)
 
 #post_save.connect(send_project_confirmation_email,sender = Project)
-
-post_save.connect(send_invitation_to_review_email,sender= Review)
 #post_save.connect(set_review_as_completed, sender = Review)
+

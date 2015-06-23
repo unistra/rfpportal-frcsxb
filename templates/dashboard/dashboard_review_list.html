@@ -1,0 +1,68 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block title %} Create a new Call For Proposal Campaign {% endblock %}
+
+{% block dashboard_nav %}
+    {% include 'dashboard/dashboard_navigation_pane.html' %}
+{% endblock %}
+
+{% block dashboard_action %}
+{% load bootstrap3 %}
+<div class="row">
+<div class="col-xs-12 col-md-12">
+
+<div class="pull-left">
+<h3>Reviews</h3>
+</div>
+
+<div class="search_box pull-right">
+<form class="form-inline" method="post" action="{% url 'dashboard_review_list' %}">
+{% csrf_token %}
+
+  {% bootstrap_form form layout='inline' %}
+
+  <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+<hr>
+</div>
+</div>
+</div>
+
+<!--List of review-->
+<div class="row">
+<div class="col-xs-12 col-md-12">
+
+    {% if list_of_review %}
+    <table class="table">
+        <thead>
+            <th>Review of</th>
+            <th>PI</th>
+            <th>Reviewer</th>
+            <th>Rating</th>
+            <th>Date</th>
+            <th>Status</th>
+        </thead>
+
+        {% for r in list_of_review %}
+        <tr>
+            <td><a href="{% url 'view_review' r.id %}" target="_blank">{{ r.project|truncatechars:30 }}</a></td>
+            <td>{{ r.project.user.get_full_name }}</td>
+            <td><a href="{% url 'dashboard_reviewer_detail' r.user.id %}">{{ r.user.get_full_name }}</a></td>
+            <td>{{ r.rating }}</td>
+            <td>{{ r.date }}</td>
+            <td>{{ r.status }}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+    {% else %}
+
+    <p><em>No review posted</em></p>
+
+    {% endif %}
+
+</div>
+</div>
+{% endblock %}

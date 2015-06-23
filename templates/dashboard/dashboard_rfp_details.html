@@ -9,8 +9,9 @@
 {% block dashboard_action %}
 {% load user_extras %}
 
-<h2> {{ rfp.name }} </h2>
+<h2> {{ rfp.name }} <small><a class="small_link" href="{% url 'dashboard_edit_rfp' rfp.id %}">Edit</a></small></h2>
 
+<!--Project Table-->
 <table class="table">
 
 <thead>

@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'user_profile',
     'rfp',
     'storages',
@@ -107,7 +108,7 @@ if os.getenv('DATABASE_URL'):
     #Email configuration
     MANDRILL_API_KEY = os.getenv('MANDRILL_API_KEY')
     EMAIL_BACKEND = 'djrill.mail.backends.djrill.DjrillBackend'
-    DEFAULT_FROM_EMAIL = 'contact@icfrc.fr'
+    DEFAULT_FROM_EMAIL = 'admin@icfrc.fr'
 
     # Static asset configuration for hosted dev:
     STATICFILES_LOCATION = 'static'
@@ -212,6 +213,8 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+SITE_ID = 1
 
 LOGGING = {
     'version': 1,

@@ -2,6 +2,7 @@ __author__ = 'Sylvestre'
 
 from django import template
 from rfp.models import Project,Review,RfpCampaign
+from django.contrib.auth.models import User,Group,Permission
 
 register = template.Library()
 
@@ -31,3 +32,11 @@ def count_review(self,s):
     """
     n = Review.objects.filter(project = self.id, status = s).count()
     return n
+
+@register.filter(name='is_pi')
+def is_pi(self):
+    return self.groups.filter(name = 'Principal_Investigator').exists()
+
+@register.filter(name='is_rev')
+def is_reviewer(self):
+    return self.groups.filter(name = 'Reviewer').exists()

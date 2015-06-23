@@ -12,7 +12,6 @@
             </thead>
 
             <tr>
-                {% block extra_column_data %} {% endblock %}
                 <td>
                     <a href="{% url 'view_review' review.id %}" target="_blank">{{ review.custom_0|truncatewords:15 }}</a>
                 </td>

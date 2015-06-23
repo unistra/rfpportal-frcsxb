@@ -13,9 +13,10 @@
 
     <div class="col-xs-12 col-md-12">
 
-    <h3>Project Details</h3>
-    <h4>{{ project.user.get_full_name }}</h4>
-
+    <h3>{{ project.name }}</h3>
+    <h4>PI: <strong>{{ project.user.get_full_name }}</strong></h4>
+    <h4>Category: <strong>{{ project.rfp }}</strong></h4>
+    <hr>
     {% for p in project_data %}
         {% if p.label == '' %}
            <p class="project_data hide" id=""><strong>{{ p.label }} </strong>{{ p.data|linebreaksbr }}</p>
@@ -44,7 +45,6 @@
     {% include 'rfp/project/project_budget.html' %}
 {% endblock %}
 
-
 {% block reviewer_summary %}
     {% include 'rfp/project/project_reviewer.html' %}
 {% endblock %}
@@ -56,15 +56,15 @@
 {% for review in list_of_review %}
 
         <table class="table">
-            <thead>
+            <tr>
                 <th>Reviewer</th>
                 <th>Review</th>
                 <th>Date</th>
                 <th>Rating</th>
-            </thead>
+            </tr>
 
             <tr>
-                <td>{{ review.user.get_full_name }}</td>
+                <td><a href="{% url 'dashboard_reviewer_detail' review.user.id %}">{{ review.user.get_full_name }}</a></td>
                 <td>
                     <a href="{% url 'view_review' review.id %}" target="_blank">{{ review.custom_0|truncatewords:15 }}</a>
                 </td>
@@ -81,4 +81,12 @@
 
 </div>
 </div>
+
+
+<script>
+    $('#project-title').hide();
+</script>
+
+
 {% endblock %}
+

@@ -18,6 +18,10 @@ urlpatterns = patterns('',
     url(r'^dashboard/dashboard_create_rfp/$',views.dashboard_create_rfp,name='dashboard_create_rfp'),
     url(r'^dashboard/dashboard_edit_rfp/(?P<rfpId>\d+)/$',views.dashboard_edit_rfp,name='dashboard_edit_rfp'),
     url(r'^dashboard/dashboard_reviewers_list/$',views.dashboard_reviewers_list,name='dashboard_reviewers_list'),
+    url(r'^dashboard/dashboard_reviewer_detail/(?P<reviewerId>\d+)/$',views.dashboard_reviewer_detail,name='dashboard_reviewer_detail'),
+    url(r'^dashboard/dashboard_review_list/$',views.dashboard_review_list,name='dashboard_review_list'),
 )
+
+
 
 
