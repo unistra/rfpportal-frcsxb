@@ -17,7 +17,8 @@ urlpatterns = patterns('',
     url(r'^/login/?next=/$', 'django.contrib.auth.views.login',name='login'),
     url(r'^$','django.contrib.auth.views.login',{'template_name': 'home_page_login.html'},name='home_page'),
 
-
+    #Sql-explorer
+    url(r'^explorer/', include('explorer.urls')),
 
     #UrlCrypt urls
     (r'^r/', include('urlcrypt.urls')),

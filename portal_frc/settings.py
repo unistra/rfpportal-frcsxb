@@ -56,6 +56,7 @@ INSTALLED_APPS = (
     'djrill',
     'import_export',
     'urlcrypt',
+    'explorer',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -127,7 +128,16 @@ else:
                         'PASSWORD': 'noosfere',
                         'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
                         'PORT': '5433',
-                }
+                },
+                'django_explorer': {
+                            'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+                            'NAME': 'rfp_portal',                      # Or path to database file if using sqlite3.
+                            #The following settings are not used with sqlite3:
+                            'USER': 'django_explorer',
+                            'PASSWORD': 'noosfere',
+                            'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+                            'PORT': '5433',
+                    }
     }
     #AWS configuration
     AWS_STORAGE_BUCKET_NAME = api_key.AWS_STORAGE_BUCKET_NAME
@@ -195,6 +205,9 @@ URLCRYPT_LOGIN_URL = '/'
 
 #Boostrapped Admin Config.
 DAB_FIELD_RENDERER = 'django_admin_bootstrapped.renderers.BootstrapFieldRenderer'
+
+#SQL-explorer setting
+EXPLORER_CONNECTION_NAME = 'django_explorer'
 
 from django.contrib import messages
 
