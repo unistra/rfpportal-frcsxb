@@ -84,6 +84,8 @@ WSGI_APPLICATION = 'portal_frc.wsgi.application'
 # Parse database configuration from $DATABASE_URL
 
 if os.getenv('DATABASE_URL'):
+    #SQL-explorer setting
+    EXPLORER_CONNECTION_NAME = 'django_explorer'
     SECRET_KEY = os.getenv('SECRET_KEY')
     DATABASES = {
                 'default': {
@@ -206,8 +208,7 @@ URLCRYPT_LOGIN_URL = '/'
 #Boostrapped Admin Config.
 DAB_FIELD_RENDERER = 'django_admin_bootstrapped.renderers.BootstrapFieldRenderer'
 
-#SQL-explorer setting
-EXPLORER_CONNECTION_NAME = 'django_explorer'
+
 
 from django.contrib import messages
 
