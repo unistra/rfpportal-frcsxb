@@ -4,6 +4,7 @@ from django.conf.urls import patterns, url
 import views
 
 urlpatterns = patterns('',
+
     url(r'^sign_up/$',views.create_profile,name='create_profile'),
     url(r'^profile/$',views.index_profile,name='user_profile'),
     url(r'^edit_profile/$',views.edit_profile,name='edit_profile'),
@@ -24,7 +25,3 @@ urlpatterns = patterns('',
     url(r'^dashboard/dashboard_invite_reviewer/(?P<propRId>\d+)/$',views.dashboard_invite_reviewer,name='dashboard_invite_reviewer'),
 
 )
-
-
-
-
