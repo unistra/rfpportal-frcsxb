@@ -20,6 +20,9 @@ urlpatterns = patterns('',
     url(r'^dashboard/dashboard_reviewers_list/$',views.dashboard_reviewers_list,name='dashboard_reviewers_list'),
     url(r'^dashboard/dashboard_reviewer_detail/(?P<reviewerId>\d+)/$',views.dashboard_reviewer_detail,name='dashboard_reviewer_detail'),
     url(r'^dashboard/dashboard_review_list/$',views.dashboard_review_list,name='dashboard_review_list'),
+    url(r'^dashboard/dashboard_add_admin_proposed_reviewer/(?P<projectId>\d+)/$',views.dashboard_add_admin_proposed_reviewer,name='dashboard_add_admin_proposed_reviewer'),
+    url(r'^dashboard/dashboard_invite_reviewer/(?P<propRId>\d+)/$',views.dashboard_invite_reviewer,name='dashboard_invite_reviewer'),
+
 )
 
 

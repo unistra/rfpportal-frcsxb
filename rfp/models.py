@@ -20,6 +20,24 @@ def send_mandrill_email(self,mandrill_template_name, context_dict):
         msg.global_merge_vars = context_dict
         msg.send()
 
+def username_exists(username):
+        """
+        Return True if self.email exists among Users emails list.
+        """
+        l = list()
+        users = User.objects.all()
+        for u in users:
+            l.append(u.username)
+
+        return username in l
+
+def add_user_to_group(user,group):
+    from django.contrib.auth.models import User,Group
+    g = Group.objects.get(name=group)
+    u = User.objects.get(id = user.id)
+    u.groups.add(g)
+    u.save()
+
 from django.contrib.auth.models import User
 
 class RfpCampaign(models.Model):
@@ -110,6 +128,11 @@ class Project(models.Model):
                 self.save()
 
 class ProposedReviewer(models.Model):
+    TYPE_CHOICES = (
+        ('ADMIN_PROPOSED','Proposed by admin'),
+        ('USER_PROPOSED', 'Proposed by User'),
+        ('USER_EXCLUDED', 'Excluded Reviewer'),
+    )
     project=models.ForeignKey(Project,null=True)
     first_name = models.CharField(max_length=255,blank=True,null=True)
     last_name = models.CharField(max_length=255,blank=True,null=True)
@@ -120,12 +143,12 @@ class ProposedReviewer(models.Model):
     state = models.CharField(max_length=255,blank=True,null=True)
     postcode = models.CharField(max_length = 255,blank=True,null=True)
     country = models.CharField(max_length=255,blank=True,null=True)
-    type = models.CharField(max_length=255,null=True,blank=True)
+    type = models.CharField(max_length=255,blank=True,null=True,choices=TYPE_CHOICES)
 
     def __unicode__(self):
         return (str(self.first_name) + " " + str(self.last_name) + " - " + str(self.institution))
 
-    def check_if_email_registered_as_user(self):
+    def is_user(self):
         """
         Return True if self.email exists among Users emails list.
         """
@@ -135,6 +158,58 @@ class ProposedReviewer(models.Model):
             l.append(u.email)
 
         return self.email in l
+
+    def invite_reviewer(self):
+
+        #If proposed reviewer is already a user
+        if self.is_user():
+            user = User.objects.get(email=self.email)
+            print('User is: ')
+            print(user)
+
+        #If proposed reviewer is not a user yet
+        if not self.is_user():
+            import random
+            username = str(str(self.first_name)[:1] + str(self.last_name))
+
+            #Verify username is unused and set a new one if needed.
+            while username_exists(username):
+                    username = str(str(self.first_name)[:1] + str(self.last_name))
+                    n = str(random.randint(1, 1000))
+                    username = str(username + n)
+                    print('tested username is: ')
+                    print (username)
+
+                    if not username_exists(username):
+                        print ('THIS NEW user profile does not exists!')
+                        break
+
+            password = 'frc@2015'
+
+            #Create new user.
+            user = User.objects.create_user(username, self.email, password, first_name = self.first_name, last_name = self.last_name) #Create new user.
+            user.save()
+
+            #Add to the reviewer group
+            group = 'Reviewer'
+            add_user_to_group(user,group)
+
+            #Update UserProfile with ProposedReviewer Information
+            user_profile = UserProfile.objects.filter(user_id=user.id).update(first_name = self.first_name, last_name = self.last_name, organization = self.institution, address = self.address, city = self.city,
+            state = self.state, country = self.country, zip = self.postcode)
+
+
+        #Create the review for the user.
+        review_tuple = Review.objects.get_or_create(user = user, project = self.project,  )
+
+        print ('The review is: ')
+        review = review_tuple[0]
+
+        #Send invitation to review the corresponding project.
+        review.send_invitation_email_to_reviewer()
+        print('Email sent ?!')
+
+        return review
 
 class BudgetLine(models.Model):
     project = models.ForeignKey(Project,null = True,editable=False)
@@ -179,7 +254,7 @@ class Review(models.Model):
     def send_confirmation_email_to_reviewer(self):
         if not self.status == 'completed':
             c = {'full_name' : (str(self.user.first_name) + " " + str(self.user.last_name)), 'project_name': str(self.project.name), 'category_name' : str(self.project.rfp.category), 'category_year' : str(self.project.rfp.year)}
-            send_mandrill_email(self,self.rfp.email_template_review_confirmation,c)
+            send_mandrill_email(self,self.project.rfp.email_template_review_confirmation,c)
 
             c = {'review' : self}
             conf_plain = render_to_string('rfp/email/review_admin_confirmation.txt',c)
@@ -206,7 +281,6 @@ class Review(models.Model):
                  'url_accept' : str(str(site.domain)+str(url_accept)),'url_refuse' : str(str(site.domain)+str(url_accept))}
 
             send_mandrill_email(self,self.project.rfp.email_template_review_invitation,c)
-
 
 class File_Test(models.Model):
     name=models.CharField(max_length=255)

@@ -84,8 +84,7 @@ WSGI_APPLICATION = 'portal_frc.wsgi.application'
 # Parse database configuration from $DATABASE_URL
 
 if os.getenv('DATABASE_URL'):
-    #SQL-explorer setting
-    EXPLORER_CONNECTION_NAME = 'django_explorer'
+
     SECRET_KEY = os.getenv('SECRET_KEY')
     DATABASES = {
                 'default': {
@@ -120,6 +119,8 @@ if os.getenv('DATABASE_URL'):
 
 
 else:
+    #SQL-explorer setting
+    EXPLORER_CONNECTION_NAME = 'django_explorer'
     SECRET_KEY = api_key.SECRET_KEY
     DATABASES = {
                 'default': {

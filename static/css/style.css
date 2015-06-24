@@ -251,7 +251,6 @@ font-weight:bold;
 
 
 /*Home page items */
-
 .index_menu{
     width:100%;
     height:100px;
@@ -279,15 +278,12 @@ font-weight:bold;
     margin-top:20px;
 }
 
-
-
 .small_link{
     font-size:12px;
     text-decoration:none;
 }
 
 /*Progress tracking*/
-
 ol.progtrckr {
     margin: 0;
     padding: 0;

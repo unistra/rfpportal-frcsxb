@@ -13,7 +13,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 import logging
 
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,Group
 from django.shortcuts import render,render_to_response,HttpResponse,HttpResponseRedirect
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required,user_passes_test
@@ -26,29 +26,86 @@ import logging
 from user_profile.models import UserProfile
 
 from rfp.models import Project,Review,RfpCampaign,File_Test,ProposedReviewer,BudgetLine,send_mandrill_email
+from rfp.views import is_reviewer
 from django.core.urlresolvers import reverse
 
-self = Review.objects.get(id=23)
-site = Site.objects.get(id=1)
+self = ProposedReviewer.objects.get(id=53)
+users = User.objects.all()
+users_email = list()
 
-def send_invitation_email_to_reviewer(self):
+for u in users:
+    users_email.append(u.email)
+
+def username_exists(username):
         """
-        Send invitation to review to a User, including a link with login credentials.
-        :return:
+        Return True if self.email exists among Users emails list.
         """
-        from django.contrib.sites.shortcuts import get_current_site
-        from urlcrypt import lib as urlcrypt
-        from django.core.urlresolvers import reverse
-        token_accept = urlcrypt.generate_login_token(self.user, reverse('post_review_waiver', args=[self.id]))
-        url_accept = reverse('urlcrypt_redirect', args=(token_accept,))
+        l = list()
+        users = User.objects.all()
+        for u in users:
+            l.append(u.username)
 
-        url_refuse = reverse('urlcrypt_redirect', args=(token_accept,))
+        return username in l
 
-        c = {'reviewer_full_name' : str(str(self.user.first_name) + " " + str(self.user.last_name)), 'project' : self.project.name,
-             'author' : str(str(self.project.user.first_name) + str(self.project.user.last_name)),
-             'abstract' : self.project.scope_of_work, 'keywords':self.project.purpose,
-             'url_accept' : str(str(site.domain)+str(url_accept)),'url_refuse' : str(str(site.domain)+str(url_accept))}
 
-        send_mandrill_email(self,self.project.rfp.email_template_review_invitation,c)
+def add_user_to_group(user,group):
+    from django.contrib.auth.models import User,Group
+    g = Group.objects.get(name=group)
+    u = User.objects.get(id = user.id)
+    u.groups.add(g)
+    u.save()
 
-send_invitation_email_to_reviewer(self)
+def invite_reviewer(self):
+
+    #If proposed reviewer is already a user
+    if self.is_user():
+        user = User.objects.get(email=self.email)
+        print('User is: ')
+        print(user)
+
+    #If proposed reviewer is not a user yet
+    if not self.is_user():
+        import random
+        username = str(str(self.first_name)[:1] + str(self.last_name))
+
+        #Verify username is unused and set a new one if needed.
+        while username_exists(username):
+                username = str(str(self.first_name)[:1] + str(self.last_name))
+                n = str(random.randint(1, 1000))
+                username = str(username + n)
+                print('tested username is: ')
+                print (username)
+
+                if not username_exists(username):
+                    print ('THIS NEW user profile does not exists!')
+                    break
+
+        password = 'frc@2015'
+
+        #Create new user.
+        user = User.objects.create_user(username, self.email, password, first_name = self.first_name, last_name = self.last_name) #Create new user.
+        user.save()
+
+        #Add to the reviewer group
+        group = 'Reviewer'
+        add_user_to_group(user,group)
+
+        #Update UserProfile with ProposedReviewer Information
+        user_profile = UserProfile.objects.filter(user_id=user.id).update(first_name = self.first_name, last_name = self.last_name, organization = self.institution, address = self.address, city = self.city,
+        state = self.state, country = self.country, zip = self.postcode)
+
+
+    #Create the review for the user.
+    review_tuple = Review.objects.get_or_create(user = user, project = self.project,  )
+
+    print ('The review is: ')
+    review = review_tuple[0]
+
+    #Send invitation to review the corresponding project.
+    review.send_invitation_email_to_reviewer()
+    print('Email sent ?!')
+
+    return review
+
+print(invite_reviewer(self))
+

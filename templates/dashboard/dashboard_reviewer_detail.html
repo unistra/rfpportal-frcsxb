@@ -10,7 +10,7 @@
 
 <!--Contact Information-->
 <div class="col-xs-12 col-md-12">
-<h3>User Information <small><a href="#">Edit User Information</a></small></h3>
+<h3>User Information <a class="small_link" href="{% url 'admin:auth_user_change' reviewer.id %}">Edit User Information</a></h3>
 
 {% for p in reviewer_information %}
 

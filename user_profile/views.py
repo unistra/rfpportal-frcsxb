@@ -11,6 +11,7 @@ from models import UserProfile
 from django.core.urlresolvers import reverse
 from django.forms.models import model_to_dict
 
+from rfp.forms import ProposedReviewerForm
 from rfp.models import Project,Review,RfpCampaign,BudgetLine,ProposedReviewer
 from rfp.views import store_redirect_url,get_redirect_url,budget_line_sum
 
@@ -155,6 +156,7 @@ def post_homepage_login_landing_page(request):
 
     return render_to_response('user_profile/post_homepage_login_landing_page.html',context_dict,context)
 
+
 #Dashboard_Admin_Views
 @user_passes_test(is_staff,login_url='/project/login_no_permission/',redirect_field_name='next')
 def dashboard(request):
@@ -236,20 +238,22 @@ def dashboard_project_details(request,projectId):
     user = request.user
     project = Project.objects.get(pk = projectId)
     project_data = UpdateForm(data=model_to_dict(project))
+    store_redirect_url(request)
 
     budget_line_list = BudgetLine.objects.filter(project = project)
     hr_budget_line_list = BudgetLine.objects.filter(project = project,category = 'HR')
     oc_budget_line_list = BudgetLine.objects.filter(project = project,category = 'OC')
     eq_budget_line_list = BudgetLine.objects.filter(project = project,category = 'EQ')
 
-    prop_rev_list = ProposedReviewer.objects.filter(project = project)
+    prop_rev_list = ProposedReviewer.objects.filter(project = project).exclude(type='USER_EXCLUDED')
+    excluded_rev_list = ProposedReviewer.objects.filter(project = project, type='USER_EXCLUDED')
     total_budgeted = budget_line_sum(budget_line_list)
 
     review_list = Review.objects.filter(project = project.id)
 
     context_dict = {'project':project,'project_data' : project_data,'budget_line_list': budget_line_list,
                     'total' : total_budgeted,'hr_budget_lines_list' : hr_budget_line_list, 'oc_budget_lines_list' : oc_budget_line_list,
-                    'eq_budget_lines_list' : eq_budget_line_list,'prop_rev_list' : prop_rev_list, 'list_of_review' : review_list}
+                    'eq_budget_lines_list' : eq_budget_line_list,'excluded_rev_list' : excluded_rev_list,'prop_rev_list' : prop_rev_list, 'list_of_review' : review_list}
 
     return render_to_response('dashboard/dashboard_project_details.html', context_dict, context)
 
@@ -322,6 +326,9 @@ def dashboard_reviewer_detail(request, reviewerId):
     reviewer_dict = model_to_dict(reviewer.userprofile)
     list_of_review = Review.objects.filter(user = reviewer.id)
 
+    from django.core import urlresolvers
+    change_url = ''
+        #urlresolvers.reverse('admin:rfp_Project_change', args=(reviewer.id,))
     #Date of last review
     last_review = Review.objects.filter(user = reviewer.id).order_by('-date')[:1]
     if last_review:
@@ -337,9 +344,34 @@ def dashboard_reviewer_detail(request, reviewerId):
     num_of_review = Review.objects.filter(user = reviewer.id, status = 'completed').count()
 
     context_dict = {'reviewer' : reviewer,'user' : user, 'list_of_review' : list_of_review,'reviewer_information':reviewer_information,'num_of_review' : num_of_review,
-                    'last_review_date' : last_review_date}
+                    'last_review_date' : last_review_date,'change_url':change_url}
 
     return render_to_response('dashboard/dashboard_reviewer_detail.html',context_dict,context)
+
+def dashboard_add_admin_proposed_reviewer(request, projectId):
+    context = RequestContext(request)
+    user = request.user
+    project = Project.objects.get(pk = projectId)
+    redirect = get_redirect_url(request)
+
+    if request.method == 'POST':
+
+        r = ProposedReviewerForm(request.POST)
+        if r.is_valid():
+            reviewer = r.save(commit = False)
+            reviewer.project = project
+            if 'dashboard' in str(redirect):
+                reviewer.type = 'ADMIN_PROPOSED'
+            else:
+                reviewer.type = 'USER_PROPOSED'
+            reviewer.save()
+
+            return HttpResponseRedirect(redirect)
+    else:
+        r = ProposedReviewerForm()
+
+    return render_to_response('rfp/add_unique_review.html', {'f' : r, 'project' : project, 'user' : user},context)
+
 
 @user_passes_test(is_staff,login_url='/project/login_no_permission/',redirect_field_name='next')
 def dashboard_review_list(request):
@@ -352,3 +384,15 @@ def dashboard_review_list(request):
 
     return render_to_response('dashboard/dashboard_review_list.html',context_dict,context)
 
+def dashboard_invite_reviewer(request,propRId):
+    context = RequestContext(request)
+    user = request.user
+    prop_rev = ProposedReviewer.objects.get(id = propRId)
+
+    print(prop_rev.project)
+
+    project = Project.objects.get(id = prop_rev.project.pk)
+
+    prop_rev.invite_reviewer()
+
+    return HttpResponseRedirect(reverse('dashboard_project_details', args = [project.id]))

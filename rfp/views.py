@@ -117,7 +117,7 @@ def create_project_budget(request,projectId):
     context = RequestContext(request)
     user = request.user
     project=Project.objects.get(id=projectId)
-
+    user_is_owner(user,project)
 
     budget_line_list = BudgetLine.objects.filter(project = project)
     hr_budget_line_list = BudgetLine.objects.filter(project = project,category = 'HR')
@@ -146,9 +146,11 @@ def create_project_reviewer(request,projectId):
     context = RequestContext(request)
     user = request.user
     project=Project.objects.get(id=projectId)
+    user_is_owner(user,project)
 
     project_data = UpdateForm(data=model_to_dict(project))
-    prop_rev_list = ProposedReviewer.objects.filter(project = project)
+    prop_rev_list = ProposedReviewer.objects.filter(project = project).exclude(type='USER_EXCLUDED').exclude(type='ADMIN_PROPOSED')
+    excluded_rev_list = ProposedReviewer.objects.filter(project = project, type='USER_EXCLUDED')
     budget_line_list = BudgetLine.objects.filter(project = project)
 
     is_p = is_pi(user)
@@ -157,7 +159,7 @@ def create_project_reviewer(request,projectId):
     store_redirect_url(request)
     user_is_owner(user,project)
     context_dict={'project' : project,'user' : user,'project_data' : project_data,'is_pi': is_p, 'bl' : budget_line_list,
-    'is_rev' : is_rev, 'prop_rev_list' : prop_rev_list}
+    'is_rev' : is_rev, 'prop_rev_list' : prop_rev_list,'excluded_rev_list' : excluded_rev_list}
 
     return render_to_response('rfp/create_project_reviewer.html',context_dict,context)
 
@@ -168,13 +170,15 @@ def create_project_summary(request,projectId):
 
     project = Project.objects.get(pk = projectId)
     project_data = UpdateForm(data=model_to_dict(project))
+    user_is_owner(user,project)
 
     budget_line_list = BudgetLine.objects.filter(project = project)
     hr_budget_line_list = BudgetLine.objects.filter(project = project,category = 'HR')
     oc_budget_line_list = BudgetLine.objects.filter(project = project,category = 'OC')
     eq_budget_line_list = BudgetLine.objects.filter(project = project,category = 'EQ')
 
-    prop_rev_list = ProposedReviewer.objects.filter(project = project)
+    prop_rev_list = ProposedReviewer.objects.filter(project = project).exclude(type='USER_EXCLUDED').exclude(type='ADMIN_PROPOSED')
+    excluded_rev_list = ProposedReviewer.objects.filter(project = project, type='USER_EXCLUDED')
     total_budgeted = budget_line_sum(budget_line_list)
 
     user_is_owner(user,project)
@@ -183,7 +187,7 @@ def create_project_summary(request,projectId):
 
     context_dict = {'project':project,'project_data' : project_data,'budget_line_list': budget_line_list,
                     'total' : total_budgeted,'hr_budget_lines_list' : hr_budget_line_list, 'oc_budget_lines_list' : oc_budget_line_list,
-                    'eq_budget_lines_list' : eq_budget_line_list,'prop_rev_list' : prop_rev_list}
+                    'eq_budget_lines_list' : eq_budget_line_list,'prop_rev_list' : prop_rev_list,'excluded_rev_list' : excluded_rev_list}
 
     return render_to_response('rfp/create_project_summary.html',context_dict,context)
 
@@ -282,8 +286,9 @@ def project_detail_reviewers(request,projectId):
     project=Project.objects.get(id=projectId)
 
     project_data = UpdateForm(data=model_to_dict(project))
-    prop_rev_list = ProposedReviewer.objects.filter(project = project)
     budget_line_list = BudgetLine.objects.filter(project = project)
+    prop_rev_list = ProposedReviewer.objects.filter(project = project).exclude(type='USER_EXCLUDED').exclude(type='ADMIN_PROPOSED')
+    excluded_rev_list = ProposedReviewer.objects.filter(project = project, type='USER_EXCLUDED')
 
     is_p = is_pi(user)
     is_rev = is_reviewer(user)
@@ -292,7 +297,7 @@ def project_detail_reviewers(request,projectId):
     store_redirect_url(request)
 
     context_dict={'project' : project,'user' : user,'project_data' : project_data,'is_pi': is_p, 'bl' : budget_line_list,
-    'is_rev' : is_rev, 'prop_rev_list' : prop_rev_list}
+    'is_rev' : is_rev, 'prop_rev_list' : prop_rev_list, 'excluded_rev_list' : excluded_rev_list}
 
     return render_to_response('rfp/project_details_reviewer.html',context_dict,context)
 
@@ -419,7 +424,10 @@ def add_unique_reviewer(request, projectId):
         if r.is_valid():
             reviewer = r.save(commit = False)
             reviewer.project = project
-            reviewer.type = 'proposed'
+            if 'dashboard' in str(redirect):
+                reviewer.type = 'ADMIN_PROPOSED'
+            else:
+                reviewer.type = 'USER_PROPOSED'
             reviewer.save()
 
             return HttpResponseRedirect(redirect)
@@ -443,7 +451,7 @@ def exclude_unique_reviewer(request, projectId):
         if r.is_valid():
             reviewer = r.save(commit = False)
             reviewer.project = project
-            reviewer.type = 'excluded'
+            reviewer.type = 'USER_EXCLUDED'
             reviewer.email = ''
             reviewer.save()
 
