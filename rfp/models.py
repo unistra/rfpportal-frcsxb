@@ -61,10 +61,10 @@ class RfpCampaign(models.Model):
     deadline = models.DateField()
     status = models.CharField(max_length=255,null=True,choices=STATUS_CHOICES,default='open')
     email_template_project_confirmation = models.CharField(max_length=255,null=True,blank=True,default='project_submission_confirmation_email_default',verbose_name=u"Email template for project submission confirmation.")
-    email_template_review_invitation = models.CharField(max_length=255,null=True,blank=True, verbose_name=u"Email template for invitation to review.")
+    email_template_review_invitation = models.CharField(max_length=255,null=True,blank=True,default='review_invitation_email_default', verbose_name=u"Email template for invitation to review.")
     email_template_review_confirmation = models.CharField(max_length=255,null=True,blank=True,default='review_submission_confirmation_email_default', verbose_name=u"Email template for confirmation and thank you for your review.")
-    email_template_review_follow_up = models.CharField(max_length=255,null=True,blank=True, verbose_name=u"Email template for follow up with reviewer.")
-    email_template_rfp_closed = models.CharField(max_length=255,null=True,blank=True, verbose_name=u"Email template to anounce results.")
+    email_template_review_follow_up = models.CharField(max_length=255,null=True,blank=True,default='review_follow_up_on_invitation_default', verbose_name=u"Email template for follow up with reviewer.")
+    email_template_rfp_closed = models.CharField(max_length=255,null=True,blank=True,default='project_results_anouncement_email_default', verbose_name=u"Email template to anounce results.")
 
     def __unicode__(self):
         return (str(self.year) + " " + str(self.name))
@@ -92,6 +92,7 @@ class Project(models.Model):
     ending_date=models.DateField(null=True,blank=True)
     project_duration=models.IntegerField(null=True,blank=True)
     requested_amount=models.IntegerField(null=True)
+    awarded_amount=models.IntegerField(null=True)
     additional_funding = models.CharField(max_length = 4000, null = True, blank = True)
     purpose=models.CharField(max_length=4000,null=True,blank=True,verbose_name=U"Keywords")
     scope_of_work=models.CharField(max_length=4000,null=True,blank=True,verbose_name=u"Abstract")
@@ -126,6 +127,29 @@ class Project(models.Model):
 
                 self.confirmation_email_sent = True
                 self.save()
+
+    def send_results_email(self):
+            """
+            Send the project result email to PI including a link. Clicking the link log the user in and redirect to the project details page.
+            """
+            #Create the link with credentials
+            from urlcrypt import lib as urlcrypt
+            from django.core.urlresolvers import reverse
+            project = Project.objects.get(id = self.id)
+            token_accept = urlcrypt.generate_login_token(self.user, reverse('project_detail', args = [project.pk]))
+            url_to_project = reverse('urlcrypt_redirect', args=(token_accept,))
+            site = Site.objects.get(id=1)
+
+
+            #Set the email template variables
+            c = {'user' : str(str(self.user.first_name) + " " + str(self.user.last_name)),
+                 'project' : self.name, 'rfp_name' : str(self.rfp),
+                 'url_to_project' : str(str(site.domain)+str(url_to_project))}
+
+            #Send the Madrill email template
+            send_mandrill_email(self,self.rfp.email_template_rfp_closed,c)
+
+
 
 class ProposedReviewer(models.Model):
     TYPE_CHOICES = (
@@ -266,8 +290,9 @@ class Review(models.Model):
 
     def send_invitation_email_to_reviewer(self):
             """
-            Send an email including a link. Clicking the link log the user in and redirect to the review survey page.
+            Send an invitation to review email including a link. Clicking the link log the user in and redirect to the review survey page.
             """
+            #Create the link with credentials
             from urlcrypt import lib as urlcrypt
             from django.core.urlresolvers import reverse
             token_accept = urlcrypt.generate_login_token(self.user, reverse('post_review_waiver', args=[self.id]))
@@ -275,12 +300,36 @@ class Review(models.Model):
             site = Site.objects.get(id=1)
             url_refuse = reverse('urlcrypt_redirect', args=(token_accept,))
 
+            #Set the email template variables
             c = {'reviewer_full_name' : str(str(self.user.first_name) + " " + str(self.user.last_name)), 'project' : self.project.name,
                  'author' : str(str(self.project.user.first_name) + str(self.project.user.last_name)),
                  'abstract' : self.project.scope_of_work, 'keywords':self.project.purpose,
                  'url_accept' : str(str(site.domain)+str(url_accept)),'url_refuse' : str(str(site.domain)+str(url_accept))}
 
+            #Send the Mandrill email template
             send_mandrill_email(self,self.project.rfp.email_template_review_invitation,c)
+
+    def send_follow_up_invitation_email_to_reviewer(self):
+            """
+            Send the follow up email to reviewer including a link. Clicking the link log the user in and redirect to the project details page.
+            """
+            #Create the link with credentials
+            from urlcrypt import lib as urlcrypt
+            from django.core.urlresolvers import reverse
+            project = Project.objects.get(id = self.project.id)
+            token_accept = urlcrypt.generate_login_token(self.user, reverse('project_detail', args = [project.pk]))
+            url_to_project = reverse('urlcrypt_redirect', args=(token_accept,))
+            site = Site.objects.get(id=1)
+
+            #Set the email template variables
+            c = {'reviewer_full_name' : str(str(self.user.first_name) + " " + str(self.user.last_name)), 'project' : self.project.name,
+                 'author' : str(str(self.project.user.first_name) + str(self.project.user.last_name)),
+                 'abstract' : self.project.scope_of_work, 'keywords':self.project.purpose,
+                 'url_to_project' : str(str(site.domain)+str(url_to_project))}
+
+            #Send the Madrill email template
+            send_mandrill_email(self,self.project.rfp.email_template_review_follow_up,c)
+
 
 class File_Test(models.Model):
     name=models.CharField(max_length=255)

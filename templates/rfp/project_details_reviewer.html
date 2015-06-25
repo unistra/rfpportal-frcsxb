@@ -50,7 +50,7 @@
 
                                 <td>{% if user|is_pi and project.rfp.status == 'open' %}
                                     <a href = "{% url 'edit_reviewer' r.pk %}?redirect={{ current_url }}">Edit</a> {% endif %}
-                                    {% endif %}
+
                                 </td>
                             </tr>
 

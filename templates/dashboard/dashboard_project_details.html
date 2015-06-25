@@ -149,6 +149,7 @@
                 <th>Review</th>
                 <th>Date</th>
                 <th>Rating</th>
+                <th>Actions</th>
             </tr>
 
 {% for review in list_of_review %}
@@ -158,9 +159,9 @@
                     <a href="{% url 'view_review' review.id %}" target="_blank">{{ review.custom_0|truncatewords:15 }}</a>
                 </td>
                 <td>{{ review.date }}</td>
-                <td>{{ review.rating }}</td>
+                <td>{{ review.status }}</td>
+                <td><a href="{% url 'dashboard_follow_up_with_reviewer' review.id %}">Follow up</a></td>
             </tr>
-
 
 {% empty %}
 

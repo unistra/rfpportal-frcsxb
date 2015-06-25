@@ -42,6 +42,7 @@
             <th>Rating</th>
             <th>Date</th>
             <th>Status</th>
+            <th>Actions</th>
         </thead>
 
         {% for r in list_of_review %}
@@ -52,6 +53,8 @@
             <td>{{ r.rating }}</td>
             <td>{{ r.date }}</td>
             <td>{{ r.status }}</td>
+            <td><td><a href="{% url 'dashboard_follow_up_with_reviewer' r.id %}">Follow up</a></td></td>
+
         </tr>
         {% endfor %}
 

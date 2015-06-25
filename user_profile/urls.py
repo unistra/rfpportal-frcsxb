@@ -23,5 +23,6 @@ urlpatterns = patterns('',
     url(r'^dashboard/dashboard_review_list/$',views.dashboard_review_list,name='dashboard_review_list'),
     url(r'^dashboard/dashboard_add_admin_proposed_reviewer/(?P<projectId>\d+)/$',views.dashboard_add_admin_proposed_reviewer,name='dashboard_add_admin_proposed_reviewer'),
     url(r'^dashboard/dashboard_invite_reviewer/(?P<propRId>\d+)/$',views.dashboard_invite_reviewer,name='dashboard_invite_reviewer'),
-
+    url(r'^dashboard/dashboard_follow_up_with_reviewer/(?P<reviewId>\d+)/$',views.dashboard_follow_up_with_reviewer,name='dashboard_follow_up_with_reviewer'),
+    url(r'^dashboard/dashboard_send_results/(?P<projectId>\d+)/$',views.dashboard_send_results,name='dashboard_send_results'),
 )

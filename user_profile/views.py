@@ -257,18 +257,52 @@ def dashboard_project_details(request,projectId):
 
     return render_to_response('dashboard/dashboard_project_details.html', context_dict, context)
 
+def search_form(request,queryset,Model):
+    if request.method =="POST":
+        form = SearchForm(request.POST)
+
+        if form.is_valid():
+            search = str(form.cleaned_data['search']).lower()
+            results = list()
+            #Loop over object in queryset of model
+            for object in queryset:
+                model_dict = model_to_dict(object)
+                print (model_dict)
+
+                #Check if the searched string is included in one of the Object field
+                """
+                for key in model_dict:
+                    print('Searching: ')
+                    print (model_dict[key])
+                """
+
+                if search in str(model_dict['name']):
+                        #Add the users id in a list
+                        print('I found d')
+                        results.append(object.id)
+                        break
+            #Re-initialize the model queryset filtering by found objects.id
+            queryset = Model.objects.filter(pk__in = (results))
+
+
+    else:
+        form = SearchForm()
+        queryset = Model.objects.all()
+
+    return queryset
+
 @user_passes_test(is_staff,login_url='/project/login_no_permission/',redirect_field_name='next')
 def dashboard_project_list(request):
     context = RequestContext(request)
     user = request.user
     project_list = Project.objects.all().order_by('status')
-
     form = SearchForm()
+
+    search_form(request,project_list,Project)
 
     context_dict = {'project_list' : project_list,'form':form}
 
     return render_to_response('dashboard/dashboard_project_list.html', context_dict, context)
-
 
 def get_user_from_group(group):
     gr = Group.objects.get(name=group)
@@ -348,6 +382,7 @@ def dashboard_reviewer_detail(request, reviewerId):
 
     return render_to_response('dashboard/dashboard_reviewer_detail.html',context_dict,context)
 
+@user_passes_test(is_staff,login_url='/project/login_no_permission/',redirect_field_name='next')
 def dashboard_add_admin_proposed_reviewer(request, projectId):
     context = RequestContext(request)
     user = request.user
@@ -372,7 +407,6 @@ def dashboard_add_admin_proposed_reviewer(request, projectId):
 
     return render_to_response('rfp/add_unique_review.html', {'f' : r, 'project' : project, 'user' : user},context)
 
-
 @user_passes_test(is_staff,login_url='/project/login_no_permission/',redirect_field_name='next')
 def dashboard_review_list(request):
     context = RequestContext(request)
@@ -384,6 +418,7 @@ def dashboard_review_list(request):
 
     return render_to_response('dashboard/dashboard_review_list.html',context_dict,context)
 
+@user_passes_test(is_staff,login_url='/project/login_no_permission/',redirect_field_name='next')
 def dashboard_invite_reviewer(request,propRId):
     context = RequestContext(request)
     user = request.user
@@ -396,3 +431,23 @@ def dashboard_invite_reviewer(request,propRId):
     prop_rev.invite_reviewer()
 
     return HttpResponseRedirect(reverse('dashboard_project_details', args = [project.id]))
+
+@user_passes_test(is_staff,login_url='/project/login_no_permission/',redirect_field_name='next')
+def dashboard_follow_up_with_reviewer(request,reviewId):
+    context = RequestContext(request)
+    user = request.user
+
+    review = Review.objects.get(id = reviewId)
+    project = Project.objects.get(id = review.project.id)
+
+    review.send_follow_up_invitation_email_to_reviewer()
+
+    return HttpResponseRedirect(reverse('dashboard_project_details', args = [project.id]))
+
+@user_passes_test(is_staff,login_url='/project/login_no_permission/',redirect_field_name='next')
+def dashboard_send_results(request,projectId):
+    project = Project.objects.get(id = projectId)
+    project.send_results_email()
+
+    return HttpResponseRedirect(reverse('dashboard_project_list'))
+
