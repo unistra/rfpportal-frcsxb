@@ -461,18 +461,6 @@ def exclude_unique_reviewer(request, projectId):
 
     return render_to_response('rfp/exclude_unique_review.html', {'form' : r, 'project' : project, 'user' : user},context)
 
-#Make it DRY
-def redirect_add_form(request,project,form_1,form_2):
-
-    alldata = request.POST
-    redirect = alldata.get('redirect','0')
-    if redirect:
-                    redirect_url = reverse('create_project_budget', args = [project.pk])
-                    return redirect_url
-    else:
-                    redirect_url = reverse('project_budget', args = [project.pk])
-                    return redirect_url
-
 @user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def add_budget_hr(request, projectId):
     context = RequestContext(request)

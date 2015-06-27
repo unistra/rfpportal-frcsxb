@@ -1,6 +1,6 @@
 {% extends 'dashboard/dashboard.html' %}
 
-{% block title %} Create a new Call For Proposal Campaign {% endblock %}
+{% block title %} List of Reviews {% endblock %}
 
 {% block dashboard_nav %}
     {% include 'dashboard/dashboard_navigation_pane.html' %}
@@ -11,21 +11,11 @@
 <div class="row">
 <div class="col-xs-12 col-md-12">
 
-<div class="pull-left">
-<h3>Reviews</h3>
+<div>
+    <h3>Reviews</h3>
+    <hr>
 </div>
 
-<div class="search_box pull-right">
-<form class="form-inline" method="post" action="{% url 'dashboard_review_list' %}">
-{% csrf_token %}
-
-  {% bootstrap_form form layout='inline' %}
-
-  <button type="submit" class="btn btn-primary">Search</button>
-</form>
-
-<hr>
-</div>
 </div>
 </div>
 
@@ -33,32 +23,37 @@
 <div class="row">
 <div class="col-xs-12 col-md-12">
 
-    {% if list_of_review %}
-    <table class="table">
+<table id="tableId" class="table table-striped">
+
         <thead>
-            <th>Review of</th>
-            <th>PI</th>
-            <th>Reviewer</th>
-            <th>Rating</th>
-            <th>Date</th>
-            <th>Status</th>
-            <th>Actions</th>
+            <tr>
+                <th>Review of</th>
+                <th>PI</th>
+                <th>Reviewer</th>
+                <th>Rating</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
         </thead>
 
-        {% for r in list_of_review %}
-        <tr>
-            <td><a href="{% url 'view_review' r.id %}" target="_blank">{{ r.project|truncatechars:30 }}</a></td>
-            <td>{{ r.project.user.get_full_name }}</td>
-            <td><a href="{% url 'dashboard_reviewer_detail' r.user.id %}">{{ r.user.get_full_name }}</a></td>
-            <td>{{ r.rating }}</td>
-            <td>{{ r.date }}</td>
-            <td>{{ r.status }}</td>
-            <td><td><a href="{% url 'dashboard_follow_up_with_reviewer' r.id %}">Follow up</a></td></td>
+{% if list_of_review %}
 
-        </tr>
+    <tbody>
+    {% for r in list_of_review %}
+            <tr>
+                <td><a href="{% url 'view_review' r.id %}" target="_blank">{{ r.project|truncatechars:30 }}</a></td>
+                <td>{{ r.project.user.get_full_name }}</td>
+                <td><a href="{% url 'dashboard_reviewer_detail' r.user.id %}">{{ r.user.get_full_name }}</a></td>
+                <td>{{ r.rating }}</td>
+                <td>{{ r.date }}</td>
+                <td>{{ r.status }}</td>
+                <td><a href="{% url 'dashboard_follow_up_with_reviewer' r.id %}">Follow up</a></td>
+            </tr>
         {% endfor %}
+    </tbody>
 
-    </table>
+</table>
 
     {% else %}
 
@@ -68,4 +63,9 @@
 
 </div>
 </div>
+
+<script>
+     $("#tableId").dataTable();
+</script>
+
 {% endblock %}

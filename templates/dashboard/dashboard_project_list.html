@@ -12,21 +12,8 @@
 
 <div class="row">
 <div class="col-xs-12 col-md-12">
-
-<div class="pull-left">
 <h3>Projects</h3>
-</div>
-
-<div class="search_box pull-right">
-<form class="form-inline" method="post" action="{% url 'dashboard_project_list' %}">
-{% csrf_token %}
-
-  {% bootstrap_form form layout='inline' %}
-
-  <button type="submit" class="btn btn-primary">Search</button>
-</form>
-
-<hr>
+    <hr>
 </div>
 </div>
 </div>
@@ -35,7 +22,7 @@
 <div class="row">
             <div class="col-xs-12 col-md-12">
 
-                <table class="table">
+                <table id="tableId" class="table table-striped">
 
                     <thead>
                         <tr>
@@ -45,7 +32,6 @@
                             <th>Category</th>
                             <th>Status</th>
                             <th>Actions</th>
-
                         </tr>
                     </thead>
 
@@ -68,4 +54,8 @@
 
             </div>
 </div>
+
+<script>
+     $("#tableId").dataTable();
+</script>
 {% endblock %}

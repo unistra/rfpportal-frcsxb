@@ -13,21 +13,11 @@
 <div class="row">
 <div class="col-xs-12 col-md-12">
 
-<div class="pull-left">
-<h3>Reviewers</h3>
-</div>
+    <div>
+        <h3>Reviewers</h3>
+            <hr>
+    </div>
 
-<div class="search_box pull-right">
-<form class="form-inline" method="post" action="{% url 'dashboard_reviewers_list' %}">
-{% csrf_token %}
-
-  {% bootstrap_form form layout='inline' %}
-
-  <button type="submit" class="btn btn-primary">Search</button>
-</form>
-       <!--<span class="pull-right"> <small><a href="{% url 'dashboard_reviewers_list' %}">Refresh</a></small> </span>-->
-<hr>
-</div>
 </div>
 </div>
 
@@ -36,28 +26,39 @@
     <div class="col-xs-12 col-md-12">
 
 
-        <table class="table">
+        <table id="tableId" class="table table-striped">
 
             <thead>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Member since</th>
-                <th>Invitations</th>
-                <th>Completed Reviews</th>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Member since</th>
+                    <th>Invitations</th>
+                    <th>Completed Reviews</th>
+                </tr>
             </thead>
-{% for r in reviewers_list %}
-            <tr>
-                <td><a href="{% url 'dashboard_reviewer_detail' r.id %}">{{ r.get_full_name }}</a></td>
-                <td><a href="mailto:{{r.email}}">{{ r.email }}</a></td>
-                <td>{{ r.date_joined }}</td>
-                <td></td>
-                <td></td>
-            </tr>
-{% endfor %}
+
+
+            <tbody>
+            {% for r in reviewers_list %}
+                <tr>
+                    <td><a href="{% url 'dashboard_reviewer_detail' r.id %}">{{ r.get_full_name }}</a></td>
+                    <td><a href="mailto:{{r.email}}">{{ r.email }}</a></td>
+                    <td>{{ r.date_joined }}</td>
+                    <td>{{ r.userprofile.number_of_invitation}}</td>
+                    <td>{{ r.userprofile.number_of_completed_review }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
 
         </table>
     </div>
 
 </div>
+
+<script>
+     $("#tableId").dataTable();
+</script>
 
 {% endblock %}

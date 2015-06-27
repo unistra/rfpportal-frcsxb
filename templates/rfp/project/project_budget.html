@@ -2,9 +2,9 @@
             <div class="col-xs-12 col-md-12">
             <h3>Budget</h3>
                 <h4>Total budgeted: <strong>{{ total }} €</strong> <span style = "font-size:14px;">(Total requested: {{ project.requested_amount }} €)<br><br></span></h4>
-
+<hr>
                 <h4>Recruitment</h4>
-                <table class="table">
+                <table class="table table-striped">
                 <thead>
                         <tr>
                             <th>Type of contract</th>
@@ -36,9 +36,9 @@
                     </tr>
                     </tbody>
                     </table>
-
+<hr>
                     <h4>Equipement</h4>
-                <table class="table">
+                <table class="table table-striped">
                 <thead>
                         <tr>
                             <th>Equipment</th>
@@ -53,7 +53,7 @@
                     <tr>
                         <td>{{ line }}</a></td>
                         <td>{{ line.amount|floatformat:-1 }} €</td>
-                        <td>{% if line.quote %} <a href="{{ line.quote.url }}">{{ line.quote }}</a> {% endif %}</td>
+                        <td>{% if line.quote %} <a href="{{ line.quote.url }}" target="_blank">{{ line.quote }}</a> {% endif %}</td>
                         <td>{% if is_pi and project.rfp.status == 'open' %}<a href = "{% url 'edit_budget_eq' line.id %}?redirect={{ current_url }}">Edit</a>{% endif %}</td>
                     </tr>
                     {% endfor %}
@@ -69,8 +69,8 @@
 
                     </tbody>
                     </table>
-
-                <table class="table">
+<hr>
+                <table class="table table-striped">
                 <thead>
                         <tr>
                             <th>Item</th>

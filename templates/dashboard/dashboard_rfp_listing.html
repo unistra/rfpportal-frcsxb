@@ -1,21 +1,27 @@
 {% extends 'dashboard/dashboard.html' %}
 
-{% block title %} Create a new Call For Proposal Campaign {% endblock %}
+{% block title %}Call For Proposals Campaign{% endblock %}
 
 {% block dashboard_nav %}
     {% include 'dashboard/dashboard_navigation_pane.html' %}
 {% endblock %}
 
 {% block dashboard_action %}
+{% load static from staticfiles %}
 
+<div class="row">
 <h3>Request for Proposal</h3>
+    <hr>
+</div>
 
-<table class="table">
+<table id="tableId" class="table table-striped ">
     <thead>
-        <th>Name</th>
-        <th>Year</th>
-        <th>Status</th>
-        <th></th>
+        <tr>
+            <th>Name</th>
+            <th>Year</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
     </thead>
 
     <tbody>
@@ -30,5 +36,9 @@
     </tbody>
 
 </table>
+
+<script>
+     $("#tableId").dataTable();
+</script>
 
 {% endblock %}

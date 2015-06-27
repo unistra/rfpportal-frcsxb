@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.sites.models import Site
-from user_profile.models import UserProfile
+
 from django.core.files.storage import FileSystemStorage
 from django.core.mail import send_mail
 from django.db.models.signals import post_save

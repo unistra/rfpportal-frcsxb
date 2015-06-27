@@ -34,10 +34,10 @@
             </thead>
 
             <tr>
-               <td>{{ num_of_review }}</td>
+               <td>{{ reviewer.userprofile.number_of_completed_review }}</td>
                <td>{{ last_review_date }}</td>
-               <td></td>
-               <td></td>
+               <td>{{ reviewer.userprofile.number_of_invitation }}</td>
+               <td>{% widthratio reviewer.userprofile.number_of_completed_review reviewer.userprofile.number_of_invitation 100 %} %</td>
             </tr>
 
         </table>

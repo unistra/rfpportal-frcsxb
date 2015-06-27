@@ -8,38 +8,47 @@
 
 {% block dashboard_action %}
 {% load user_extras %}
+<div class="row">
+    <div class="col-xs-12 col-md-12">
 
 <h2> {{ rfp.name }} <small><a class="small_link" href="{% url 'dashboard_edit_rfp' rfp.id %}">Edit</a></small></h2>
+<hr>
+        </div>
+    </div>
 
+
+<div class="row">
+    <div class="col-xs-12 col-md-12">
 <!--Project Table-->
-<table class="table">
+<table id="tableId" class="table table-striped">
 
 <thead>
-    <th colspan="3">PROJECT</th>
-    <th colspan="4">REVIEWS</th>
-</thead>
-
+    <tr>
             <th>Name</th>
             <th>PI</th>
             <th>Status</th>
-
             {% for r in review_status %} <th> {{ r }} </th> {% endfor %}
+    </tr>
+</thead>
 
-
-
+<tbody>
     {% for p in project_list %}
-
     <tr>
         <td> <a href="{% url 'dashboard_project_details' p.id %}">{{ p.name|truncatewords:5 }}</a></td>
         <td> {{ p.user.get_full_name }}</td>
         <td> {{ p.status }}</td>
-
-            {% for r in review_status %} <td> {{ p|count_review:r }} </td> {% endfor %}
-
+        {% for r in review_status %} <td> {{ p|count_review:r }} </td> {% endfor %}
     </tr>
-
     {% endfor %}
+</tbody>
 
 </table>
+
+</div>
+</div>
+
+<script>
+     $("#tableId").dataTable();
+</script>
 
 {% endblock %}

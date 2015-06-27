@@ -3,6 +3,7 @@ from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from django.contrib.auth.signals import user_logged_in
 from django.shortcuts import render,render_to_response,HttpResponse,HttpResponseRedirect
+from rfp.models import Review
 
 # Create your models here.
 
@@ -24,6 +25,12 @@ class UserProfile(models.Model):
 
     def __unicode__(self):
         return (str(self.first_name) + " " + str(self.last_name))
+
+    def number_of_invitation(self):
+        return Review.objects.filter(user=self.user.id).count()
+
+    def number_of_completed_review(self):
+        return Review.objects.filter(user = self.user.id, status = 'completed').count()
 
     class Meta:
         verbose_name = "Contact"

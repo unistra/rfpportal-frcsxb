@@ -360,9 +360,6 @@ def dashboard_reviewer_detail(request, reviewerId):
     reviewer_dict = model_to_dict(reviewer.userprofile)
     list_of_review = Review.objects.filter(user = reviewer.id)
 
-    from django.core import urlresolvers
-    change_url = ''
-        #urlresolvers.reverse('admin:rfp_Project_change', args=(reviewer.id,))
     #Date of last review
     last_review = Review.objects.filter(user = reviewer.id).order_by('-date')[:1]
     if last_review:
@@ -378,7 +375,7 @@ def dashboard_reviewer_detail(request, reviewerId):
     num_of_review = Review.objects.filter(user = reviewer.id, status = 'completed').count()
 
     context_dict = {'reviewer' : reviewer,'user' : user, 'list_of_review' : list_of_review,'reviewer_information':reviewer_information,'num_of_review' : num_of_review,
-                    'last_review_date' : last_review_date,'change_url':change_url}
+                    'last_review_date' : last_review_date}
 
     return render_to_response('dashboard/dashboard_reviewer_detail.html',context_dict,context)
 
