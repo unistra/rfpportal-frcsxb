@@ -33,6 +33,23 @@ def count_review(self,s):
     n = Review.objects.filter(project = self.id, status = s).count()
     return n
 
+@register.filter(name='number_invitation')
+def number_invitation(self):
+    """
+    Return the number of created review for the considered user.
+    :return: int
+    """
+    return Review.objects.filter(user=self.user.id).count()
+
+@register.filter(name='number_completed')
+def number_of_completed_review(self):
+    """
+    Return the number of completed review for the considered user.
+    :return: int
+    """
+    return Review.objects.filter(user = self.user.id, status = 'completed').count()
+
+
 @register.filter(name='is_pi')
 def is_pi(self):
     return self.groups.filter(name = 'Principal_Investigator').exists()

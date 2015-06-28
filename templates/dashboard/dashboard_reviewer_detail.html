@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block dashboard_action %}
-
+{% load user_extras %}
 <!--Contact Information-->
 <div class="col-xs-12 col-md-12">
 <h3>User Information <a class="small_link" href="{% url 'admin:auth_user_change' reviewer.id %}">Edit User Information</a></h3>
@@ -34,10 +34,10 @@
             </thead>
 
             <tr>
-               <td>{{ reviewer.userprofile.number_of_completed_review }}</td>
+               <td>{{ reviewer.userprofile|number_completed }}</td>
                <td>{{ last_review_date }}</td>
-               <td>{{ reviewer.userprofile.number_of_invitation }}</td>
-               <td>{% widthratio reviewer.userprofile.number_of_completed_review reviewer.userprofile.number_of_invitation 100 %} %</td>
+               <td>{{ reviewer.userprofile|number_invitation }}</td>
+               <td>{% widthratio reviewer.userprofile|number_completed reviewer.userprofile|number_invitation 100 %} %</td>
             </tr>
 
         </table>

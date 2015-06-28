@@ -3,10 +3,9 @@ from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from django.contrib.auth.signals import user_logged_in
 from django.shortcuts import render,render_to_response,HttpResponse,HttpResponseRedirect
-from rfp.models import Review
 
-# Create your models here.
 
+#Create your models here.
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     title = models.CharField(max_length=255,null=True, blank=True)
@@ -26,12 +25,6 @@ class UserProfile(models.Model):
     def __unicode__(self):
         return (str(self.first_name) + " " + str(self.last_name))
 
-    def number_of_invitation(self):
-        return Review.objects.filter(user=self.user.id).count()
-
-    def number_of_completed_review(self):
-        return Review.objects.filter(user = self.user.id, status = 'completed').count()
-
     class Meta:
         verbose_name = "Contact"
         verbose_name_plural = "Contacts"
@@ -43,7 +36,6 @@ def create_user_profile(sender, instance, created, **kwargs):
 def update_userprofile(sender, instance, created, **kwargs):
     if not created:
         UserProfile.objects.filter(user=instance.pk).update(first_name = instance.first_name, last_name = instance.last_name)
-
 
 def udpate_num_of_connection(sender, request, user, **kwargs):
     u_num = UserProfile.objects.get(user = user.pk).num_connection

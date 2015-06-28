@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.sites.models import Site
-
 from django.core.files.storage import FileSystemStorage
 from django.core.mail import send_mail
 from django.db.models.signals import post_save
@@ -8,6 +7,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 import logging
 
+from user_profile.models import UserProfile
 def send_mandrill_email(self,mandrill_template_name, context_dict):
         """
         Send a mandrill template email.
