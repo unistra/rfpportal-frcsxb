@@ -197,13 +197,14 @@ def edit_project(request,projectId):
     user=request.user
     project = Project.objects.get( pk = projectId )
     user_is_owner(user,project)
+    redirect = get_redirect_url(request)
 
     if request.method == 'POST':
         p = UpdateForm(request.POST,request.FILES,instance=project)
 
         if p.is_valid():
            p.save()
-           return HttpResponseRedirect(reverse('project_detail', args=[project.pk]))
+           return HttpResponseRedirect(redirect)
 
     else:
         p = UpdateForm(instance=project)
@@ -238,8 +239,9 @@ def project_detail(request,projectId):
     current_url = reverse('project_budget', args = [project.pk])
 
     project.list_of_reviewers_id()
-
     user_is_owner(user,project)
+
+    store_redirect_url(request)
 
     context_dict={'project' : project,'user' : user,'project_data' : project_data,'is_pi': is_p, 'bl' : budget_line_list,
     'is_rev' : is_rev, 'prop_rev_list' : prop_rev_list,'current_url':current_url,'review':review,

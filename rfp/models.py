@@ -10,7 +10,7 @@ import logging
 from user_profile.models import UserProfile
 def send_mandrill_email(self,mandrill_template_name, context_dict):
         """
-        Send a mandrill template email.
+        Send a mandrill template email to the owner of self.
         :param mandrill_template_name: str
         """
         from django.core.mail import EmailMessage
@@ -60,11 +60,11 @@ class RfpCampaign(models.Model):
     review_questions = models.CharField(max_length = 4000, null=True, blank=True)
     deadline = models.DateField()
     status = models.CharField(max_length=255,null=True,choices=STATUS_CHOICES,default='open')
-    email_template_project_confirmation = models.CharField(max_length=255,null=True,blank=True,default='project_submission_confirmation_email_default',verbose_name=u"Email template for project submission confirmation.")
-    email_template_review_invitation = models.CharField(max_length=255,null=True,blank=True,default='review_invitation_email_default', verbose_name=u"Email template for invitation to review.")
-    email_template_review_confirmation = models.CharField(max_length=255,null=True,blank=True,default='review_submission_confirmation_email_default', verbose_name=u"Email template for confirmation and thank you for your review.")
-    email_template_review_follow_up = models.CharField(max_length=255,null=True,blank=True,default='review_follow_up_on_invitation_default', verbose_name=u"Email template for follow up with reviewer.")
-    email_template_rfp_closed = models.CharField(max_length=255,null=True,blank=True,default='project_results_anouncement_email_default', verbose_name=u"Email template to anounce results.")
+    email_template_project_confirmation = models.CharField(max_length=255,default='project_submission_confirmation_email_default',verbose_name=u"Email template for project submission confirmation.")
+    email_template_review_invitation = models.CharField(max_length=255,default='review_invitation_email_default', verbose_name=u"Email template for invitation to review.")
+    email_template_review_confirmation = models.CharField(max_length=255,default='review_submission_confirmation_email_default', verbose_name=u"Email template for confirmation and thank you for your review.")
+    email_template_review_follow_up = models.CharField(max_length=255,default='review_follow_up_on_invitation_default', verbose_name=u"Email template for follow up with reviewer.")
+    email_template_rfp_closed = models.CharField(max_length=255,default='project_results_anouncement_email_default', verbose_name=u"Email template to anounce results.")
 
     def __unicode__(self):
         return (str(self.year) + " " + str(self.name))
@@ -81,7 +81,8 @@ class RfpCampaign(models.Model):
 class Project(models.Model):
     STATUS_CHOICES = (
         ('pending','Pending'),
-        ('under_review','Under Review'),
+        ('submitted','Submitted'),
+        ('under_review','Under review'),
         ('granted','Granted'),
         ('not_granted','Not Granted'),
     )
@@ -112,8 +113,10 @@ class Project(models.Model):
         return l
 
     def send_project_confirmation_email(self):
-            if not self.confirmation_email_sent:
-
+        """
+        Send the confirmation email after the project has been successfully submitted. Set status to submitted.
+        """
+        if not self.confirmation_email_sent:
                 c = {'project_name' : str(self), 'full_name' : (str(self.user.first_name) + " " + str(self.user.last_name))}
                 send_mandrill_email(self,self.rfp.email_template_project_confirmation,c)
 
@@ -125,6 +128,7 @@ class Project(models.Model):
                           conf_plain, 'admin@icfrc.fr', ['admin@icfrc.fr','sgug@outlook.com'],
                           html_message=conf_html, fail_silently=False)
 
+                self.status = 'submitted'
                 self.confirmation_email_sent = True
                 self.save()
 

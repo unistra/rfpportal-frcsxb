@@ -12,10 +12,16 @@
 
 {% block project_next %}
 
+    <a class="btn btn-apply" href="{% url 'edit_project' project.pk %}">Previous</a>
+
 {% if project.rfp.add_reviewer %}
-    <a class="btn btn-apply" href="{% url 'create_project_reviewer' project.pk %}">Next</a>
+
+    <a class="btn btn-apply pull-right" href="{% url 'create_project_reviewer' project.pk %}">Next</a>
+
 {% else %}
-    <a class="btn btn-apply" href="{% url 'create_project_summary' project.pk %}">Save and Submit</a>
+
+    <a class="btn btn-apply pull-right" href="{% url 'create_project_summary' project.pk %}">Save and Submit</a>
+
 {% endif %}
 
 <script>
