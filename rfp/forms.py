@@ -25,7 +25,7 @@ class ProjectForm(ModelForm):
 
     class Meta:
         model = Project
-        exclude = {'status','confirmation_email_sent', 'rfp','awarded_amount'}
+        exclude = {'status','confirmation_email_sent', 'rfp','awarded_amount','user'}
         widgets = {
             'name' : forms.TextInput(attrs={'class':'form-control'}),
             'requested_amount' : forms.NumberInput(attrs={'class':'form-control'}),
@@ -50,7 +50,6 @@ class ProjectForm(ModelForm):
             'scope_of_work' : _('Abstract (300 words max.):'),
             'anticipated_impact' : _('Link with other existing projects:'),
             'document' : _('Upload your document:'),
-            'user' : _(' '),
             'additional_funding' : _('Additional co-funding, if any (please specify funding body and amount):')
         }
 

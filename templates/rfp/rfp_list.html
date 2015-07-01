@@ -15,7 +15,7 @@
     <h2>Categories</h2>
 
     {% for c in rfp_c %}
-                    {% if c.request_for_proposal.id = r.id %}
+
                     <div class="rfp_title">
                             <h3>{{ c.name }}</h3>
                     </div>
@@ -38,7 +38,7 @@
                                   <a class="btn btn-apply" href="{% url 'rfpcampaign_detail' c.id %}">Apply</a>
                               </div>
                           </div>
-                {% endif %}
+
     {% endfor %}
 {% endfor %}
 

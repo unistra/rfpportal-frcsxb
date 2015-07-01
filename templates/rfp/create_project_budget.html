@@ -12,7 +12,7 @@
 
 {% block project_next %}
 
-    <a class="btn btn-apply" href="{% url 'edit_project' project.pk %}">Previous</a>
+    <a class="btn btn-apply" href="{% url 'create_project_previous' project.pk %}">Previous</a>
 
 {% if project.rfp.add_reviewer %}
 

@@ -1,0 +1,42 @@
+<!--Project Form-->
+
+<form class="" method="post" enctype="multipart/form-data" action="{% url 'create_project_previous' project.id %}">
+{% load bootstrap3 %}
+
+    {% csrf_token %}
+    {% for f in form %}
+
+        {% if f.label == 'Upload your document:' %}
+
+            <div class="row">
+                <div  style="padding-top:7px;" class="col-xs-12 col-md-4">
+                    <strong>Current document:</strong>
+                </div>
+                <div style="padding-right:0px;" class="col-xs-12 col-md-8">
+                    <a href="{{ project.document.url }}" target="blank">{{ project.document }}</a>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div  style="padding-top:7px;" class=" no_l_pad col-xs-12 col-md-4">
+                    <strong>Update document: <span class="req">*</span></strong>
+                </div>
+                <div style="padding-right:0px;" class="col-xs-12 col-md-8">
+                    {{ f }}
+                    {{ f.errors }}
+                </div>
+            </div>
+
+        {% else %}
+            <div class="form-group">
+
+                {% bootstrap_field f %}
+
+            </div>
+        {% endif %}
+
+    {% endfor %}
+
+     <input class="btn btn-apply pull-right" type="submit" value="Next"  />
+
+</form>

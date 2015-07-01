@@ -1,0 +1,23 @@
+{% extends 'rfp/project_details.html' %}
+
+{% block title %}Edit{{ project.name }} {% endblock %}
+
+{% block project_header %}
+<!--Project Header-->
+{% include 'rfp/project/project_header.html' %}
+
+{% include 'rfp/project/progress_bar.html' %}
+
+{% endblock %}
+
+{% block project_tab %} {% endblock %}
+
+{% block project_edit %}
+
+    {% include 'rfp/project/project_form.html' %}
+
+<script>
+    $('#step_1').removeClass('progtrckr-todo').addClass('progtrckr-focus');
+</script>
+
+{% endblock %}

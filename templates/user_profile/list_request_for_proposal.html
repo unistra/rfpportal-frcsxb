@@ -13,8 +13,16 @@
     <h2>Categories</h2>
     {% if rfp_c %}
     {% for c in rfp_c %}
-                              <div class="row">
+
+                                 <div class="row">
+                                        <div class="col-xs-12 col-md-12">
+                                        <h3>{{ c }}</h3>
+                                        </div>
+                                 </div>
+
+                                  <div class="row">
                                   <div class="col-xs-12 col-md-4">
+
                                       <div class="thumbnail no_border">
                                         {% if c.logo %}
                                             <a href="{% url 'rfpcampaign_detail' c.id %}"><img src="{{ c.logo.url }}" alt="{{ c.name }}"></a>

@@ -7,7 +7,9 @@
 {% endblock %}
 
 {% block dashboard_action %}
+
 {% load bootstrap3 %}
+
 <div class="row">
 <div class="col-xs-12 col-md-12">
 
@@ -50,19 +52,25 @@
                 <td>{{ r.status }}</td>
                 <td><a href="{% url 'dashboard_follow_up_with_reviewer' r.id %}">Follow up</a></td>
             </tr>
-        {% endfor %}
+
+{% endfor %}
+
+
+
+
+
     </tbody>
+
+      {% else %}
+    <p><em>No review posted</em></p>
+    {% endif %}
 
 </table>
 
-    {% else %}
-
-    <p><em>No review posted</em></p>
-
-    {% endif %}
+</div>
 
 </div>
-</div>
+
 
 <script>
      $("#tableId").dataTable();

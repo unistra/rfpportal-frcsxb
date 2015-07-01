@@ -112,6 +112,26 @@ def create_project(request,rfpId):
 
     return render_to_response('rfp/create_project.html',{'form' : p, 'user' : user, 'progress_status' : progress_status, 'rfp' : rfp}, context)
 
+def create_project_previous(request,projectId):
+    context = RequestContext(request)
+    user = request.user
+    progress_status = 30
+    project = Project.objects.get(id = projectId)
+    redirect = get_redirect_url(request)
+
+    if request.method == 'POST':
+        p = ProjectForm(request.POST,request.FILES,instance=project)
+
+        if p.is_valid():
+           proj = p.save()
+           return HttpResponseRedirect(reverse('create_project_budget', args=[project.id]))
+
+    else:
+        p = ProjectForm(instance=project)
+
+    return render_to_response('rfp/create_project_previous.html',{'form' : p, 'user' : user, 'progress_status' : progress_status, 'project' : project}, context)
+
+
 @user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def create_project_budget(request,projectId):
     context = RequestContext(request)
