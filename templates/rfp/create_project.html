@@ -4,7 +4,7 @@
 
 {% block body_block %}
 
-< class="container">
+<div class="container">
 
 <div class="row">
 
@@ -22,118 +22,46 @@
 
 </div>
 
+
 <div class="row">
     <div class="col-xs-12 col-md-12">
 
-<form class="" method="post" enctype="multipart/form-data" action="{% url 'create_project' rfp.id %}">
+<!--Project Form-->
+
+<form id="project_create_form" class="" method="post" enctype="multipart/form-data" action="{% url 'create_project' rfp.id %}">
+{% load bootstrap3 %}
 
     {% csrf_token %}
+    {% for f in form %}
 
-        {% for f in form %}
-            {% if f.label == 'Category:' %}
+        {% if f.label == 'Upload your document:' %}
 
-            <div class = "row">
-
-                <div  style="padding-top:7px;" class="col-xs-12 col-md-4">
-                    <strong>Category: <span class="req">*</span></strong>
-                </div>
-                <div class="col-xs-12 col-md-8">
-                    {{ f }}
-                    {{ f.errors }}
-                </div>
-
-                <hr>
-
-            </div>
-
-
-            {% elif f.label == 'Requested amount from FRC:' %}
-            <div class = "row">
-            <div  class = "col-xs-12 col-md-4">
+    <div class="row">
             <div class="form-group">
-            <strong>{{ f.label }}{% if f.field.required %} <span class="req">*</span> {% endif %}</strong>
-                <div class="input-group">
-
-                        <div class="input-group-addon">
-                            <img src="https://cdn3.iconfinder.com/data/icons/sympletts-free-sampler/128/euro-20.png"/>
-                        </div>
-
-                            {{ f }}
-                            {{ f.errors }}
-                </div>
-            </div>
-            </div>
-            </div>
-
-            {% elif f.label == 'Planned starting date:' %}
-
-            <div style="padding-left:0px;" class = "col-xs-12 col-md-4">
-            <div class="form-group">
-            <strong>{{ f.label }}{% if f.field.required %} <span class="req">*</span> {% endif %}</strong>
-                <div class="input-group">
-
-                        <div class="input-group-addon">
-                            <img src="https://cdn0.iconfinder.com/data/icons/news-and-magazine/512/calendar-16.png"/>
-                        </div>
-
-                            {{ f }}
-                            {{ f.errors }}
-                </div>
-            </div>
-            </div>
-
-            {% elif f.label == 'Ending date:' %}
-
-            <div style="padding-left:0px;" class = "col-xs-12 col-md-4">
-            <div class="form-group">
-            <strong>{{ f.label }}{% if f.field.required %} <span class="req">*</span> {% endif %}</strong>
-                <div class="input-group">
-
-                        <div class="input-group-addon">
-                            <img src="https://cdn0.iconfinder.com/data/icons/news-and-magazine/512/calendar-16.png"/>
-                        </div>
-
-                            {{ f }}
-                            {{ f.errors }}
-                </div>
-            </div>
-            </div>
-
-            {% elif f.label == 'Expected duration of project (months):' %}
-
-            <div style="padding-left:0px; padding-right:0px;" class = "col-xs-12 col-md-4">
-            <div class="form-group">
-                            <strong>{{ f.label }}{% if f.field.required = True %} * {% endif %}</strong>
-                            {{ f }}
-                            {{ f.errors }}
-                </div>
-            </div>
-
-            {% elif f.label == 'Upload your document:' %}
-
-            <div class="form-group">
-                <div  style="padding-top:7px;" class=" no_l_pad col-xs-12 col-md-4">
-                    <span class=""><strong>Upload your document: <span class="req">*</span></strong></span>
+                <div  style="padding-top:7px;padding-bottom:7px;" class="col-xs-12 col-md-4">
+                    <strong>{{ f.label }} <span class="req">*</span></strong>
                 </div>
                 <div style="padding-right:0px;" class="col-xs-12 col-md-8">
                     {{ f }}
                     {{ f.errors }}
                 </div>
             </div>
+    </div>
 
-            {% elif f.label != '' %}
+        {% else %}
             <div class="form-group">
-                        <strong>{{ f.label }}{% if f.field.required = True %} * {% endif %}</strong>
-                        {{ f }}
-                        {{ f.errors }}
+                {% bootstrap_label f.label %}{% if f.field.required %}<span class="req">*</span></strong>{% endif %}
+                {{ f }}
+                {{ f.errors }}
             </div>
+        {% endif %}
 
-            {% endif %}
-        {% endfor %}
+    {% endfor %}
 
      <input class="btn btn-apply pull-right" type="submit" value="Next"  />
 
 </form>
+
     </div>
 
 </div>
@@ -142,8 +70,8 @@
 
 <script>
     $('#step_1').removeClass('progtrckr-todo').addClass('progtrckr-focus');
+    $('#project_create_form').reset();
 </script>
-
 
 {% endblock %}
 

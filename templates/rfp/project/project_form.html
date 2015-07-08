@@ -7,18 +7,9 @@
     {% for f in form %}
 
         {% if f.label == 'Upload your document:' %}
-
-            <div class="row">
-                <div  style="padding-top:7px;" class="col-xs-12 col-md-4">
-                    <strong>Current document:</strong>
-                </div>
-                <div style="padding-right:0px;" class="col-xs-12 col-md-8">
-                    <a href="{{ project.document.url }}" target="blank">{{ project.document }}</a>
-                </div>
-            </div>
-
+    <div class="row">
             <div class="form-group">
-                <div  style="padding-top:7px;" class=" no_l_pad col-xs-12 col-md-4">
+                <div  style="padding-top:7px;" class="col-xs-12 col-md-4">
                     <strong>Update document: <span class="req">*</span></strong>
                 </div>
                 <div style="padding-right:0px;" class="col-xs-12 col-md-8">
@@ -26,11 +17,14 @@
                     {{ f.errors }}
                 </div>
             </div>
+    </div>
 
         {% else %}
             <div class="form-group">
 
-                {% bootstrap_field f %}
+                 {% bootstrap_label f.label %}{% if f.field.required %}<span class="req">*</span></strong>{% endif %}
+                 {{ f }}
+                 {{ f.errors }}
 
             </div>
         {% endif %}

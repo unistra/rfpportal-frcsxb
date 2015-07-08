@@ -57,9 +57,13 @@ class RfpCampaign(models.Model):
     instructions=models.TextField(max_length=4000,null=True)
 
     logo = models.ImageField(upload_to='image',null=True,blank=True)
-    review_questions = models.CharField(max_length = 4000, null=True, blank=True)
+    review_questions = models.TextField(max_length = 4000, null=True, blank=True)
+    project_questions = models.TextField(max_length = 4000, null=True, blank=True, default='Abstract/r/n')
+
+    starting_date = models.DateField()
     deadline = models.DateField()
     status = models.CharField(max_length=255,null=True,choices=STATUS_CHOICES,default='open')
+
     email_template_project_confirmation = models.CharField(max_length=255,default='project_submission_confirmation_email_default',verbose_name=u"Email template for project submission confirmation.")
     email_template_review_invitation = models.CharField(max_length=255,default='review_invitation_email_default', verbose_name=u"Email template for invitation to review.")
     email_template_review_confirmation = models.CharField(max_length=255,default='review_submission_confirmation_email_default', verbose_name=u"Email template for confirmation and thank you for your review.")
@@ -69,8 +73,13 @@ class RfpCampaign(models.Model):
     def __unicode__(self):
         return (str(self.year) + " " + str(self.name))
 
-    def get_questions(self):
-        list = self.review_questions.split('; ')
+    def get_review_questions(self):
+        list = self.review_questions.splitlines()
+        b = tuple(list)
+        return b
+
+    def get_project_questions(self):
+        list = self.project_questions.splitlines()
         b = tuple(list)
         return b
 
@@ -101,6 +110,16 @@ class Project(models.Model):
     document=models.FileField(upload_to='project',null=True,blank=True)
     status=models.CharField(max_length=255,default='pending',choices=STATUS_CHOICES)
     confirmation_email_sent = models.BooleanField(default=False)
+    custom_0 = models.CharField(max_length=4000,null=True,blank=True)
+    custom_1 = models.CharField(max_length=4000,null=True,blank=True)
+    custom_2 = models.CharField(max_length=4000,null=True,blank=True)
+    custom_3 = models.CharField(max_length=4000,null=True,blank=True)
+    custom_4 = models.CharField(max_length=4000,null=True,blank=True)
+    custom_5 = models.CharField(max_length=4000,null=True,blank=True)
+    custom_6 = models.CharField(max_length=4000,null=True,blank=True)
+    custom_7 = models.CharField(max_length=4000,null=True,blank=True)
+    custom_8 = models.CharField(max_length=4000,null=True,blank=True)
+    custom_9 = models.CharField(max_length=4000,null=True,blank=True)
 
     def __unicode__(self):
         return self.name
@@ -152,8 +171,6 @@ class Project(models.Model):
 
             #Send the Madrill email template
             send_mandrill_email(self,self.rfp.email_template_rfp_closed,c)
-
-
 
 class ProposedReviewer(models.Model):
     TYPE_CHOICES = (

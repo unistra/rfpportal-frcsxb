@@ -21,11 +21,11 @@ ratings = (
     ('F', 'F: insufficiently detailed proposal'),
 )
 
-class ProjectForm(ModelForm):
+class ProjectFormModel(ModelForm):
 
     class Meta:
         model = Project
-        exclude = {'status','confirmation_email_sent', 'rfp','awarded_amount','user'}
+        exclude = {'status','confirmation_email_sent', 'awarded_amount','user'}
         widgets = {
             'name' : forms.TextInput(attrs={'class':'form-control'}),
             'requested_amount' : forms.NumberInput(attrs={'class':'form-control'}),
@@ -52,6 +52,30 @@ class ProjectForm(ModelForm):
             'document' : _('Upload your document:'),
             'additional_funding' : _('Additional co-funding, if any (please specify funding body and amount):')
         }
+
+
+class ProjectForm(forms.Form):
+
+        name=forms.CharField(required=True, label = 'Project name:', widget=forms.TextInput(attrs={'class':'form-control'}))
+        starting_date=forms.DateField(required=True, label = 'Starting Date:', widget=forms.DateInput(attrs={'class':'form-control'}))
+        project_duration=forms.IntegerField(label='Duration (months):',widget=forms.DateInput(attrs={'class':'form-control'}))
+        ending_date=forms.DateField(required=True, label = 'Ending Date:', widget=forms.DateInput(attrs={'class':'form-control'}))
+        requested_amount=forms.IntegerField(required=True, label = 'Requested amount (Eur.):',widget=forms.NumberInput(attrs={'class':'form-control'}))
+        purpose = forms.CharField(required=True, label = 'Keywords (10 max.):',widget=forms.TextInput(attrs={'class':'form-control'}))
+        document = forms.FileField(label='Upload your document:',required=False)
+
+        def __init__(self, *args, **kwargs):
+            questions = kwargs.pop('questions')
+            super(ProjectForm,self).__init__(*args, **kwargs)
+
+            for i, label in enumerate(questions):
+                self.fields['custom_%s' % i] = forms.CharField(label=label,required=False,widget=forms.Textarea(attrs={'class':'form-control'}))
+
+        def extra_answers(self):
+            for name, value in self.cleaned_data.items():
+                if name.startswith('custom_'):
+                    yield (self.fields[name].label, value)
+
 
 class UpdateForm(ModelForm):
 
@@ -93,6 +117,10 @@ class RfpCampaignForm(ModelForm):
     class Meta:
         model = RfpCampaign
         fields = ['name','year']
+        widgets = {
+            'deadline' : forms.DateInput(attrs={'class':'form-control'}),
+            'starting_date' : forms.DateInput(attrs={'class':'form-control'}),
+        }
 
 class ReviewForm(forms.Form):
     rating = forms.ChoiceField(required=True,choices = ratings,label='Project ranking as a whole (between A and F, A as the highest):', widget=forms.Select(attrs={'class':'form-control'}))
@@ -153,6 +181,7 @@ ProposedReviewerFormSet = modelformset_factory(
             'state' : forms.TextInput(attrs={'class':'form-control'}),
             'postcode' : forms.TextInput(attrs={'class':'form-control'}),
             'country' : forms.TextInput(attrs={'class':'form-control'}),
+
         },
             labels = {
                 'project' : _('do_not_show')

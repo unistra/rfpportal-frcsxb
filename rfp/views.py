@@ -10,7 +10,7 @@ import logging
 from user_profile.models import UserProfile
 
 from models import Project,Review,RfpCampaign,File_Test,ProposedReviewer,BudgetLine
-from forms import ProjectForm,file_test,UpdateForm,ReviewForm,ProposedReviewerFormSet,ProposedReviewerForm,BudgetLineEQ,BudgetLineHR,BudgetLineOP,ExcludedReviewerForm
+from forms import ProjectForm,file_test,UpdateForm,ReviewForm,ProposedReviewerFormSet,ProposedReviewerForm,BudgetLineEQ,BudgetLineHR,BudgetLineOP,ExcludedReviewerForm,ProjectFormModel
 from django.core.urlresolvers import reverse
 
 def is_reviewer(User):
@@ -95,41 +95,50 @@ def create_project(request,rfpId):
     user = request.user
     progress_status = 30
     rfp = RfpCampaign.objects.get(pk = rfpId)
+    print ('RFP is: ')
+    print (rfp)
+    questions = rfp.get_project_questions()
 
     if request.method == 'POST':
-        p = ProjectForm(request.POST,request.FILES)
+        print (request.POST)
+        project = ProjectForm(request.POST,request.FILES,questions = questions)
 
-        if p.is_valid():
-           proj = p.save (commit=False)
-           proj.user = user
-           proj.status = 'pending'
-           proj.rfp = rfp
-           project = p.save()
-           return HttpResponseRedirect(reverse('create_project_budget', args=[project.pk]))
+        if project.is_valid():
+            project = Project(**project.cleaned_data)
+            project.rfp = rfp
+            project.user = user
+            project.save()
+
+            return HttpResponseRedirect(reverse('create_project_budget', args=[project.pk]))
 
     else:
-        p = ProjectForm()
+        project = ProjectForm(questions = questions)
 
-    return render_to_response('rfp/create_project.html',{'form' : p, 'user' : user, 'progress_status' : progress_status, 'rfp' : rfp}, context)
+    return render_to_response('rfp/create_project.html',{'form' : project, 'user' : user, 'progress_status' : progress_status, 'rfp' : rfp}, context)
 
 def create_project_previous(request,projectId):
     context = RequestContext(request)
     user = request.user
     progress_status = 30
     project = Project.objects.get(id = projectId)
-    redirect = get_redirect_url(request)
+    rfp = RfpCampaign.objects.get(id = project.rfp.id)
+    project_dict = model_to_dict(project)
+    questions = rfp.get_project_questions()
 
     if request.method == 'POST':
-        p = ProjectForm(request.POST,request.FILES,instance=project)
+        form = ProjectForm(request.POST,request.FILES, questions = questions)
 
-        if p.is_valid():
-           proj = p.save()
-           return HttpResponseRedirect(reverse('create_project_budget', args=[project.id]))
+        if form.is_valid():
+            form_data = form.cleaned_data
+            proj_update = Project.objects.update_or_create(user = user, id = project.id, defaults=form_data)
+            proj = proj_update[0]
+            project = proj.save()
 
+            return HttpResponseRedirect(reverse('create_project_budget', args=[proj.pk]))
     else:
-        p = ProjectForm(instance=project)
+        form = ProjectForm(initial= project_dict,questions = questions)
 
-    return render_to_response('rfp/create_project_previous.html',{'form' : p, 'user' : user, 'progress_status' : progress_status, 'project' : project}, context)
+    return render_to_response('rfp/create_project_previous.html',{'form' : form, 'user' : user, 'progress_status' : progress_status, 'project' : project}, context)
 
 
 @user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
@@ -672,7 +681,7 @@ def post_review(request,reviewId):
 
     project = Project.objects.get(pk = review.project.pk)
     rfp = RfpCampaign.objects.get(id = project.rfp.id)
-    questions = rfp.get_questions()
+    questions = rfp.get_review_questions()
     is_p = is_pi(user)
     is_rev = is_reviewer(user)
 

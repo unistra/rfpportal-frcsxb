@@ -61,6 +61,9 @@ class RfpCreate(ModelForm):
     class Meta:
         model = RfpCampaign
         exclude = {}
+        widget = {
+           'review_questions': forms.Textarea(),
+        }
 
 
 class SearchForm(forms.Form):

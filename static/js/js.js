@@ -30,6 +30,6 @@ $( document ).ready(function() {
 
    $('#id_ending_date').datepicker();
    $('#id_starting_date').datepicker();
-
+   $('#id_deadline').datepicker();
 
 });
