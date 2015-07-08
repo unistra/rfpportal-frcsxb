@@ -25,29 +25,13 @@
 
     {% for f in form %}
 
-    {% if f.label == 'Select a document to update the current file: ' %}
+    {% if f.label == 'Upload your document:' %}
     <div class="form-group">
 
-                <div class="col-xs-12 col-md-4">
-                    <p>Current document: </p>
-                </div>
-
-                <div class = "col-xs-12 col-md-8">
-                    {% if project.document %}
-                    <a href="{{ project.document.url }}">{{ project.document.name }}</a><p>
-                    {% else %}
-                    <p><em>No file</em></p>
-                    {% endif %}
-                </div>
-
-                <div class="col-xs-12 col-md-4">
-                {{ f.label }}
-                </div>
-
-                <div class="col-xs-12 col-md-8">
-                                    {{ f }}
+                <strong>Document</strong>
+                                    <p>{{ f }}</p>
                                     {{ f.errors }}
-                </div>
+
 
     </div>
 

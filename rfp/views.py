@@ -140,7 +140,6 @@ def create_project_previous(request,projectId):
 
     return render_to_response('rfp/create_project_previous.html',{'form' : form, 'user' : user, 'progress_status' : progress_status, 'project' : project}, context)
 
-
 @user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def create_project_budget(request,projectId):
     context = RequestContext(request)
@@ -198,7 +197,7 @@ def create_project_summary(request,projectId):
     user = request.user
 
     project = Project.objects.get(pk = projectId)
-    project_data = UpdateForm(data=model_to_dict(project))
+    project_data = ProjectForm(data=model_to_dict(project),questions = project.rfp.get_project_questions())
     user_is_owner(user,project)
 
     budget_line_list = BudgetLine.objects.filter(project = project)
@@ -223,20 +222,25 @@ def create_project_summary(request,projectId):
 @user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def edit_project(request,projectId):
     context = RequestContext(request)
-    user=request.user
+    user = request.user
     project = Project.objects.get( pk = projectId )
+    project_dict = model_to_dict(project)
     user_is_owner(user,project)
     redirect = get_redirect_url(request)
 
     if request.method == 'POST':
-        p = UpdateForm(request.POST,request.FILES,instance=project)
+        p = ProjectForm(request.POST,request.FILES,questions = project.rfp.get_project_questions())
 
         if p.is_valid():
-           p.save()
+           p_data = p.cleaned_data
+           p_update = Project.objects.update_or_create(user = user, id = project.id, defaults = p_data)
+           proj = p_update[0]
+           proj_save = proj.save()
+
            return HttpResponseRedirect(redirect)
 
     else:
-        p = UpdateForm(instance=project)
+        p = ProjectForm(initial=project_dict, questions=project.rfp.get_project_questions())
 
     context_dict={'project' : project,'user' : user,'form' : p}
 
@@ -252,7 +256,7 @@ def project_detail(request,projectId):
     project=Project.objects.get(id=projectId)
     review = find_user_review_for_project(user,project)
 
-    project_data = UpdateForm(data=model_to_dict(project))
+    project_data = ProjectForm(data=model_to_dict(project), questions = project.rfp.get_project_questions())
     prop_rev_list = ProposedReviewer.objects.filter(project = project)
     budget_line_list = BudgetLine.objects.filter(project = project)
     hr_budget_line_list = BudgetLine.objects.filter(project = project,category = 'HR')
@@ -356,7 +360,7 @@ def project_review(request,projectId):
     user = request.user
     project=Project.objects.get(id=projectId)
     review = Review.objects.get(project=projectId,user=user.pk)
-    questions = project.rfp.get_questions()
+    questions = project.rfp.get_review_questions()
     review_data = ReviewForm(data=model_to_dict(review),questions=questions)
 
     is_p = is_pi(user)
@@ -377,7 +381,7 @@ def view_review(request,reviewId):
     user = request.user
     review = Review.objects.get(pk = reviewId)
     project = Project.objects.get(id = review.project.id)
-    questions = project.rfp.get_questions()
+    questions = project.rfp.get_review_questions()
     review_data = ReviewForm(data=model_to_dict(review),questions=questions)
 
     user_is_owner(user,project)

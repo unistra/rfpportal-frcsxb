@@ -11,7 +11,7 @@ from models import UserProfile
 from django.core.urlresolvers import reverse
 from django.forms.models import model_to_dict
 
-from rfp.forms import ProposedReviewerForm
+from rfp.forms import ProposedReviewerForm,ProjectForm
 from rfp.models import Project,Review,RfpCampaign,BudgetLine,ProposedReviewer
 from rfp.views import store_redirect_url,get_redirect_url,budget_line_sum
 
@@ -236,7 +236,7 @@ def dashboard_project_details(request,projectId):
     context = RequestContext(request)
     user = request.user
     project = Project.objects.get(pk = projectId)
-    project_data = UpdateForm(data=model_to_dict(project))
+    project_data = ProjectForm(data=model_to_dict(project), questions = project.rfp.get_project_questions())
     store_redirect_url(request)
 
     budget_line_list = BudgetLine.objects.filter(project = project)

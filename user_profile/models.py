@@ -23,7 +23,7 @@ class UserProfile(models.Model):
     num_connection = models.IntegerField(default=0, editable=False)
 
     def __unicode__(self):
-        return (str(self.first_name) + " " + str(self.last_name))
+        return self.first_name + str(" ") + self.last_name
 
     class Meta:
         verbose_name = "Contact"

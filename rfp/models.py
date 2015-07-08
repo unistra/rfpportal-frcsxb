@@ -71,7 +71,7 @@ class RfpCampaign(models.Model):
     email_template_rfp_closed = models.CharField(max_length=255,default='project_results_anouncement_email_default', verbose_name=u"Email template to anounce results.")
 
     def __unicode__(self):
-        return (str(self.year) + " " + str(self.name))
+        return str(self.year) +  str(' ') + self.name
 
     def get_review_questions(self):
         list = self.review_questions.splitlines()
@@ -191,7 +191,7 @@ class ProposedReviewer(models.Model):
     type = models.CharField(max_length=255,blank=True,null=True,choices=TYPE_CHOICES)
 
     def __unicode__(self):
-        return (str(self.first_name) + " " + str(self.last_name) + " - " + str(self.institution))
+        return self.first_name + str(' ') + self.last_name + str(" - ") + self.institution
 
     def is_user(self):
         """
@@ -266,7 +266,7 @@ class BudgetLine(models.Model):
     amount = models.FloatField(null=True, blank = True)
 
     def __unicode__(self):
-        return  (str(self.category) + " " +str(self.item))
+        return  self.category + str(" ") + self.item
 
 class Review(models.Model):
     STATUS_CHOICES = (
@@ -294,7 +294,7 @@ class Review(models.Model):
     document = models.FileField(upload_to=('reviews'),null=True,blank=True)
 
     def __unicode__(self):
-        return (str(self.user.first_name) + " " + str(self.user.last_name) + " for: " + str(self.project.name))
+        return self.user.first_name + str(" ") + self.user.last_name + str(" for: ") + self.project.name
 
     def send_confirmation_email_to_reviewer(self):
         if not self.status == 'completed':
