@@ -5,7 +5,25 @@
     {% csrf_token %}
 
     {% load bootstrap3 %}
-        {% bootstrap_form form %}
+
+    {% for field in form %}
+        {% if field.label == 'Instructions' %}
+
+        {% load wysiwyg %}
+            {% wysiwyg_setup %}
+
+            {% bootstrap_label field.label %}
+            {{ field }}
+            {{ field.errors }}
+            {% wysiwyg_editor "id_instructions" %}
+
+        {% else %}
+
+        {% bootstrap_field field %}
+
+        {% endif %}
+
+    {% endfor %}
 
     <button class="btn btn-apply" type="submit" value="Submit">Save</button>
 

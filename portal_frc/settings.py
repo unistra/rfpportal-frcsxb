@@ -57,6 +57,7 @@ INSTALLED_APPS = (
     'import_export',
     'urlcrypt',
     'explorer',
+    'django_wysiwyg',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -209,7 +210,9 @@ URLCRYPT_LOGIN_URL = '/'
 #Boostrapped Admin Config.
 DAB_FIELD_RENDERER = 'django_admin_bootstrapped.renderers.BootstrapFieldRenderer'
 
-
+#Django-wysiwyg Config.
+DJANGO_WYSIWYG_FLAVOR = "ckeditor"
+DJANGO_WYSIWYG_MEDIA_URL = 'http://cdn.ckeditor.com/4.5.1/standard/ckeditor.js'
 
 from django.contrib import messages
 
