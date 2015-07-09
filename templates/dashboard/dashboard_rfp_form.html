@@ -11,12 +11,12 @@
 
         {% load wysiwyg %}
             {% wysiwyg_setup %}
-
+            <div style="margin-bottom: 10px;">
             {% bootstrap_label field.label %}
             {{ field }}
             {{ field.errors }}
             {% wysiwyg_editor "id_instructions" %}
-
+            </div>
         {% else %}
 
         {% bootstrap_field field %}

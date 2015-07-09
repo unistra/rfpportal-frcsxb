@@ -54,15 +54,16 @@ class RfpCampaign(models.Model):
     category=models.CharField(max_length=255,null=True,choices=CATEGORY_CHOICES)
     add_reviewer=models.BooleanField(default=True)
     year=models.PositiveIntegerField(null=True)
-    instructions=models.TextField(max_length=4000,null=True)
-
-    logo = models.ImageField(upload_to='image',null=True,blank=True)
-    review_questions = models.TextField(max_length = 4000, null=True, blank=True)
-    project_questions = models.TextField(max_length = 4000, null=True, blank=True, default='Abstract/r/n')
 
     starting_date = models.DateField()
     deadline = models.DateField()
     status = models.CharField(max_length=255,null=True,choices=STATUS_CHOICES,default='open')
+
+    instructions=models.TextField(max_length=4000,null=True)
+
+    logo = models.ImageField(upload_to='image',null=True,blank=True)
+    project_questions = models.TextField(max_length = 4000, null=True, blank=True, default='Abstract', verbose_name=u"Project questions (one question per line, maximum of 10 questions permitted.)")
+    review_questions = models.TextField(max_length = 4000, null=True, blank=True, verbose_name=u"Review questions (one question per line, maximum of 10 questions permitted.)")
 
     email_template_project_confirmation = models.CharField(max_length=255,default='project_submission_confirmation_email_default',verbose_name=u"Email template for project submission confirmation.")
     email_template_review_invitation = models.CharField(max_length=255,default='review_invitation_email_default', verbose_name=u"Email template for invitation to review.")
@@ -89,7 +90,7 @@ class RfpCampaign(models.Model):
 
 class Project(models.Model):
     STATUS_CHOICES = (
-        ('pending','Pending'),
+        ('draft','Draft'),
         ('submitted','Submitted'),
         ('under_review','Under review'),
         ('granted','Granted'),
@@ -108,7 +109,7 @@ class Project(models.Model):
     scope_of_work=models.CharField(max_length=4000,null=True,blank=True,verbose_name=u"Abstract")
     anticipated_impact=models.CharField(max_length=4000,null=True,blank=True,verbose_name=u"Link with other project")
     document=models.FileField(upload_to='project',null=True,blank=True)
-    status=models.CharField(max_length=255,default='pending',choices=STATUS_CHOICES)
+    status=models.CharField(max_length=255,default='draft',choices=STATUS_CHOICES)
     confirmation_email_sent = models.BooleanField(default=False)
     custom_0 = models.CharField(max_length=4000,null=True,blank=True)
     custom_1 = models.CharField(max_length=4000,null=True,blank=True)

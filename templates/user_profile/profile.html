@@ -43,13 +43,13 @@
 
                     <tbody>
                     {% for p in projects %}
-                    {% if p.status == 'pending' %}
-                    <div class="alert alert-warning" role="alert">Your project <strong>{{ p.name }}</strong> is still pending and has not been submitted yet. Please click
+                    {% if p.status == 'draft' %}
+                    <div class="alert alert-warning" role="alert">Your project <strong>{{ p.name }}</strong> is still a draft and has not been submitted yet. Please click
                         <a href="{% url 'create_project_previous' p.id %}">here</a> to complete and submit your project.</div>
                     {% endif %}
                     <tr>
                             <td>
-                                {% if p.status == 'pending' %} <a href="{% url 'create_project_previous' p.id %}">
+                                {% if p.status == 'draft' %} <a href="{% url 'create_project_previous' p.id %}">
                                 {% else %}  <a href="{% url 'project_detail' p.id %}"> {% endif %}
                                 {{ p.name }}</a>
                             </td>
