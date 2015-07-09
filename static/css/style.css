@@ -514,3 +514,80 @@ ol.progtrckr li.progtrckr-focus:before {
 .search_box{
     padding:15px 0px 15px 0px;
 }
+
+
+.metric_square{
+    float:left;
+    position:relative;
+    width: 30%;
+    padding-bottom: 15%; /* = width for a 1:1 aspect ratio */
+    margin:1.66%;
+    background-color: #fff;
+
+}
+
+.metric_content {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    background-color: #f4f4f4;
+}
+
+.align_left{
+    text-align: left;
+}
+
+.align_right{
+    text-align: right;
+    padding-righT: 2%;
+}
+
+.metric{
+    font-size:20px;
+    font-family: 'Lato',verdana, sans-serif;
+}
+
+.numbers{
+    font-weight:900;
+    font-size:80px;
+    color:white;
+}
+
+.metric_table{
+    display:table;
+    height:100%;
+    width:48%;
+}
+
+.metric_cell{
+    display:table-cell;
+    vertical-align:middle;
+    height:100%;
+    width:48%;
+}
+
+
+#project{
+    background-color: #6CCAC9;
+    color: #fff;
+}
+
+#review{
+    background-color: #FF6D60;
+    color: #fff;
+}
+
+#amount{
+    background-color: #F8D347;
+    color: #fff;
+}
+
+
+
+
+
+.metric_text{
+    background-color: #f4f4f4;
+    color: #000000;
+}

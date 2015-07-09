@@ -11,7 +11,11 @@
 <div class = "container">
 
 <div class="col-xs-12 col-md-12">
-    {% block dashboard_action %} {% endblock %}
+    {% block dashboard_action %}
+
+    {% include 'dashboard/dashboard_rfp_metrics.html' %}
+
+    {% endblock %}
 </div>
 
 </div>
