@@ -18,23 +18,25 @@
     {% csrf_token %}
 
      <div class="form-group">
+
         {% for form in f %}
+
         {% if form.label == 'First name' %}
         <div class = "row">
             <div class = "col-xs-12 col-md-4">
-                {{ form.label }}<span class="req"> *</span>
+                <strong>{{ form.label }}<span class="req"> *</span></strong>
                 {{ form }}
                 {{ form.errors }}
             </div>
         {% elif form.label == 'Last name' %}
             <div class = "col-xs-12 col-md-4">
-                {{ form.label }}<span class="req"> *</span>
+                 <strong>{{ form.label }}<span class="req"> *</span></strong>
                 {{ form }}
                 {{ form.errors }}
             </div>
         {% elif form.label == 'Email' %}
                 <div class = "col-xs-12 col-md-4">
-                {{ form.label }} <span class="req"> *</span>
+                 <strong>{{ form.label }}<span class="req"> *</span></strong>
                     <div class="input-group"><span class="input-group-addon" id="basic-addon1">@</span>{{ form }}</div>
 
                 {{ form.errors }}
@@ -44,7 +46,7 @@
         {% elif form.label == 'Institution' %}
                 <div class = "row">
                 <div class = "col-xs-12 col-md-8">
-                    {{ form.label }}
+                     <strong>{{ form.label }}</strong>
                     {{ form }}
                     {{ form.errors }}
                 </div>
@@ -53,7 +55,7 @@
          {% elif form.label == 'Address' %}
                 <div class = "row">
                 <div class = "col-xs-12 col-md-8">
-                    {{ form.label }}
+                    <strong>{{ form.label }}</strong>
                     {{ form }}
                     {{ form.errors }}
                 </div>
@@ -62,19 +64,19 @@
         {% elif form.label == 'City' %}
         <div class = "row">
             <div class = "col-xs-12 col-md-4">
-                {{ form.label }}
+                <strong>{{ form.label }}</strong>
                 {{ form }}
                 {{ form.errors }}
             </div>
         {% elif form.label == 'State' %}
             <div class = "col-xs-12 col-md-4">
-                {{ form.label }}
+                <strong>{{ form.label }}</strong>
                 {{ form }}
                 {{ form.errors }}
             </div>
         {% elif form.label == 'Postcode' %}
                 <div class = "col-xs-12 col-md-4">
-                {{ form.label }}
+                <strong>{{ form.label }}</strong>
                     {{ form }}
 
                 {{ form.errors }}
@@ -84,7 +86,7 @@
         {% elif form.label == 'Country' %}
                 <div class = "row">
                 <div class = "col-xs-12 col-md-4">
-                    {{ form.label }}
+                    <strong>{{ form.label }}</strong>
                     {{ form }}
                     {{ form.errors }}
                 </div>

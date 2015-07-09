@@ -62,7 +62,7 @@ class RfpCampaign(models.Model):
     instructions=models.TextField(max_length=4000,null=True)
 
     logo = models.ImageField(upload_to='image',null=True,blank=True)
-    project_questions = models.TextField(max_length = 4000, null=True, blank=True, default='Abstract', verbose_name=u"Project questions (one question per line, maximum of 10 questions permitted.)")
+    project_questions = models.TextField(max_length = 4000, null=True, blank=True, verbose_name=u"Project questions (one question per line, maximum of 10 questions permitted.)")
     review_questions = models.TextField(max_length = 4000, null=True, blank=True, verbose_name=u"Review questions (one question per line, maximum of 10 questions permitted.)")
 
     email_template_project_confirmation = models.CharField(max_length=255,default='project_submission_confirmation_email_default',verbose_name=u"Email template for project submission confirmation.")
@@ -105,9 +105,8 @@ class Project(models.Model):
     requested_amount=models.IntegerField(null=True)
     awarded_amount=models.IntegerField(null=True)
     additional_funding = models.CharField(max_length = 4000, null = True, blank = True)
-    purpose=models.CharField(max_length=4000,null=True,blank=True,verbose_name=U"Keywords")
-    scope_of_work=models.CharField(max_length=4000,null=True,blank=True,verbose_name=u"Abstract")
-    anticipated_impact=models.CharField(max_length=4000,null=True,blank=True,verbose_name=u"Link with other project")
+    keywords=models.CharField(max_length=4000,null=True,blank=True,verbose_name=U"Keywords")
+    abstract=models.CharField(max_length=4000,null=True,blank=True,verbose_name=u"Abstract")
     document=models.FileField(upload_to='project',null=True,blank=True)
     status=models.CharField(max_length=255,default='draft',choices=STATUS_CHOICES)
     confirmation_email_sent = models.BooleanField(default=False)
@@ -137,7 +136,7 @@ class Project(models.Model):
         Send the confirmation email after the project has been successfully submitted. Set status to submitted.
         """
         if not self.confirmation_email_sent:
-                c = {'project_name' : str(self), 'full_name' : (str(self.user.first_name) + " " + str(self.user.last_name))}
+                c = {'project_name' : self.name, 'full_name' : self.user.first_name + str(" ") + self.user.last_name}
                 send_mandrill_email(self,self.rfp.email_template_project_confirmation,c)
 
                 c = {'project':self}
@@ -166,8 +165,8 @@ class Project(models.Model):
 
 
             #Set the email template variables
-            c = {'user' : str(str(self.user.first_name) + " " + str(self.user.last_name)),
-                 'project' : self.name, 'rfp_name' : str(self.rfp),
+            c = {'user' : self.user.first_name + str(" ") + self.user.last_name,
+                 'project' : self.name, 'rfp_name' : self.rfp,
                  'url_to_project' : str(str(site.domain)+str(url_to_project))}
 
             #Send the Madrill email template
@@ -207,27 +206,22 @@ class ProposedReviewer(models.Model):
 
     def invite_reviewer(self):
 
-        #If proposed reviewer is already a user
+        #Check if the proposed reviewer is an existing user
         if self.is_user():
             user = User.objects.get(email=self.email)
-            print('User is: ')
-            print(user)
 
         #If proposed reviewer is not a user yet
         if not self.is_user():
             import random
-            username = str(str(self.first_name)[:1] + str(self.last_name))
+            username = self.first_name[:1] + self.last_name
 
             #Verify username is unused and set a new one if needed.
             while username_exists(username):
-                    username = str(str(self.first_name)[:1] + str(self.last_name))
+                    username = self.first_name[:1] + self.last_name
                     n = str(random.randint(1, 1000))
                     username = str(username + n)
-                    print('tested username is: ')
-                    print (username)
 
                     if not username_exists(username):
-                        print ('THIS NEW user profile does not exists!')
                         break
 
             password = 'frc@2015'
@@ -247,13 +241,10 @@ class ProposedReviewer(models.Model):
 
         #Create the review for the user.
         review_tuple = Review.objects.get_or_create(user = user, project = self.project,  )
-
-        print ('The review is: ')
         review = review_tuple[0]
 
         #Send invitation to review the corresponding project.
         review.send_invitation_email_to_reviewer()
-        print('Email sent ?!')
 
         return review
 
@@ -264,7 +255,7 @@ class BudgetLine(models.Model):
     duration = models.IntegerField(null=True,blank=True)
     monthly_salary = models.IntegerField(null=True,blank=True)
     quote=models.FileField(upload_to='quotes',null=True,blank=True)
-    amount = models.FloatField(null=True, blank = True)
+    amount = models.IntegerField(null=True, blank = True)
 
     def __unicode__(self):
         return  self.category + str(" ") + self.item
@@ -299,7 +290,7 @@ class Review(models.Model):
 
     def send_confirmation_email_to_reviewer(self):
         if not self.status == 'completed':
-            c = {'full_name' : (str(self.user.first_name) + " " + str(self.user.last_name)), 'project_name': str(self.project.name), 'category_name' : str(self.project.rfp.category), 'category_year' : str(self.project.rfp.year)}
+            c = {'full_name' : self.user.first_name + str(" ") + self.user.last_name, 'project_name': self.project.name, 'category_name' : self.project.rfp.category, 'category_year' : self.project.rfp.year}
             send_mandrill_email(self,self.project.rfp.email_template_review_confirmation,c)
 
             c = {'review' : self}
@@ -323,9 +314,9 @@ class Review(models.Model):
             url_refuse = reverse('urlcrypt_redirect', args=(token_accept,))
 
             #Set the email template variables
-            c = {'reviewer_full_name' : str(str(self.user.first_name) + " " + str(self.user.last_name)), 'project' : self.project.name,
-                 'author' : str(str(self.project.user.first_name) + str(self.project.user.last_name)),
-                 'abstract' : self.project.scope_of_work, 'keywords':self.project.purpose,
+            c = {'reviewer_full_name' : self.user.first_name + str(" ") + self.user.last_name, 'project' : self.project.name,
+                 'author' : self.project.user.first_name + str(' ') + self.project.user.last_name,
+                 'abstract' : self.project.abstract, 'keywords':self.project.keywords,
                  'url_accept' : str(str(site.domain)+str(url_accept)),'url_refuse' : str(str(site.domain)+str(url_accept))}
 
             #Send the Mandrill email template
@@ -344,9 +335,9 @@ class Review(models.Model):
             site = Site.objects.get(id=1)
 
             #Set the email template variables
-            c = {'reviewer_full_name' : str(str(self.user.first_name) + " " + str(self.user.last_name)), 'project' : self.project.name,
-                 'author' : str(str(self.project.user.first_name) + str(self.project.user.last_name)),
-                 'abstract' : self.project.scope_of_work, 'keywords':self.project.purpose,
+            c = {'reviewer_full_name' : self.user.first_name + str(" ") + self.user.last_name, 'project' : self.project.name,
+                 'author' : self.project.user.first_name + str(' ') + self.project.user.last_name,
+                 'abstract' : self.project.abstract, 'keywords':self.project.keywords,
                  'url_to_project' : str(str(site.domain)+str(url_to_project))}
 
             #Send the Madrill email template

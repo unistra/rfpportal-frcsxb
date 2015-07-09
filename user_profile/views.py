@@ -15,7 +15,6 @@ from rfp.forms import ProposedReviewerForm,ProjectForm
 from rfp.models import Project,Review,RfpCampaign,BudgetLine,ProposedReviewer
 from rfp.views import store_redirect_url,get_redirect_url,budget_line_sum
 
-
 # Create your views here.
 def is_reviewer(User):
     return User.groups.filter(name='Reviewer').exists()
@@ -132,7 +131,6 @@ def index_profile(request):
     projects = Project.objects.filter(user = user.id).order_by('-starting_date')
     reviews = Review.objects.filter(user=user.pk)
 
-
     context_dict = {'user_profile': user_account,'projects' : projects, 'reviews' : reviews, 'is_pi' : is_pi, 'is_rev' : is_rev}
 
     return render_to_response('user_profile/profile.html',context_dict,context)
@@ -180,7 +178,7 @@ def dashboard_create_rfp(request):
         form = RfpCreate(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('dashboard'))
+            return HttpResponseRedirect(reverse('dashboard_rfp_listing'))
 
     else:
         form = RfpCreate()

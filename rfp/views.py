@@ -126,12 +126,20 @@ def create_project_previous(request,projectId):
     questions = rfp.get_project_questions()
 
     if request.method == 'POST':
-        form = ProjectForm(request.POST,request.FILES, questions = questions)
+        #form = ProjectForm(request.POST,request.FILES, questions = questions)
+        form = ProjectForm(request.POST, questions = questions)
 
         if form.is_valid():
             form_data = form.cleaned_data
+            form_data.pop('document')
+
+            print(form_data)
             proj_update = Project.objects.update_or_create(user = user, id = project.id, defaults=form_data)
             proj = proj_update[0]
+
+            if request.FILES:
+                proj.document = request.FILES['document']
+
             project = proj.save()
 
             return HttpResponseRedirect(reverse('create_project_budget', args=[proj.pk]))

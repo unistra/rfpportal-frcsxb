@@ -24,7 +24,7 @@
 
                         <div class = "col-xs-12 col-md-6">
                               <div class="form-group">
-                                  {{ f.label }} {% if f.field.required %} <span class="req"> *</span> {% endif %}
+                                  <strong>{{ f.label }} {% if f.field.required %} <span class="req"> *</span> {% endif %}</strong>
                                   {{ f }}
                                   {{ f.errors }}
                               </div>

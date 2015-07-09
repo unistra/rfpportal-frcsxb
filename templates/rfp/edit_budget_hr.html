@@ -24,7 +24,7 @@
 
                         <div class = "col-xs-12 col-md-3">
                               <div class="form-group">
-                                  {{ f.label }} {% if f.field.required %} <span class="req"> *</span> {% endif %}
+                                  <strong>{{ f.label }} {% if f.field.required %} <span class="req"> *</span> {% endif %}</strong>
                                   {{ f }}
                                   {{ f.errors }}
                               </div>
@@ -48,4 +48,33 @@
 
 
 </div>
+
+
+<script>
+
+    $( document ).ready(function() {
+
+        function get_total() {
+                var month = $('#id_duration').val();
+                var salary = $('#id_monthly_salary').val();
+                var total;
+                total = month * salary;
+            return total;
+        };
+
+        $( "#id_monthly_salary" ).blur(function() {
+                total = get_total();
+                $('#id_amount').val(total);
+                console.log (total);
+        });
+
+        $( "#id_duration" ).blur(function() {
+                total = get_total();
+                $('#id_amount').val(total);
+                console.log (total);
+        });
+
+    });
+
+</script>
 {% endblock %}

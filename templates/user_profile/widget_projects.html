@@ -17,7 +17,7 @@
 
                     <tr>
                             <td><a href="{% url 'project_detail' p.id %}">{{ p.name }}</a></td>
-                            <td><em>{{ p.status|capfirst }}</em></td>
+                            <td><em>{% if p.rfp.status == 'under_review' %} Under Review {% else %} {{ p.status|capfirst }} {% endif %}</em></td>
                     </tr>
 
                     {% endfor %}

@@ -1,6 +1,6 @@
 {% extends 'dashboard/dashboard.html' %}
 
-{% block title %} Create a new Call For Proposal Campaign {% endblock %}
+{% block title %} {{ rfp }} {% endblock %}
 
 {% block dashboard_nav %}
     {% include 'dashboard/dashboard_navigation_pane.html' %}
@@ -11,7 +11,7 @@
 <div class="row">
     <div class="col-xs-12 col-md-12">
 
-<h2> {{ rfp.name }} <small><a class="small_link" href="{% url 'dashboard_edit_rfp' rfp.id %}">Edit</a></small></h2>
+<h2> {{ rfp }} <small><a class="small_link" href="{% url 'dashboard_edit_rfp' rfp.id %}">Edit</a></small></h2>
 <hr>
         </div>
     </div>
@@ -36,7 +36,7 @@
     <tr>
         <td> <a href="{% url 'dashboard_project_details' p.id %}">{{ p.name|truncatewords:5 }}</a></td>
         <td> {{ p.user.get_full_name }}</td>
-        <td> {{ p.status }}</td>
+        <td> {{ p.status|capfirst }}</td>
         {% for r in review_status %} <td> {{ p|count_review:r }} </td> {% endfor %}
     </tr>
     {% endfor %}

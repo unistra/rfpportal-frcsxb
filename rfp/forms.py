@@ -61,7 +61,8 @@ class ProjectForm(forms.Form):
         project_duration=forms.IntegerField(label='Duration (months):',widget=forms.DateInput(attrs={'class':'form-control'}))
         ending_date=forms.DateField(required=True, label = 'Ending Date:', widget=forms.DateInput(attrs={'class':'form-control'}))
         requested_amount=forms.IntegerField(required=True, label = 'Requested amount (Eur.):',widget=forms.NumberInput(attrs={'class':'form-control'}))
-        purpose = forms.CharField(required=True, label = 'Keywords (10 max.):',widget=forms.TextInput(attrs={'class':'form-control'}))
+        keywords = forms.CharField(required=True, label = 'Keywords (10 max.):',widget=forms.TextInput(attrs={'class':'form-control'}))
+        abstract = forms.CharField(required=True, label ='Abstract', widget=forms.Textarea(attrs={'class' : 'form-control'}))
         document = forms.FileField(label='Upload your document:',required=False)
 
         def __init__(self, *args, **kwargs):
@@ -75,7 +76,6 @@ class ProjectForm(forms.Form):
             for name, value in self.cleaned_data.items():
                 if name.startswith('custom_'):
                     yield (self.fields[name].label, value)
-
 
 class UpdateForm(ModelForm):
 
@@ -220,15 +220,14 @@ class BudgetLineEQ(ModelForm):
         labels = {
         'item' : _('Item'),
         'amount' : _('Amount'),
-        'category' : _('Category'),
         'quote' : _('Quote')
         }
 
 class BudgetLineHR(ModelForm):
-    item = forms.CharField(required=True,widget=forms.TextInput(attrs={'class':'form-control'}))
-    amount = forms.FloatField(required=True,widget=forms.NumberInput(attrs={'class':'form-control'}))
-    duration = forms.IntegerField(required=True,widget=forms.NumberInput(attrs={'class':'form-control'}))
-    monthly_salary = forms.IntegerField(required=True,widget=forms.NumberInput(attrs={'class':'form-control'}))
+    item = forms.CharField(required=True,label='Contract Type (PhD, Post-doc...)', widget=forms.TextInput(attrs={'class':'form-control'}))
+    amount = forms.FloatField(required=True,label='Amount (Eur.)', widget=forms.NumberInput(attrs={'class':'form-control'}))
+    duration = forms.IntegerField(required=True,label='Duration (months)',widget=forms.NumberInput(attrs={'class':'form-control'}))
+    monthly_salary = forms.IntegerField(required=True,label='Monthly Salary (Eur.)',widget=forms.NumberInput(attrs={'class':'form-control'}))
 
     class Meta:
         model = BudgetLine
@@ -260,60 +259,7 @@ class BudgetLineOP(ModelForm):
         labels = {
         'item' : _('Item'),
         'amount' : _('Amount'),
-        'category' : _('Category'),
-        'project' : _(' ')
         }
-
-
-OCBudgetLineFormSet = modelformset_factory(
-    BudgetLine,
-
-    exclude = {'project','category'},
-    widgets = {
-        'item' : forms.TextInput(attrs={'class':'form-control'}),
-        'amount' : forms.NumberInput(attrs={'class':'form-control'}),
-    },
-    labels = {
-        'item' : _('Item'),
-        'amount' : _('Amount'),
-    },
-    extra = 3,
-    max_num = 5,
-    can_delete= True,
-)
-
-EQBudgetLineFormSet = modelformset_factory(
-    BudgetLine,
-
-    exclude = {'project','category'},
-    widgets = {
-        'item' : forms.TextInput(attrs={'class':'form-control'}),
-        'amount' : forms.NumberInput(attrs={'class':'form-control'}),
-    },
-    labels = {
-        'item' : _('Item'),
-        'amount' : _('Amount'),
-    },
-    extra = 3,
-    max_num = 5,
-    can_delete= True,
-)
-
-HRBudgetLineFormSet = modelformset_factory(
-    BudgetLine,
-    exclude = {'project','category'},
-    widgets = {
-        'item' : forms.TextInput(attrs={'class':'form-control'}),
-        'amount' : forms.NumberInput(attrs={'class':'form-control'}),
-    },
-    labels = {
-        'item' : _('Item'),
-        'amount' : _('Amount'),
-    },
-    extra = 3,
-    max_num = 5,
-    can_delete= True,
-)
 
 class file_test (forms.Form):
     name=forms.CharField(label='File Name:',widget=forms.TextInput(attrs={'class':'form-control'}))
