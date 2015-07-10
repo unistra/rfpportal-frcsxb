@@ -13,18 +13,106 @@
 
 <h2> {{ rfp }} <small><a class="small_link" href="{% url 'dashboard_edit_rfp' rfp.id %}">Edit</a></small></h2>
 <hr>
+
+<div class="row">
+<div class="col-xs-12 col-md-12">
+
+<h4>Days left: {{ rfp.deadline }}</h4>
+<h4>Status: {{ rfp.status|capfirst}}</h4>
+
+</div>
+
+
+<div class="metric">
+<div class="metric_square">
+
+    <div class="metric_content">
+
+        <div class="metric_table pull-left">
+            <div id="project" class="metric_cell metric_icon">
+                        <span class="glyphicon glyphicon-inbox" style="font-size:45px;"></span>
+                        <p>Projects</p>
+            </div>
         </div>
+
+        <div class="metric_table pull-right">
+            <div class="metric_cell metric_text">
+                    <p>{{ rfp|count_project:"submitted" }}</p>
+                    <small><em>Draft: {{ rfp|count_project:"draft" }}</em></small>
+            </div>
+        </div>
+
     </div>
 
+</div>
+
+
+
+<div class="metric_square">
+
+    <div class="metric_content ">
+
+        <div class="metric_table pull-left">
+            <div id="review" class="metric_cell">
+                        <span class="glyphicon glyphicon-comment" style="font-size:45px;"></span>
+                        <p>Reviews</p>
+            </div>
+        </div>
+
+        <div class="metric_table pull-right">
+            <div class="metric_cell">
+
+                        <p>{{ rfp|count_review_rfp:"completed" }} </p>
+                <small><em>Pending: {{ rfp|count_review_rfp:"pending" }} </em></small>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+<div class="metric_square">
+
+    <div class="metric_content ">
+
+        <div class="metric_table pull-left">
+            <div id="amount" class="metric_cell">
+                        <span class="glyphicon glyphicon-euro" style="font-size:45px;"></span>
+                        <p>Requested</p>
+            </div>
+        </div>
+
+        <div class="metric_table pull-right">
+
+            <div class="metric_cell">
+
+                <p>{{ rfp|total_requested }}</p>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+        </div>
+</div>
+</div>
+    </div>
 
 <div class="row">
     <div class="col-xs-12 col-md-12">
+        <hr>
 <!--Project Table-->
 <table id="tableId" class="table table-striped">
 
 <thead>
     <tr>
-            <th>Name</th>
+            <th>Project Title</th>
             <th>PI</th>
             <th>Status</th>
             {% for r in review_status %} <th> {{ r }} </th> {% endfor %}

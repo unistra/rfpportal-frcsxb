@@ -4,18 +4,23 @@
 
 {% block body_block %}
 
+{% load user_extras %}
+
+{% if user.is_staff %}
 <div class="container top_c" style="padding:0px;">
     {% block dashboard_nav %} {% include 'dashboard/dashboard_navigation_pane.html' %} {% endblock %}
 </div>
+{% endif %}
 
 <div class = "container">
 
 <div class="col-xs-12 col-md-12">
     {% block dashboard_action %}
 
+{% if user.is_staff %}
     {% include 'dashboard/dashboard_rfp_metrics.html' %}
+{% endblock %}
 
-    {% endblock %}
 </div>
 
 </div>

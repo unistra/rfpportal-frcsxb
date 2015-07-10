@@ -25,4 +25,8 @@ urlpatterns = patterns('',
     url(r'^dashboard/dashboard_invite_reviewer/(?P<propRId>\d+)/$',views.dashboard_invite_reviewer,name='dashboard_invite_reviewer'),
     url(r'^dashboard/dashboard_follow_up_with_reviewer/(?P<reviewId>\d+)/$',views.dashboard_follow_up_with_reviewer,name='dashboard_follow_up_with_reviewer'),
     url(r'^dashboard/dashboard_send_results/(?P<projectId>\d+)/$',views.dashboard_send_results,name='dashboard_send_results'),
+
+    #Scientific Board pages
+    url(r'^scib/project_details/(?P<projectId>\d+)/$',views.scientific_board_project_details,name='scientific_board_project_details'),
+
 )

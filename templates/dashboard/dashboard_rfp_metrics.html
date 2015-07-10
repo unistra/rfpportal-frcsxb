@@ -1,9 +1,10 @@
 {% load user_extras %}
 
 {% if list_of_rfp %}
+
 {% for rfp in list_of_rfp %}
 <div class="row">
-<h2>{{ rfp }}</h2>
+<h2><a href="{% url 'dashboard_rfp_details' rfp.id %}">{{ rfp }}</a></h2>
 <h4>Days left: {{ rfp|days_left}}</h4>
 <h4>Status: {{ rfp.status|capfirst}}</h4>
 
@@ -13,7 +14,7 @@
     <div class="metric_content">
 
         <div class="metric_table pull-left">
-            <div id="project" class="metric_cell metric_icon">
+            <div class="metric_cell project_icon">
                         <span class="glyphicon glyphicon-inbox" style="font-size:45px;"></span>
                         <p>Projects</p>
             </div>
@@ -35,7 +36,7 @@
     <div class="metric_content ">
 
         <div class="metric_table pull-left">
-            <div id="review" class="metric_cell">
+            <div class="metric_cell review_icon">
                         <span class="glyphicon glyphicon-comment" style="font-size:45px;"></span>
                         <p>Reviews</p>
             </div>
@@ -59,7 +60,7 @@
     <div class="metric_content ">
 
         <div class="metric_table pull-left">
-            <div id="amount" class="metric_cell">
+            <div class="metric_cell budget_icon">
                         <span class="glyphicon glyphicon-euro" style="font-size:45px;"></span>
                         <p>Requested</p>
             </div>

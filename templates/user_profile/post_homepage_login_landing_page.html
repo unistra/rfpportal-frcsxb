@@ -4,6 +4,8 @@
 
 {% block body_block %}
 
+{% load user_extras %}
+
 {% csrf_token %}
 <div class="container top_c">
 <!--Profile header-->
@@ -12,7 +14,7 @@
 </div>
 </div>
 
-{% if is_pi %}
+{% if user|is_pi %}
 <div class="container">
 <!--List of open request for proposal-->
     <div class="row">
@@ -22,7 +24,7 @@
     </div>
 </div>
 
-{% elif is_rev %}
+{% elif user|is_rev %}
 <div class="container">
 <!--reviewer list-->
     <div class="row">
@@ -31,6 +33,15 @@
          </div>
     </div>
 </div>
+
+{% elif user|is_sb %}
+
+<div class="container">
+
+    {% include 'user_profile/scientific_board/home_page.html' %}
+
+</div>
+
 
 {% endif %}
 

@@ -523,7 +523,6 @@ ol.progtrckr li.progtrckr-focus:before {
     padding-bottom: 15%; /* = width for a 1:1 aspect ratio */
     margin:1.66%;
     background-color: #fff;
-
 }
 
 .metric_content {
@@ -540,7 +539,7 @@ ol.progtrckr li.progtrckr-focus:before {
 
 .align_right{
     text-align: right;
-    padding-righT: 2%;
+    padding-right: 2%;
 }
 
 .metric{
@@ -588,4 +587,135 @@ ol.progtrckr li.progtrckr-focus:before {
 .metric_text{
     background-color: #f4f4f4;
     color: #000000;
+}
+
+.title_section{
+    font-size:20px;
+    font-family: 'Lato',verdana, sans-serif;
+}
+
+.title_square{
+    float:left;
+    position:relative;
+    width: 95%;
+    padding-bottom: 5%; /* = width for a 1:1 aspect ratio */
+    margin:1.66%;
+    background-color: #fff;
+}
+
+
+.title_content {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    background-color: #f4f4f4;
+}
+
+.title_table{
+    display:table;
+    height:100%;
+    width:5%;
+}
+
+.title_table_title{
+    display:table;
+    height:100%;
+    width:48%;
+    padding:10px;
+}
+
+.title_cell{
+    display:table-cell;
+    vertical-align:middle;
+    height:100%;
+    width:48%;
+}
+
+.title_text{
+    background-color: #f4f4f4;
+    color: #000000;
+    text-align: left;
+}
+
+.budget_icon{
+    background-color: #F8D347;
+    color: #fff;
+}
+
+.project_icon {
+    background-color: #FF6D60;
+    color: #fff;
+}
+
+.rfp_icon{
+    background-color: #57C8F2;
+    color: #fff;
+}
+
+.review_icon{
+    background-color: #6CCAC9;
+    color: #fff;
+}
+
+
+.project_block{
+    float:left;
+    position:relative;
+    width: 95%;
+    margin:1.66%;
+    border:1px solid #f4f4f4;
+}
+
+.project_block_title {
+    width: 100%;
+    background-color: #f4f4f4;
+    font-size:18px;
+    line-height: 25px;
+    padding:10px 5px;
+}
+
+.project_block_details{
+    font-size:14px;
+    padding:10px 5px;
+
+}
+
+.cs_header{
+    margin:10px 10px;
+}
+
+.cs_body{
+    margin:10px 10px;
+}
+
+.cs_block_title{
+    width:100%;
+    font-size:20px;
+    line-height: 31px;
+}
+
+
+.cs_icon_cell{
+    width:5%;
+    padding:15px 0px;
+    text-align:center;
+}
+
+.cs_title_cell{
+    padding:15px 10px;
+    background-color:#f4f4f4;
+    width:90%
+}
+
+
+.cs_block_sub_title{
+
+    width:30%;
+    font-size:18px;
+}
+
+.cs_sub_title_cell{
+    padding:10px 5px !important;
+    border-left:10px solid #F8D347;
 }

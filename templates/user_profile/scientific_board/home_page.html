@@ -1,0 +1,65 @@
+{% for rfp in list_of_rfp %}
+
+<div class="row">
+    <div class="col-xs-12 col-md-12">
+        <div class="row">
+<!--Request for Proposal title-->
+            <div class="title_section">
+
+                <div class="title_square">
+
+                    <div class="title_content">
+
+                        <div class="title_table pull-left">
+                                    <div class="title_cell rfp_icon">
+                                           <span class="glyphicon glyphicon-book"></span>
+                                    </div>
+                        </div>
+
+                        <div class="title_table_title pull-left">
+                                    <div class="title_cell title_text">
+                                           {{ rfp }}
+                                    </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!--Project table-->
+    {% if rfp.list_of_project %}
+        {% for p in rfp.list_of_project %}
+
+
+        <div class="project_block">
+
+            <div class="project_block_title"> {{ p }} <span id="control_project" class="glyphicon glyphicon-collapse-up pull-right"></span></div>
+            <div class="project_block_details">
+                <p>PI: {{ p.user.get_full_name }}</p>
+                <p>Amount Requested: {{ p.requested_amount }}</p>
+                <p>Keywords: {{ p.keywords }}</p>
+                <p><a href="{% url 'scientific_board_project_details' p.id %}" target="_blank">See full project</a></p>
+            </div>
+        </div>
+
+
+        {% endfor %}
+
+
+    {% endif %}
+
+
+
+
+    </div>
+</div>
+{% endfor %}
+
+<script>
+
+    $('.glyphicon-collapse-up').click(function() {
+        $(this).toggleClass('glyphicon-collapse-up').toggleClass('glyphicon-collapse-down').parent().parent().find('.project_block_details').toggle(400);
+    });
+
+</script>

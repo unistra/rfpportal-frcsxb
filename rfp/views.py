@@ -25,6 +25,9 @@ def is_pi_or_reviewer(User):
         state = True
     return state
 
+def is_pi_or_sb(User):
+    return User.groups.filter(name = 'Principal_Investigator').exists() or User.groups.filter(name = 'Scientific_board').exists()
+
 def is_staff(User):
     return User.is_staff
 
@@ -383,7 +386,7 @@ def project_review(request,projectId):
 
     return render_to_response('rfp/project_review.html',context_dict,context)
 
-@user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
+@user_passes_test(is_pi_or_sb,login_url='/project/login_no_permission/',redirect_field_name='next')
 def view_review(request,reviewId):
     context = RequestContext(request)
     user = request.user
@@ -391,8 +394,6 @@ def view_review(request,reviewId):
     project = Project.objects.get(id = review.project.id)
     questions = project.rfp.get_review_questions()
     review_data = ReviewForm(data=model_to_dict(review),questions=questions)
-
-    user_is_owner(user,project)
 
     context_dict={'project' : project,'review_data' : review_data}
 

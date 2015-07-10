@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+
+{% load static from staticfiles %}
+{% load user_extras %}
+
+<html>
+<head lang="en">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %} {{ project }} {% endblock %}</title>
+
+    <!-- <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" /> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <!--<link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}" />-->
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
+    <script src="{% static 'js/jquery-1.11.2.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <!--<script src="{% static 'js/bootstrap.min.js' %}"></script>-->
+    <script src="{% static 'js/js.js' %}"></script>
+
+</head>
+<body>
+{% load bootstrap3 %}
+
+<div class="container">
+    <div class="col-xs-12 col-md-12">
+
+
+        <div class="row cs_header">
+
+
+        <!--Project Title-->
+                    <div class="cs_block_title">
+                        <div class="cs_icon_cell pull-left project_icon">
+                            <span class="glyphicon glyphicon-inbox"></span>
+                        </div>
+
+                        <div class="pull-left cs_title_cell">
+                        Project
+                        </div>
+                    </div>
+
+
+        </div>
+
+        <div class="row cs_body">
+            <span style="font-size:25px; line-height: 31px;">{{ project }}</span>
+            <h4><strong>Author:</strong> {{ project.user.get_full_name }}</h4>
+
+               {% for p in project_data %}
+                    {% if p.label == '' %}
+           <p class="project_data hide" id=""><strong>{{ p.label }} </strong>{{ p.data|linebreaksbr }}</p>
+
+           {% elif p.name == 'document' %}
+            <div class="row">
+                   <div class = "col-xs-12 col-md-4">
+
+                       <p><strong>Document: </strong></p>
+                   </div>
+
+                   <div class = "col-md-8">
+                      <p>{% if project.document %}<a href="{{ project.document.url }}" target="_blank"> {{ project.document.name }} </a> {% endif %}</p>
+                   </div>
+                 </div>
+           {% else %}
+
+           <p class="project_data" id="{{ p.label|slugify }}"><strong>{{ p.label }} </strong>{{ p.data|linebreaksbr }}</p>
+
+        {% endif %}
+
+    {% endfor %}
+
+         </div>
+
+
+
+
+    <div class="row cs_header">
+
+
+        <!--Budget Title-->
+                    <div class="cs_block_title">
+                        <div class="cs_icon_cell pull-left budget_icon">
+                            <span class="glyphicon glyphicon-euro"></span>
+                        </div>
+
+                        <div class="pull-left cs_title_cell">
+                        Budget
+                        </div>
+                    </div>
+
+
+        </div>
+
+
+        <div class="row cs_body">
+            <h4><strong>Total requested:</strong> {{ project.requested_amount }} Eur.</h4>
+
+            <div class="cs_block_sub_title">
+
+                        <div class="pull-left cs_title_cell cs_sub_title_cell">
+                        Human Resources
+                        </div>
+            </div>
+
+            <table class="table table-striped">
+
+                <thead>
+                <tr>
+                    {% for c in HR_form %}
+                    <th> {{ c.label }} </th>
+                    {% endfor %}
+                </tr>
+
+                </thead>
+
+                <tbody>
+                {% for bl in list_of_bl %}
+                {% if bl.category == 'HR' %}
+                <tr>
+                            <td> {{ bl.item }} </td>
+                            <td> {{ bl.duration }}</td>
+                            <td> {{ bl.monthly_salary}}</td>
+                            <td> {{ bl.amount }}</td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td><strong>TOTAL</strong></td>
+                    <td><strong>{{ project|bl_total:'HR' }}</strong></td>
+                </tr>
+                </tbody>
+
+            </table>
+
+            <div class="cs_block_sub_title">
+
+                        <div class="pull-left cs_title_cell cs_sub_title_cell">
+                        Equipment
+                        </div>
+            </div>
+
+            <table class="table table-striped">
+
+                <thead>
+                <tr>
+                    {% for c in EQ_form %}
+                    <th> {{ c.label }} </th>
+                    {% endfor %}
+                </tr>
+
+                </thead>
+
+                <tbody>
+                {% for bl in list_of_bl %}
+                {% if bl.category == 'EQ' %}
+                    <tr>
+                        <td>{{ bl.item }}</td>
+                        <td>{% if bl.quote %} <a href="{{ bl.quote.url }}" target="_blank">{{ bl.quote }}</a>{% else %} <em>None</em> {% endif %}</td>
+                        <td>{{ bl.amount }}</td>
+                    </tr>
+                {% endif %}
+                {% endfor %}
+                <tr>
+                    <td></td>
+
+                    <td><strong>TOTAL</strong></td>
+                    <td><strong>{{ project|bl_total:'EQ' }}</strong></td>
+                </tr>
+                </tbody>
+
+            </table>
+
+            <div class="cs_block_sub_title">
+
+                        <div class="pull-left cs_title_cell cs_sub_title_cell">
+                        Operating Costs
+                        </div>
+            </div>
+
+            <table class="table table-striped">
+
+                <thead>
+                <tr>
+                    {% for c in OC_form %}
+                    <th> {{ c.label }} </th>
+                    {% endfor %}
+                </tr>
+
+                </thead>
+
+                <tbody>
+                {% for bl in list_of_bl %}
+                {% if bl.category == 'OP' %}
+                    <tr>
+                        <td>{{ bl.item }}</td>
+                        <td>{{ bl.amount }}</td>
+                    </tr>
+                {% endif %}
+                {% endfor %}
+                <tr>
+                    <td><strong>TOTAL</strong></td>
+                    <td><strong>{{ project|bl_total:'OP' }}</strong></td>
+                </tr>
+                </tbody>
+
+            </table>
+
+
+         </div>
+
+    <div class="row cs_header">
+
+        <!--Budget Title-->
+                    <div class="cs_block_title">
+                        <div class="cs_icon_cell pull-left review_icon">
+                            <span class="glyphicon glyphicon-comment"></span>
+                        </div>
+
+                        <div class="pull-left cs_title_cell">
+                        Reviews
+                        </div>
+                    </div>
+
+
+     </div>
+
+         <div class="row cs_body">
+
+                {% for review in list_of_review %}
+
+
+
+        <table class="table table-striped">
+            <thead>
+
+            <tr>
+                <th>Review</th>
+                <th>Date</th>
+                <th>Rating</th>
+                <th>Review</th>
+            </tr>
+
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>
+                    <a href="{% url 'view_review' review.id %}" target="_blank">{{ review.custom_0|truncatewords:15}}</a>
+                </td>
+                <td>{{ review.date }}</td>
+                <td>{{ review.rating }}</td>
+                <td>{{ review.user.get_full_name }}</td>
+            </tr>
+            </tbody>
+
+        </table>
+
+
+{% empty %}
+
+    <p><em>Sorry no reviews submitted for the moment.</em></p>
+
+{% endfor %}
+
+         </div>
+
+<span class="pull-right"><small><a href="javascript:window.print()">Print</a> | <a href="javascript:window.close()">Close</a></small></span>
+</div>
+</div>
+
+<script>
+    $('#project-name').hide()
+</script>
+</body>
+</html>

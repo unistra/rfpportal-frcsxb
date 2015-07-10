@@ -1,7 +1,7 @@
 __author__ = 'Sylvestre'
 
 from django import template
-from rfp.models import Project,Review,RfpCampaign
+from rfp.models import Project,Review,RfpCampaign,BudgetLine
 from django.contrib.auth.models import User,Group,Permission
 import datetime
 
@@ -60,6 +60,10 @@ def is_pi(self):
 def is_reviewer(self):
     return self.groups.filter(name = 'Reviewer').exists()
 
+@register.filter(name='is_sb')
+def is_cs(self):
+    return self.groups.filter(name = 'Scientific_board').exists()
+
 
 @register.filter(name='count_project')
 def count_project(self,s):
@@ -102,5 +106,19 @@ def days_left(self):
     """
     delta = self.deadline - datetime.date.today()
     n = delta.days
-
     return n
+
+@register.filter(name='bl_total')
+def bl_total(self,s):
+    """
+    Summ all budget lines amount of  category s for a project.
+    :param s: str
+    :return: int
+    """
+    total_budgeted = 0
+    budget_list = BudgetLine.objects.filter(project = self, category = s)
+
+    for line in budget_list :
+        total_budgeted += line.amount
+
+    return total_budgeted

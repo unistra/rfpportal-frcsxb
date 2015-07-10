@@ -5,7 +5,7 @@ from django.contrib.auth.models import User,Group,Permission
 from django.contrib.auth import authenticate, login
 
 from forms import sign_up,UserUpdate,RfpCreate,SearchForm
-from rfp.forms import UpdateForm
+from rfp.forms import UpdateForm,BudgetLineHR,BudgetLineEQ,BudgetLineOP
 
 from models import UserProfile
 from django.core.urlresolvers import reverse
@@ -24,6 +24,9 @@ def is_pi(User):
 
 def is_staff(User):
     return User.is_staff
+
+def is_staff_or_sb(User):
+    return User.is_staff or User.groups.filter(name = 'Scientific_board').exists()
 
 def status_choices(model):
     """
@@ -144,13 +147,16 @@ def post_homepage_login_landing_page(request):
     is_rev = user.groups.filter(name = 'Reviewer').exists()
     rfp_c = RfpCampaign.objects.filter(status = 'open')
     projects = Project.objects.filter(user = user).order_by('-id')[:3]
+
+    list_of_rfp = RfpCampaign.objects.exclude(status='closed')
+
     store_redirect_url(request)
 
     widget = True
 
     reviews = Review.objects.filter(user=user.pk)
 
-    context_dict = {'widget' : widget, 'reviews' : reviews, 'is_pi' : is_pi, 'is_rev' : is_rev, 'rfp_c' : rfp_c, 'projects':projects}
+    context_dict = {'list_of_rfp' : list_of_rfp, 'widget' : widget, 'reviews' : reviews, 'is_pi' : is_pi, 'is_rev' : is_rev, 'rfp_c' : rfp_c, 'projects':projects}
 
     return render_to_response('user_profile/post_homepage_login_landing_page.html',context_dict,context)
 
@@ -444,3 +450,18 @@ def dashboard_send_results(request,projectId):
 
     return HttpResponseRedirect(reverse('dashboard_project_list'))
 
+def scientific_board_project_details(request, projectId):
+    context = RequestContext(request)
+    project = Project.objects.get(id = projectId)
+    project_data = ProjectForm(data=model_to_dict(project), questions = project.rfp.get_project_questions())
+
+    list_of_review = Review.objects.filter(project = project, status='completed')
+    list_of_bl = BudgetLine.objects.filter(project = project)
+
+    HR_form = BudgetLineHR()
+    EQ_form = BudgetLineEQ()
+    OC_form = BudgetLineOP()
+
+    context_dict = {'project' : project, 'project_data' : project_data, 'list_of_review' : list_of_review, 'list_of_bl' : list_of_bl, 'HR_form' : HR_form,'EQ_form': EQ_form, 'OC_form' : OC_form}
+
+    return  render_to_response('user_profile/scientific_board/scientific_board_project_details.html',context_dict,context)

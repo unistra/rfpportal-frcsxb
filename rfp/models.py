@@ -6,6 +6,7 @@ from django.db.models.signals import post_save
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 import logging
+from django.forms.models import model_to_dict
 
 from user_profile.models import UserProfile
 def send_mandrill_email(self,mandrill_template_name, context_dict):
@@ -83,6 +84,9 @@ class RfpCampaign(models.Model):
         list = self.project_questions.splitlines()
         b = tuple(list)
         return b
+
+    def list_of_project(self):
+        return Project.objects.filter(rfp=self)
 
     def project_count(self, s):
         n = Project.objects.filter(rfp = self, status = s).count()
@@ -267,6 +271,9 @@ class BudgetLine(models.Model):
 
     def __unicode__(self):
         return  self.category + str(" ") + self.item
+
+    def get_data(self):
+        return model_to_dict(self)
 
 class Review(models.Model):
     STATUS_CHOICES = (
