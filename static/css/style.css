@@ -546,6 +546,7 @@ ol.progtrckr li.progtrckr-focus:before {
 .metric{
     font-size:20px;
     font-family: 'Lato',verdana, sans-serif;
+    text-align:center;
 }
 
 .numbers{
@@ -582,9 +583,6 @@ ol.progtrckr li.progtrckr-focus:before {
     background-color: #F8D347;
     color: #fff;
 }
-
-
-
 
 
 .metric_text{

@@ -1,4 +1,11 @@
-<h2>2015 Synergy</h2>
+{% load user_extras %}
+
+{% if list_of_rfp %}
+{% for rfp in list_of_rfp %}
+<div class="row">
+<h2>{{ rfp }}</h2>
+<h4>Days left: {{ rfp|days_left}}</h4>
+<h4>Status: {{ rfp.status|capfirst}}</h4>
 
 <div class="metric">
 <div class="metric_square">
@@ -8,14 +15,14 @@
         <div class="metric_table pull-left">
             <div id="project" class="metric_cell metric_icon">
                         <span class="glyphicon glyphicon-inbox" style="font-size:45px;"></span>
+                        <p>Projects</p>
             </div>
         </div>
 
         <div class="metric_table pull-right">
-            <div class="metric_cell align_left metric_text">
-                    <p>Projects</p>
-                    <p>Submitted: 12</p>
-                    <p>Draft: 7</p>
+            <div class="metric_cell metric_text">
+                    <p>{{ rfp|count_project:"submitted" }}</p>
+                    <small><em>Draft: {{ rfp|count_project:"draft" }}</em></small>
             </div>
         </div>
 
@@ -30,15 +37,15 @@
         <div class="metric_table pull-left">
             <div id="review" class="metric_cell">
                         <span class="glyphicon glyphicon-comment" style="font-size:45px;"></span>
+                        <p>Reviews</p>
             </div>
         </div>
 
         <div class="metric_table pull-right">
-            <div class="metric_cell align_left">
-                        <p>Reviews</p>
-                        <p>Invited: </p>
-                        <p>Pending: </p>
-                        <p>Completed: </p>
+            <div class="metric_cell">
+
+                        <p>{{ rfp|count_review_rfp:"completed" }} </p>
+                <small><em>Pending: {{ rfp|count_review_rfp:"pending" }} </em></small>
 
             </div>
         </div>
@@ -54,14 +61,15 @@
         <div class="metric_table pull-left">
             <div id="amount" class="metric_cell">
                         <span class="glyphicon glyphicon-euro" style="font-size:45px;"></span>
+                        <p>Requested</p>
             </div>
         </div>
 
         <div class="metric_table pull-right">
 
-            <div class="metric_cell align_left">
-                <p>Requested</p>
-                <p>100 000 000</p>
+            <div class="metric_cell">
+
+                <p>{{ rfp|total_requested }}</p>
 
             </div>
         </div>
@@ -71,3 +79,16 @@
 </div>
 
     </div>
+    </div>
+ <hr>
+{% endfor %}
+
+{% else %}
+<div class="col=xs=12 col-md-12">
+    <div class="row" style="margin-top:20px;">
+<div class="alert alert-info" role="alert">
+    <p style="text-align:center;">All Request for Proposal are closed at this moment. CLick <a href="{% url 'dashboard_create_rfp' %}">here</a> to create a new Request for Proposal campaign.</p>
+</div>
+        </div>
+</div>
+{% endif %}

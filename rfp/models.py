@@ -84,6 +84,10 @@ class RfpCampaign(models.Model):
         b = tuple(list)
         return b
 
+    def project_count(self, s):
+        n = Project.objects.filter(rfp = self, status = s).count()
+        return n
+
     class Meta:
         verbose_name = "Call for proposal"
         verbose_name_plural = "Call for proposals"
@@ -123,6 +127,10 @@ class Project(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def review_count(self):
+        n = Review.objects.filter(project = self)
+        return n
 
     def list_of_reviewers_id(self):
         l = list()

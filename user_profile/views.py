@@ -162,8 +162,7 @@ def dashboard(request):
 
     list_of_projects = Project.objects.all()
     list_of_review = Review.objects.all()
-    list_of_rfp = RfpCampaign.objects.all()
-
+    list_of_rfp = RfpCampaign.objects.exclude(status = 'closed')
 
     context_dict = {'list_of_projects' : list_of_projects, 'list_of_review': list_of_review, 'user': user, 'list_of_rfp' : list_of_rfp}
 
