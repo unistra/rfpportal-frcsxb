@@ -12,6 +12,15 @@ body {
     display: block;
 }
 
+.top_spacer{
+    margin-bottom:20px;
+}
+
+.link_nostyle{
+    text-decoration:none;
+    color:black;
+}
+
 .container{
     background-color:white;
     padding-bottom:25px;
@@ -658,6 +667,10 @@ ol.progtrckr li.progtrckr-focus:before {
     color: #fff;
 }
 
+.comments_icon{
+    background-color: #A58BD5;
+    color: #fff;
+}
 
 .project_block{
     float:left;
@@ -718,4 +731,24 @@ ol.progtrckr li.progtrckr-focus:before {
 .cs_sub_title_cell{
     padding:10px 5px !important;
     border-left:10px solid #F8D347;
+}
+
+.comments_title{
+    background-color:#f4f4f4;
+    padding:10px 10px;
+    border-left:10px solid #A58BD5;
+    font-size:16px;
+}
+
+.comments_body{
+    padding:20px 0px 10px 0px;
+}
+
+.comments_title_box{
+    margin:10px 0px 20px 0px;
+}
+
+.btn-comments{
+    background-color:#A58BD5 !important;
+    color:white;
 }

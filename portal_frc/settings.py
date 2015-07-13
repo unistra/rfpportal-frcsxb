@@ -58,6 +58,7 @@ INSTALLED_APPS = (
     'urlcrypt',
     'explorer',
     'django_wysiwyg',
+    'django_comments',
 )
 
 MIDDLEWARE_CLASSES = (

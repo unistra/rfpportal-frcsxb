@@ -29,15 +29,15 @@
 <body>
 {% load bootstrap3 %}
 
+<div class="top_spacer"> </div>
+
 <div class="container">
+    <div class="top_spacer"> </div>
     <div class="col-xs-12 col-md-12">
 
-
         <div class="row cs_header">
-
-
         <!--Project Title-->
-                    <div class="cs_block_title">
+         <div class="cs_block_title">
                         <div class="cs_icon_cell pull-left project_icon">
                             <span class="glyphicon glyphicon-inbox"></span>
                         </div>
@@ -46,7 +46,6 @@
                         Project
                         </div>
                     </div>
-
 
         </div>
 
@@ -79,11 +78,7 @@
 
          </div>
 
-
-
-
     <div class="row cs_header">
-
 
         <!--Budget Title-->
                     <div class="cs_block_title">
@@ -98,7 +93,6 @@
 
 
         </div>
-
 
         <div class="row cs_body">
             <h4><strong>Total requested:</strong> {{ project.requested_amount }} Eur.</h4>
@@ -221,7 +215,7 @@
     <div class="row cs_header">
 
         <!--Budget Title-->
-                    <div class="cs_block_title">
+        <div class="cs_block_title">
                         <div class="cs_icon_cell pull-left review_icon">
                             <span class="glyphicon glyphicon-comment"></span>
                         </div>
@@ -236,9 +230,7 @@
 
          <div class="row cs_body">
 
-                {% for review in list_of_review %}
-
-
+        {% for review in list_of_review %}
 
         <table class="table table-striped">
             <thead>
@@ -265,21 +257,84 @@
 
         </table>
 
-
 {% empty %}
 
     <p><em>Sorry no reviews submitted for the moment.</em></p>
-
 {% endfor %}
 
          </div>
+             <hr>
+
+{% load comments %}
+{% load bootstrap3 %}
+        <!--Comments Section-->
+             <div id='comments' class="row cs_header">
+
+                    <div class="cs_block_title">
+                        <div class="cs_icon_cell pull-left comments_icon">
+                            <span class="glyphicon glyphicon-bullhorn"></span>
+                        </div>
+
+                        <div class="pull-left cs_title_cell">
+                        Comments
+                        </div>
+                    </div>
+            </div>
+
+        <div class="row cs_body">
+            <div class="comments_body">
+            {% get_comment_count for project as comment_count %}
+            {% if comment_count < 1 %}
+            <p><em>No comments posted yet.</em></p>
+            {% else %}
+
+            {% render_comment_list for project %}
+
+            {% endif %}
+            </div>
+
+{% get_comment_form for project as form %}
+
+            <div class="comments_title_box">
+
+                <span class="comments_title"> Post a comment - {{ user.get_full_name }} <small>({% now "jS F Y H:i" %})</small>: </span>
+
+            </div>
+                    <table>
+
+                      <form action="{% comment_form_target %}" method="post">
+                        {% csrf_token %}
+                            {% bootstrap_field form.comment %}
+                            {{ form.honeypot }}
+                            {{ form.content_type }}
+                            {{ form.object_pk }}
+                            {{ form.timestamp }}
+                            {{ form.security_hash }}
+                        <tr>
+                          <td colspan="2">
+                            <input class="btn btn-comments" type="submit" name="submit" value="Post">
+                            <input class="btn btn-comments hide" type="submit" name="preview" value="Preview">
+                            <input type="hidden" name="next" value="{% url 'scientific_board_project_details' project.id %}?a=#comments" />
+                          </td>
+                        </tr>
+                      </form>
+                    </table>
+
+<script>
+    $('#id_honeypot').hide();
+    $('label').hide();
+</script>
+
+</div>
+
+</div>
 
 <span class="pull-right"><small><a href="javascript:window.print()">Print</a> | <a href="javascript:window.close()">Close</a></small></span>
-</div>
 </div>
 
 <script>
     $('#project-name').hide()
 </script>
+
 </body>
 </html>

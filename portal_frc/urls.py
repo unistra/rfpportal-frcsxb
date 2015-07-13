@@ -22,5 +22,9 @@ urlpatterns = patterns('',
 
     #UrlCrypt urls
     (r'^r/', include('urlcrypt.urls')),
+
+    #Djngo-comments
+    (r'^comments/', include('django_comments.urls')),
+
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

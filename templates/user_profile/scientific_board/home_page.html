@@ -30,15 +30,16 @@
 <!--Project table-->
     {% if rfp.list_of_project %}
         {% for p in rfp.list_of_project %}
-
+{% load comments %}
 
         <div class="project_block">
 
-            <div class="project_block_title"> {{ p }} <span id="control_project" class="glyphicon glyphicon-collapse-up pull-right"></span></div>
+            <div class="project_block_title"> <a class="link_nostyle" href="{% url 'scientific_board_project_details' p.id %}">{{ p }}</a> <span id="control_project" class="glyphicon glyphicon-collapse-up pull-right"></span></div>
             <div class="project_block_details">
                 <p>PI: {{ p.user.get_full_name }}</p>
                 <p>Amount Requested: {{ p.requested_amount }}</p>
                 <p>Keywords: {{ p.keywords }}</p>
+                <p>Comments: {% get_comment_count for p as comment_count %} {{ comment_count }}.</p>
                 <p><a href="{% url 'scientific_board_project_details' p.id %}" target="_blank">See full project</a></p>
             </div>
         </div>

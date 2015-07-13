@@ -17,6 +17,7 @@ $( document ).ready(function() {
    var rfp = getUrlParameter('rfp');
    var id = getUrlParameter('u');
    var redirect = getUrlParameter('redirect');
+   var anchor =  getUrlParameter('a');
 
    console.log(redirect);
 
@@ -31,5 +32,12 @@ $( document ).ready(function() {
    $('#id_ending_date').datepicker();
    $('#id_starting_date').datepicker();
    $('#id_deadline').datepicker();
+
+
+   if (typeof anchor !== 'undefined'){
+
+       console.log(anchor);
+      $(document).scrollTop( $(anchor).offset() );
+   };
 
 });
