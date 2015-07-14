@@ -737,6 +737,10 @@ ol.progtrckr li.progtrckr-focus:before {
     border-left:10px solid #F8D347;
 }
 
+.cs_sub_title_cell_rev{
+    border-left:10px solid #6CCAC9;
+}
+
 .comments_title{
     background-color:#f4f4f4;
     padding:10px 10px;

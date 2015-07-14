@@ -381,12 +381,13 @@ def dashboard_reviewer_detail(request, reviewerId):
 
     return render_to_response('dashboard/dashboard_reviewer_detail.html',context_dict,context)
 
-@user_passes_test(is_staff,login_url='/project/login_no_permission/',redirect_field_name='next')
+@user_passes_test(is_staff_or_sb,login_url='/project/login_no_permission/',redirect_field_name='next')
 def dashboard_add_admin_proposed_reviewer(request, projectId):
     context = RequestContext(request)
     user = request.user
     project = Project.objects.get(pk = projectId)
     redirect = get_redirect_url(request)
+    print(redirect)
 
     if request.method == 'POST':
 
@@ -399,12 +400,14 @@ def dashboard_add_admin_proposed_reviewer(request, projectId):
             else:
                 reviewer.type = 'USER_PROPOSED'
             reviewer.save()
-
-            return HttpResponseRedirect(redirect)
+            if 'scib' in redirect:
+                return HttpResponseRedirect(str(reverse('scientific_board_project_details', args=(project.id,))) + '?a=#reviewer')
+            else:
+                return HttpResponseRedirect(redirect)
     else:
         r = ProposedReviewerForm()
 
-    return render_to_response('rfp/add_unique_review.html', {'f' : r, 'project' : project, 'user' : user},context)
+    return render_to_response('dashboard/dashboard_add_reviewer.html', {'f' : r, 'project' : project, 'user' : user},context)
 
 @user_passes_test(is_staff,login_url='/project/login_no_permission/',redirect_field_name='next')
 def dashboard_review_list(request):
@@ -454,6 +457,7 @@ def scientific_board_project_details(request, projectId):
     context = RequestContext(request)
     project = Project.objects.get(id = projectId)
     project_data = ProjectForm(data=model_to_dict(project), questions = project.rfp.get_project_questions())
+    store_redirect_url(request)
 
     list_of_review = Review.objects.filter(project = project, status='completed')
     list_of_bl = BudgetLine.objects.filter(project = project)
@@ -461,7 +465,8 @@ def scientific_board_project_details(request, projectId):
     HR_form = BudgetLineHR()
     EQ_form = BudgetLineEQ()
     OC_form = BudgetLineOP()
+    prop_rev_list = ProposedReviewer.objects.filter(project = project).exclude(type='USER_EXCLUDED')
 
-    context_dict = {'project' : project, 'project_data' : project_data, 'list_of_review' : list_of_review, 'list_of_bl' : list_of_bl, 'HR_form' : HR_form,'EQ_form': EQ_form, 'OC_form' : OC_form}
+    context_dict = {'prop_rev_list' : prop_rev_list, 'project' : project, 'project_data' : project_data, 'list_of_review' : list_of_review, 'list_of_bl' : list_of_bl, 'HR_form' : HR_form,'EQ_form': EQ_form, 'OC_form' : OC_form}
 
     return  render_to_response('user_profile/scientific_board/scientific_board_project_details.html',context_dict,context)

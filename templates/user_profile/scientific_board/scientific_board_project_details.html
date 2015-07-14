@@ -207,11 +207,11 @@
                 </tbody>
 
             </table>
-
-
          </div>
 
-    <div class="row cs_header">
+
+
+    <div id = "reviewer" class="row cs_header">
 
         <!--Review Title-->
         <div class="cs_block_title">
@@ -229,6 +229,53 @@
 
          <div class="row cs_body">
 
+
+             <div class="cs_block_sub_title">
+
+                        <div class="pull-left cs_title_cell cs_sub_title_cell_rev">
+                        Reviewers
+                        </div>
+            </div>
+
+
+        <table class="table">
+
+                <thead>
+                        <tr>
+                            <th>Contact</th>
+                            <th>Email</th>
+                            <th>City</th>
+                            <th>Country</th>
+                            <th></th>
+
+                        </tr>
+                </thead>
+
+                    <tbody>
+                    {% for r in prop_rev_list %}
+
+                            <tr>
+                                <td>{{ r }}</td>
+                                <td>{{ r.email }}</td>
+                                <td>{{ r.city }}</td>
+                                <td>{{ r.country }}</td>
+                                <td>{% if user|is_pi %}<a href = "{% url 'edit_reviewer' r.pk %}?redirect={{ current_url }}">Edit</a> {% endif %}</td>
+                            </tr>
+
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <p>
+                <a href="{% url 'dashboard_add_admin_proposed_reviewer' project.pk %}">
+                Propose another reviewer
+                </a></p>
+
+             <div class="cs_block_sub_title">
+
+                        <div class="pull-left cs_title_cell cs_sub_title_cell_rev">
+                        Reviewers
+                        </div>
+            </div>
         {% for review in list_of_review %}
 
         <table class="table table-striped">

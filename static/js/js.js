@@ -19,6 +19,7 @@ $( document ).ready(function() {
    var redirect = getUrlParameter('redirect');
    var anchor =  getUrlParameter('a');
 
+   console.log(anchor);
    console.log(redirect);
 
    $('#id_rfp').val(rfp);

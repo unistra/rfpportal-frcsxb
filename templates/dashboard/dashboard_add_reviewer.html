@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %}Propose your Reviewers{% endblock %}
+
+{% block body_block %}
+<div class="container">
+        <div class = "">
+        <h2>{{ project.name }}</h2>
+        <h4> {{ project.rfp.name }}</h4>
+        <p>Team Leader: <a href = "{% url 'user_profile' %}">{{ user.userprofile }}</a></p>
+        <p>Research Unit: {{ user.userprofile.organization }} - {{ user.userprofile.insitute_research_unit}}</p>
+        <legend>Reviewer information</legend>
+        </div>
+
+<form class=""  method = "post" enctype="multipart/form-data"  action="{% url 'dashboard_add_admin_proposed_reviewer' project.pk %}?a=reviewer" >
+
+    {% csrf_token %}
+
+        <div class="form-group">
+        {% for form in f %}
+
+        {% if form.label == 'First name' %}
+        <div class = "row">
+            <div class = "col-xs-12 col-md-4">
+                <strong>{{ form.label }}<span class="req"> *</span></strong>
+                {{ form }}
+                {{ form.errors }}
+            </div>
+        {% elif form.label == 'Last name' %}
+            <div class = "col-xs-12 col-md-4">
+                 <strong>{{ form.label }}<span class="req"> *</span></strong>
+                {{ form }}
+                {{ form.errors }}
+            </div>
+        {% elif form.label == 'Email' %}
+                <div class = "col-xs-12 col-md-4">
+                 <strong>{{ form.label }}<span class="req"> *</span></strong>
+                    <div class="input-group"><span class="input-group-addon" id="basic-addon1">@</span>{{ form }}</div>
+
+                {{ form.errors }}
+            </div>
+        </div>
+
+        {% elif form.label == 'Institution' %}
+                <div class = "row">
+                <div class = "col-xs-12 col-md-8">
+                     <strong>{{ form.label }}</strong>
+                    {{ form }}
+                    {{ form.errors }}
+                </div>
+                </div>
+
+         {% elif form.label == 'Address' %}
+                <div class = "row">
+                <div class = "col-xs-12 col-md-8">
+                    <strong>{{ form.label }}</strong>
+                    {{ form }}
+                    {{ form.errors }}
+                </div>
+                </div>
+
+        {% elif form.label == 'City' %}
+        <div class = "row">
+            <div class = "col-xs-12 col-md-4">
+                <strong>{{ form.label }}</strong>
+                {{ form }}
+                {{ form.errors }}
+            </div>
+        {% elif form.label == 'State' %}
+            <div class = "col-xs-12 col-md-4">
+                <strong>{{ form.label }}</strong>
+                {{ form }}
+                {{ form.errors }}
+            </div>
+        {% elif form.label == 'Postcode' %}
+                <div class = "col-xs-12 col-md-4">
+                <strong>{{ form.label }}</strong>
+                    {{ form }}
+
+                {{ form.errors }}
+            </div>
+        </div>
+
+        {% elif form.label == 'Country' %}
+                <div class = "row">
+                <div class = "col-xs-12 col-md-4">
+                    <strong>{{ form.label }}</strong>
+                    {{ form }}
+                    {{ form.errors }}
+                </div>
+                </div>
+
+        {% else %}
+
+        {{ form }}
+        {{ form.errors }}
+
+        {% endif %}
+
+        {% endfor %}
+
+
+    <input class="save_btn btn btn-primary pull-right" type="submit" value="Save"  />
+    <input id="redirect" type="hidden" name="redirect" value="" />
+    </div>
+</form>
+
+</div>
+
+</div>
+
+{% endblock %}
