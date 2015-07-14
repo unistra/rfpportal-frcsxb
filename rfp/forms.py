@@ -261,6 +261,18 @@ class BudgetLineOP(ModelForm):
         'amount' : _('Amount'),
         }
 
+
+class ReviewRankForm(forms.Form):
+    RATE=(
+        ('1', '1'),
+        ('2', '2'),
+        ('3', '3'),
+        ('4', '4'),
+        ('5', '5')
+    )
+    rank = forms.IntegerField(required=True,label='Rate this review: ',widget=forms.Select(choices=RATE))
+
+
 class file_test (forms.Form):
     name=forms.CharField(label='File Name:',widget=forms.TextInput(attrs={'class':'form-control'}))
     document=forms.FileField(label='Upload your document: ',widget=forms.FileInput(attrs={'class':'form-control'}))

@@ -14,21 +14,30 @@ $( document ).ready(function() {
         }
     }
 
+    console.log('it is running!');
+
+
    var rfp = getUrlParameter('rfp');
    var id = getUrlParameter('u');
    var redirect = getUrlParameter('redirect');
    var anchor =  getUrlParameter('a');
-
-   console.log(anchor);
-   console.log(redirect);
+   var r = getUrlParameter('r');
+   console.log(r);
 
    $('#id_rfp').val(rfp);
    $('#id_user').val(id);
 
-
    if (redirect != 'undefined') {
        $('#redirect').attr('value', redirect);
    }
+
+   $('#rate_info').hide();
+
+   if (r >= 1 ) {
+       $('#rate_form').hide();
+       $('#rate_info').show();
+   }
+
 
    $('#id_ending_date').datepicker();
    $('#id_starting_date').datepicker();
@@ -36,9 +45,6 @@ $( document ).ready(function() {
 
 
    if (typeof anchor !== 'undefined'){
-
-       console.log(anchor);
       $(document).scrollTop( $(anchor).offset() );
    };
-
 });

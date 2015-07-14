@@ -395,7 +395,7 @@ def dashboard_add_admin_proposed_reviewer(request, projectId):
         if r.is_valid():
             reviewer = r.save(commit = False)
             reviewer.project = project
-            if 'dashboard' in str(redirect):
+            if 'dashboard' in redirect or 'scib' in redirect:
                 reviewer.type = 'ADMIN_PROPOSED'
             else:
                 reviewer.type = 'USER_PROPOSED'

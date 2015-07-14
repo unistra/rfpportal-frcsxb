@@ -10,7 +10,7 @@ import logging
 from user_profile.models import UserProfile
 
 from models import Project,Review,RfpCampaign,File_Test,ProposedReviewer,BudgetLine
-from forms import ProjectForm,file_test,UpdateForm,ReviewForm,ProposedReviewerFormSet,ProposedReviewerForm,BudgetLineEQ,BudgetLineHR,BudgetLineOP,ExcludedReviewerForm,ProjectFormModel
+from forms import ProjectForm,file_test,UpdateForm,ReviewForm,ProposedReviewerFormSet,ProposedReviewerForm,BudgetLineEQ,BudgetLineHR,BudgetLineOP,ExcludedReviewerForm,ProjectFormModel,ReviewRankForm
 from django.core.urlresolvers import reverse
 
 def is_reviewer(User):
@@ -395,7 +395,28 @@ def view_review(request,reviewId):
     questions = project.rfp.get_review_questions()
     review_data = ReviewForm(data=model_to_dict(review),questions=questions)
 
-    context_dict={'project' : project,'review_data' : review_data}
+
+    if request.method == 'POST':
+        form = ReviewRankForm(request.POST)
+        print(request.POST)
+
+        if form.is_valid():
+            review.note = form.cleaned_data['rank']
+            review.save()
+
+            n = review.user.userprofile.num_rated_review + 1
+            avg = ((review.user.userprofile.rated_review_avg * review.user.userprofile.num_rated_review) + review.note)/n
+
+            review.user.userprofile.num_rated_review = n
+            review.user.userprofile.rated_review_avg = avg
+            review.user.userprofile.save()
+
+            return HttpResponseRedirect(reverse('view_review', args=(reviewId,))+str('?r=')+str(review.note))
+
+    else:
+        form = ReviewRankForm()
+
+    context_dict={'project' : project,'review_data' : review_data, 'form':form,'review' : review}
 
     return render_to_response('rfp/view_review.html',context_dict,context)
 

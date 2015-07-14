@@ -299,6 +299,7 @@ class Review(models.Model):
     custom_9 = models.CharField(max_length=4000,null=True,blank=True)
     date = models.DateField(auto_now=True)
     document = models.FileField(upload_to=('reviews'),null=True,blank=True)
+    note = models.IntegerField(null=True)
 
     def __unicode__(self):
         return self.user.first_name + str(" ") + self.user.last_name + str(" for: ") + self.project.name

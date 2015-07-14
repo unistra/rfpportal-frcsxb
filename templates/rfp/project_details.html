@@ -21,8 +21,10 @@
 <div class="row" id="project_detail">
 
     <div class="col-xs-12 col-md-12">
+        {% include 'elements/project_title.html' %}
+        <h4>{{ project.name }}</h4>
 
-    <h3>Project Details {% if is_pi and project.rfp.status == 'open' %} <a class="small_link" href="{% url 'edit_project' project.id %}">Edit Project Details</a>{% endif %}</h3>
+    {% if is_pi and project.rfp.status == 'open' %} <a class="small_link" href="{% url 'edit_project' project.id %}">Edit Project Details</a>{% endif %}
 
     {% for p in project_data %}
         {% if p.label == '' %}
@@ -59,6 +61,7 @@
 
 <script>
  $('#project_tab').addClass('active');
+ $('#project-name').hide();
 </script>
 
 {% endblock %}

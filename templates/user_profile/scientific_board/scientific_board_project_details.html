@@ -246,25 +246,21 @@
                             <th>Email</th>
                             <th>City</th>
                             <th>Country</th>
-                            <th></th>
-
                         </tr>
                 </thead>
 
-                    <tbody>
+                 <tbody>
                     {% for r in prop_rev_list %}
-
                             <tr>
                                 <td>{{ r }}</td>
                                 <td>{{ r.email }}</td>
                                 <td>{{ r.city }}</td>
                                 <td>{{ r.country }}</td>
-                                <td>{% if user|is_pi %}<a href = "{% url 'edit_reviewer' r.pk %}?redirect={{ current_url }}">Edit</a> {% endif %}</td>
                             </tr>
-
                     {% endfor %}
-                    </tbody>
-                </table>
+                 </tbody>
+        </table>
+
                 <p>
                 <a href="{% url 'dashboard_add_admin_proposed_reviewer' project.pk %}">
                 Propose another reviewer
@@ -272,10 +268,11 @@
 
              <div class="cs_block_sub_title">
 
-                        <div class="pull-left cs_title_cell cs_sub_title_cell_rev">
-                        Reviewers
+                        <div style="border-right: 5px solid #333647;" class="pull-left cs_title_cell ">
+                        Activities
                         </div>
             </div>
+
         {% for review in list_of_review %}
 
         <table class="table table-striped">

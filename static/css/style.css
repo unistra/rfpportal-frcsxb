@@ -419,10 +419,6 @@ ol.progtrckr li.progtrckr-focus:before {
     text-align:left !important;
 }
 
-.proj_header{
-    margin-bottom:15px;
-}
-
 .project_container{
     padding : 0px !important;
 }
@@ -730,15 +726,22 @@ ol.progtrckr li.progtrckr-focus:before {
 .cs_block_sub_title{
     width:30%;
     font-size:18px;
+     margin: 15px 0px 15px 0px;
+    height:100%;
 }
 
 .cs_sub_title_cell{
+    display:table-cell;
     padding:10px 5px !important;
     border-left:10px solid #F8D347;
 }
 
 .cs_sub_title_cell_rev{
     border-left:10px solid #6CCAC9;
+}
+
+.cs_sub_title_cell_user{
+    border-left:10px solid #333647;
 }
 
 .comments_title{
@@ -760,6 +763,8 @@ ol.progtrckr li.progtrckr-focus:before {
     background-color:#A58BD5 !important;
     color:white;
 }
+
+
 
 .r_wrapper{
     width:100%;
@@ -798,4 +803,5 @@ ol.progtrckr li.progtrckr-focus:before {
     line-height: 40px;
     color:black;
 }
+
 

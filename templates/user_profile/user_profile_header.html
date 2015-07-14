@@ -3,17 +3,7 @@
 <div class="col-xs-12 col-md-12">
 
 <!--Header Title-->
-<div class="row cs_header">
-                    <div class="cs_block_title">
-                        <div class="cs_icon_cell pull-left user_icon">
-                            <span class="glyphicon glyphicon-user"></span>
-                        </div>
-
-                        <div class="pull-left cs_title_cell">
-                        User Information
-                        </div>
-                    </div>
-</div>
+{% include 'elements/user_title.html' %}
 
                     <p>Username: {{ user }}<br>
                     <p>Click <a href = "{% url 'password_change' %}">here</a> to change your password.</p>

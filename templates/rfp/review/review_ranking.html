@@ -1,12 +1,23 @@
 <!--Review ranking-->
-    <div class="row">
-        <div class="col-xs-12 col-md-12">
 
-            <input name="star1" type="radio" class="star"/>
-            <input name="star1" type="radio" class="star"/>
-            <input name="star1" type="radio" class="star"/>
-            <input name="star1" type="radio" class="star"/>
-            <input name="star1" type="radio" class="star"/>
+<hr>
 
-        </div>
-    </div>
+{% load bootstrap3 %}
+
+<form id="rate_form" class="form-inline" method="post" action="{% url 'view_review' review.id %}">
+    {% csrf_token %}
+   <div class="form-group">
+
+    {% bootstrap_form form %}/5 (5 as the highest)
+
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<div id="rate_info">
+    <div class="alert alert-success" role="alert">Thank you, your rating of {{ review.note }}/5 has been succesfully recorded.</div>
+</div>
+
+<script>
+
+</script>

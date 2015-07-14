@@ -21,6 +21,8 @@ class UserProfile(models.Model):
     is_pi = models.BooleanField(default=False)
     is_reviewer = models.BooleanField(default=False)
     num_connection = models.IntegerField(default=0, editable=False)
+    num_rated_review = models.IntegerField(default=0, editable=False)
+    rated_review_avg = models.IntegerField(default=0, editable=False)
 
     def __unicode__(self):
         return self.first_name + str(" ") + self.last_name

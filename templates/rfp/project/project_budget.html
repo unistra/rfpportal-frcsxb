@@ -1,6 +1,8 @@
 <div class="row" id="budget_detail">
             <div class="col-xs-12 col-md-12">
-            <h3>Budget</h3>
+
+            {% include 'elements/budget_title.html' %}
+
                 <h4>Total budgeted: <strong>{{ total }} €</strong> <span style = "font-size:14px;">(Total requested: {{ project.requested_amount }} €)<br><br></span></h4>
 <hr>
                 <h4>Recruitment</h4>
