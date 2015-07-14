@@ -5,17 +5,31 @@
 {% block body_block %}
 
 <div class="container">
+        <!--Review Title-->
+        <div class="row cs_header">
 
-    <h2> {{ rfp_campaign.name }}</h2>
+            <div class="cs_block_title">
+                            <div class="cs_icon_cell pull-left rfp_icon">
+                                <span class="glyphicon glyphicon-book"></span>
+                            </div>
 
+                            <div class="pull-left cs_title_cell">
+                            {{ rfp_campaign }}
+                            </div>
+            </div>
+
+        </div>
+
+{% if rfp_campaign.logo %}
     <div class="col-xs-12 col-md-4">
                                   <div class="thumbnail no_border">
-                                    {% if rfp_campaign.logo %}
-                                        <img src="{{ rfp_campaign.logo.url }}" alt="{{ rfp_campaign.name }}">
-                                    {% endif %}
-                                  </div>
-    </div>
 
+                                        <img src="{{ rfp_campaign.logo.url }}" alt="{{ rfp_campaign.name }}">
+
+                                  </div>
+
+    </div>
+     {% endif %}
     {% autoescape off %}
         {{ rfp_campaign.instructions|linebreaksbr }}
     {% endautoescape %}

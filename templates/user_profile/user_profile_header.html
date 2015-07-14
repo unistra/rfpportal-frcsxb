@@ -1,18 +1,24 @@
 <!--Profile header with User information and link to update information-->
 
-<div class="col-xs-12 col-md-4">
+<div class="col-xs-12 col-md-12">
 
+<!--Header Title-->
+<div class="row cs_header">
+                    <div class="cs_block_title">
+                        <div class="cs_icon_cell pull-left user_icon">
+                            <span class="glyphicon glyphicon-user"></span>
+                        </div>
 
-                <button class="top_title">User Information</button>
-                <p>Username: {{ user }}<br>
-                <span class="small_link">Click <a href = "{% url 'password_change' %}">here</a> to change your password.</span></p>
-
+                        <div class="pull-left cs_title_cell">
+                        User Information
+                        </div>
+                    </div>
 </div>
-            
-<div class="col-xs-12 col-md-4 ">
 
-                <button class="top_title">Contact information</button>
+                    <p>Username: {{ user }}<br>
+                    <p>Click <a href = "{% url 'password_change' %}">here</a> to change your password.</p>
 
+                    <hr>
                     <p> {{ user.userprofile.first_name }} {{ user.userprofile.last_name }}<br/>
                     Email: {{ user.email }}</p>
 
@@ -23,18 +29,7 @@
                     {{ user.userprofile.country }}
                     </p>
 
-                <p><span class="small_link pull-right"><a href = "{% url 'edit_profile' %}?redirect={{ current_url }}">Edit your information</a></span></p>
+                <p><span class="small_link"><a href = "{% url 'edit_profile' %}?redirect={{ current_url }}">Edit your information</a></span></p>
 
 </div>
 
-<div class="col-xs-12 col-md-4">
-            {% if widget %}
-                {% if is_pi %}
-                    {% include 'user_profile/widget_projects.html' %}
-                {% else %}
-                    {% include 'user_profile/widget_logo.html' %}
-                {% endif %}
-            {% else %}
-                    {% include 'user_profile/widget_logo.html' %}
-            {% endif %}
-</div>

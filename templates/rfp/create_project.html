@@ -10,7 +10,20 @@
 
     <div class="col-xs-12 col-md-12">
 
-        <h1> Create a Project</h1>
+
+        <div class="row cs_header">
+             <div class="cs_block_title">
+                            <div class="cs_icon_cell pull-left project_icon">
+                                <span class="glyphicon glyphicon-inbox"></span>
+                            </div>
+
+                            <div class="pull-left cs_title_cell">
+                            Create a Project
+                            </div>
+             </div>
+        </div>
+
+
         <p>Team Leader: <a href = "{% url 'user_profile' %}">{{ user.userprofile }}</a></p>
         <p>Research Unit: {{ user.userprofile.organization }} - {{ user.userprofile.insitute_research_unit}}</p>
         <p>Email: <a href = "matilto: {{ user.email }}">{{ user.email }}</a></p>

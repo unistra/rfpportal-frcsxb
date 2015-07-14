@@ -14,6 +14,8 @@
 </div>
 </div>
 
+
+
 {% if user|is_pi %}
 <div class="container">
 <!--List of open request for proposal-->
@@ -24,11 +26,14 @@
     </div>
 </div>
 
+
+
 {% elif user|is_rev %}
 <div class="container">
 <!--reviewer list-->
     <div class="row">
          <div class="col-xs-12 col-md-12">
+              {% include 'elements/review_title.html' %}
               {% include 'user_profile/list_reviews.html' %}
          </div>
     </div>

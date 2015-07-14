@@ -34,7 +34,7 @@
 
         <div class="project_block">
 
-            <div class="project_block_title"> <a class="link_nostyle" href="{% url 'scientific_board_project_details' p.id %}">{{ p }}</a> <span id="control_project" class="glyphicon glyphicon-collapse-up pull-right"></span></div>
+            <div class="project_block_title"> <a class="link_nostyle" href="{% url 'scientific_board_project_details' p.id %}" target="_blank">{{ p }}</a> <span id="control_project" class="glyphicon glyphicon-collapse-up pull-right"></span></div>
             <div class="project_block_details">
                 <p>PI: {{ p.user.get_full_name }}</p>
                 <p>Amount Requested: {{ p.requested_amount }}</p>

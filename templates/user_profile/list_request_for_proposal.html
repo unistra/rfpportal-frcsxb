@@ -1,45 +1,42 @@
-<!--list of open request for proposal-->
+        <!--Review Title-->
+        <div class="row cs_header">
 
-<h1>Introduction</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ac est nibh.
-        Aliquam feugiat neque egestas augue fermentum, vulputate vulputate lorem auctor. Maecenas ut porta nibh.
-        <br>
-        <br>
-        Duis ut mauris interdum, efficitur eros eget, venenatis enim. Vivamus vulputate tempor nulla, vel varius nisl scelerisque vitae. Interdum et malesuada fames ac ante ipsum primis in faucibus. Proin malesuada efficitur elit ac volutpat. Aenean in sodales odio. In ut vehicula magna.
-        Mauris posuere arcu at elit placerat efficitur. <br>
-        Phasellus velit risus, fermentum eget dui eu, aliquet tristique lectus.
-        Nullam pulvinar pellentesque orci, quis sodales purus tempus non.</p>
+            <div class="cs_block_title">
+                            <div class="cs_icon_cell pull-left rfp_icon">
+                                <span class="glyphicon glyphicon-book"></span>
+                            </div>
 
-    <h2>Categories</h2>
-    {% if rfp_c %}
+                            <div class="pull-left cs_title_cell">
+                            Call for Proposals
+                            </div>
+            </div>
+
+        </div>
+
+{% if rfp_c %}
     {% for c in rfp_c %}
 
-                                 <div class="row">
-                                        <div class="col-xs-12 col-md-12">
-                                        <h3>{{ c }}</h3>
-                                        </div>
-                                 </div>
 
-                                  <div class="row">
-                                  <div class="col-xs-12 col-md-4">
+    <div class="col-xs-12 col-md-4">
 
-                                      <div class="thumbnail no_border">
+        <div class="r_wrapper">
+
+            <div class="r_logo">
+
                                         {% if c.logo %}
-                                            <a href="{% url 'rfpcampaign_detail' c.id %}"><img src="{{ c.logo.url }}" alt="{{ c.name }}"></a>
+                                            <a href="{% url 'rfpcampaign_detail' c.id %}"><img class="r_logo_img" src="{{ c.logo.url }}" alt="{{ c.name }}">
+                                        {% else %}
+                                            <a style="text-decoration:none; color:#f4f4f4;;" href="{% url 'rfpcampaign_detail' c.id %}"><span  class="glyphicon glyphicon-book"></span></a>
                                         {% endif %}
-                                      </div>
-                                  </div>
 
-                                  <div class="col-xs-12 col-md-6">
-                                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis placerat ex id lorem hendrerit, vel viverra turpis bibendum. Donec pretium condimentum neque quis eleifend.
-                                        Proin lacinia hendrerit eleifend. Suspendisse non tellus scelerisque, scelerisque ipsum venenatis, bibendum nulla. Donec faucibus at dolor nec mattis. Nullam molestie lorem augue, non consectetur sem ultrices at. Proin id urna enim. Vivamus elit turpis, sodales a semper vitae, dignissim eget dolor.
-                                      </p>
-                                  </div>
+            </div>
 
-                                  <div class="vertical-align col-xs-12 col-md-2">
-                                      <a class="btn btn-apply" href="{% url 'rfpcampaign_detail' c.id %}">Apply</a>
-                                  </div>
-                              </div>
+            <div class="r_title"> <a style="text-decoration:none; color:black;" href="{% url 'rfpcampaign_detail' c.id %}">{{c.name}}</a></div>
+        </div>
+
+    </div>
+
+
     {% endfor %}
 
     {% else %}

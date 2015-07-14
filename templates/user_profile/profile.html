@@ -19,6 +19,7 @@
         {% if is_rev %}
         <div class="row">
             <div class="col-xs-12 col-md-12">
+          {% include 'elements/review_title.html' %}
         {% include 'user_profile/list_reviews.html' %}
             </div>
         </div>
@@ -28,7 +29,8 @@
         {% if is_pi %}
         <div class="row">
             <div class="col-xs-12 col-md-12">
-                <h2>Your Projects <a class = "small_link" href="{% url 'post_homepage_login_landing_page' %}">Add a new projet</a></h2>
+                {% include 'elements/project_title.html' %}
+                    <a class = "small_link pull-right" href="{% url 'post_homepage_login_landing_page' %}">Add a new projet</a>
 
                 <table class="table">
 

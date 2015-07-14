@@ -1,16 +1,11 @@
+                <table class="table table-striped">
+                    <thead>
+                            <tr>
+                                <th>Project</th>
+                                <th>Status</th>
+                                <th></th>
 
-
-
-
-               <table class="table">
-                   <h2>Your Reviews</h2>
-                <thead>
-                        <tr>
-                            <th>Project</th>
-                            <th>Action</th>
-                            <th>Category</th>
-                            <th>Status</th>
-                        </tr>
+                            </tr>
                     </thead>
 
                     <tbody>
@@ -18,13 +13,10 @@
 
                     <tr>
                         <td><a href="{% url 'project_detail' r.project.id %}">{{ r.project.name }}</a></td>
-
-                        <td>Click <a href="{% url 'post_review' r.id %}"> here </a> to {% if r.status == 'completed' %}edit{% else %}complete{% endif %} your review.</td>
-                        <td>{{ r.project.rfp.name }}</a></td>
                         <td>{{ r.status|capfirst }}</td>
+                        <td><a href="{% url 'post_review' r.id %}">{% if r.status == 'completed' %}Edit{% else %}Complete{% endif %}</a> </td>
                     </tr>
 
                     {% endfor %}
                     </tbody>
                 </table>
-
