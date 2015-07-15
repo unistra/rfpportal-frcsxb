@@ -30,7 +30,7 @@
     <!--<script src="{% static 'js/bootstrap.min.js' %}"></script>-->
     <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
     <script src="{% static 'js/dataTables.bootstrap.js' %}"></script>
-    <script src="//cdn.ckeditor.com/4.5.1/standard/ckeditor.js"></script>
+    <!--<script src="//cdn.ckeditor.com/4.5.1/standard/ckeditor.js"></script>-->
     <script src="{% static 'js/js.js' %}"></script>
 
 </head>
@@ -38,6 +38,7 @@
 {% load bootstrap3 %}
 
 <!-- Navigation bar starts here-->
+<!--
 <nav class="navbar navbar-default" role="navigation">
     <div class ="container container-nav nav_background no_shadow">
 
@@ -48,7 +49,8 @@
         </button>
 
         <!--<a class="navbar-brand" href="{% url 'post_homepage_login_landing_page' %}">ICFRC - Proposal Submission Portal</a>-->
-        <div class="collapse navbar-collapse navbar-responsive-collapse" id="bs-example-navbar-collapse-1">
+<!--
+<div class="collapse navbar-collapse navbar-responsive-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li id="home"><a href="{% url 'post_homepage_login_landing_page' %}">{% bootstrap_icon "home" %}</a></li>
 
@@ -73,10 +75,16 @@
 
 
         </div> <!--end navbar collapse-->
+<!--
     </div>
 
 </nav>
+
+
 <!-- Navigation bar ends here -->
+
+{% include 'elements/navigation_menu.html' %}
+
     {% block body_block %}
 
 

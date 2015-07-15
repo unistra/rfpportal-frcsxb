@@ -7,13 +7,6 @@
 {% load user_extras %}
 
 {% csrf_token %}
-<div class="container top_c">
-<!--Profile header-->
-<div class="row">
-{% include 'user_profile/user_profile_header.html' %}
-</div>
-</div>
-
 
 
 {% if user|is_pi %}
