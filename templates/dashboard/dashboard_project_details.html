@@ -55,8 +55,26 @@
 <!--Reviewer Detail-->
 <div class="row " id="reviewer_detail">
             <div class="col-xs-12 col-md-12">
-            <h3>Proposed Reviewer
-            </h3>
+
+                <div class="row cs_header">
+                    <div class="cs_block_title">
+                        <div class="cs_icon_cell pull-left user_icon">
+                            <span class="glyphicon glyphicon-user"></span>
+                        </div>
+
+                        <div class="pull-left cs_title_cell">
+                        Reviewers
+                        </div>
+                    </div>
+                </div>
+
+
+            <div class="cs_block_sub_title">
+
+                        <div class="pull-left cs_title_cell cs_sub_title_cell_user">
+                        Proposed Reviewers
+                        </div>
+</div>
 
                <table class="table table-striped">
 
@@ -98,8 +116,14 @@
             </div>
 
     <div class="col-xs-12 col-md-12">
-    <h3>Excluded Reviewer</h3>
-            <table class="table">
+    <div class="cs_block_sub_title">
+
+                        <div class="pull-left cs_title_cell cs_sub_title_cell_user">
+                        Excluded Reviewers
+                        </div>
+</div>
+
+        <table class="mt-20 table table-striped">
 
                 <thead>
                         <tr>
@@ -127,6 +151,7 @@
                     {% endfor %}
                     </tbody>
                 </table>
+
                 {% if user|is_pi %}<p>
                 <a href="{% url 'exclude_unique_reviewer' project.pk %}?redirect={{ current_url }}">
                 Exclude another reviewer
@@ -172,6 +197,37 @@
 {% endfor %}
 
 </table>
+
+        {% load comments %}
+{% load bootstrap3 %}
+        <!--Comments Section-->
+             <div id='comments' class="row cs_header">
+
+                    <div class="cs_block_title">
+                        <div class="cs_icon_cell pull-left comments_icon">
+                            <span class="glyphicon glyphicon-bullhorn"></span>
+                        </div>
+
+                        <div class="pull-left cs_title_cell">
+                        Comments
+                        </div>
+                    </div>
+            </div>
+
+        <div class="row cs_body">
+            <div class="comments_body">
+            {% get_comment_count for project as comment_count %}
+            {% if comment_count < 1 %}
+            <p><em>No comments posted yet.</em></p>
+            {% else %}
+
+            {% render_comment_list for project %}
+
+            {% endif %}
+            </div>
+            </div>
+
+
 </div>
 </div>
 

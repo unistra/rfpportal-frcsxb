@@ -50,7 +50,7 @@
                 <td>{{ r.rating }}</td>
                 <td>{{ r.date }}</td>
                 <td>{{ r.status }}</td>
-                <td><a href="{% url 'dashboard_follow_up_with_reviewer' r.id %}">Follow up</a></td>
+                <td>{% if not r.status == 'completed' %}<a href="{% url 'dashboard_follow_up_with_reviewer' r.id %}">Follow up</a>{% else %} <em>None</em>{% endif %}</td>
             </tr>
 
 {% endfor %}

@@ -5,7 +5,12 @@
 
                 <h4>Total budgeted: <strong>{{ total }} €</strong> <span style = "font-size:14px;">(Total requested: {{ project.requested_amount }} €)<br><br></span></h4>
 <hr>
-                <h4>Recruitment</h4>
+                <div class="cs_block_sub_title">
+
+                        <div class="pull-left cs_title_cell cs_sub_title_cell_budget">
+                        Human Resources
+                        </div>
+</div>
                 <table class="table table-striped">
                 <thead>
                         <tr>
@@ -39,7 +44,12 @@
                     </tbody>
                     </table>
 <hr>
-                    <h4>Equipement</h4>
+                     <div class="cs_block_sub_title">
+
+                        <div class="pull-left cs_title_cell cs_sub_title_cell_budget">
+                        Equipments
+                        </div>
+</div>
                 <table class="table table-striped">
                 <thead>
                         <tr>
@@ -83,7 +93,12 @@
 
                     <tbody>
 
-                    <h4>Operating Costs</h4>
+                     <div class="cs_block_sub_title">
+
+                        <div class="pull-left cs_title_cell cs_sub_title_cell_budget">
+                        Operating Costs
+                        </div>
+</div>
                     {% for line in oc_budget_lines_list %}
                     <tr>
                         <td>{{ line }}</a></td>
