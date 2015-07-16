@@ -3,6 +3,8 @@ from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from django.contrib.auth.signals import user_logged_in
 from django.shortcuts import render,render_to_response,HttpResponse,HttpResponseRedirect
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 
 
 #Create your models here.
@@ -30,6 +32,7 @@ class UserProfile(models.Model):
     class Meta:
         verbose_name = "Contact"
         verbose_name_plural = "Contacts"
+
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:

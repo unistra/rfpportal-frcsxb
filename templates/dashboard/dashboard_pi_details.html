@@ -1,0 +1,134 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block title %} {{ user.get_full_name }} {% endblock %}
+
+{% block dashboard_nav %}
+  {% include 'dashboard/dashboard_navigation_pane.html' %}
+{% endblock %}
+
+{% block dashboard_action %}
+
+{% load bootstrap3 %}
+
+
+<div class="row cs_header">
+                    <div class="cs_block_title">
+                        <div class="cs_icon_cell pull-left user_icon">
+                            <span class="glyphicon glyphicon-user"></span>
+                        </div>
+
+                        <div class="pull-left cs_title_cell">
+                        {{ pi.get_full_name }}
+                        </div>
+                    </div>
+</div>
+
+<!--
+<div class="row">
+
+<div class="metric">
+
+<div class="metric_square">
+
+    <div class="metric_content">
+
+        <div class="metric_table pull-left">
+            <div id="" class="metric_cell project_icon">
+                        <span class="glyphicon glyphicon-inbox" style="font-size:45px;"></span>
+                        <p>Projects</p>
+            </div>
+        </div>
+
+        <div class="metric_table pull-right">
+            <div class="metric_cell pi_metric_text">
+                    <p>Submitted: {{ num_project }}</p>
+                    <p>Granted: {{ num_proj_granted }}</p>
+                    <p>Last granted in: {{ last_granted.rfp.year }}</p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+</div>
+
+<div class="metric">
+<div class="metric_square">
+
+    <div class="metric_content">
+
+        <div class="metric_table pull-left">
+            <div class="metric_cell metric_icon budget_icon">
+                        <span class="glyphicon glyphicon-euro" style="font-size:45px;"></span>
+                        <p>Recieved</p>
+            </div>
+        </div>
+
+        <div class="metric_table pull-right">
+            <div class="metric_cell metric_text">
+                    <p>{{ pi_amount }} 250000 € </p>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+    </div>
+    </div>
+-->
+
+{% for p in pi_data %}
+
+          <p class="project_data" id="{{ p.label|slugify }}"><strong>{{ p.label }} </strong>{{ p.data|linebreaksbr }}</p>
+
+{% endfor %}
+
+ <p><a href="{% url 'admin:auth_user_change' pi.id %}">Edit User Information</a></p>
+
+
+{% include 'elements/project_title.html' %}
+
+
+<div class="row">
+            <div class="col-xs-12 col-md-12">
+
+                <table id="tableId" class="table table-striped">
+
+                    <thead>
+                        <tr>
+                            <th>Project Title</th>
+                            <th>Requested (Eur.)</th>
+
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for p in project_list %}
+
+                    <tr>
+                            <td><a href="{% url 'dashboard_project_details' p.id %}">{{ p.name|truncatechars:50 }}</a></td>
+                            <td>{{ p.requested_amount }}</td>
+
+                            <td> {{ p.rfp }}</td>
+                            <td><em>{{ p.status|capfirst }}</em></td>
+                            <td><a href="{% url 'dashboard_project_edit' p.id %}">Edit</a>{% if p.rfp.status == 'closed' %} - <a href="{% url 'dashboard_send_results' p.id %}">Send results</a> {% endif %}</td>
+                    </tr>
+
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+
+            </div>
+</div>
+
+<script>
+     $("#tableId").dataTable();
+</script>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block title %} {{ user.get_full_name }} {% endblock %}
+
+{% block dashboard_nav %}
+  {% include 'dashboard/dashboard_navigation_pane.html' %}
+{% endblock %}
+
+{% block dashboard_action %}
+
+{% load bootstrap3 %}
+
+<div class="row cs_header">
+             <div class="cs_block_title">
+                            <div class="cs_icon_cell pull-left project_icon">
+                                <span class="glyphicon glyphicon-inbox"></span>
+                            </div>
+
+                            <div class="pull-left cs_title_cell">
+                            Edit Project
+                            </div>
+             </div>
+        </div>
+
+<form method="post" action="{% url 'dashboard_project_edit' project.id %}">
+{% csrf_token %}
+
+    {% bootstrap_form form %}
+
+    <input class="btn btn-apply" type="submit" value="Save">
+
+</form>
+
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block title %} Principal Investigator {% endblock %}
+
+{% block dashboard_nav %}
+    {% include 'dashboard/dashboard_navigation_pane.html' %}
+{% endblock %}
+
+{% block dashboard_action %}
+
+{% load bootstrap3 %}
+
+<div class="row cs_header">
+                    <div class="cs_block_title">
+                        <div class="cs_icon_cell pull-left user_icon">
+                            <span class="glyphicon glyphicon-user"></span>
+                        </div>
+
+                        <div class="pull-left cs_title_cell">
+                        Create new PI
+                        </div>
+                    </div>
+</div>
+
+
+<form method="post" action="{% url 'dashboard_pi_create' %}" >
+
+    {% csrf_token %}
+
+    {% bootstrap_form form %}
+    <input class="save_btn btn btn-primary pull-right" type="submit" value="Save"  />
+
+</form>
+
+
+{% endblock %}

@@ -517,6 +517,10 @@ ol.progtrckr li.progtrckr-focus:before {
 }
 
 
+.pi_metric_text{
+    font-size:12px;
+}
+
 .file_field{
     margin-left:-15px;
 }
@@ -606,6 +610,20 @@ ol.progtrckr li.progtrckr-focus:before {
     width:48%;
 }
 
+.metric_text{
+    background-color: #f4f4f4;
+    color: #000000;
+}
+
+.pi_metric_text{
+    background-color: #f4f4f4;
+    color: #000000;
+    text-align:left;
+}
+
+.pi_metric_text > p {
+    font-size:16px;
+}
 
 #project{
     background-color: #6CCAC9;
@@ -623,10 +641,7 @@ ol.progtrckr li.progtrckr-focus:before {
 }
 
 
-.metric_text{
-    background-color: #f4f4f4;
-    color: #000000;
-}
+
 
 .title_section{
     font-size:20px;

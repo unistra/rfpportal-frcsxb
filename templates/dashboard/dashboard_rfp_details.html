@@ -116,6 +116,7 @@
             <th>PI</th>
             <th>Status</th>
             {% for r in review_status %} <th> {{ r }} </th> {% endfor %}
+            <td>Actions</td>
     </tr>
 </thead>
 
@@ -126,6 +127,7 @@
         <td> {{ p.user.get_full_name }}</td>
         <td> {{ p.status|capfirst }}</td>
         {% for r in review_status %} <td> {{ p|count_review:r }} </td> {% endfor %}
+        <td><a href="">Edit</a></td>
     </tr>
     {% endfor %}
 </tbody>

@@ -113,6 +113,25 @@ class UpdateForm(ModelForm):
             'document' : _('Select a document to update the current file: ')
         }
 
+class DashboardEditForm(ModelForm):
+
+    class Meta:
+        model = Project
+        exclude = {'rfp','user',}
+        widgets = {
+            'custom_0' : forms.Textarea(attrs={'class':'form-control'}),
+            'custom_1' : forms.Textarea(attrs={'class':'form-control'}),
+            'custom_2' : forms.Textarea(attrs={'class':'form-control'}),
+            'custom_3' : forms.Textarea(attrs={'class':'form-control'}),
+            'custom_4' : forms.Textarea(attrs={'class':'form-control'}),
+            'custom_5' : forms.Textarea(attrs={'class':'form-control'}),
+            'custom_6' : forms.Textarea(attrs={'class':'form-control'}),
+            'custom_7' : forms.Textarea(attrs={'class':'form-control'}),
+            'custom_8' : forms.Textarea(attrs={'class':'form-control'}),
+            'custom_9' : forms.Textarea(attrs={'class':'form-control'}),
+            'abstract' : forms.Textarea(attrs={'class':'form-control'}),
+        }
+
 class RfpCampaignForm(ModelForm):
     class Meta:
         model = RfpCampaign

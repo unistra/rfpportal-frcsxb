@@ -7,8 +7,10 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 import logging
 from django.forms.models import model_to_dict
+from django.contrib.auth.models import User
 
 from user_profile.models import UserProfile
+
 def send_mandrill_email(self,mandrill_template_name, context_dict):
         """
         Send a mandrill template email to the owner of self.
@@ -39,7 +41,7 @@ def add_user_to_group(user,group):
     u.groups.add(g)
     u.save()
 
-from django.contrib.auth.models import User
+
 
 class RfpCampaign(models.Model):
     CATEGORY_CHOICES = ( ('Synergy', 'Synergy'),
@@ -100,7 +102,6 @@ class Project(models.Model):
     STATUS_CHOICES = (
         ('draft','Draft'),
         ('submitted','Submitted'),
-        ('under_review','Under review'),
         ('granted','Granted'),
         ('not_granted','Not Granted'),
     )
@@ -111,7 +112,7 @@ class Project(models.Model):
     ending_date=models.DateField(null=True,blank=True)
     project_duration=models.IntegerField(null=True,blank=True)
     requested_amount=models.IntegerField(null=True)
-    awarded_amount=models.IntegerField(null=True)
+    awarded_amount=models.IntegerField(blank=True,null=True)
     additional_funding = models.CharField(max_length = 4000, null = True, blank = True)
     keywords=models.CharField(max_length=4000,null=True,blank=True,verbose_name=U"Keywords")
     abstract=models.CharField(max_length=4000,null=True,blank=True,verbose_name=u"Abstract")

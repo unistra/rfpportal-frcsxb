@@ -15,8 +15,8 @@
 {% include 'elements/project_title.html' %}
 
     <h3>{{ project.name }}</h3>
-    <h4>PI: <strong>{{ project.user.get_full_name }}</strong></h4>
-    <h4>Category: <strong>{{ project.rfp }}</strong></h4>
+    <h4>PI: <strong><a href="{% url 'dashboard_pi_details' project.user.id %}">{{ project.user.get_full_name }}</a></strong></h4>
+    <h4>Category: <a href="{% url 'dashboard_rfp_details' project.rfp.id %}"><strong>{{ project.rfp }}</strong></a></h4>
     <hr>
     {% for p in project_data %}
         {% if p.label == '' %}

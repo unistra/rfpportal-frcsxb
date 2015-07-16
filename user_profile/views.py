@@ -4,14 +4,13 @@ from django.contrib.auth.decorators import login_required,user_passes_test
 from django.contrib.auth.models import User,Group,Permission
 from django.contrib.auth import authenticate, login
 
-from forms import sign_up,UserUpdate,RfpCreate,SearchForm
-from rfp.forms import UpdateForm,BudgetLineHR,BudgetLineEQ,BudgetLineOP
+from forms import UserDetails,UserUpdate,RfpCreate,SearchForm,CreateUser
 
 from models import UserProfile
 from django.core.urlresolvers import reverse
 from django.forms.models import model_to_dict
 
-from rfp.forms import ProposedReviewerForm,ProjectForm
+from rfp.forms import ProposedReviewerForm,ProjectForm,DashboardEditForm,BudgetLineHR,BudgetLineEQ,BudgetLineOP
 from rfp.models import Project,Review,RfpCampaign,BudgetLine,ProposedReviewer
 from rfp.views import store_redirect_url,get_redirect_url,budget_line_sum
 
@@ -45,7 +44,7 @@ def create_profile(request):
     context = RequestContext(request)
 
     if request.method == 'POST':
-        form = sign_up(request.POST)
+        form = UserDetails(request.POST)
 
         if form.is_valid():
             username = form.cleaned_data['username']
@@ -95,7 +94,7 @@ def create_profile(request):
         return HttpResponse('User Created ?')
 
     else:
-        form = sign_up()
+        form = UserDetails()
 
     return render_to_response('user_profile/create_profile.html',{'form':form},context)
 
@@ -452,6 +451,83 @@ def dashboard_send_results(request,projectId):
     project.send_results_email()
 
     return HttpResponseRedirect(reverse('dashboard_project_list'))
+
+@user_passes_test(is_staff,login_url='/project/login_no_permission/',redirect_field_name='next')
+def dashboard_pi_list(request):
+    context = RequestContext(request)
+    user = request.user
+    group = Group.objects.get(name='Principal_Investigator')
+    user_list = group.user_set.all()
+
+    context_dict = {'user_list' : user_list}
+
+    return  render_to_response('dashboard/dashboard_pi_list.html',context_dict,context)
+
+def dashboard_pi_details(request, userId):
+    context = RequestContext(request)
+    user = request.user
+    pi = User.objects.get(id = userId)
+    pi_dict = model_to_dict(pi.userprofile)
+
+
+    project_list = Project.objects.filter(user = pi).order_by('-rfp__year')
+    num_project = project_list.exclude(status='draft').count()
+    num_proj_granted = project_list.filter(status='granted').count()
+    last_granted = project_list.filter(status='granted').first()
+    store_redirect_url(request)
+
+    #Information of Reviewer presented in the UserUpdate form
+    pi_data = UserUpdate(pi_dict)
+
+    context_dict = {'pi' : pi, 'pi_data' : pi_data, 'project_list' : project_list, 'num_project':num_project,'num_proj_granted': num_proj_granted,'last_granted' : last_granted}
+
+    return  render_to_response('dashboard/dashboard_pi_details.html',context_dict,context)
+
+def dashboard_pi_create(request):
+    context = RequestContext(request)
+
+    if request.method == "POST":
+        form = CreateUser(request.POST)
+
+        if form.is_valid():
+            form.clean_username()
+            form.clean()
+            new_user = form.save()
+            new_user.save()
+
+            g = Group.objects.get(name='Principal_Investigator')
+            print(g)
+            g.user_set.add(new_user)
+
+            return HttpResponseRedirect(reverse('dashboard_pi_details', args=[new_user.id]))
+    else:
+        form = CreateUser()
+
+    context_dict = {'form' : form}
+    return  render_to_response('dashboard/dashboard_pi_create.html',context_dict,context)
+
+
+def dashboard_project_edit(request, projectId):
+    context = RequestContext(request)
+    user = request.user
+    project = Project.objects.get(id = projectId)
+    redirect = get_redirect_url(request)
+
+
+    if request.method == "POST":
+        form = DashboardEditForm(request.POST,instance=project)
+
+        if form.is_valid():
+            p = form.save()
+            return HttpResponseRedirect(redirect)
+
+    else:
+        form = DashboardEditForm(instance=project)
+
+    context_dict = {'project' : project, 'form' : form }
+
+    return  render_to_response('dashboard/dashboard_project_edit.html',context_dict,context)
+
 
 def scientific_board_project_details(request, projectId):
     context = RequestContext(request)

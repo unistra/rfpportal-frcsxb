@@ -48,6 +48,7 @@ class UserAdmin(AuthUserAdmin):
     A UserAdmin that sends a password-reset email when creating a new user,
     unless a password was entered.
     """
+
     add_form = UserCreationForm
     add_fieldsets = (
         (None, {
