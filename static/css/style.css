@@ -12,6 +12,11 @@ body {
     display: block;
 }
 
+
+p{
+    font-size:16px;
+}
+
 .top_spacer{
     margin-bottom:20px;
 }
@@ -850,4 +855,10 @@ ol.progtrckr li.progtrckr-focus:before {
     font-size:20px;
     line-height: 40px;
     color:black;
+}
+
+.home_img_left{
+background: url('images/crystals.jpg') no-repeat;
+background-size:contain;
+height:200px;
 }

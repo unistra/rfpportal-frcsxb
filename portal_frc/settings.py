@@ -206,7 +206,7 @@ TEMPLATE_DIRS = (
 )
 
 #urlcrypt settings
-URLCRYPT_LOGIN_URL = '/'
+URLCRYPT_LOGIN_URL = '/user_profile/welcome/'
 
 #Boostrapped Admin Config.
 DAB_FIELD_RENDERER = 'django_admin_bootstrapped.renderers.BootstrapFieldRenderer'
