@@ -1,3 +1,9 @@
+{% if list_of_rfp %}
+
+        {% include 'rfp/rfp_details.html' %}
+
+    {% else %}
+
         <!--Review Title-->
         <div class="row cs_header">
 
@@ -12,34 +18,6 @@
             </div>
 
         </div>
-
-{% if rfp_c %}
-    {% for c in rfp_c %}
-
-
-    <div class="col-xs-12 col-md-4">
-
-        <div class="r_wrapper">
-
-            <div class="r_logo">
-
-                                        {% if c.logo %}
-                                            <a href="{% url 'rfpcampaign_detail' c.id %}"><img class="r_logo_img" src="{{ c.logo.url }}" alt="{{ c.name }}">
-                                        {% else %}
-                                            <a style="text-decoration:none; color:#f4f4f4;;" href="{% url 'rfpcampaign_detail' c.id %}"><span  class="glyphicon glyphicon-book"></span></a>
-                                        {% endif %}
-
-            </div>
-
-            <div class="r_title"> <a style="text-decoration:none; color:black;" href="{% url 'rfpcampaign_detail' c.id %}">{{c.name}}</a></div>
-        </div>
-
-    </div>
-
-
-    {% endfor %}
-
-    {% else %}
 
     <div class="row">
         <div class="col-xs-12 col-md-12">

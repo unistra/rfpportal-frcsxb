@@ -398,7 +398,6 @@ ol.progtrckr li.progtrckr-focus:before {
 }
 
 .btn-apply{
-    margin-top:30px;
     width:150px;
     padding:10px 0px 10px 0px;
     background-color:RGB(0,94,167) !important;
@@ -639,8 +638,6 @@ ol.progtrckr li.progtrckr-focus:before {
     background-color: #F8D347;
     color: #fff;
 }
-
-
 
 
 .title_section{

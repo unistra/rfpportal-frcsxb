@@ -72,7 +72,7 @@ class UserUpdate(forms.ModelForm):
 
     class Meta:
         model = UserProfile
-        exclude = ['user','is_pi','is_reviewer','title']
+        exclude = ['user','is_pi','is_reviewer','title','reset_password']
 
         widgets = {
             'title' : forms.TextInput(attrs={'class':'form-control'}),

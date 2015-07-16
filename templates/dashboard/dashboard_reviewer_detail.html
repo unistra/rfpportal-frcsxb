@@ -20,7 +20,8 @@
           <p class="project_data" id="{{ p.label|slugify }}"><strong>{{ p.label }} </strong>{{ p.data|linebreaksbr }}</p>
 
 {% endfor %}
- <p><a href="{% url 'admin:auth_user_change' reviewer.id %}">Edit User Information</a></p>
+
+<p><a href="{% url 'dashboard_edit_profile' reviewer.id %}">Edit Address Information</a> - <a href="{% url 'admin:auth_user_change' reviewer.id %}">Edit User Information</a></p>
 
 
 

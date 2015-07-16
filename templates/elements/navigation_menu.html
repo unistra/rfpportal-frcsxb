@@ -1,4 +1,6 @@
-<div class="container m-b-20 m-t-20 p-t-25">
+{% load user_extras %}
+
+<div id="nav_pane" class="container m-b-20 m-t-20 p-t-25">
     <div class="row">
         <div class="col-xs-12 col-md-3">
             <div class="nav_icon_wrap">
@@ -10,9 +12,11 @@
             </div>
         </div>
 
+        {% if user|is_pi %}
+
         <div class="col-xs-12 col-md-3">
             <div class="nav_icon_wrap">
-                <a href="{% url 'user_profile' %}">
+                <a href="{% url 'user_profile' %}?block=proj">
                     <span class="glyphicon glyphicon-inbox nav_icon project_icon">
                         <div class="nav_title">Projects</div>
                     </span>
@@ -20,9 +24,10 @@
             </div>
         </div>
 
+        {% elif user|is_rev %}
         <div class="col-xs-12 col-md-3">
             <div class="nav_icon_wrap">
-                <a href="{% url 'user_profile' %}">
+                <a href="{% url 'user_profile' %}?block=rev">
                     <span class="glyphicon glyphicon-comment nav_icon review_icon">
                         <div class="nav_title">Reviews</div>
                     </span>
@@ -30,9 +35,11 @@
             </div>
         </div>
 
+        {% endif %}
+
         <div class="col-xs-12 col-md-3">
             <div class="nav_icon_wrap">
-                <a href="{% url 'user_profile' %}">
+                <a href="{% url 'user_profile' %}?block=profile">
                     <span class="glyphicon glyphicon-user nav_icon user_icon">
                         <div class="nav_title">Profile</div>
                     </span>

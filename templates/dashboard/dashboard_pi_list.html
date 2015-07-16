@@ -42,7 +42,7 @@
                         <td><a href="{% url 'dashboard_pi_details' user.id %}">{{ user.get_full_name }}</a></td>
                         <td>{{ user }}</td>
                         <td>{{ user.email }}</td>
-                        <td>Invite - Reset PWD</td>
+                        <td><a href="{% url 'reset_pwd' user.id %}">Invite - Reset PWD</a></td>
                     </tr>
                     </tbody>
                     {% endfor %}

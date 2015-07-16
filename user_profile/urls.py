@@ -29,6 +29,8 @@ urlpatterns = patterns('',
     url(r'^dashboard/dashboard_pi_details/(?P<userId>\d+)/$',views.dashboard_pi_details,name='dashboard_pi_details'),
     url(r'^dashboard/dashboard_project_edit/(?P<projectId>\d+)/$',views.dashboard_project_edit,name='dashboard_project_edit'),
     url(r'^dashboard/dashboard_pi_create/$',views.dashboard_pi_create,name='dashboard_pi_create'),
+    url(r'^dashboard/reset_pwd/(?P<UserId>\d+)/$',views.reset_pwd,name='reset_pwd'),
+    url(r'^dashboard/dashboard_edit_profile/(?P<userId>\d+)/$',views.dashboard_edit_profile,name='dashboard_edit_profile'),
 
     #Scientific Board pages
     url(r'^scib/project_details/(?P<projectId>\d+)/$',views.scientific_board_project_details,name='scientific_board_project_details'),

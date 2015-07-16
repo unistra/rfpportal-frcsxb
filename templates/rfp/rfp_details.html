@@ -1,10 +1,7 @@
-{% extends 'base.html' %}
 
-{% block title %} {{ rfp_campaign.name }} {% endblock %}
-
-{% block body_block %}
-
-<div class="container">
+    {% for c in list_of_rfp %}
+    <div class="row">
+        <div class="col-xs-12 col-md-12">
         <!--Review Title-->
         <div class="row cs_header">
 
@@ -14,28 +11,29 @@
                             </div>
 
                             <div class="pull-left cs_title_cell">
-                            {{ rfp_campaign }}
+                            {{ c }}
                             </div>
             </div>
 
         </div>
 
-{% if rfp_campaign.logo %}
+    {% if c.logo %}
     <div class="col-xs-12 col-md-4">
                                   <div class="thumbnail no_border">
 
-                                        <img src="{{ rfp_campaign.logo.url }}" alt="{{ rfp_campaign.name }}">
+                                        <img src="{{ c.logo.url }}" alt="{{c.name }}">
 
                                   </div>
 
     </div>
      {% endif %}
     {% autoescape off %}
-        {{ rfp_campaign.instructions|linebreaksbr }}
+        {{ c.instructions|linebreaksbr }}
     {% endautoescape %}
 
-    <a class="btn btn-apply pull-right" href="{% url 'create_project' rfp_campaign.id %}">Apply</a>
-
+    <a class="btn btn-apply pull-right" href="{% url 'create_project' c.id %}">Apply</a>
+ </div>
 </div>
+    {% endfor %}
 
-{% endblock %}
+

@@ -5,6 +5,7 @@ from django.contrib.auth.signals import user_logged_in
 from django.shortcuts import render,render_to_response,HttpResponse,HttpResponseRedirect
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
+from django.contrib.auth.forms import PasswordResetForm
 
 
 #Create your models here.
@@ -25,6 +26,7 @@ class UserProfile(models.Model):
     num_connection = models.IntegerField(default=0, editable=False)
     num_rated_review = models.IntegerField(default=0, editable=False)
     rated_review_avg = models.IntegerField(default=0, editable=False)
+    reset_password = models.BooleanField(default=True)
 
     def __unicode__(self):
         return self.first_name + str(" ") + self.last_name
@@ -33,6 +35,17 @@ class UserProfile(models.Model):
         verbose_name = "Contact"
         verbose_name_plural = "Contacts"
 
+    def ResetPwd(self,request):
+        reset_form = PasswordResetForm({'email': self.user.email})
+        print(self.user.email)
+        assert reset_form.is_valid()
+        print(reset_form)
+        reset_form.save(
+                request=request,
+                use_https=request.is_secure(),
+                subject_template_name='registration/create_user_invitation_email_subject.txt',
+                email_template_name='registration/create_user_invitation_email.html',
+            )
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:

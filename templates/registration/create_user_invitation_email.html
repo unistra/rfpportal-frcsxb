@@ -3,7 +3,7 @@
 
 {% trans "Please go to the following page to set up your password:" %}
 {% block reset_link %}
-{{ protocol }}://{{ domain }}{% url 'django.contrib.auth.views.password_reset_confirm' uidb64=uid token=token %}
+{{ domain }}{% url 'django.contrib.auth.views.password_reset_confirm' uidb64=uid token=token %}
 {% endblock %}
 
 {% trans "Please take note of your username:" %} {{ user.get_username }}

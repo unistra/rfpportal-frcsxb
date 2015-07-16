@@ -458,6 +458,7 @@ def dashboard_pi_list(request):
     user = request.user
     group = Group.objects.get(name='Principal_Investigator')
     user_list = group.user_set.all()
+    store_redirect_url(request)
 
     context_dict = {'user_list' : user_list}
 
@@ -528,6 +529,35 @@ def dashboard_project_edit(request, projectId):
 
     return  render_to_response('dashboard/dashboard_project_edit.html',context_dict,context)
 
+def reset_pwd(request, UserId):
+    context = RequestContext(request)
+    user = User.objects.get(id = UserId)
+    redirect = get_redirect_url(request)
+
+    userprofile = UserProfile.objects.get(user = user)
+
+    userprofile.ResetPwd(request)
+
+    return HttpResponseRedirect(redirect)
+
+def dashboard_edit_profile(request,userId):
+    context = RequestContext(request)
+    user = User.objects.get(id = userId)
+    up = UserProfile.objects.get(user = user.id)
+    redirect = get_redirect_url(request)
+
+    if request.method == 'POST':
+        form = UserUpdate(request.POST,instance = up)
+
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(redirect)
+
+    else:
+        form = UserUpdate(instance = up)
+
+    context_dict = {'user' : user, 'form' : form, 'UP' : up}
+    return render_to_response('user_profile/edit_profile.html', context_dict, context)
 
 def scientific_board_project_details(request, projectId):
     context = RequestContext(request)

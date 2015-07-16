@@ -85,7 +85,7 @@
 
 {% endfor %}
 
- <p><a href="{% url 'admin:auth_user_change' pi.id %}">Edit User Information</a></p>
+<p><a href="{% url 'dashboard_edit_profile' user.id %}">Edit Address Information</a> - <a href="{% url 'admin:auth_user_change' pi.id %}">Edit User Information</a></p>
 
 
 {% include 'elements/project_title.html' %}
