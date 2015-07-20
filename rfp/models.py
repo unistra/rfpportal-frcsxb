@@ -187,9 +187,10 @@ class Project(models.Model):
 
 class ProposedReviewer(models.Model):
     TYPE_CHOICES = (
-        ('ADMIN_PROPOSED','Proposed by admin'),
+        ('ADMIN_PROPOSED','Proposed by Admin'),
         ('USER_PROPOSED', 'Proposed by User'),
         ('USER_EXCLUDED', 'Excluded Reviewer'),
+        ('BOARD_SUGGESTED', 'Proposed by Board Member')
     )
     project=models.ForeignKey(Project,null=True)
     first_name = models.CharField(max_length=255,blank=True,null=True)

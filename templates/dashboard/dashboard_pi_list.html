@@ -9,6 +9,7 @@
 {% block dashboard_action %}
 
 {% load bootstrap3 %}
+{% load user_extras %}
 
 <div class="row cs_header">
                     <div class="cs_block_title">
@@ -32,6 +33,8 @@
                             <th>Name</th>
                             <th>Username</th>
                             <th>Email</th>
+                            <th>Granted</th>
+                            <th>Awarded (Eur.)</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -42,6 +45,8 @@
                         <td><a href="{% url 'dashboard_pi_details' user.id %}">{{ user.get_full_name }}</a></td>
                         <td>{{ user }}</td>
                         <td>{{ user.email }}</td>
+                        <td>{{ user|granted }}</td>
+                        <td>{{ user|awarded }}</td>
                         <td><a href="{% url 'reset_pwd' user.id %}">Invite - Reset PWD</a></td>
                     </tr>
                     </tbody>

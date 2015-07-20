@@ -41,11 +41,12 @@
 
                     <thead>
                         <tr>
-                            <th>Name</th>
+                            <th>Project Title</th>
                             <th>Category</th>
                             <th>Requested (Eur.)</th>
                             <th>File</th>
                             <th>Status</th>
+                            <th>Granted (Eur.)</th>
                         </tr>
                     </thead>
 
@@ -65,6 +66,7 @@
                             <td>{{ p.requested_amount }}</td>
                             <td>{% if p.document %} <a href="{{ p.document.url }}">{{ p.document.name }}</a> {% else %} <em>No File</em> {% endif %}</td>
                             <td><em>{% if p.rfp.status == 'under_review' %} Under Review {% else %} {{ p.status|capfirst }} {% endif %}</em></td>
+                            <td> {% if p.status == 'granted' %} {{ p.awarded_amount }} {% else %} <em>None</em> {% endif %} </td>
 
                     </tr>
 

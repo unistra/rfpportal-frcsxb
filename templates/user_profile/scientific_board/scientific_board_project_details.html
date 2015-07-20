@@ -246,6 +246,7 @@
                             <th>Email</th>
                             <th>City</th>
                             <th>Country</th>
+                            <th>Type</th>
                         </tr>
                 </thead>
 
@@ -256,6 +257,7 @@
                                 <td>{{ r.email }}</td>
                                 <td>{{ r.city }}</td>
                                 <td>{{ r.country }}</td>
+                                <td>{{ r.type }}</td>
                             </tr>
                     {% endfor %}
                  </tbody>
@@ -268,7 +270,7 @@
 
              <div class="cs_block_sub_title">
 
-                        <div style="border-right: 5px solid #333647;" class="pull-left cs_title_cell ">
+                        <div style="border-left: 5px solid #333647;" class="pull-left cs_title_cell ">
                         Activities
                         </div>
             </div>
@@ -279,10 +281,11 @@
             <thead>
 
             <tr>
-                <th>Review</th>
+                <th>Read and rank this review</th>
                 <th>Date</th>
                 <th>Rating</th>
-                <th>Review</th>
+                <th>Reviewer</th>
+                <th>Status</th>
             </tr>
 
             </thead>

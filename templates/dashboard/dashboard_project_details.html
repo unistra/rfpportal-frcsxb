@@ -173,7 +173,8 @@
         <table class="table table-striped">
             <tr>
                 <th>Reviewer</th>
-                <th>Review</th>
+                <th>See the review</th>
+                <th>Rating</th>
                 <th>Date</th>
                 <th>Status</th>
                 <th>Actions</th>
@@ -185,6 +186,7 @@
                 <td>
                     <a href="{% url 'view_review' review.id %}" target="_blank">{{ review.custom_0|truncatewords:15 }}</a>
                 </td>
+                <td>{{ review.rating }}</td>
                 <td>{{ review.date }}</td>
                 <td>{{ review.status }}</td>
                 <td>{% if review.status != 'completed' %}<a href="{% url 'dashboard_follow_up_with_reviewer' review.id %}">Follow up</a>{% endif %}</td>

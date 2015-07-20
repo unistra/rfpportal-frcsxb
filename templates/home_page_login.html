@@ -36,28 +36,25 @@
 </head>
 <body>
 {% load bootstrap3 %}
-<div class="container m-t-20">
-<div class="row">
+<div class="container m-t-20 no_b_c">
 
-{% include 'registration/main_header.html' %}
+<div class="row t_row">
 
-<div class="row">
-        <div class="col-xs-12 col-md-2"></div>
-        <div class="col-xs-12 col-md-4">
+{% include 'home_page/main_header.html' %}
 
 
-
-        </div>
-
-        <div class="col-xs-12 col-md-4">
-
-
-
-        </div>
-
-        <div class="col-xs-12 col-md-2"></div>
 </div>
 
+
+
+<div class="row">
+
+    {% include 'home_page/jumbo.html' %}
+
+</div>
+
+
+<div class="row">
     {% if not user.is_authenticated %}
         {% include 'registration/login_form.html' %}
     {% else %}
@@ -73,29 +70,51 @@
     {% endif %}
 </div>
 
-</div>
+<div class="row t-marg-25">
 
-<!--Footer starts here-->
-
-<div class="footer">
-      <div class="container ft_background no_shadow">
-        <div class ="footer-text">
-
-        <p>
-            {% if user.is_authenticated %}
+    <div class="col-xs-12 col-md-4 l-foot">
+    <ul>
+            <li>
+                {% if user.is_authenticated %}
                     <a href="{% url 'django.contrib.auth.views.logout' %}?next={% url 'home_page' %}">Log out</a>
-            {% else %}
+                {% else %}
                     <a href="{% url 'django.contrib.auth.views.login' %}?next={% url 'post_homepage_login_landing_page' %}">Log in</a>
-            {% endif %} |
-                    <a href="mailto: contact@icfrc.fr">Contact Us</a> | <a href="{% url 'dashboard' %}">Admin</a>
-        </p>
-
-        <p>Powered by Django - 2015</p>
-        </div>
-      </div>
+                {% endif %}
+            </li>
+                    <li><a href="mailto: contact@icfrc.fr">Contact Us</a>
+                    <li><a href="{% url 'dashboard' %}">Admin</a></li>
+    </ul>
     </div>
 
-<!--Footer ends here-->
+    <div class="col-xs-12 col-md-8 r-foot">
+    <ul>
+        <li>
+            <a href="http://www.unistra.fr" target="_blank"><img src="{% static 'images/logo_unistra.jpg' %}"/></a>
+        </li>
+        <li>
+            <a href="http://www.cnrs.fr" target="_blank"><img src="{% static 'images/logo-cnrs.jpg' %}"/></a>
+        </li>
+        <li>
+            <a href="http://www.basf.com" target="_blank"><img src="{% static 'images/logo_BASF.jpg' %}"/></a>
+        </li>
+        <li>
+            <a href="https://www.bruker.com" target="_blank"><img src="{% static 'images/logo_brucker.jpg' %}"/></a>
+        </li>
+        <li>
+            <a href="http://labex-csc.unistra.fr/" target="_blank"><img src="{% static 'images/CSC_logo.png' %}"/></a>
+        </li>
+        <li>
+            <a href="http://www.gouvernement.fr/investissements-d-avenir-cgi" target="_blank"><img src="{% static 'images/logo-inv-avenir.jpg' %}"/>
+        </li>
+    </ul>
+
+
+    </div>
+
+
+</div>
+
+</div>
 
 </body>
 </html>

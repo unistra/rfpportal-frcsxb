@@ -69,7 +69,7 @@ def is_cs(self):
 def count_project(self,s):
     """
     Give the number of project with the status s in the corresponding rfp.
-    :param s: str self: Object
+    :param s: str self: RfpCampaign
     :return: int
     """
     n = Project.objects.filter(rfp = self.id, status = s).count()
@@ -79,7 +79,7 @@ def count_project(self,s):
 def count_review_rfp(self,s):
     """
     Give the number of review related to the project with the status s.
-    :param s: str self: Object
+    :param s: str self: Project
     :return: int
     """
     n = Review.objects.filter(project__rfp = self, status = s).count()
@@ -89,6 +89,7 @@ def count_review_rfp(self,s):
 def total_requested(self):
     """
     Total amount requested per Request for Proposal.
+    :param self: RfpCampaign
     :return: int
     """
     p = Project.objects.filter(rfp = self)
@@ -122,3 +123,27 @@ def bl_total(self,s):
         total_budgeted += line.amount
 
     return total_budgeted
+
+@register.filter(name='awarded')
+def awarded(self):
+    """
+    Sum all awarded amount for projects of the consid3red User.
+    :param: User
+    :return: int.
+    """
+    total_awarded = 0
+    projects = Project.objects.filter(user = self)
+    for p in projects:
+        if p.awarded_amount is not None:
+            total_awarded += p.awarded_amount
+
+    return total_awarded
+
+@register.filter(name='granted')
+def granted(self):
+    """
+    Count the number of projects with status granted for the considered User.
+    :param: User
+    :return: int.
+    """
+    return Project.objects.filter(user=self,status='granted').count()
