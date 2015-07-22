@@ -41,7 +41,7 @@ def number_invitation(self):
     Return the number of created review for the considered user.
     :return: int
     """
-    return Review.objects.filter(user=self.user.id).count()
+    return Review.objects.filter(user=self.id).count()
 
 @register.filter(name='number_completed')
 def number_of_completed_review(self):
@@ -49,7 +49,7 @@ def number_of_completed_review(self):
     Return the number of completed review for the considered user.
     :return: int
     """
-    return Review.objects.filter(user = self.user.id, status = 'completed').count()
+    return Review.objects.filter(user = self.id, status = 'completed').count()
 
 
 @register.filter(name='is_pi')

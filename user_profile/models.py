@@ -6,6 +6,7 @@ from django.shortcuts import render,render_to_response,HttpResponse,HttpResponse
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.contrib.auth.forms import PasswordResetForm
+#from rfp import models
 
 
 #Create your models here.
@@ -46,6 +47,7 @@ class UserProfile(models.Model):
                 subject_template_name='registration/create_user_invitation_email_subject.txt',
                 email_template_name='registration/create_user_invitation_email.html',
             )
+
 
 def create_user_profile(sender, instance, created, **kwargs):
     if created:

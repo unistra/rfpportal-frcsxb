@@ -6,88 +6,19 @@ from django.contrib.auth.admin import UserAdmin as AuthUserAdmin
 from django import forms
 from django.contrib.auth.forms import UserCreationForm as CreationForm
 
-class UserCreationForm(CreationForm):
-    """
-    A UserCreationForm with optional password inputs.
-    """
-    def __init__(self, *args, **kwargs):
-        super(UserCreationForm, self).__init__(*args, **kwargs)
-        self.fields['password1'].required = False
-        self.fields['password2'].required = False
-        # If one field gets autocompleted but not the other, our 'neither
-        # password or both password' validation will be triggered.
-        self.fields['password1'].widget.attrs['autocomplete'] = 'off'
-        self.fields['password2'].widget.attrs['autocomplete'] = 'off'
-
-    def clean_password2(self):
-        password1 = self.cleaned_data.get("password1")
-        password2 = super(UserCreationForm, self).clean_password2()
-        if bool(password1) ^ bool(password2):
-            raise forms.ValidationError("Fill out both fields")
-        return password2
-
-class UserProfileAdmin(admin.ModelAdmin):
-    search_fields = ["last_name"]
-    list_display = ["last_name","first_name","city"]
-
 class UserProfileInline(admin.StackedInline):
     model = UserProfile
-    max_num = 1
-    can_delete = False
-    inline_classes = ('collapse open',)
 
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ["first_name","last_name","organization"]
+    list_filter = ["organization"]
+    search_fields = ['last_name']
 
-from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import PasswordResetForm
-from django.utils.crypto import get_random_string
+#class UserAdmin(admin.ModelAdmin):
+    #inlines = [UserProfileInline,]
 
-User = get_user_model()
+#admin.site.unregister(User)
 
-class UserAdmin(AuthUserAdmin):
-    """
-    A UserAdmin that sends a password-reset email when creating a new user,
-    unless a password was entered.
-    """
+#admin.site.register(User, UserAdmin)
 
-    add_form = UserCreationForm
-    add_fieldsets = (
-        (None, {
-            'description': (
-                "Enter the new user's name and email address and click save."
-                " The user will be emailed a link allowing them to login to"
-                " the site and set their password."
-            ),
-            'fields': ('email', 'username','first_name','last_name',),
-        }),
-        ('Password', {
-            'description': "Optionally, you may set the user's password here.",
-            'fields': ('password1', 'password2'),
-            'classes': ('collapse', 'collapse-closed'),
-        }),
-    )
-
-    def save_model(self, request, obj, form, change):
-        if not change and (not form.cleaned_data['password1'] or not obj.has_usable_password()):
-            # Django's PasswordResetForm won't let us reset an unusable
-            # password. We set it above super() so we don't have to save twice.
-            obj.set_password(get_random_string())
-            reset_password = True
-        else:
-            reset_password = False
-
-        super(UserAdmin, self).save_model(request, obj, form, change)
-
-        if reset_password:
-            reset_form = PasswordResetForm({'email': obj.email})
-            assert reset_form.is_valid()
-            reset_form.save(
-                request=request,
-                use_https=request.is_secure(),
-                subject_template_name='registration/create_user_invitation_email_subject.txt',
-                email_template_name='registration/create_user_invitation_email.html',
-            )
-
-# unregister old user admin
-admin.site.unregister(User)
-# register new user admin
-admin.site.register(User, UserAdmin)
+admin.site.register(UserProfile,UserProfileAdmin)

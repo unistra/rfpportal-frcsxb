@@ -318,7 +318,7 @@ def dashboard_reviewers_list(request):
     user = request.user
     group = Group.objects.get(name='Reviewer')
     redirect = store_redirect_url(request)
-
+    """
     if request.method =="POST":
         form = SearchForm(request.POST)
 
@@ -346,10 +346,12 @@ def dashboard_reviewers_list(request):
 
     else:
         form = SearchForm()
-        reviewers_list = group.user_set.all()
-        users_id = list()
+        """
+    reviewers_list = group.user_set.all()
 
-    context_dict = {'reviewers_list' : reviewers_list, 'form' : form, 'users_id' : users_id}
+    users_id = list()
+
+    context_dict = {'reviewers_list' : reviewers_list, 'users_id' : users_id}
 
     return render_to_response('dashboard/dashboard_reviewers_list.html', context_dict, context)
 

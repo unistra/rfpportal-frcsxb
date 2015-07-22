@@ -52,8 +52,8 @@
                     <td><a href="{% url 'dashboard_reviewer_detail' r.id %}">{{ r.get_full_name }}</a></td>
                     <td><a href="mailto:{{r.email}}">{{ r.email }}</a></td>
                     <td>{{ r.date_joined }}</td>
-                    <td>{{ r.userprofile|number_invitation }}</td>
-                    <td>{{ r.userprofile|number_completed }}</td>
+                    <td>{{ r|number_invitation }}</td>
+                    <td>{{ r|number_completed }}</td>
                 </tr>
             {% endfor %}
             </tbody>
