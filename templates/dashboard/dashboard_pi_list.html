@@ -49,15 +49,19 @@
                         <td>{{ user|awarded }}</td>
                         <td><a href="{% url 'reset_pwd' user.id %}">Invite - Reset PWD</a></td>
                     </tr>
-                    </tbody>
                     {% endfor %}
+                    </tbody>
+
                 </table>
 
             </div>
 </div>
 
 <script>
-     $("#tablePi").dataTable();
+     $("#tablePi").dataTable({
+         "paging": false,
+         "ordering" : [[ 1, "desc" ]]
+     });
 </script>
 
 {% endblock %}

@@ -317,6 +317,15 @@ font-weight:bold;
     margin-top:20px;
 }
 
+.btn-anchor{
+    width:100%;
+    text-decoration:none;
+    padding:10px;
+    margin:10px 0px;
+    font-weight:500;
+    font-size:18px;
+}
+
 .small_link{
     font-size:12px;
     text-decoration:none;

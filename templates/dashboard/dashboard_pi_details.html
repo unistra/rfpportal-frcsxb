@@ -129,7 +129,12 @@
 </div>
 
 <script>
-     $("#tableId").dataTable();
+     $("#tableId").dataTable(
+             {
+             "paging": false,
+             "sort": false
+             }
+     );
 </script>
 
 {% endblock %}
