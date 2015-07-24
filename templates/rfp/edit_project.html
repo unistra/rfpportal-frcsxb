@@ -27,6 +27,10 @@
 
     {% if f.label == 'Upload your document:' %}
     <div class="form-group">
+                    {% if project.rfp.template %} <strong>Template</strong> (Download the template, complete following the instructions and upload it below.) : <a href="{{ project.rfp.template.url }}">{{ project.rfp.template }}</a>
+                         <br>
+                    {% endif %}
+
 
                 <strong>Document</strong>
                                     <p>{{ f }}</p>

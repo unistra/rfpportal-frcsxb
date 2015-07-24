@@ -1,23 +1,19 @@
 <!--Waiver form-->
-<hr>
+<div class="block_sub_title">
+                                    Do you accept to review this project ?
+</div>
 
-<p>Please select one of the option below to proceed: </p>
 
-<form method="post" action="{% url 'post_review_waiver' review.id %}" >
+<form class="waiver_form" method="post" action="{% url 'post_review_waiver' review.id %}" >
 {% csrf_token %}
+                {% for f in form %}
+                    {{ f }}
+                    {{ f.errors }}
+                {% endfor %}
 
-    <div class="radio">
-        <label><input type="radio" id="no_conflict" name="optradio"  value="no_conflict">No conflict of interest</label>
-    </div>
+                <div class="agreement"> By agreeing to review this project, I understand that information are confidential. I engage to not communicate any elements...Blablblblblblblblblblblblblblblblbl
+                blblblblblblblblblaaaaa.</div>
 
-    <div class="radio">
-        <label><input type="radio" id="agreement" name="optradio" value="agreement" >Confidentiality agreement</label>
-    </div>
-
-    <div class="radio">
-        <label><input type="radio" id="refuse" name="optradio"  value="refuse">I will not be able to review this project</label>
-    </div>
-
-  <button type="submit" class="btn pull-right">Submit</button>
+  <button type="submit" class="btn btn-waiver pull-right">Submit</button>
 
 </form>

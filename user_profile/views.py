@@ -198,7 +198,7 @@ def dashboard_edit_rfp(request, rfpId):
     rfp = RfpCampaign.objects.get(id = rfpId)
 
     if request.method == "POST":
-        form = RfpCreate(request.POST,instance=rfp)
+        form = RfpCreate(request.POST,request.FILES,instance=rfp)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('dashboard_rfp_listing'))

@@ -51,7 +51,14 @@
 
     <div class="row">
             <div class="form-group">
+                <div class="col-xs-12 col-md-12">
+                    {% if rfp.template %} <strong>Template</strong> (Download the template, complete following the instructions and upload it below.) : <a href="{{ rfp.template.url }}">{{ rfp.template }}</a>
+                     <br>
+                    <br>
+                    {% endif %}
+                </div>
                 <div  style="padding-top:7px;padding-bottom:7px;" class="col-xs-12 col-md-4">
+
                     <strong>{{ f.label }} <span class="req">*</span></strong>
                 </div>
                 <div style="padding-right:0px;" class="col-xs-12 col-md-8">

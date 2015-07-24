@@ -64,7 +64,9 @@ class RfpCampaign(models.Model):
 
     instructions=models.TextField(max_length=4000,null=True)
 
+    template = models.FileField(upload_to='rfp_templates',null=True,blank=True)
     logo = models.ImageField(upload_to='image',null=True,blank=True)
+
     project_questions = models.TextField(max_length = 4000, null=True, blank=True, verbose_name=u"Project questions (one question per line, maximum of 10 questions permitted.)")
     review_questions = models.TextField(max_length = 4000, null=True, blank=True, verbose_name=u"Review questions (one question per line, maximum of 10 questions permitted.)")
 

@@ -10,7 +10,7 @@ import logging
 from user_profile.models import UserProfile
 
 from models import Project,Review,RfpCampaign,File_Test,ProposedReviewer,BudgetLine
-from forms import ProjectForm,file_test,UpdateForm,ReviewForm,ProposedReviewerFormSet,ProposedReviewerForm,BudgetLineEQ,BudgetLineHR,BudgetLineOP,ExcludedReviewerForm,ProjectFormModel,ReviewRankForm
+from forms import ProjectForm,file_test,ReviewWaiverContactForm,UpdateForm,ReviewForm,ProposedReviewerFormSet,ProposedReviewerForm,BudgetLineEQ,BudgetLineHR,BudgetLineOP,ExcludedReviewerForm,ProjectFormModel,ReviewRankForm,ReviewWaiverForm
 from django.core.urlresolvers import reverse
 
 def is_reviewer(User):
@@ -188,7 +188,7 @@ def create_project_reviewer(request,projectId):
     user_is_owner(user,project)
 
     project_data = UpdateForm(data=model_to_dict(project))
-    prop_rev_list = ProposedReviewer.objects.filter(project = project).exclude(type='USER_EXCLUDED').exclude(type='ADMIN_PROPOSED')
+    prop_rev_list = ProposedReviewer.objects.filter(project = project).exclude(type='USER_EXCLUDED').exclude(type='ADMIN_PROPOSED').exclude(type='BOARD_SUGGESTED')
     excluded_rev_list = ProposedReviewer.objects.filter(project = project, type='USER_EXCLUDED')
     budget_line_list = BudgetLine.objects.filter(project = project)
 
@@ -216,7 +216,7 @@ def create_project_summary(request,projectId):
     oc_budget_line_list = BudgetLine.objects.filter(project = project,category = 'OC')
     eq_budget_line_list = BudgetLine.objects.filter(project = project,category = 'EQ')
 
-    prop_rev_list = ProposedReviewer.objects.filter(project = project).exclude(type='USER_EXCLUDED').exclude(type='ADMIN_PROPOSED')
+    prop_rev_list = ProposedReviewer.objects.filter(project = project).exclude(type='USER_EXCLUDED').exclude(type='ADMIN_PROPOSED').exclude(type = 'BOARD_SUGGESTED')
     excluded_rev_list = ProposedReviewer.objects.filter(project = project, type='USER_EXCLUDED')
     total_budgeted = budget_line_sum(budget_line_list)
 
@@ -750,26 +750,58 @@ def post_review_waiver(request,reviewId):
     user_is_owner(user,review)
 
     project = Project.objects.get(pk = review.project.pk)
-    print (request.POST)
 
     if review.user.pk == user.pk:
         if request.method =='POST':
-            if ('no_conflict') in request.POST['optradio'] or ('agreement') in request.POST['optradio']:
-                review.status = 'accepted'
-                review.save()
-                return HttpResponseRedirect(reverse('project_detail', args = [project.pk]))
-            elif ('refuse') in request.POST['optradio']:
-                review.status = 'refused'
-                review.save()
-                return HttpResponseRedirect(reverse('logout'))
+            form = ReviewWaiverForm(request.POST)
+            if form.is_valid():
+                form_data = form.cleaned_data
+                print(form_data)
+                print(form.cleaned_data['no_conflict'])
 
+                if form_data == 'True':
+                    print('Yes')
+                    review.status = 'accepted'
+                    review.save()
+                    return HttpResponseRedirect(reverse('project_detail', args = [project.pk]))
+
+                else:
+                    print('No')
+                    review.status = 'refused'
+                    review.save()
+                    return HttpResponseRedirect(reverse('post_review_waiver_refuse', args=[review.id,]))
+
+        else:
+            form = ReviewWaiverForm()
     else:
         return HttpResponseRedirect(reverse('login'))
 
 
-    context_dict = {'review' : review, 'project' : project}
+    context_dict = {'review' : review, 'project' : project,'form': form }
 
     return render_to_response('rfp/post_review_waiver.html', context_dict, context)
+
+@user_passes_test(is_reviewer,login_url='/project/login_no_permission/',redirect_field_name='next')
+def post_review_waiver_refuse(request,reviewId):
+    context = RequestContext(request)
+    user = request.user
+    review = Review.objects.get(pk = reviewId, user=user.pk)
+    project = Project.objects.get (id = review.project.id)
+
+    if request.method == "POST" :
+        form = ReviewWaiverContactForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            print(form)
+            return HttpResponseRedirect(reverse('home_page'))
+
+    else:
+        form = ReviewWaiverContactForm()
+
+    context_dict = {'form' : form, 'user' : user,'review' : review, 'project' : project}
+
+    return render_to_response('rfp/post_review_waiver_refuse.html',context_dict,context)
 
 @user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def rfp_campaign(request,rfpcampaignId):

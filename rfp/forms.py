@@ -21,6 +21,25 @@ ratings = (
     ('F', 'F: insufficiently detailed proposal'),
 )
 
+class ReviewWaiverForm(forms.Form):
+    CHOICES = (('True', 'Yes, I will review this project.',), ('False', 'No, I will not review this project.',))
+    no_conflict = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES)
+
+
+from django.core.mail import send_mail,mail_admins
+from portal_frc import settings
+
+class ReviewWaiverContactForm(forms.Form):
+    message = forms.CharField(widget=forms.Textarea)
+
+    def save(self):
+        print(self)
+        print(settings.ADMIN)
+        mail_admins('Reviewer message', self.cleaned_data['message'])
+        send_mail('A reviewer sent you a message', self.cleaned_data['message'], 'admin@icfrc.fr',
+        ['admin@icfrc.fr'], fail_silently=False)
+
+
 class ProjectFormModel(ModelForm):
 
     class Meta:

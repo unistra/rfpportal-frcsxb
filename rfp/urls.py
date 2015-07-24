@@ -44,6 +44,7 @@ urlpatterns = patterns('',
 #Post a Review for an existing project
     url(r'^post_review/(?P<reviewId>\d+)/$',views.post_review,name='post_review'),
     url(r'^post_review_waiver/(?P<reviewId>\d+)/$',views.post_review_waiver,name='post_review_waiver'),
+    url(r'^post_review_waiver_refuse/(?P<reviewId>\d+)/$',views.post_review_waiver_refuse,name='post_review_waiver_refuse'),
 
 #List of open Call For Proposals
     url(r'^rfp/(?P<rfpcampaignId>\d+)/$',views.rfp_campaign,name='rfpcampaign_detail'),

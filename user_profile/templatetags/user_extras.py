@@ -1,7 +1,7 @@
 __author__ = 'Sylvestre'
 
 from django import template
-from rfp.models import Project,Review,RfpCampaign,BudgetLine
+from rfp.models import Project,Review,RfpCampaign,BudgetLine,ProposedReviewer
 from django.contrib.auth.models import User,Group,Permission
 import datetime
 
@@ -33,6 +33,16 @@ def count_review(self,s):
     :return: int
     """
     n = Review.objects.filter(project = self.id, status = s).count()
+    return n
+
+@register.filter(name='count_proposedreviewer')
+def count_proposed_reviewer(self):
+    """
+    Give the number of review related to the project with the status s.
+    :param s: str self: Object
+    :return: int
+    """
+    n = ProposedReviewer.objects.filter(project = self.id,type = 'USER_PROPOSED').count()
     return n
 
 @register.filter(name='number_invitation')

@@ -1,0 +1,15 @@
+<!--Waiver form-->
+<div class="block_sub_title">
+                                    Contact Us
+</div>
+
+<p>Thank you for your time. Please drop us a line if you would ike to let us know.... bla bla bla....</p>
+
+<form class="waiver_form" method="post" action="{% url 'post_review_waiver_refuse' review.id %}" >
+{% csrf_token %}
+{% load bootstrap3 %}
+
+                {% bootstrap_form form %}
+
+  <input type="submit" class="btn btn-waiver pull-right"/>
+</form>

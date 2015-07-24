@@ -30,13 +30,15 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+ADMIN = (('Developer', 'sgug@outlook.com'), ('Webmaster', 'admin@icfrc.fr'))
 
 # Application definition
 INSTALLED_APPS = (
