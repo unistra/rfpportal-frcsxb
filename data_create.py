@@ -310,6 +310,6 @@ def ini_data():
 
     print('Popualted!')
 
-from django.db import connection
+#ini_data()
 
-ini_data()
+create_group()

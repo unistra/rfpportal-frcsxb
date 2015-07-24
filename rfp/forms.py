@@ -33,8 +33,6 @@ class ReviewWaiverContactForm(forms.Form):
     message = forms.CharField(widget=forms.Textarea)
 
     def save(self):
-        print(self)
-        print(settings.ADMIN)
         mail_admins('Reviewer message', self.cleaned_data['message'])
         send_mail('A reviewer sent you a message', self.cleaned_data['message'], 'admin@icfrc.fr',
         ['admin@icfrc.fr'], fail_silently=False)
