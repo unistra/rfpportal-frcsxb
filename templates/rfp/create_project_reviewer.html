@@ -18,7 +18,6 @@
 
     {% if project|count_proposedreviewer < 4 %}
     <p class="btn btn-inactive pull-right">Please add a minimum of 4 reviewers to submit your project.</p>
-    {{ project|count_proposedreviewer }}
     {% else %}
     <a class="btn btn-apply pull-right" href="{% url 'create_project_summary' project.id %}">Save and Submit</a>
     {% endif %}

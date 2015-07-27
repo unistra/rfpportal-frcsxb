@@ -756,17 +756,13 @@ def post_review_waiver(request,reviewId):
             form = ReviewWaiverForm(request.POST)
             if form.is_valid():
                 form_data = form.cleaned_data
-                print(form_data)
-                print(form.cleaned_data['no_conflict'])
 
                 if form_data == 'True':
-                    print('Yes')
                     review.status = 'accepted'
                     review.save()
                     return HttpResponseRedirect(reverse('project_detail', args = [project.pk]))
 
                 else:
-                    print('No')
                     review.status = 'refused'
                     review.save()
                     return HttpResponseRedirect(reverse('post_review_waiver_refuse', args=[review.id,]))
@@ -774,8 +770,8 @@ def post_review_waiver(request,reviewId):
         else:
             form = ReviewWaiverForm()
     else:
+        logout(request)
         return HttpResponseRedirect(reverse('login'))
-
 
     context_dict = {'review' : review, 'project' : project,'form': form }
 
@@ -788,16 +784,26 @@ def post_review_waiver_refuse(request,reviewId):
     review = Review.objects.get(pk = reviewId, user=user.pk)
     project = Project.objects.get (id = review.project.id)
 
-    if request.method == "POST" :
-        form = ReviewWaiverContactForm(request.POST)
+    if review.user.pk == user.pk:
+        if request.method == "POST" :
+            form = ReviewWaiverContactForm(request.POST)
+            if form.is_valid():
+                form.save()
+                print(form)
+                return HttpResponseRedirect(reverse('home_page'))
 
-        if form.is_valid():
-            form.save()
-            print(form)
-            return HttpResponseRedirect(reverse('home_page'))
+        else:
+            if review.status == 'pending':                                                                  #Update the status of the review if not done previously.
+                review.status = 'refused'
+                review.save()
+            else:
+                logout(request)
+                raise Http404("Review already updated. Link is no more valid.")
 
+            form = ReviewWaiverContactForm()
     else:
-        form = ReviewWaiverContactForm()
+        logout(request)
+        return HttpResponseRedirect(reverse('login'))
 
     context_dict = {'form' : form, 'user' : user,'review' : review, 'project' : project}
 

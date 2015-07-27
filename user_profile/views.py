@@ -228,7 +228,6 @@ def dashboard_rfp_details(request,rfpId):
     project_list = Project.objects.filter(rfp = rfp.id)
     review_status = status_choices(Review)
 
-
     context_dict = {'rfp' : rfp, 'user' : user, 'project_list':project_list, 'review_status':review_status}
 
     return render_to_response('dashboard/dashboard_rfp_details.html', context_dict, context)
@@ -425,6 +424,7 @@ def dashboard_review_list(request):
 
     return render_to_response('dashboard/dashboard_review_list.html',context_dict,context)
 
+from django.core.mail import send_mail
 @user_passes_test(is_staff,login_url='/project/login_no_permission/',redirect_field_name='next')
 def dashboard_invite_reviewer(request,propRId):
     context = RequestContext(request)
