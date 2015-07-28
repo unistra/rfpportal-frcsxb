@@ -180,7 +180,7 @@ class ProposedReviewerForm(ModelForm):
 
     class Meta:
         model = ProposedReviewer
-        exclude = {'project','type'}
+        exclude = {'project','type','invited'}
         widgets = {
             'institution' : forms.TextInput(attrs={'class':'form-control'}),
             'address' : forms.TextInput(attrs={'class':'form-control'}),
@@ -196,7 +196,7 @@ class ExcludedReviewerForm(ModelForm):
 
     class Meta:
         model = ProposedReviewer
-        exclude = {'project','type','email','address','state','postcode'}
+        exclude = {'project','type','email','address','state','postcode','invited'}
         widgets = {
             'institution' : forms.TextInput(attrs={'class':'form-control'}),
             'city' : forms.TextInput(attrs={'class':'form-control'}),

@@ -99,7 +99,7 @@
                                 <td>{{ r.city }}</td>
                                 <td>{{ r.type }}</td>
                                 <td>{% if user|is_pi %}<a  href = "{% url 'edit_reviewer' r.pk %}?redirect={{ current_url }}">Edit</a> {% endif %}</td>
-                                <td>{% if user.is_staff %} <a href="{% url 'dashboard_invite_reviewer' r.id %}">Send Invitation</a> {% endif %}
+                                <td>{% if user.is_staff and not r.invited %} <a href="{% url 'dashboard_invite_reviewer' r.id %}">Send Invitation</a> {% endif %}
                                 </td>
                             </tr>
 

@@ -7,7 +7,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 import logging
 from django.forms.models import model_to_dict
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,Group
 
 from user_profile.models import UserProfile
 
@@ -205,6 +205,7 @@ class ProposedReviewer(models.Model):
     postcode = models.CharField(max_length = 255,blank=True,null=True)
     country = models.CharField(max_length=255,blank=True,null=True)
     type = models.CharField(max_length=255,blank=True,null=True,choices=TYPE_CHOICES)
+    invited = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.first_name + str(' ') + self.last_name + str(" - ") + self.institution
@@ -242,12 +243,15 @@ class ProposedReviewer(models.Model):
             password = 'frc@2015'
 
             #Create new user.
-            user = User.objects.create_user(username, self.email, password, first_name = self.first_name, last_name = self.last_name) #Create new user.
+            user = User.objects.create_user(username, self.email, password) #Create new user.
+            user.save()
+            user.first_name = self.first_name
+            user.last_name = self.last_name
             user.save()
 
-            #Add to the reviewer group
-            group = 'Reviewer'
-            add_user_to_group(user,group)
+            #Add this user to Reviewer grou
+            g = Group.objects.get(name='Reviewer')
+            g.user_set.add(user)
 
             #Update UserProfile with ProposedReviewer Information
             user_profile = UserProfile.objects.filter(user_id=user.id).update(first_name = self.first_name, last_name = self.last_name, organization = self.institution, address = self.address, city = self.city,
@@ -333,7 +337,6 @@ class Review(models.Model):
             url_refuse = reverse('urlcrypt_redirect', args = (token_refuse,))
             site = Site.objects.get(id=1)
 
-
             #Set the email template variables
             c = {'reviewer_full_name' : self.user.get_full_name(), 'project' : self.project.name,
                  'author' : self.project.user.get_full_name(),
@@ -364,6 +367,9 @@ class Review(models.Model):
             #Send the Madrill email template
             send_mandrill_email(self,self.project.rfp.email_template_review_follow_up,c)
 
+class Tag(models.Model):
+    user = models.ForeignKey(User)
+    project = models.ForeignKey(Project)
 
 class File_Test(models.Model):
     name=models.CharField(max_length=255)

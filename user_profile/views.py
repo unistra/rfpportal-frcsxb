@@ -11,7 +11,7 @@ from django.core.urlresolvers import reverse
 from django.forms.models import model_to_dict
 
 from rfp.forms import ProposedReviewerForm,ProjectForm,DashboardEditForm,BudgetLineHR,BudgetLineEQ,BudgetLineOP
-from rfp.models import Project,Review,RfpCampaign,BudgetLine,ProposedReviewer
+from rfp.models import Project,Review,RfpCampaign,BudgetLine,ProposedReviewer,Tag
 from rfp.views import store_redirect_url,get_redirect_url,budget_line_sum
 
 # Create your views here.
@@ -179,7 +179,7 @@ def dashboard_create_rfp(request):
     user = request.user
 
     if request.method == "POST":
-        form = RfpCreate(request.POST)
+        form = RfpCreate(request.POST,request.FILES)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('dashboard_rfp_listing'))
@@ -437,6 +437,9 @@ def dashboard_invite_reviewer(request,propRId):
 
     prop_rev.invite_reviewer()
 
+    prop_rev.invited = True
+    prop_rev.save()
+
     return HttpResponseRedirect(reverse('dashboard_project_details', args = [project.id]))
 
 @user_passes_test(is_staff,login_url='/project/login_no_permission/',redirect_field_name='next')
@@ -569,6 +572,7 @@ def scientific_board_project_details(request, projectId):
     context = RequestContext(request)
     project = Project.objects.get(id = projectId)
     project_data = ProjectForm(data=model_to_dict(project), questions = project.rfp.get_project_questions())
+    tag_list = Tag.objects.filter(project=project)
     store_redirect_url(request)
 
     list_of_review = Review.objects.filter(project = project, status='completed')
@@ -579,6 +583,16 @@ def scientific_board_project_details(request, projectId):
     OC_form = BudgetLineOP()
     prop_rev_list = ProposedReviewer.objects.filter(project = project).exclude(type='USER_EXCLUDED')
 
-    context_dict = {'prop_rev_list' : prop_rev_list, 'project' : project, 'project_data' : project_data, 'list_of_review' : list_of_review, 'list_of_bl' : list_of_bl, 'HR_form' : HR_form,'EQ_form': EQ_form, 'OC_form' : OC_form}
+    context_dict = {'tag_list' : tag_list, 'prop_rev_list' : prop_rev_list, 'project' : project, 'project_data' : project_data, 'list_of_review' : list_of_review, 'list_of_bl' : list_of_bl, 'HR_form' : HR_form,'EQ_form': EQ_form, 'OC_form' : OC_form}
 
     return  render_to_response('user_profile/scientific_board/scientific_board_project_details.html',context_dict,context)
+
+def add_tag(request,projectId):
+    context = RequestContext(request)
+    project = Project.objects.get(id = projectId)
+    user = request.user
+
+    tag = Tag(project = project, user = user)
+    tag.save()
+
+    return HttpResponseRedirect(reverse('scientific_board_project_details', args = [project.id]))

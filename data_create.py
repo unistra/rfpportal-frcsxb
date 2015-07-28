@@ -71,6 +71,7 @@ def create_users():
 
     if not User.objects.filter(username = username).exists():
            user = User.objects.create_user(username,email,pwd)
+           user.save()
            user.first_name = first_name
            user.last_name = last_name
            user.save()
@@ -85,8 +86,9 @@ def create_users():
            up.country = 'USA'
            up.save()
 
-           i = random.randrange(1,3,1)
-           if i == 1:
+           g = Group.objects.get(name='Principal_Investigator')
+
+           if g.user_set.count() < 30:
                    g = Group.objects.get(name='Principal_Investigator')
                    g.user_set.add(user)
                    print('Added to PI group')
@@ -285,14 +287,15 @@ def ini_data():
     create_group()
     create_rfp(filename)
 
-    for i in range(1,200,1):
+    for i in range(1,400,1):
         u = create_users()
         print(u)
 
     g = Group.objects.get(name='Principal_Investigator')
     pi_list = g.user_set.all()
     rfp_list = RfpCampaign.objects.all()
-                                                                    #Create the Porjects
+
+    #Create the Projects
     for pi in pi_list:
         for rfp in rfp_list:
             if rfp.status == 'closed':
@@ -305,11 +308,12 @@ def ini_data():
                     create_project('not_granted',rfp,pi)
 
             if rfp.status == 'open':
+                i = random.randrange(1,325,1)
+                if i < 2 :
                  create_project('draft',rfp,pi)
+                else:
                  create_project('submitted',rfp,pi)
 
     print('Popualted!')
 
-#ini_data()
-
-create_group()
+ini_data()

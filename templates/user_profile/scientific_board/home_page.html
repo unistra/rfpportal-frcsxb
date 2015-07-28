@@ -36,6 +36,10 @@
 
                     <div class="title_content">
 
+
+                        <span class="nav-to-top-link pull-right"><a href="#">Back to the top</a></span>
+
+
                         <div class="title_table pull-left">
                                     <div class="title_cell review_icon">
                                            <span class="glyphicon glyphicon-book"></span>
@@ -60,14 +64,17 @@
 
         <div class="project_block">
 
-            <div class="project_block_title"> <a class="link_nostyle" href="{% url 'scientific_board_project_details' p.id %}" target="_blank">{{ p }}</a> <span id="control_project" class="glyphicon glyphicon-collapse-down pull-right"></span></div>
-            <div class="project_block_details">
+            <h3>
+                <a class="link_nostyle" href="{% url 'scientific_board_project_details' p.id %}" target="_blank">{{ p }}</a>
+            </h3>
+
+
                 <p>PI: {{ p.user.get_full_name }}</p>
                 <p>Amount Requested: {{ p.requested_amount }}</p>
                 <p>Keywords: {{ p.keywords }}</p>
                 <p>Comments: {% get_comment_count for p as comment_count %} {{ comment_count }}.</p>
                 <p><a href="{% url 'scientific_board_project_details' p.id %}" target="_blank">See full project</a></p>
-            </div>
+
         </div>
 
 
@@ -86,6 +93,7 @@
 <script>
     $('.project_block_details').hide();
     $('.glyphicon-collapse-down').click(function() {
+        $('body').scrollTo('#target');
         $(this).toggleClass('glyphicon-collapse-up').toggleClass('glyphicon-collapse-down').parent().parent().find('.project_block_details').toggle(400);
     });
 

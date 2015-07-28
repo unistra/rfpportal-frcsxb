@@ -29,13 +29,6 @@ from rfp.models import Project,Review,RfpCampaign,File_Test,ProposedReviewer,Bud
 from rfp.views import is_reviewer
 from django.core.urlresolvers import reverse
 
-self = ProposedReviewer.objects.get(id=53)
-users = User.objects.all()
-users_email = list()
-
-for u in users:
-    users_email.append(u.email)
-
 def username_exists(username):
         """
         Return True if self.email exists among Users emails list.
@@ -107,5 +100,9 @@ def invite_reviewer(self):
 
     return review
 
-print(invite_reviewer(self))
+
+g = Group.objects.get(name='Principal_Investigator')
+n = g.user_set.count()
+
+
 

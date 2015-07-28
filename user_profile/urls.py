@@ -30,8 +30,6 @@ urlpatterns = patterns('',
     url(r'^dashboard/dashboard_pi_list/$',views.dashboard_pi_list,name='dashboard_pi_list'),
     url(r'^dashboard/dashboard_pi_details/(?P<userId>\d+)/$',views.dashboard_pi_details,name='dashboard_pi_details'),
 
-
-
     url(r'^dashboard/dashboard_project_edit/(?P<projectId>\d+)/$',views.dashboard_project_edit,name='dashboard_project_edit'),
     url(r'^dashboard/dashboard_pi_create/$',views.dashboard_pi_create,name='dashboard_pi_create'),
     url(r'^dashboard/reset_pwd/(?P<UserId>\d+)/$',views.reset_pwd,name='reset_pwd'),
@@ -39,5 +37,6 @@ urlpatterns = patterns('',
 
     #Scientific Board pages
     url(r'^scib/project_details/(?P<projectId>\d+)/$',views.scientific_board_project_details,name='scientific_board_project_details'),
+    url(r'^scib/project_details/add_tag/(?P<projectId>\d+)/$',views.add_tag,name='add_tag')
 
 )
