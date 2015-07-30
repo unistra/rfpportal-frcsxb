@@ -555,11 +555,18 @@ ol.progtrckr li.progtrckr-focus:before {
 .footer .footer-text p > a
 {
     font-size:12px;
-    background-color:#333647;
+    color:#333647;
     padding:10px;
     margin: 0 10px;
-    color:white;
+    text-decoration: none;
 }
+
+.footer .footer-text p > a:hover
+{
+    font-size:12px;
+    font-weight:700;
+}
+
 
 .ft_background {
     height:60px !important;
@@ -669,12 +676,12 @@ ol.progtrckr li.progtrckr-focus:before {
 }
 
 #project{
-    background-color: #6CCAC9;
+    background-color: #FF6D60;
     color: #fff;
 }
 
 #review{
-    background-color: #FF6D60;
+    background-color: #6CCAC9;
     color: #fff;
 }
 
@@ -1108,5 +1115,34 @@ height:200px;
     width:100%;
     padding:10px 5px;
     border-left:10px solid #6CCAC9;
+}
 
+.action-menu{
+    position:absolute;
+    background-color:#333647;
+    margin-left:30px;
+    margin-top:-8px;
+    width:150px;
+    display:none;
+}
+
+.action-menu > ul {
+    position:relative;
+    list-style:none;
+    padding:5px 10px;
+    margin-bottom:0px;
+}
+
+.action-menu > ul > li > a {
+    text-decoration:none;
+    color:white;
+}
+
+.action-menu > ul > li > a:hover, .action-menu > ul > li > a:active {
+    text-decoration:none;
+    font-weight:600;
+}
+
+.show_menu{
+    display:inline-block;
 }
