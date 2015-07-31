@@ -1,7 +1,7 @@
 __author__ = 'Sylvestre'
 
 from django import template
-from rfp.models import Project,Review,RfpCampaign,BudgetLine,ProposedReviewer
+from rfp.models import Project,Review,RfpCampaign,BudgetLine,ProposedReviewer,Tag
 from django.contrib.auth.models import User,Group,Permission
 import datetime
 
@@ -157,3 +157,11 @@ def granted(self):
     :return: int.
     """
     return Project.objects.filter(user=self,status='granted').count()
+
+@register.filter(name='tag_list')
+def get_project_tag(self):
+    """
+    Return the list of tag for the project.
+    :return: QuerySet
+    """
+    return Tag.objects.filter(project=self)

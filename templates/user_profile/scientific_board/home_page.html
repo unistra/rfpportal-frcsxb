@@ -1,11 +1,12 @@
 <div class="row">
+    {% load user_extras %}
 
      <div class="col-xs-12 col-md-12">
             <h3>Welcome to the portal...</h3>
             <p>You'll find below all project submitted to ......</p>
             <p>Use the button below to jump from CFP to CFP</p>
      </div>
-{% for rfp in list_of_rfp %}
+{% for rfp in list_of_cs_rfp %}
 
     <div class="col-xs-12 col-md-4">
 
@@ -18,7 +19,7 @@
 {% endfor %}
 </div>
 
-{% for rfp in list_of_rfp %}
+{% for rfp in list_of_cs_rfp %}
 
 <div class="row">
     <div class="col-xs-12 col-md-12">
@@ -74,6 +75,20 @@
                 <p>Keywords: {{ p.keywords }}</p>
                 <p>Comments: {% get_comment_count for p as comment_count %} {{ comment_count }}.</p>
                 <p><a href="{% url 'scientific_board_project_details' p.id %}" target="_blank">See full project</a></p>
+
+                <div class="tag-list">
+                    <ul>
+
+                        {% for t in p|tag_list %}
+                            <li> <span class="glyphicon glyphicon-user"></span> {{ t.user.get_full_name }} </li>
+                         {% empty %}
+                            <p><em>No Board Reviewer designated yet.</em></p>
+                        {% endfor %}
+
+                    </ul>
+                </div>
+
+
 
         </div>
 
