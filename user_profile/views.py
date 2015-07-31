@@ -147,7 +147,7 @@ def post_homepage_login_landing_page(request):
     rfp_c = RfpCampaign.objects.filter(status = 'open')
     projects = Project.objects.filter(user = user).order_by('-id')[:3]
 
-    list_of_rfp = RfpCampaign.objects.exclude(status='closed')
+    list_of_rfp = RfpCampaign.objects.exclude(status='closed').exclude(status='under_review')
 
     store_redirect_url(request)
 

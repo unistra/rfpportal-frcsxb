@@ -265,7 +265,11 @@ def project_detail(request,projectId):
     project=Project.objects.get(id=projectId)
     review = find_user_review_for_project(user,project)
     questions = project.rfp.get_review_questions()
-    review_data = ReviewForm(data=model_to_dict(review),questions=questions)
+
+    if review:
+        review_data = ReviewForm(data=model_to_dict(review),questions=questions)
+    else:
+        review_data= {}
 
     project_data = ProjectForm(data=model_to_dict(project), questions = project.rfp.get_project_questions())
     prop_rev_list = ProposedReviewer.objects.filter(project = project, type='USER_PROPOSED')
