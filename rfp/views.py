@@ -264,6 +264,8 @@ def project_detail(request,projectId):
 
     project=Project.objects.get(id=projectId)
     review = find_user_review_for_project(user,project)
+    questions = project.rfp.get_review_questions()
+    review_data = ReviewForm(data=model_to_dict(review),questions=questions)
 
     project_data = ProjectForm(data=model_to_dict(project), questions = project.rfp.get_project_questions())
     prop_rev_list = ProposedReviewer.objects.filter(project = project, type='USER_PROPOSED')
@@ -288,10 +290,10 @@ def project_detail(request,projectId):
 
     context_dict={'project' : project,'user' : user,
                   'project_data' : project_data,'is_pi': is_p, 'bl' : budget_line_list,
-                  'is_rev' : is_rev,
+                  'is_rev' : is_rev,'review_data' : review_data,
                   'prop_rev_list' : prop_rev_list,'excluded_rev_list' : refused_rev_list,
                   'current_url':current_url,
-                  'review':review,
+                  'review' : review,
                   'hr_budget_lines_list' : hr_budget_line_list, 'oc_budget_lines_list' : oc_budget_line_list,
                   'eq_budget_lines_list' : eq_budget_line_list,
                   'oc_total' : oc_total, 'hr_total' : hr_total, 'eq_total' : eq_total, 'total' : total}
@@ -724,7 +726,7 @@ def post_review(request,reviewId):
     review_item = Review.objects.get(user = user.pk, project = project.pk)
     review_model_dict = model_to_dict(review_item)
 
-    redirect_url = get_redirect_url(request)
+    redirect_url = get_redirect_url(request) + str('#yourreview')
 
     if request.method == 'POST':
         form = ReviewForm(request.POST,request.FILES,questions=questions)

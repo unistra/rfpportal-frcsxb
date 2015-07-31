@@ -178,6 +178,32 @@
         {% include 'rfp/project/project_back_to_top.html' %}
     {% endif %}
 
+    {% if user|is_rev and project.rfp.status == 'under_review' %}
+            <!--Review Form-->
+                <div id = "yourreview" class="row">
+                    <div class="col-xs-12 col-md-12">
+                            <!--Review Title-->
+                            <div class="row cs_header">
+
+                            <div class="cs_block_title">
+                                            <div class="cs_icon_cell pull-left review_icon">
+                                                <span class="glyphicon glyphicon-comment"></span>
+                                            </div>
+
+                                            <div class="pull-left cs_title_cell">
+                                            Your Review
+                                            </div>
+                                        </div>
+                             </div>
+
+                            <p><a href="{% url 'post_review' review.id %}">Click here to Edit/Complete your Review</a></p>
+
+                            {% include 'rfp/review/review_details.html' %}
+
+                    </div>
+                </div>
+    {% include 'rfp/project/project_back_to_top.html' %}
+    {% endif %}
 
 </div>
 

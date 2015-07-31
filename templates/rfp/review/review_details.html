@@ -1,6 +1,14 @@
     {% for p in review_data %}
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
+                 <p class="project_data wordwrap" id="{{ p.label|slugify }}"><strong>{{ p.label }} </strong>{{ p.data|linebreaksbr }}</p>
+            </div>
+        </div>
 
-           <p class="project_data" id="{{ p.label|slugify }}"><strong>{{ p.label }} </strong>{{ p.data|linebreaksbr }}</p>
+    <script>
+        console.log('ACTIVATE SCRIUPTS wordwrap ');
+
+    </script>
 
     {% endfor %}
 
