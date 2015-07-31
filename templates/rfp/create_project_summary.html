@@ -1,6 +1,14 @@
-{% extends 'rfp/project_details.html' %}
+{% extends 'base.html' %}
+{% load user_extras %}
 
-{% block project_tab %}
+{% block title %}Edit {{ project.name }} {% endblock %}
+
+{% block body_block %}
+<div class="container">
+<!--Project Header-->
+{% include 'rfp/project/project_header.html' %}
+
+
 <div class="alert alert-success" role="alert">
 
 <p style="text-align:center">
@@ -16,113 +24,25 @@
 </a>
 </div>
 <div class="col-xs-12 col-md-4"></div>
-{% endblock %}
 
-{% block budget_summary %}
-    {% include 'rfp/project/project_budget.html' %}
-{% endblock %}
+<!--Project Details-->
+{% include 'rfp/project/project_details.html' %}
 
+<!--Project Budget-->
+{% include 'rfp/project/project_budget.html' %}
 
-{% block reviewer_summary %}
-    {% if project.rfp.add_reviewer %}
-{% load user_extras %}
-<!--Reviewer Detail-->
+{% if project.rfp.add_reviewer %}
 
-        <div class="row cs_header">
-
-        <div class="cs_block_title">
-                        <div class="cs_icon_cell pull-left review_icon">
-                            <span class="glyphicon glyphicon-comment"></span>
-                        </div>
-
-                        <div class="pull-left cs_title_cell">
-                        Reviewers
-                        </div>
-                    </div>
-         </div>
-
-<div class="row " id="reviewer_detail">
-            <div class="col-xs-12 col-md-12">
-
-            <div class="cs_block_sub_title">
-
-                        <div class="pull-left cs_title_cell cs_sub_title_cell_rev">
-                        Proposed Reviewers
-                        </div>
-            </div>
-
-               <table class="table">
-
-                <thead>
-                        <tr>
-                            <th>Contact</th>
-                            <th>Email</th>
-                            <th>City</th>
-                            <th>Country</th>
-                            <th></th>
-
-                        </tr>
-                </thead>
-
-                    <tbody>
-                    {% for r in prop_rev_list %}
-
-                            <tr>
-                                <td>{{ r }}</td>
-                                <td>{{ r.email }}</td>
-                                <td>{{ r.city }}</td>
-                                <td>{{ r.country }}</td>
-                                <td></td>
-                            </tr>
-
-                    {% endfor %}
-                    </tbody>
-                </table>
-
-            </div>
-
-    <div class="col-xs-12 col-md-12">
-    <div class="cs_block_sub_title">
-
-                        <div class="pull-left cs_title_cell cs_sub_title_cell_rev">
-                        Excluded Reviewers
-                        </div>
-            </div>
-
-            <table class="table">
-
-                <thead>
-                        <tr>
-
-                            <th>Contact</th>
-                            <th>Institution</th>
-                            <th>Country</th>
-                            <th></th>
-
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                    {% for r in excluded_rev_list %}
-
-                    <tr>
-
-                        <td>{{ r.first_name }} {{ r.last_name }}</td>
-                        <td>{{ r.institution }}</td>
-                        <td>{{ r.country }}</td>
-                        <td></td>
-
-                    </tr>
-
-                    {% endfor %}
-                    </tbody>
-                </table>
-
-
-    {% block project_next %} {% endblock %}
-
-    </div>
-</div>
+    <!--Reviewer Table-->
+    {% include 'rfp/project/project_reviewer.html' %}
 
 {% endif %}
+
+</div>
+
+<script>
+    console.log('Hide them');
+    $('.act-link').hide();
+</script>
+
 {% endblock %}

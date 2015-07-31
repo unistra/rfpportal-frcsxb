@@ -76,7 +76,6 @@ class ProjectForm(forms.Form):
         name=forms.CharField(required=True, label = 'Project name:', widget=forms.TextInput(attrs={'class':'form-control'}))
         starting_date=forms.DateField(required=True, label = 'Starting Date:', widget=forms.DateInput(attrs={'class':'form-control'}))
         project_duration=forms.IntegerField(label='Duration (months):',widget=forms.DateInput(attrs={'class':'form-control'}))
-        ending_date=forms.DateField(required=True, label = 'Ending Date:', widget=forms.DateInput(attrs={'class':'form-control'}))
         requested_amount=forms.IntegerField(required=True, label = 'Requested amount (Eur.):',widget=forms.NumberInput(attrs={'class':'form-control'}))
         keywords = forms.CharField(required=True, label = 'Keywords (10 max.):',widget=forms.TextInput(attrs={'class':'form-control'}))
         abstract = forms.CharField(required=True, label ='Abstract', widget=forms.Textarea(attrs={'class' : 'form-control'}))
@@ -110,7 +109,6 @@ class UpdateForm(ModelForm):
             'document' : forms.FileInput(attrs={'class':'form-control'}),
             'rfp' : forms.Select(attrs={'class':'form-control'}),
             'user' : forms.Select(attrs={'class':'hide'}),
-            'ending_date' : forms.DateInput(attrs={'class':'form-control'}),
             'additional_funding' : forms.Textarea(attrs={'class':'form-control'}),
 
         }
@@ -118,7 +116,6 @@ class UpdateForm(ModelForm):
             'name' : _('Project Title:'),
             'requested_amount' : _('Requested amount from FRC:'),
             'starting_date' : _('Planned starting date:'),
-            'ending_date' : _('Ending date:'),
             'project_duration' : _('Expected duration of project (months):'),
             'purpose' : _('Keywords relating to project (10 max.):'),
             'scope_of_work' : _('Abstract (300 words max.):'),

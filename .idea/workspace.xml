@@ -2,10 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37de490b-32f2-4468-beb3-e1942f07a6a3" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/dashboard/dashboard_project_details.html" afterPath="$PROJECT_DIR$/templates/dashboard/dashboard_project_details.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/dashboard/dashboard_rfp_details.html" afterPath="$PROJECT_DIR$/templates/dashboard/dashboard_rfp_details.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/elements/navigation_menu.html" afterPath="$PROJECT_DIR$/templates/elements/navigation_menu.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/rfp/project/project_back_to_top.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/rfp/project/project_details.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/rfp/project/project_scroll_to.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/rfp/create_project_budget.html" afterPath="$PROJECT_DIR$/templates/rfp/create_project_budget.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/rfp/create_project_previous.html" afterPath="$PROJECT_DIR$/templates/rfp/create_project_previous.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/rfp/create_project_reviewer.html" afterPath="$PROJECT_DIR$/templates/rfp/create_project_reviewer.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/rfp/create_project_summary.html" afterPath="$PROJECT_DIR$/templates/rfp/create_project_summary.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rfp/forms.py" afterPath="$PROJECT_DIR$/rfp/forms.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/rfp/review/list_of_review.html" afterPath="$PROJECT_DIR$/templates/rfp/review/list_of_review.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rfp/models.py" afterPath="$PROJECT_DIR$/rfp/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/user_profile/profile.html" afterPath="$PROJECT_DIR$/templates/user_profile/profile.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/rfp/project/project_budget.html" afterPath="$PROJECT_DIR$/templates/rfp/project/project_budget.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/rfp/project_details.html" afterPath="$PROJECT_DIR$/templates/rfp/project_details.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/rfp/project/project_form.html" afterPath="$PROJECT_DIR$/templates/rfp/project/project_form.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/rfp/project/project_header.html" afterPath="$PROJECT_DIR$/templates/rfp/project/project_header.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/rfp/project/project_reviewer.html" afterPath="$PROJECT_DIR$/templates/rfp/project/project_reviewer.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/style.css" afterPath="$PROJECT_DIR$/static/css/style.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rfp/views.py" afterPath="$PROJECT_DIR$/rfp/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="rfpportal.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,49 +42,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/rfp/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="520" column="0" selection-start-line="520" selection-start-column="0" selection-end-line="520" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.625711">
+              <caret line="600" column="9" selection-start-line="600" selection-start-column="9" selection-end-line="600" selection-end-column="9" />
               <folding>
                 <element signature="e#0#88#0" expanded="true" />
-                <element signature="e#21494#22171#0" expanded="false" />
-                <element signature="e#22314#23040#0" expanded="false" />
-                <element signature="e#23179#23816#0" expanded="false" />
-                <element signature="e#23959#24704#0" expanded="false" />
-                <element signature="e#24843#25466#0" expanded="false" />
-                <element signature="e#25609#26341#0" expanded="false" />
-                <element signature="e#26484#26851#0" expanded="false" />
-                <element signature="e#26992#28404#0" expanded="false" />
-                <element signature="e#28552#29686#0" expanded="false" />
-                <element signature="e#29841#30998#0" expanded="false" />
-                <element signature="e#31139#31393#0" expanded="false" />
-                <element signature="e#31533#31715#0" expanded="false" />
-                <element signature="e#31788#31867#0" expanded="false" />
-                <element signature="e#32028#32690#0" expanded="false" />
-                <element signature="e#32716#33549#0" expanded="false" />
+                <element signature="e#22338#23088#0" expanded="false" />
+                <element signature="e#24031#24799#0" expanded="false" />
+                <element signature="e#25728#26483#0" expanded="false" />
+                <element signature="e#26626#26993#0" expanded="false" />
+                <element signature="e#28694#29828#0" expanded="false" />
+                <element signature="e#29983#31140#0" expanded="false" />
+                <element signature="e#31281#31535#0" expanded="false" />
+                <element signature="e#31675#31857#0" expanded="false" />
+                <element signature="e#31930#32009#0" expanded="false" />
+                <element signature="e#32170#32832#0" expanded="false" />
+                <element signature="e#32858#33691#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="navigation_menu.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/templates/elements/navigation_menu.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.67760843">
-              <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/static/css/style.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="560" column="25" selection-start-line="560" selection-start-column="25" selection-end-line="560" selection-end-column="25" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -90,14 +81,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/users_data.csv" />
-        <option value="$PROJECT_DIR$/rfp_data.csv" />
-        <option value="$PROJECT_DIR$/project_data.csv" />
-        <option value="$PROJECT_DIR$/data_import.py" />
-        <option value="$PROJECT_DIR$/user_profile/admin.py" />
-        <option value="$PROJECT_DIR$/user_profile/models.py" />
-        <option value="$PROJECT_DIR$/templates/dashboard/dashboard_rfp_listing.html" />
-        <option value="$PROJECT_DIR$/templates/dashboard/dashboard_project_list.html" />
         <option value="$PROJECT_DIR$/templates/dashboard/dashboard_pi_list.html" />
         <option value="$PROJECT_DIR$/templates/dashboard/dashboard_reviewers_list.html" />
         <option value="$PROJECT_DIR$/templates/dashboard/dashboard_pi_details.html" />
@@ -105,9 +88,6 @@
         <option value="$PROJECT_DIR$/templates/home_page_login.html" />
         <option value="$PROJECT_DIR$/templates/rfp/create_project.html" />
         <option value="$PROJECT_DIR$/templates/rfp/edit_project.html" />
-        <option value="$PROJECT_DIR$/templates/rfp/project/project_form.html" />
-        <option value="$PROJECT_DIR$/templates/rfp/project/project_budget.html" />
-        <option value="$PROJECT_DIR$/templates/rfp/review/list_of_review.html" />
         <option value="$PROJECT_DIR$/user_profile/templatetags/user_extras.py" />
         <option value="$PROJECT_DIR$/templates/rfp/project_details_reviewer.html" />
         <option value="$PROJECT_DIR$/templates/rfp/review/project_details_reviews.html" />
@@ -117,27 +97,41 @@
         <option value="$PROJECT_DIR$/rfp/urls.py" />
         <option value="$PROJECT_DIR$/templates/rfp/review/post_review_waiver_contact_form.html" />
         <option value="$PROJECT_DIR$/templates/dashboard/B_Up.html" />
-        <option value="$PROJECT_DIR$/templates/rfp/create_project_reviewer.html" />
         <option value="$PROJECT_DIR$/keys/keys.py" />
         <option value="$PROJECT_DIR$/templates/rfp/post_review_waiver_refuse.html" />
-        <option value="$PROJECT_DIR$/rfp/views.py" />
         <option value="$PROJECT_DIR$/portal_frc/settings.py" />
         <option value="$PROJECT_DIR$/templates/dashboard/dashboard_rfp_form.html" />
-        <option value="$PROJECT_DIR$/rfp/forms.py" />
         <option value="$PROJECT_DIR$/templates/base.html" />
         <option value="$PROJECT_DIR$/templates/rfp/view_review.html" />
         <option value="$PROJECT_DIR$/templates/home_page/jumbo.html" />
         <option value="$PROJECT_DIR$/testing.py" />
         <option value="$PROJECT_DIR$/data_create.py" />
         <option value="$PROJECT_DIR$/templates/user_profile/scientific_board/home_page.html" />
-        <option value="$PROJECT_DIR$/rfp/models.py" />
         <option value="$PROJECT_DIR$/user_profile/urls.py" />
         <option value="$PROJECT_DIR$/user_profile/views.py" />
         <option value="$PROJECT_DIR$/templates/user_profile/scientific_board/scientific_board_project_details.html" />
         <option value="$PROJECT_DIR$/templates/dashboard/dashboard_project_details.html" />
         <option value="$PROJECT_DIR$/templates/dashboard/dashboard_rfp_details.html" />
-        <option value="$PROJECT_DIR$/static/css/style.css" />
         <option value="$PROJECT_DIR$/templates/elements/navigation_menu.html" />
+        <option value="$PROJECT_DIR$/rfp/models.py" />
+        <option value="$PROJECT_DIR$/rfp/forms.py" />
+        <option value="$PROJECT_DIR$/templates/user_profile/profile.html" />
+        <option value="$PROJECT_DIR$/templates/rfp/project/project_header.html" />
+        <option value="$PROJECT_DIR$/templates/rfp/project/project_scroll_to.html" />
+        <option value="$PROJECT_DIR$/templates/rfp/project/project_back_to_top.html" />
+        <option value="$PROJECT_DIR$/templates/rfp/project_details.html" />
+        <option value="$PROJECT_DIR$/static/css/style.css" />
+        <option value="$PROJECT_DIR$/templates/rfp/review/list_of_review.html" />
+        <option value="$PROJECT_DIR$/templates/rfp/project/project_form.html" />
+        <option value="$PROJECT_DIR$/templates/rfp/create_project_previous.html" />
+        <option value="$PROJECT_DIR$/templates/rfp/create_project_budget.html" />
+        <option value="$PROJECT_DIR$/templates/rfp/create_project_reviewer.html" />
+        <option value="$PROJECT_DIR$/templates/elements/sub_title.html" />
+        <option value="$PROJECT_DIR$/templates/rfp/project/project_budget.html" />
+        <option value="$PROJECT_DIR$/templates/rfp/project/project_details.html" />
+        <option value="$PROJECT_DIR$/templates/rfp/project/project_reviewer.html" />
+        <option value="$PROJECT_DIR$/templates/rfp/create_project_summary.html" />
+        <option value="$PROJECT_DIR$/rfp/views.py" />
       </list>
     </option>
   </component>
@@ -177,8 +171,8 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -207,7 +201,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
+              <option name="myItemId" value="user_profile" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -221,43 +215,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
+              <option name="myItemId" value="user_profile" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="elements" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="rfpportal" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="rfpportal" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="rfpportal" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="rfpportal" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
+              <option name="myItemId" value="templatetags" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -480,10 +442,10 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1060" extended-state="6" />
+    <frame x="-9" y="-9" width="1938" height="1060" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22032085" sideWeight="0.560307" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22299466" sideWeight="0.560307" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -525,157 +487,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/templates/dashboard/dashboard_pi_details.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8604924">
-          <caret line="133" column="29" selection-start-line="133" selection-start-column="13" selection-end-line="133" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/dashboard/dashboard_reviewers_list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.82063305">
-          <caret line="68" column="24" selection-start-line="68" selection-start-column="24" selection-end-line="68" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/dashboard/dashboard_pi_list.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8007034">
-          <caret line="62" column="37" selection-start-line="62" selection-start-column="8" selection-end-line="62" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.79015243">
-          <caret line="43" column="7" selection-start-line="43" selection-start-column="7" selection-end-line="43" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/portal_frc/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.59954494">
-          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/dashboard/dashboard_edit_rfp.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.27901524">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/rfp/review/list_of_review.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5580305">
-          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/rfp/project_detail_recommendations.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/rfp/project_details.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/rfp/create_project_summary.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/rfp/create_project_budget.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/rfp/project/project_budget.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1992966">
-          <caret line="10" column="35" selection-start-line="10" selection-start-column="35" selection-end-line="10" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/rfp/project/project_form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33880422">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/rfp/create_project_previous.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/rfp/edit_project.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6178195">
-          <caret line="31" column="31" selection-start-line="29" selection-start-column="20" selection-end-line="31" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/rfp/create_project.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.84290737">
-          <caret line="58" column="22" selection-start-line="53" selection-start-column="16" selection-end-line="58" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user_profile/templatetags/user_extras.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="38" column="32" selection-start-line="38" selection-start-column="32" selection-end-line="38" selection-end-column="32" />
-          <folding>
-            <element signature="e#26#53#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/elements/sub_title.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="5" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/rfp/project_details_reviewer.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6506448">
-          <caret line="58" column="48" selection-start-line="58" selection-start-column="48" selection-end-line="58" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/user_profile/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/rfp/post_review_waiver.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="33" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/rfp/review/post_review_waiver_form.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.31887457">
@@ -697,19 +508,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/rfp/create_project_reviewer.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.63774914">
-          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/keys/keys.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.17406143">
           <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -717,15 +519,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.34812286">
           <caret line="22" column="18" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rfp/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="46" column="37" selection-start-line="46" selection-start-column="11" selection-end-line="46" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -733,7 +526,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -741,7 +533,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-9.807693">
           <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -749,7 +540,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3587339">
           <caret line="18" column="6" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -757,20 +547,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-11.769231">
           <caret line="18" column="18" selection-start-line="18" selection-start-column="18" selection-end-line="18" selection-end-column="18" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#form#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rfp/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46871445">
-          <caret line="185" column="72" selection-start-line="185" selection-start-column="72" selection-end-line="185" selection-end-column="72" />
-          <folding>
-            <element signature="e#1157#1444#0" expanded="false" />
-            <element signature="e#1487#3172#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -778,7 +554,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-19.615385">
           <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -786,7 +561,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.57796013">
           <caret line="29" column="32" selection-start-line="29" selection-start-column="32" selection-end-line="29" selection-end-column="32" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -794,7 +568,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4021102">
           <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -802,7 +575,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.66705745">
           <caret line="53" column="6" selection-start-line="53" selection-start-column="6" selection-end-line="53" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -810,7 +582,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.27901524">
           <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -818,7 +589,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.1992966">
           <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -826,11 +596,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.11604095">
           <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-          <folding>
-            <element signature="e#1074#1296#0" expanded="false" />
-            <element signature="e#1338#1497#0" expanded="false" />
-            <element signature="e#1531#3368#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -838,12 +603,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.21843003">
           <caret line="85" column="29" selection-start-line="85" selection-start-column="29" selection-end-line="85" selection-end-column="29" />
-          <folding>
-            <element signature="e#3868#4699#0" expanded="false" />
-            <element signature="e#4738#5692#0" expanded="false" />
-            <element signature="e#5733#9160#0" expanded="false" />
-            <element signature="e#9186#9346#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -851,7 +610,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.56154746">
           <caret line="386" column="22" selection-start-line="386" selection-start-column="22" selection-end-line="386" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -859,7 +617,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7929465">
           <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -867,26 +624,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4366864">
           <caret line="574" column="33" selection-start-line="574" selection-start-column="33" selection-end-line="574" selection-end-column="33" />
-          <folding>
-            <element signature="e#0#88#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rfp/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.70875996">
-          <caret line="368" column="0" selection-start-line="368" selection-start-column="0" selection-end-line="368" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-            <element signature="e#929#1151#0" expanded="false" />
-            <element signature="e#1392#4421#0" expanded="false" />
-            <element signature="e#4456#8596#0" expanded="false" />
-            <element signature="e#8640#11816#0" expanded="false" />
-            <element signature="e#11854#12446#0" expanded="false" />
-            <element signature="e#12480#17343#0" expanded="false" />
-            <element signature="e#13974#14717#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -894,9 +631,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.73739743">
           <caret line="37" column="14" selection-start-line="37" selection-start-column="14" selection-end-line="37" selection-end-column="14" />
-          <folding>
-            <element signature="n#style#0;n#span#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -904,15 +638,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.82063305">
           <caret line="241" column="0" selection-start-line="241" selection-start-column="0" selection-end-line="241" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="560" column="25" selection-start-line="560" selection-start-column="25" selection-end-line="560" selection-end-column="25" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -920,40 +645,260 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="2.0527549">
           <caret line="115" column="0" selection-start-line="115" selection-start-column="0" selection-end-line="115" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/elements/navigation_menu.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5298945">
+          <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rfp/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="112" column="45" selection-start-line="112" selection-start-column="45" selection-end-line="112" selection-end-column="45" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+            <element signature="e#929#1151#0" expanded="false" />
+            <element signature="e#1392#4421#0" expanded="false" />
+            <element signature="e#8585#11761#0" expanded="false" />
+            <element signature="e#11799#12391#0" expanded="false" />
+            <element signature="e#12425#17288#0" expanded="false" />
+            <element signature="e#13919#14662#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/user_profile/profile.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7573271">
+          <caret line="38" column="32" selection-start-line="38" selection-start-column="32" selection-end-line="38" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/rfp/project/project_tab.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/rfp/project_detail_recommendations.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.41852286">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/rfp/project_details_reviewer.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.36225086">
+          <caret line="89" column="44" selection-start-line="89" selection-start-column="44" selection-end-line="89" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user_profile/templatetags/user_extras.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.59954494">
+          <caret line="68" column="23" selection-start-line="68" selection-start-column="23" selection-end-line="68" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/rfp/project/project_header.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0996483">
+          <caret line="5" column="15" selection-start-line="5" selection-start-column="15" selection-end-line="5" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/rfp/project/project_scroll_to.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.936694">
+          <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rfp/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="117" column="58" selection-start-line="117" selection-start-column="58" selection-end-line="117" selection-end-column="58" />
+          <folding>
+            <element signature="e#1157#1444#0" expanded="false" />
+            <element signature="e#1487#3172#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/rfp/project/project_back_to_top.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.3076923">
+          <caret line="2" column="96" selection-start-line="2" selection-start-column="96" selection-end-line="2" selection-end-column="96" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/rfp/review/list_of_review.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.2692308">
+          <caret line="5" column="72" selection-start-line="5" selection-start-column="72" selection-end-line="5" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/rfp/project/project_form.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="19" selection-start-line="0" selection-start-column="19" selection-end-line="0" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rfp/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="112" selection-start-line="10" selection-start-column="93" selection-end-line="10" selection-end-column="116" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-20.352942">
+          <caret line="767" column="1" selection-start-line="767" selection-start-column="1" selection-end-line="767" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/rfp/project_details.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4982415">
+          <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+          <folding>
+            <element signature="n#div#0;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#div#1;n#div#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/rfp/project_details_budget.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.53810084">
+          <caret line="27" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/elements/sub_title.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="5" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/elements/review_title.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.23915592">
+          <caret line="12" column="15" selection-start-line="12" selection-start-column="15" selection-end-line="12" selection-end-column="15" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/rfp/create_project_reviewer.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.27901524">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="15" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/rfp/create_project_previous.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="11" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/rfp/create_project_budget.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.27901524">
+          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/rfp/project/project_details.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.576923">
+          <caret line="7" column="87" selection-start-line="7" selection-start-column="87" selection-end-line="7" selection-end-column="87" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/rfp/project/project_reviewer.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-23.0">
+          <caret line="97" column="35" selection-start-line="97" selection-start-column="35" selection-end-line="97" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/rfp/add_budget_eq.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/rfp/create_project_summary.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-26.807692">
+          <caret line="47" column="14" selection-start-line="47" selection-start-column="14" selection-end-line="47" selection-end-column="14" />
+          <folding>
+            <element signature="n#p#0;n#div#0;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#div#2;n#div#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/rfp/project/project_budget.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.1922626">
+          <caret line="110" column="99" selection-start-line="110" selection-start-column="99" selection-end-line="110" selection-end-column="99" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/rfp/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="520" column="0" selection-start-line="520" selection-start-column="0" selection-end-line="520" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.625711">
+          <caret line="600" column="9" selection-start-line="600" selection-start-column="9" selection-end-line="600" selection-end-column="9" />
           <folding>
             <element signature="e#0#88#0" expanded="true" />
-            <element signature="e#21494#22171#0" expanded="false" />
-            <element signature="e#22314#23040#0" expanded="false" />
-            <element signature="e#23179#23816#0" expanded="false" />
-            <element signature="e#23959#24704#0" expanded="false" />
-            <element signature="e#24843#25466#0" expanded="false" />
-            <element signature="e#25609#26341#0" expanded="false" />
-            <element signature="e#26484#26851#0" expanded="false" />
-            <element signature="e#26992#28404#0" expanded="false" />
-            <element signature="e#28552#29686#0" expanded="false" />
-            <element signature="e#29841#30998#0" expanded="false" />
-            <element signature="e#31139#31393#0" expanded="false" />
-            <element signature="e#31533#31715#0" expanded="false" />
-            <element signature="e#31788#31867#0" expanded="false" />
-            <element signature="e#32028#32690#0" expanded="false" />
-            <element signature="e#32716#33549#0" expanded="false" />
+            <element signature="e#22338#23088#0" expanded="false" />
+            <element signature="e#24031#24799#0" expanded="false" />
+            <element signature="e#25728#26483#0" expanded="false" />
+            <element signature="e#26626#26993#0" expanded="false" />
+            <element signature="e#28694#29828#0" expanded="false" />
+            <element signature="e#29983#31140#0" expanded="false" />
+            <element signature="e#31281#31535#0" expanded="false" />
+            <element signature="e#31675#31857#0" expanded="false" />
+            <element signature="e#31930#32009#0" expanded="false" />
+            <element signature="e#32170#32832#0" expanded="false" />
+            <element signature="e#32858#33691#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/elements/navigation_menu.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.67760843">
-          <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>

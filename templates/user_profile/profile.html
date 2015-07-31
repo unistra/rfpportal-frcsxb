@@ -31,11 +31,16 @@
         {% endif %}
 
         {% if is_pi %}
+
     <div id='proj' class="hide">
         <div class="row">
             <div class="col-xs-12 col-md-12">
                 {% include 'elements/project_title.html' %}
-                    <a class = "small_link pull-right" href="{% url 'post_homepage_login_landing_page' %}">Add a new projet</a>
+                    <a class = "" href="{% url 'post_homepage_login_landing_page' %}">Add a new projet</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-md-12">
 
                 <table class="table">
 
@@ -44,7 +49,6 @@
                             <th>Project Title</th>
                             <th>Category</th>
                             <th>Requested (Eur.)</th>
-                            <th>File</th>
                             <th>Status</th>
                             <th>Granted (Eur.)</th>
                         </tr>
@@ -64,7 +68,7 @@
                             </td>
                             <td> {{ p.rfp }}</td>
                             <td>{{ p.requested_amount }}</td>
-                            <td>{% if p.document %} <a href="{{ p.document.url }}">{{ p.document.name }}</a> {% else %} <em>No File</em> {% endif %}</td>
+
                             <td><em>{% if p.rfp.status == 'under_review' %} Under Review {% else %} {{ p.status|capfirst }} {% endif %}</em></td>
                             <td> {% if p.status == 'granted' %} {{ p.awarded_amount }} {% else %} <em>None</em> {% endif %} </td>
 

@@ -532,7 +532,7 @@ def add_budget_hr(request, projectId):
     project = Project.objects.get(pk = projectId)
     user_is_owner(user,project)
 
-    redirect = get_redirect_url(request)
+    redirect = get_redirect_url(request) + str('#budget_detail')
 
     if request.method == 'POST':
         form = BudgetLineHR(request.POST)
@@ -562,7 +562,7 @@ def edit_budget_hr(request, budgetlineId):
     project=Project.objects.get(id = bl.project.id)
     user_is_owner(user,project)
 
-    redirect = get_redirect_url(request)
+    redirect = get_redirect_url(request) + str('#budget_detail')
 
     if request.method == 'POST':
 
@@ -589,7 +589,7 @@ def add_budget_eq(request, projectId):
     project = Project.objects.get(pk = projectId)
     user_is_owner(user,project)
 
-    redirect = get_redirect_url(request)
+    redirect = get_redirect_url(request) + str('#budget_detail')
 
     if request.method == 'POST':
 
@@ -617,7 +617,7 @@ def edit_budget_eq(request, budgetlineId):
     project=Project.objects.get(id = bl.project.id)
     user_is_owner(user,project)
 
-    redirect = get_redirect_url(request)
+    redirect = get_redirect_url(request)+ str('#budget_detail')
 
     if request.method == 'POST':
 
@@ -644,7 +644,7 @@ def add_budget_op(request, projectId):
     user = request.user
     project = Project.objects.get(pk = projectId)
     user_is_owner(user,project)
-    redirect = get_redirect_url(request)
+    redirect = get_redirect_url(request) + str('#budget_detail')
 
     if request.method == 'POST':
 
@@ -672,7 +672,7 @@ def edit_budget_op(request, budgetlineId):
     project=Project.objects.get(id = bl.project.id)
     user_is_owner(user,project)
 
-    redirect = get_redirect_url(request)
+    redirect = get_redirect_url(request)+ str('#budget_detail')
 
     if request.method == 'POST':
 

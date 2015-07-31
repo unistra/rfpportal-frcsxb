@@ -1,20 +1,19 @@
-{% extends 'rfp/project_details.html' %}
+{% extends 'base.html' %}
 
-{% block title %}Edit{{ project.name }} {% endblock %}
+{% block title %}Edit {{ project.name }} {% endblock %}
 
-{% block project_header %}
+{% block body_block %}
+<div class="container">
 <!--Project Header-->
 {% include 'rfp/project/project_header.html' %}
 
+<!--Progress Bar-->
 {% include 'rfp/project/progress_bar.html' %}
+<hr>
+<!--Project Form-->
+{% include 'rfp/project/project_form.html' %}
 
-{% endblock %}
-
-{% block project_tab %} {% endblock %}
-
-{% block project_edit %}
-
-    {% include 'rfp/project/project_form.html' %}
+</div>
 
 <script>
     $('#step_1').removeClass('progtrckr-todo').addClass('progtrckr-focus');

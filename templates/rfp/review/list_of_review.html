@@ -1,28 +1,48 @@
-    <div class="col-xs-12 col-md-12">
+<div id="recommendations" class="row">
 
+<div class="col-xs-12 col-md-12">
+
+        <div class="cs_block_title">
+                        <div class="cs_icon_cell pull-left comments_icon">
+                            <span class="glyphicon glyphicon-comment"></span>
+                        </div>
+
+                        <div class="pull-left cs_title_cell">
+                            Recommendations
+                        </div>
+        </div>
+
+
+
+
+        {% if list_of_review %}
         <table class="table">
-            <thead>
-                {% block extra_column_header %} {% endblock %}
-                <th>Review</th>
-                <th>Date</th>
-                <th>Rating</th>
-            </thead>
+         <thead>
+                        {% block extra_column_header %} {% endblock %}
+                        <th>Review</th>
+                        <th>Date</th>
+                        <th>Rating</th>
+         </thead>
 
-{% for review in list_of_review %}
-            <tr>
-                <td>
-                    <a href="{% url 'view_review' review.id %}" target="_blank">{{ review.custom_0|truncatewords:15 }}</a>
-                </td>
-                <td>{{ review.date }}</td>
-                <td>{{ review.rating }}</td>
-            </tr>
-{% empty %}
+        {% for review in list_of_review %}
 
-            <p><em>Sorry no reviews has been submitted yet.</em></p>
-{% endfor %}
+         <tr>
+                        <td>
+                            <a href="{% url 'view_review' review.id %}" target="_blank">{{ review.custom_0|truncatewords:15 }}</a>
+                        </td>
+                        <td>{{ review.date }}</td>
+                        <td>{{ review.rating }}</td>
+         </tr>
 
+        {% endfor %}
         </table>
+        {% else %}
+
+        <p><em><br>Sorry no reviews has been submitted yet.<br></em></p>
+
+        {% endif %}
 </div>
 
+</div>
 
 

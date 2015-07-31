@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="col-xs-12 col-md-12 scroll-menu">
+        <ul>
+
+            <li>
+                <div class="anchor_p">
+                    <a href="#project_detail">Project</a>
+                </div>
+            </li>
+
+            <li>
+                <div class="anchor_b">
+                    <a href="#budget_detail">Budget</a>
+                </div>
+            </li>
+
+            {% if is_pi %}
+                {% if project.rfp.add_reviewer %}
+                    <li>
+                        <div class="anchor_r">
+                        <a href="#reviewer_detail">Reviewers</a>
+                        </div>
+                    </li>
+                {% endif %}
+            {% endif %}
+
+            {% if is_rev %}
+                        <li>
+                            <div class="anchor_r">
+                                <a href="{% url 'post_review' project.id %}">Post your Review</a>
+                            </div>
+                        </li>
+            {% endif %}
+
+            {% if is_pi and project.rfp.status == 'closed' %}
+            <li>
+                <div class="anchor_rec">
+                    <a href="#recommendations">Recommendations</a>
+                </div>
+            </li>
+
+            {% endif %}
+         </ul>
+        <hr>
+    </div>
+
+</div>

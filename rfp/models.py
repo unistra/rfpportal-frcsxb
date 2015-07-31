@@ -111,7 +111,6 @@ class Project(models.Model):
     name=models.CharField(max_length=255)
     user=models.ForeignKey(User,blank=True,null=True)
     starting_date=models.DateField(null=True)
-    ending_date=models.DateField(null=True,blank=True)
     project_duration=models.IntegerField(null=True,blank=True)
     requested_amount=models.IntegerField(null=True)
     awarded_amount=models.IntegerField(blank=True,null=True)

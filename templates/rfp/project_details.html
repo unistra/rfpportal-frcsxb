@@ -3,17 +3,19 @@
 {% block title %} {{ project.name }} {% endblock %}
 
 {% block body_block %}
-
+{% load user_extras %}
 <div class="container">
 
 {% block project_header %}
+    <!--Project Tab-->
+{% include 'rfp/project/project_scroll_to.html' %}
 <!--Project Header-->
 {% include 'rfp/project/project_header.html' %}
+
 {% endblock %}
 
 {% block project_tab %}
-<!--Project Tab-->
-{% include 'rfp/project/project_tab.html' %}
+
 {% endblock %}
 
 
@@ -22,9 +24,9 @@
 
     <div class="col-xs-12 col-md-12">
         {% include 'elements/project_title.html' %}
-        <h4>{{ project.name }}</h4>
 
-    {% if is_pi and project.rfp.status == 'open' %} <a class="small_link" href="{% url 'edit_project' project.id %}">Edit Project Details</a>{% endif %}
+
+    {% if is_pi and project.rfp.status == 'open' %} <strong><p><a href="{% url 'edit_project' project.id %}">Click Here to edit the project details</a></p></strong>{% endif %}
 
     {% for p in project_data %}
         {% if p.label == '' %}
@@ -53,9 +55,129 @@
         </div>
 </div>
 
-    {% block budget_summary %} {% endblock %}
-    {% block reviewer_summary %} {% endblock %}
-    {% block project_edit %}{% endblock %}
+    {% include 'rfp/project/project_back_to_top.html' %}
+
+<!--Project Budget-->
+        {% include 'rfp/project/project_budget.html' %}
+        {% include 'rfp/project/project_back_to_top.html' %}
+
+
+<!--Project Reviewer-->
+
+    {% if not user|is_rev %}
+
+        {% if project.rfp.add_reviewer %}
+
+                <div class="row " id="reviewer_detail">
+                <div class="col-xs-12 col-md-12">
+                       <div class="row cs_header">
+
+            <div class="cs_block_title">
+                            <div class="cs_icon_cell pull-left review_icon">
+                                <span class="glyphicon glyphicon-comment"></span>
+                            </div>
+
+                            <div class="pull-left cs_title_cell">
+                            Reviewer
+                            </div>
+                        </div>
+             </div>
+
+                   <table class="table">
+
+                    <thead>
+                            <tr>
+                                <th>Contact</th>
+                                <th>Email</th>
+                                <th>City</th>
+                                <th>Country</th>
+                                <th></th>
+
+                            </tr>
+                    </thead>
+
+                        <tbody>
+                        {% for r in prop_rev_list %}
+
+                                <tr>
+                                    <td>{{ r }}</td>
+                                    <td>{{ r.email }}</td>
+                                    <td>{{ r.city }}</td>
+                                    <td>{{ r.country }}</td>
+
+                                    <td>{% if user|is_pi and project.rfp.status == 'open' %}
+                                        <a href = "{% url 'edit_reviewer' r.pk %}?redirect={{ current_url }}">Edit</a> {% endif %}
+
+                                    </td>
+                                </tr>
+
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {% if user|is_pi and project.rfp.status == 'open' %}<p>
+                    <a href="{% url 'add_unique_reviewer' project.pk %}?redirect={{ current_url }}">
+                    Propose another reviewer
+                    </a></p>{% endif %}
+                </div>
+
+        <div class="col-xs-12 col-md-12">
+
+            <div class="cs_block_sub_title">
+
+                            <div class="pull-left cs_title_cell cs_sub_title_cell_rev">
+                            Excluded Reviewers
+                            </div>
+    </div>
+
+                <table class="table">
+
+                    <thead>
+                            <tr>
+
+                                <th>Contact</th>
+                                <th>Institution</th>
+                                <th>Country</th>
+                                <th></th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        {% for r in excluded_rev_list %}
+
+                        <tr>
+
+                            <td>{{ r.first_name }} {{ r.last_name }}</td>
+                            <td>{{ r.institution }}</td>
+                            <td>{{ r.country }}</td>
+                            <td>{% if user|is_pi and project.rfp.status == 'open' %}<a href = "{% url 'edit_excluded_reviewer' r.pk %}?redirect={{ current_url }}">Edit</a> {% endif %}</td>
+
+                        </tr>
+
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {% if user|is_pi and project.rfp.status == 'open' %}<p>
+                    <a href="{% url 'exclude_unique_reviewer' project.pk %}?redirect={{ current_url }}">
+                    Exclude another reviewer
+                    </a></p>{% endif %}
+
+        {% block project_next %} {% endblock %}
+
+        </div>
+    </div>
+                {% include 'rfp/project/project_back_to_top.html' %}
+
+        {% endif %}
+
+    {% endif %}
+
+<!--Recomendations-->
+    {% if is_pi and project.rfp.status == 'closed' %}
+        {% include 'rfp/review/list_of_review.html' %}
+        {% include 'rfp/project/project_back_to_top.html' %}
+    {% endif %}
+
 
 </div>
 

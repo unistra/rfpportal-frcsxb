@@ -1,18 +1,21 @@
-{% extends 'rfp/project_details_budget.html' %}
+{% extends 'base.html' %}
 
-{% block title %}Create the Budget for {{ project.name }} {% endblock %}
+{% block title %}Edit {{ project.name }} {% endblock %}
 
-{% block project_header %}
+{% block body_block %}
+
+<div class="container">
 <!--Project Header-->
 {% include 'rfp/project/project_header.html' %}
+
+<!--Progress Bar-->
 {% include 'rfp/project/progress_bar.html' %}
-{% endblock %}
+<hr>
 
-{% block project_tab %} {% endblock %}
+<!--Project Budget-->
+{% include 'rfp/project/project_budget.html' %}
 
-{% block project_next %}
-
-    <a class="btn btn-apply" href="{% url 'create_project_previous' project.pk %}">Previous</a>
+<a class="btn btn-apply" href="{% url 'create_project_previous' project.pk %}">Previous</a>
 
 {% if project.rfp.add_reviewer %}
 
@@ -23,6 +26,10 @@
     <a class="btn btn-apply pull-right" href="{% url 'create_project_summary' project.pk %}">Save and Submit</a>
 
 {% endif %}
+
+
+
+</div>
 
 <script>
     $('#step_1').removeClass('progtrckr-todo').addClass('progtrckr-done');

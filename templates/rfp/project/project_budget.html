@@ -1,3 +1,5 @@
+{% load user_extras %}
+
 <div class="row" id="budget_detail">
             <div class="col-xs-12 col-md-12">
 
@@ -29,10 +31,10 @@
                         <td>{{ line.duration }}</td>
                         <td>{{ line.monthly_salary }}</td>
                         <td>{{ line.amount|floatformat:-1 }} €</td>
-                        <td>{% if is_pi and project.rfp.status == 'open' %}<a href = "{% url 'edit_budget_hr' line.id %}?redirect={{ current_url }}">Edit</a>{% endif %}</td>
+                        <td>{% if user|is_pi and project.rfp.status == 'open' %}<a class="act-link" href = "{% url 'edit_budget_hr' line.id %}?redirect={{ current_url }}">Edit</a>{% endif %}</td>
                     </tr>
                     {% endfor %}
-                    <tr>{% if is_pi and project.rfp.status == 'open' %}<td><a href="{% url 'add_budget_hr' project.id %}?redirect={{ current_url }}">Add recruitment</a></td>{% endif %}
+                    <tr>{% if user|is_pi and project.rfp.status == 'open' %}<td><a class="act-link" href="{% url 'add_budget_hr' project.id %}?redirect={{ current_url }}">Add recruitment</a></td>{% endif %}
                     <td></td>
                     <td></td>
                     </tr>
@@ -66,10 +68,10 @@
                         <td>{{ line }}</a></td>
                         <td>{{ line.amount|floatformat:-1 }} €</td>
                         <td>{% if line.quote %} <a href="{{ line.quote.url }}" target="_blank">{{ line.quote }}</a> {% endif %}</td>
-                        <td>{% if is_pi and project.rfp.status == 'open' %}<a href = "{% url 'edit_budget_eq' line.id %}?redirect={{ current_url }}">Edit</a>{% endif %}</td>
+                        <td>{% if user|is_pi and project.rfp.status == 'open' %}<a class="act-link" href = "{% url 'edit_budget_eq' line.id %}?redirect={{ current_url }}">Edit</a>{% endif %}</td>
                     </tr>
                     {% endfor %}
-                    <tr><td>{% if is_pi and project.rfp.status == 'open' %}<a href="{% url 'add_budget_eq' project.id %}?redirect={{ current_url }}">Add equipment</a>{% endif %}</td>
+                    <tr><td>{% if user|is_pi and project.rfp.status == 'open' %}<a class="act-link" href="{% url 'add_budget_eq' project.id %}?redirect={{ current_url }}">Add equipment</a>{% endif %}</td>
                     <td></td>
                     <td></td>
                     </tr>
@@ -103,10 +105,10 @@
                     <tr>
                         <td>{{ line }}</a></td>
                         <td>{{ line.amount|floatformat:-1 }} €</td>
-                        <td>{% if is_pi and project.rfp.status == 'open' %}<a href = "{% url 'edit_budget_op' line.id %}?redirect={{ current_url }}">Edit</a>{% endif %}</td>
+                        <td>{% if user|is_pi and project.rfp.status == 'open' %}<a class="act-link" href = "{% url 'edit_budget_op' line.id %}?redirect={{ current_url }}">Edit</a>{% endif %}</td>
                     </tr>
                     {% endfor %}
-                    <tr><td>{% if is_pi and project.rfp.status == 'open' %}<a href="{% url 'add_budget_op' project.id %}?redirect={{ current_url }}">Add operating cost</a>{% endif %}</td>
+                    <tr><td>{% if user|is_pi and project.rfp.status == 'open' %}<a class="act-link" href="{% url 'add_budget_op' project.id %}?redirect={{ current_url }}">Add operating cost</a>{% endif %}</td>
                     <td></td>
                     <td></td>
                     </tr>

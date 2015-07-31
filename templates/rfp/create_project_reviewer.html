@@ -1,26 +1,30 @@
-{% extends 'rfp/project_details_reviewer.html' %}
-
-{% block title %}Propose reviewer for {{ project.name }} {% endblock %}
-
-
-{% block project_header %}
-<!--Project Header-->
-{% include 'rfp/project/project_header.html' %}
-{% include 'rfp/project/progress_bar.html' %}
-{% endblock %}
-
-{% block project_tab %} {% endblock %}
-
-{% block project_next %}
+{% extends 'base.html' %}
 {% load user_extras %}
 
-    <a class="btn btn-apply" href="{% url 'create_project_budget' project.id %}">Previous</a>
+{% block title %}Edit {{ project.name }} {% endblock %}
+
+{% block body_block %}
+<div class="container">
+<!--Project Header-->
+{% include 'rfp/project/project_header.html' %}
+
+<!--Progress Bar-->
+{% include 'rfp/project/progress_bar.html' %}
+<hr>
+
+<!--Reviewer Table-->
+{% include 'rfp/project/project_reviewer.html' %}
+
+
+<a class="btn btn-apply" href="{% url 'create_project_budget' project.id %}">Previous</a>
 
     {% if project|count_proposedreviewer < 4 %}
     <p class="btn btn-inactive pull-right">Please add a minimum of 4 reviewers to submit your project.</p>
     {% else %}
     <a class="btn btn-apply pull-right" href="{% url 'create_project_summary' project.id %}">Save and Submit</a>
     {% endif %}
+
+</div>
 
 <script>
     $('#step_1').removeClass('progtrckr-todo').addClass('progtrckr-done');
