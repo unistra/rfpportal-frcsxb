@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="37de490b-32f2-4468-beb3-e1942f07a6a3" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/base.html" afterPath="$PROJECT_DIR$/templates/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/dashboard/dashboard_project_details.html" afterPath="$PROJECT_DIR$/templates/dashboard/dashboard_project_details.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/user_profile/views.py" afterPath="$PROJECT_DIR$/user_profile/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/rfp/views.py" afterPath="$PROJECT_DIR$/rfp/views.py" />
     </list>
     <ignored path="rfpportal.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,44 +24,46 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/rfp/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="600" column="9" selection-start-line="600" selection-start-column="9" selection-end-line="600" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.4493743">
+              <caret line="284" column="31" selection-start-line="284" selection-start-column="31" selection-end-line="284" selection-end-column="31" />
               <folding>
                 <element signature="e#0#88#0" expanded="true" />
-                <element signature="e#22338#23088#0" expanded="false" />
-                <element signature="e#24031#24799#0" expanded="false" />
-                <element signature="e#25728#26483#0" expanded="false" />
-                <element signature="e#26626#26993#0" expanded="false" />
-                <element signature="e#28694#29828#0" expanded="false" />
-                <element signature="e#29983#31140#0" expanded="false" />
-                <element signature="e#31281#31535#0" expanded="false" />
-                <element signature="e#31675#31857#0" expanded="false" />
-                <element signature="e#31930#32009#0" expanded="false" />
-                <element signature="e#32170#32832#0" expanded="false" />
-                <element signature="e#32858#33691#0" expanded="false" />
+                <element signature="e#22573#23323#0" expanded="false" />
+                <element signature="e#24266#25034#0" expanded="false" />
+                <element signature="e#25963#26718#0" expanded="false" />
+                <element signature="e#26861#27228#0" expanded="false" />
+                <element signature="e#28929#30063#0" expanded="false" />
+                <element signature="e#30218#31375#0" expanded="false" />
+                <element signature="e#31516#31770#0" expanded="false" />
+                <element signature="e#31910#32092#0" expanded="false" />
+                <element signature="e#32165#32244#0" expanded="false" />
+                <element signature="e#32405#33067#0" expanded="false" />
+                <element signature="e#33093#33926#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="base.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/templates/base.html">
+      <file leaf-file-name="project_details.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/rfp/project_details.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6576788">
-              <caret line="33" column="118" selection-start-line="33" selection-start-column="118" selection-end-line="33" selection-end-column="118" />
-              <folding />
+            <state vertical-scroll-proportion="-24.384615">
+              <caret line="145" column="53" selection-start-line="145" selection-start-column="36" selection-end-line="145" selection-end-column="53" />
+              <folding>
+                <element signature="n#div#0;n#div#0;n#!!top" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dashboard_project_details.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/dashboard/dashboard_project_details.html">
+      <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-146.46153">
-              <caret line="224" column="31" selection-start-line="224" selection-start-column="28" selection-end-line="224" selection-end-column="31" />
+            <state vertical-scroll-proportion="-21.576923">
+              <caret line="33" column="118" selection-start-line="33" selection-start-column="118" selection-end-line="33" selection-end-column="118" />
               <folding />
             </state>
           </provider>
@@ -85,26 +85,15 @@
         <entry file="file://$PROJECT_DIR$/rfp/models.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="370" column="40" selection-start-line="370" selection-start-column="4" selection-end-line="370" selection-end-column="40" />
+              <caret line="192" column="23" selection-start-line="192" selection-start-column="10" selection-end-line="192" selection-end-column="23" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
                 <element signature="e#929#1151#0" expanded="false" />
                 <element signature="e#1392#4421#0" expanded="false" />
-                <element signature="e#8585#11761#0" expanded="false" />
                 <element signature="e#11799#12391#0" expanded="false" />
                 <element signature="e#12425#17288#0" expanded="false" />
                 <element signature="e#13919#14662#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="scientific_board_project_details.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/user_profile/scientific_board/scientific_board_project_details.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-18.307692">
-              <caret line="43" column="0" selection-start-line="35" selection-start-column="4" selection-end-line="52" selection-end-column="14" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -172,10 +161,10 @@
         <option value="$PROJECT_DIR$/templates/rfp/project/project_details.html" />
         <option value="$PROJECT_DIR$/templates/rfp/project/project_reviewer.html" />
         <option value="$PROJECT_DIR$/templates/rfp/create_project_summary.html" />
-        <option value="$PROJECT_DIR$/rfp/views.py" />
         <option value="$PROJECT_DIR$/user_profile/views.py" />
         <option value="$PROJECT_DIR$/templates/dashboard/dashboard_project_details.html" />
         <option value="$PROJECT_DIR$/templates/base.html" />
+        <option value="$PROJECT_DIR$/rfp/views.py" />
       </list>
     </option>
   </component>
@@ -277,47 +266,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="user_profile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="rfpportal" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="rfpportal" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="user_profile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scientific_board" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="rfpportal" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="rfpportal" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dashboard" />
+              <option name="myItemId" value="rfp" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -557,14 +506,14 @@
     <frame x="-9" y="-9" width="1938" height="1060" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22299466" sideWeight="0.560307" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22299466" sideWeight="0.560307" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32894737" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24278075" sideWeight="0.43969297" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24278075" sideWeight="0.43969297" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
     </layout>
@@ -847,17 +796,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/rfp/project_details.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4982415">
-          <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
-          <folding>
-            <element signature="n#div#0;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#div#1;n#div#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/rfp/project_details_budget.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.53810084">
@@ -949,48 +887,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/rfp/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="600" column="9" selection-start-line="600" selection-start-column="9" selection-end-line="600" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#88#0" expanded="true" />
-            <element signature="e#22338#23088#0" expanded="false" />
-            <element signature="e#24031#24799#0" expanded="false" />
-            <element signature="e#25728#26483#0" expanded="false" />
-            <element signature="e#26626#26993#0" expanded="false" />
-            <element signature="e#28694#29828#0" expanded="false" />
-            <element signature="e#29983#31140#0" expanded="false" />
-            <element signature="e#31281#31535#0" expanded="false" />
-            <element signature="e#31675#31857#0" expanded="false" />
-            <element signature="e#31930#32009#0" expanded="false" />
-            <element signature="e#32170#32832#0" expanded="false" />
-            <element signature="e#32858#33691#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/user_profile/scientific_board/scientific_board_project_details.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-18.307692">
           <caret line="43" column="0" selection-start-line="35" selection-start-column="4" selection-end-line="52" selection-end-column="14" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/rfp/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="370" column="40" selection-start-line="370" selection-start-column="4" selection-end-line="370" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-            <element signature="e#929#1151#0" expanded="false" />
-            <element signature="e#1392#4421#0" expanded="false" />
-            <element signature="e#8585#11761#0" expanded="false" />
-            <element signature="e#11799#12391#0" expanded="false" />
-            <element signature="e#12425#17288#0" expanded="false" />
-            <element signature="e#13919#14662#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1014,9 +915,55 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6576788">
+        <state vertical-scroll-proportion="-21.576923">
           <caret line="33" column="118" selection-start-line="33" selection-start-column="118" selection-end-line="33" selection-end-column="118" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rfp/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="192" column="23" selection-start-line="192" selection-start-column="10" selection-end-line="192" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+            <element signature="e#929#1151#0" expanded="false" />
+            <element signature="e#1392#4421#0" expanded="false" />
+            <element signature="e#11799#12391#0" expanded="false" />
+            <element signature="e#12425#17288#0" expanded="false" />
+            <element signature="e#13919#14662#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/rfp/project_details.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-24.384615">
+          <caret line="145" column="53" selection-start-line="145" selection-start-column="36" selection-end-line="145" selection-end-column="53" />
+          <folding>
+            <element signature="n#div#0;n#div#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/rfp/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4493743">
+          <caret line="284" column="31" selection-start-line="284" selection-start-column="31" selection-end-line="284" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#88#0" expanded="true" />
+            <element signature="e#22573#23323#0" expanded="false" />
+            <element signature="e#24266#25034#0" expanded="false" />
+            <element signature="e#25963#26718#0" expanded="false" />
+            <element signature="e#26861#27228#0" expanded="false" />
+            <element signature="e#28929#30063#0" expanded="false" />
+            <element signature="e#30218#31375#0" expanded="false" />
+            <element signature="e#31516#31770#0" expanded="false" />
+            <element signature="e#31910#32092#0" expanded="false" />
+            <element signature="e#32165#32244#0" expanded="false" />
+            <element signature="e#32405#33067#0" expanded="false" />
+            <element signature="e#33093#33926#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

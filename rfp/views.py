@@ -261,14 +261,13 @@ def edit_project(request,projectId):
 def project_detail(request,projectId):
     context = RequestContext(request)
     user = request.user
-    is_p = is_pi(user)
-    is_rev = is_reviewer(user)
 
     project=Project.objects.get(id=projectId)
     review = find_user_review_for_project(user,project)
 
     project_data = ProjectForm(data=model_to_dict(project), questions = project.rfp.get_project_questions())
-    prop_rev_list = ProposedReviewer.objects.filter(project = project)
+    prop_rev_list = ProposedReviewer.objects.filter(project = project, type='USER_PROPOSED')
+    refused_rev_list = ProposedReviewer.objects.filter(project = project, type='USER_EXCLUDED')
     budget_line_list = BudgetLine.objects.filter(project = project)
     hr_budget_line_list = BudgetLine.objects.filter(project = project,category = 'HR')
     oc_budget_line_list = BudgetLine.objects.filter(project = project,category = 'OC')
@@ -287,11 +286,15 @@ def project_detail(request,projectId):
 
     store_redirect_url(request)
 
-    context_dict={'project' : project,'user' : user,'project_data' : project_data,'is_pi': is_p, 'bl' : budget_line_list,
-    'is_rev' : is_rev, 'prop_rev_list' : prop_rev_list,'current_url':current_url,'review':review,
-    'hr_budget_lines_list' : hr_budget_line_list, 'oc_budget_lines_list' : oc_budget_line_list,
-    'eq_budget_lines_list' : eq_budget_line_list,
-   'oc_total' : oc_total, 'hr_total' : hr_total, 'eq_total' : eq_total, 'total' : total}
+    context_dict={'project' : project,'user' : user,
+                  'project_data' : project_data,'is_pi': is_p, 'bl' : budget_line_list,
+                  'is_rev' : is_rev,
+                  'prop_rev_list' : prop_rev_list,'excluded_rev_list' : refused_rev_list,
+                  'current_url':current_url,
+                  'review':review,
+                  'hr_budget_lines_list' : hr_budget_line_list, 'oc_budget_lines_list' : oc_budget_line_list,
+                  'eq_budget_lines_list' : eq_budget_line_list,
+                  'oc_total' : oc_total, 'hr_total' : hr_total, 'eq_total' : eq_total, 'total' : total}
 
     return render_to_response('rfp/project_details.html',context_dict,context)
 
