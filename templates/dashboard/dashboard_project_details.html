@@ -7,6 +7,26 @@
 {% endblock %}
 
 {% block dashboard_action %}
+<div class="col-xs-12 col-md-12">
+
+        <div class="row cs_header">
+
+        <!--Tag Module-->
+                <div class="cs_block_title sci_title">
+                            Board Reviewers
+                </div>
+
+        <div class="tag-list">
+            <ul>
+
+                {% for t in tag_list %}
+                    <li> <span class="glyphicon glyphicon-user"></span> {{ t.user.get_full_name }} </li>
+                 {% empty %}
+                    <p><em>No Board Reviewer designated yet.</em></p>
+                {% endfor %}
+
+            </ul>
+        </div>
 
 <!-- Project Details -->
 <div class="row" id="project_detail">
