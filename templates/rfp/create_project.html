@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Home {% endblock %}
+{% block title %} Create project {% endblock %}
 
 {% block body_block %}
 
@@ -68,9 +68,19 @@
             </div>
     </div>
 
+        {% elif f.label == 'Abstract (4000 characters max.):' %}
+            <div class="form-group">
+                        {% bootstrap_label f.label %}{% if f.field.required %}<span class="req">*</span>{% endif %}
+                        {{ f }}
+                        {{ f.errors }}
+             </div>
+
+            Character remaining: <span id="display_count"></span>
+
+
         {% else %}
             <div class="form-group">
-                {% bootstrap_label f.label %}{% if f.field.required %}<span class="req">*</span></strong>{% endif %}
+                {% bootstrap_label f.label %}{% if f.field.required %}<span class="req">*</span>{% endif %}
                 {{ f }}
                 {{ f.errors }}
             </div>
@@ -90,7 +100,26 @@
 
 <script>
     $('#step_1').removeClass('progtrckr-todo').addClass('progtrckr-focus');
+
+    var ini_len = $('#id_abstract').val().length;
+    $('#display_count').text(4000 - ini_len);
+
+    $('#id_abstract').on('keyup', function(event) {
+        var len = $(this).val().length;
+        console.log(len);
+
+        $('#display_count').text(4000 - len);
+
+        if (len >= 4000) {
+                $(this).val($(this).val().substring(0, len-1));
+            }
+        });
+
     $('#project_create_form').reset();
+</script>
+
+<script>
+
 </script>
 
 {% endblock %}

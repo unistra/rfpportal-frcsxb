@@ -42,7 +42,7 @@
         <div class="row">
             <div class="col-xs-12 col-md-12">
 
-                <table class="table">
+                <table id="tableId" class="table table-striped">
 
                     <thead>
                         <tr>
@@ -90,10 +90,9 @@
 
 <script>
 
-    $( document ).ready(function() {
-
-
-    });
+     $("#tableId").dataTable({
+         "paging":   false
+     });
 
 </script>
 

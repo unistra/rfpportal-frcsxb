@@ -73,12 +73,12 @@ class ProjectFormModel(ModelForm):
 
 class ProjectForm(forms.Form):
 
-        name=forms.CharField(required=True, label = 'Project name:', widget=forms.TextInput(attrs={'class':'form-control'}))
+        name=forms.CharField(required=True, label = 'Project title:', widget=forms.TextInput(attrs={'class':'form-control'}))
         starting_date=forms.DateField(required=True, label = 'Starting Date:', widget=forms.DateInput(attrs={'class':'form-control'}))
         project_duration=forms.IntegerField(label='Duration (months):',widget=forms.DateInput(attrs={'class':'form-control'}))
         requested_amount=forms.IntegerField(required=True, label = 'Requested amount (Eur.):',widget=forms.NumberInput(attrs={'class':'form-control'}))
         keywords = forms.CharField(required=True, label = 'Keywords (10 max.):',widget=forms.TextInput(attrs={'class':'form-control'}))
-        abstract = forms.CharField(required=True, label ='Abstract', widget=forms.Textarea(attrs={'class' : 'form-control'}))
+        abstract = forms.CharField(max_length=4000,required=True, label ='Abstract (4000 characters max.):', widget=forms.Textarea(attrs={'class' : 'form-control'}))
         document = forms.FileField(label='Upload your document:',required=False)
 
         def __init__(self, *args, **kwargs):

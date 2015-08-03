@@ -1,3 +1,4 @@
+{% load user_extras %}
 <div class="row">
 
         <div class="col-xs-12 col-md-12">
@@ -6,6 +7,17 @@
             <h4><strong>Category:</strong> {{ project.rfp.name }}</h4>
             <p><strong>Team Leader:</strong> <a href = "{% url 'user_profile' %}">{{ project.user.userprofile }}</a> - {{ project.user.email }}</p>
             <p><strong>Research Unit:</strong> {{ project.user.userprofile.organization }} - {{ project.user.userprofile.insitute_research_unit}}</p>
+            {% if user|is_pi %}
+            {% if project.status == 'granted' %}
+            <div class="alert alert-success" role="alert">
+                <p>Your project has been granted. The amount awarded is: {{ project.awarded_amount }} Eur.</p>
+            </div>
+             {% elif project.status == 'not_granted' %}
+            <div class="alert alert-info" role="alert">
+                <p>Your project has not been granted.</p>
+            </div>
+            {% endif %}
+            {% endif %}
 
         </div>
 

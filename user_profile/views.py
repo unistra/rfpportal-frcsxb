@@ -137,6 +137,7 @@ def index_profile(request):
 
     return render_to_response('user_profile/profile.html',context_dict,context)
 
+import datetime
 @login_required(login_url="/")
 def post_homepage_login_landing_page(request):
     context = RequestContext(request)
@@ -147,7 +148,7 @@ def post_homepage_login_landing_page(request):
     rfp_c = RfpCampaign.objects.filter(status = 'open')
     projects = Project.objects.filter(user = user).order_by('-id')[:3]
 
-    list_of_rfp = RfpCampaign.objects.exclude(status='closed').exclude(status='under_review')
+    list_of_rfp = RfpCampaign.objects.exclude(status='closed').exclude(status='under_review').exclude(deadline__lt = datetime.datetime.now())
 
     list_of_cs_rfp = RfpCampaign.objects.exclude(status='closed')
 
