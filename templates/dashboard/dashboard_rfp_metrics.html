@@ -45,8 +45,9 @@
         <div class="metric_table pull-right">
             <div class="metric_cell">
 
-                        <p>{{ rfp|count_review_rfp:"completed" }} </p>
-                <small><em>Pending: {{ rfp|count_review_rfp:"pending" }} </em></small>
+                <small><em>Invited: {{ rfp|count_review_rfp:"pending" }} </em></small>
+                <small><em>Accepted: {{ rfp|count_review_rfp:"accepted" }} </em></small>
+                <small><em>Completed: {{ rfp|count_review_rfp:"completed" }} </em></small>
 
             </div>
         </div>

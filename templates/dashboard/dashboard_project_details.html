@@ -214,7 +214,15 @@
                 <td>{{ review.rating }}</td>
                 <td>{{ review.date }}</td>
                 <td>{{ review.status }}</td>
-                <td>{% if review.status != 'completed' %}<a href="{% url 'dashboard_follow_up_with_reviewer' review.id %}">Follow up</a>{% endif %}</td>
+                <td>
+                    {% if review.status != 'completed' %}
+                    {% if review.status != 'refused' %}
+
+                            <a href="{% url 'dashboard_follow_up_with_reviewer' review.id %}">Follow up</a>
+
+                    {% endif %}
+                    {% endif %}
+                </td>
             </tr>
 
 {% empty %}

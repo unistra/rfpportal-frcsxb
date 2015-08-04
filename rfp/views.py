@@ -904,3 +904,6 @@ def test (request):
     context_dict = {'user' : user, 'url' : encoded_url}
 
     return render_to_response('rfp/test.html',context_dict,context)
+
+
+

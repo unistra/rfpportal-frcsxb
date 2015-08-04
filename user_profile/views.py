@@ -1,4 +1,4 @@
-from django.shortcuts import render,render_to_response,HttpResponse,HttpResponseRedirect
+from django.shortcuts import render,render_to_response,HttpResponse,HttpResponseRedirect,redirect
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.contrib.auth.models import User,Group,Permission
@@ -142,6 +142,9 @@ import datetime
 def post_homepage_login_landing_page(request):
     context = RequestContext(request)
     user=request.user
+
+    if user.is_staff:
+        return redirect(reverse('dashboard'))
 
     is_pi = user.groups.filter(name = 'Principal_Investigator').exists()
     is_rev = user.groups.filter(name = 'Reviewer').exists()
@@ -454,7 +457,11 @@ def dashboard_follow_up_with_reviewer(request,reviewId):
     review = Review.objects.get(id = reviewId)
     project = Project.objects.get(id = review.project.id)
 
-    review.send_follow_up_invitation_email_to_reviewer()
+    if review.status == 'pending':
+        review.send_invitation_email_to_reviewer()
+
+    elif review.status == 'accepted':
+        review.send_follow_up_invitation_email_to_reviewer()
 
     return HttpResponseRedirect(reverse('dashboard_project_details', args = [project.id]))
 
@@ -574,9 +581,19 @@ def dashboard_edit_profile(request,userId):
 
 def scientific_board_project_details(request, projectId):
     context = RequestContext(request)
+    user = request.user
     project = Project.objects.get(id = projectId)
     project_data = ProjectForm(data=model_to_dict(project), questions = project.rfp.get_project_questions())
     tag_list = Tag.objects.filter(project=project)
+
+    try:
+        user_is_tag = Tag.objects.get(project = project, user = user)
+        user_is_tagged = True
+    except Tag.DoesNotExist:
+        user_is_tagged = False
+    except Tag.MultipleObjectsReturned:
+        user_is_tagged = True
+
     store_redirect_url(request)
 
     list_of_review = Review.objects.filter(project = project, status='completed')
@@ -587,12 +604,12 @@ def scientific_board_project_details(request, projectId):
     OC_form = BudgetLineOP()
     prop_rev_list = ProposedReviewer.objects.filter(project = project).exclude(type='USER_EXCLUDED')
 
-    context_dict = {'tag_list' : tag_list, 'prop_rev_list' : prop_rev_list, 'project' : project, 'project_data' : project_data, 'list_of_review' : list_of_review, 'list_of_bl' : list_of_bl, 'HR_form' : HR_form,'EQ_form': EQ_form, 'OC_form' : OC_form}
+    context_dict = {'user_is_tagged' : user_is_tagged, 'tag_list' : tag_list, 'prop_rev_list' : prop_rev_list, 'project' : project, 'project_data' : project_data, 'list_of_review' : list_of_review, 'list_of_bl' : list_of_bl, 'HR_form' : HR_form,'EQ_form': EQ_form, 'OC_form' : OC_form}
 
     return  render_to_response('user_profile/scientific_board/scientific_board_project_details.html',context_dict,context)
 
 def add_tag(request,projectId):
-    context = RequestContext(request)
+
     project = Project.objects.get(id = projectId)
     user = request.user
 
@@ -600,3 +617,27 @@ def add_tag(request,projectId):
     tag.save()
 
     return HttpResponseRedirect(reverse('scientific_board_project_details', args = [project.id]))
+
+def remove_tag(request,projectId):
+
+    project = Project.objects.get(id = projectId)
+    user = request.user
+
+    tag = Tag.objects.filter(project = project, user = user)
+
+    for t in tag:
+        t.delete()
+
+    return HttpResponseRedirect(reverse('scientific_board_project_details', args = [project.id]))
+
+from django.contrib.auth.signals import user_logged_in
+from django.dispatch import receiver
+
+@receiver(user_logged_in)
+def redirect_admin_after_login(user, **kwargs):
+    print('Logged_in signal received. User is: ')
+    print(user.is_staff)
+
+    if user.is_staff:
+        print('Let redirect to Admin')
+        return redirect(reverse('dashboard'))

@@ -37,6 +37,6 @@ urlpatterns = patterns('',
 
     #Scientific Board pages
     url(r'^scib/project_details/(?P<projectId>\d+)/$',views.scientific_board_project_details,name='scientific_board_project_details'),
-    url(r'^scib/project_details/add_tag/(?P<projectId>\d+)/$',views.add_tag,name='add_tag')
-
+    url(r'^scib/project_details/add_tag/(?P<projectId>\d+)/$',views.add_tag,name='add_tag'),
+    url(r'^scib/project_details/remove_tag/(?P<projectId>\d+)/$',views.remove_tag,name='remove_tag')
 )
