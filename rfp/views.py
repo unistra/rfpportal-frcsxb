@@ -763,21 +763,33 @@ def post_review_waiver(request,reviewId):
     if review.user.pk == user.pk:
         if request.method =='POST':
             form = ReviewWaiverForm(request.POST)
+
             if form.is_valid():
                 form_data = form.cleaned_data
+                print (form_data['no_conflict'])
 
-                if form_data == 'True':
+                if form_data['no_conflict'] == "True":
+                    #Reviewer accepts to Review.
                     review.status = 'accepted'
                     review.save()
                     return HttpResponseRedirect(reverse('project_detail', args = [project.pk]))
 
                 else:
-                    review.status = 'refused'
-                    review.save()
+                    #Reviewer refuses to Review.
                     return HttpResponseRedirect(reverse('post_review_waiver_refuse', args=[review.id,]))
 
         else:
-            form = ReviewWaiverForm()
+            if review.status == 'refused':
+                #Reviewer has already refused.
+                return HttpResponseRedirect(reverse('post_review_waiver_refuse', args=[review.id,]))
+
+            if review.status == 'accepted' or review.status == 'completed':
+                #Reviewer has already accepted, or completed the review.
+                return HttpResponseRedirect(reverse('project_detail', args = [project.pk]))
+
+        #Review is pending, User is presented the Waiver Form to take its decision.
+        form = ReviewWaiverForm()
+
     else:
         logout(request)
         return HttpResponseRedirect(reverse('login'))
@@ -802,15 +814,19 @@ def post_review_waiver_refuse(request,reviewId):
                 return HttpResponseRedirect(reverse('home_page'))
 
         else:
-            if review.status == 'pending':                                                                  #Update the status of the review if not done previously.
+            #At this point, Review is pending coming from the email or the waiver form. The Review is marked as refused and the Contact form is displayed.
+            if review.status == 'pending':
                 review.status = 'refused'
                 review.save()
+                form = ReviewWaiverContactForm()
+
             else:
+            #The invitation has already been checked by reviewer, the link is no monger valid. Reviewer is logged out.
                 logout(request)
                 raise Http404("Review already updated. Link is no more valid.")
 
-            form = ReviewWaiverContactForm()
     else:
+        #User is not the owner of the Review. He should not have access to this URL.
         logout(request)
         return HttpResponseRedirect(reverse('login'))
 

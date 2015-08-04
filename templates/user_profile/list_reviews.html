@@ -23,8 +23,16 @@
                             <em>Closed.</em>
                             {% endif %}
                         </td>
-                        <td>{% if r.status == 'completed' %}<a href="{% url 'view_review' r.id %}" target="_blank">See review</a>
-                            {% elif r.project.rfp.status == 'under_review' %}<a href="{% url 'post_review' r.id %}">Complete</a> {% endif %}</td>
+                        <td>{% if r.status == 'completed' %}
+                                    <a href="{% url 'view_review' r.id %}" target="_blank">See review</a>
+
+                            {% elif r.project.rfp.status == 'under_review' %}
+                                {% if not r.status == 'refused' %}
+                                    <a href="{% url 'post_review' r.id %}">Complete</a>
+                                {% endif %}
+                            {% endif %}
+
+                        </td>
                     </tr>
 
                     {% endfor %}
