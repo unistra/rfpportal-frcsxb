@@ -1231,9 +1231,6 @@ height:200px;
 }
 
 
-.wordwrap {
-   white-space: pre-wrap;      /* CSS3 */
-   white-space: -moz-pre-wrap; /* Firefox */
-   white-space: -o-pre-wrap;   /* Opera 7 */
-   word-wrap: break-word;      /* IE */
+.table_budget{
+    border:2px solid #8C8989;
 }

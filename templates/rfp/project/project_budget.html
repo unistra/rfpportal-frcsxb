@@ -13,6 +13,7 @@
                         Recruitment
                         </div>
 </div>
+                <div class="table_budget">
                 <table class="table table-striped">
                 <thead>
                         <tr>
@@ -45,6 +46,7 @@
                     </tr>
                     </tbody>
                     </table>
+                </div>
 <hr>
                      <div class="cs_block_sub_title">
 
@@ -52,6 +54,7 @@
                         Equipments
                         </div>
 </div>
+                <div class="table_budget">
                 <table class="table table-striped">
                 <thead>
                         <tr>
@@ -83,7 +86,15 @@
 
                     </tbody>
                     </table>
+                    </div>
 <hr>
+<div class="cs_block_sub_title">
+
+                        <div class="pull-left cs_title_cell cs_sub_title_cell_budget">
+                        Operating Costs
+                        </div>
+</div>
+                 <div class="table_budget">
                 <table class="table table-striped">
                 <thead>
                         <tr>
@@ -95,12 +106,10 @@
 
                     <tbody>
 
-                     <div class="cs_block_sub_title">
 
-                        <div class="pull-left cs_title_cell cs_sub_title_cell_budget">
-                        Operating Costs
-                        </div>
-</div>
+
+
+
                     {% for line in oc_budget_lines_list %}
                     <tr>
                         <td>{{ line }}</a></td>
@@ -120,6 +129,6 @@
 
                     </tbody>
                 </table>
-
+                </div>
             </div>
         </div>
