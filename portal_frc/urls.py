@@ -26,5 +26,6 @@ urlpatterns = patterns('',
     #Djngo-comments
     (r'^comments/', include('django_comments.urls')),
 
-) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
