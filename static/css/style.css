@@ -964,8 +964,10 @@ height:200px;
 .j-text{
     width:100%;
     background-color:rgba(255, 255, 255, 0.6);
+    margin:50px 0 0px 50px;
     padding:10px 10px;
     border-radius: 5px;
+    text-align:right;
 }
 
 .j-text > h1 {
@@ -981,7 +983,6 @@ height:200px;
     line-height:24px;
     font-weight: 200;
     color: #3e4248;
-    text-align:center;
 }
 
 .j-img{
