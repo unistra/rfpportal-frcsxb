@@ -52,7 +52,6 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'user_profile',
     'rfp',
-    #'storages',
     'widget_tweaks',
     'bootstrap3',
     'djrill',
@@ -147,10 +146,10 @@ else:
                     }
     }
     #AWS configuration
-    AWS_STORAGE_BUCKET_NAME = api_key.AWS_STORAGE_BUCKET_NAME
-    AWS_ACCESS_KEY_ID = api_key.AWS_ACCESS_KEY_ID
-    AWS_SECRET_ACCESS_KEY = api_key.AWS_SECRET_ACCESS_KEY
-    AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+    #AWS_STORAGE_BUCKET_NAME = api_key.AWS_STORAGE_BUCKET_NAME
+    #AWS_ACCESS_KEY_ID = api_key.AWS_ACCESS_KEY_ID
+    #AWS_SECRET_ACCESS_KEY = api_key.AWS_SECRET_ACCESS_KEY
+    #AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
     #Email configuration
     MANDRILL_API_KEY = api_key.MANDRILL_API_KEY
