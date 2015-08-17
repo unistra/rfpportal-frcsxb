@@ -44,11 +44,10 @@
 
         <div class="metric_table pull-right">
             <div class="metric_cell">
-
                 <small><em>Invited: {{ rfp|count_review_rfp:"pending" }} </em></small>
                 <small><em>Accepted: {{ rfp|count_review_rfp:"accepted" }} </em></small>
                 <small><em>Completed: {{ rfp|count_review_rfp:"completed" }} </em></small>
-
+                <small><em>Refused: {{ rfp|count_review_rfp:"refused" }} </em></small>
             </div>
         </div>
 

@@ -14,10 +14,10 @@ from forms import ProjectForm,file_test,ReviewWaiverContactForm,UpdateForm,Revie
 from django.core.urlresolvers import reverse
 
 def is_reviewer(User):
-    return User.groups.filter(name='Reviewer').exists()
+    return User.groups.filter(name='Reviewer').exists() or User.is_staff
 
 def is_pi(User):
-     return User.groups.filter(name = 'Principal_Investigator').exists()
+     return User.groups.filter(name = 'Principal_Investigator').exists() or User.is_staff
 
 def is_pi_or_reviewer(User):
     state = False
@@ -26,7 +26,7 @@ def is_pi_or_reviewer(User):
     return state
 
 def is_pi_or_sb(User):
-    return User.groups.filter(name = 'Principal_Investigator').exists() or User.groups.filter(name = 'Scientific_board').exists()
+    return User.groups.filter(name = 'Principal_Investigator').exists() or User.groups.filter(name = 'Scientific_board').exists() or User.is_staff
 
 def is_staff(User):
     return User.is_staff
@@ -503,7 +503,7 @@ def add_unique_reviewer(request, projectId):
                 reviewer.type = 'USER_PROPOSED'
             reviewer.save()
 
-            return HttpResponseRedirect(redirect)
+            return HttpResponseRedirect(redirect + "#reviewer_detail")
     else:
         r = ProposedReviewerForm()
 
