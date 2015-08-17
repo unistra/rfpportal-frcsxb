@@ -35,6 +35,9 @@
 
                 <li><a href="{% url 'explorer_index' %}" target="_blank">Explore</a></li>
                 <li><a href="{% url 'admin:index' %}" target="_blank">Django Admin</a></li>
+                <li><a href="{% url 'django.contrib.auth.views.logout' %}?next={% url 'home_page' %}">
+                    <span class="glyphicon glyphicon-off l-glyph"></span>
+                </a></li>
 
             </ul>
 
