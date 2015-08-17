@@ -328,6 +328,7 @@ def dashboard_reviewers_list(request):
     user = request.user
     group = Group.objects.get(name='Reviewer')
     redirect = store_redirect_url(request)
+
     """
     if request.method =="POST":
         form = SearchForm(request.POST)
@@ -372,7 +373,6 @@ def dashboard_reviewer_detail(request, reviewerId):
     reviewer = User.objects.get(id = reviewerId)
     reviewer_dict = model_to_dict(reviewer.userprofile)
     list_of_review = Review.objects.filter(user = reviewer.id)
-
     #Date of last review
     last_review = Review.objects.filter(user = reviewer.id).order_by('-date')[:1]
     if last_review:

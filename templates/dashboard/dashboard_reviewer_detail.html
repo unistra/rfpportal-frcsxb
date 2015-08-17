@@ -47,11 +47,11 @@
             </thead>
 
             <tr>
-               <td>{{ reviewer.userprofile|number_completed }}</td>
+               <td>{{ reviewer|number_completed }}</td>
                <td>{{ reviewer.userprofile.rated_review_avg }}/5</td>
                <td>{{ last_review_date }}</td>
-               <td>{{ reviewer.userprofile|number_invitation }}</td>
-               <td>{% widthratio reviewer.userprofile|number_completed reviewer.userprofile|number_invitation 100 %} %</td>
+               <td>{{ reviewer|number_invitation }}</td>
+               <td>{% widthratio reviewer|number_completed reviewer|number_invitation 100 %} %</td>
             </tr>
 
         </table>
