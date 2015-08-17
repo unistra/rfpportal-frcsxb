@@ -251,6 +251,10 @@ def dashboard_project_details(request,projectId):
     oc_budget_line_list = BudgetLine.objects.filter(project = project,category = 'OC')
     eq_budget_line_list = BudgetLine.objects.filter(project = project,category = 'EQ')
 
+    oc_total = budget_line_sum(oc_budget_line_list)
+    hr_total = budget_line_sum(hr_budget_line_list)
+    eq_total = budget_line_sum(eq_budget_line_list)
+
     prop_rev_list = ProposedReviewer.objects.filter(project = project).exclude(type='USER_EXCLUDED')
     excluded_rev_list = ProposedReviewer.objects.filter(project = project, type='USER_EXCLUDED')
     total_budgeted = budget_line_sum(budget_line_list)
@@ -258,7 +262,7 @@ def dashboard_project_details(request,projectId):
     review_list = Review.objects.filter(project = project.id)
     tag_list = Tag.objects.filter(project = project)
 
-    context_dict = {'tag_list' : tag_list, 'project':project,'project_data' : project_data,'budget_line_list': budget_line_list,
+    context_dict = {'oc_total' : oc_total, 'eq_total' : eq_total, 'hr_total' : hr_total, 'tag_list' : tag_list, 'project':project,'project_data' : project_data,'budget_line_list': budget_line_list,
                     'total' : total_budgeted,'hr_budget_lines_list' : hr_budget_line_list, 'oc_budget_lines_list' : oc_budget_line_list,
                     'eq_budget_lines_list' : eq_budget_line_list,'excluded_rev_list' : excluded_rev_list,'prop_rev_list' : prop_rev_list, 'list_of_review' : review_list}
 
