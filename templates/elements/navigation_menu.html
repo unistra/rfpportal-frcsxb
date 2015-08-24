@@ -20,12 +20,20 @@
                     <div class="nav_icon user_icon"><span class="glyphicon glyphicon-inbox "></span> Projects</div>
                 </a>
             </div>
-             {% endif %}
+            {% endif %}
 
             {% if user|is_rev %}
             <div class="nav_icon_wrap">
                 <a href="{% url 'user_profile' %}?block=rev">
                     <div class="nav_icon user_icon"><span class="glyphicon glyphicon-comment "></span> Reviews</div>
+                </a>
+            </div>
+            {% endif %}
+
+            {% if user|is_sb %}
+            <div class="nav_icon_wrap">
+                <a href="{% url 'scientific_board_project_archives' %}">
+                    <div class="nav_icon user_icon"><span class="glyphicon glyphicon-inbox "></span> Archives</div>
                 </a>
             </div>
             {% endif %}

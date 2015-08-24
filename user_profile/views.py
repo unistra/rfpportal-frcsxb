@@ -612,6 +612,15 @@ def scientific_board_project_details(request, projectId):
 
     return  render_to_response('user_profile/scientific_board/scientific_board_project_details.html',context_dict,context)
 
+def scientific_board_project_archives(request):
+    context = RequestContext(request)
+    user = request.user
+    project_listing = Project.objects.all()
+
+    context_dict = {'project_listing' : project_listing}
+
+    return render_to_response('user_profile/scientific_board/scientific_board_project_archives.html', context_dict, context)
+
 def add_tag(request,projectId):
 
     project = Project.objects.get(id = projectId)
@@ -635,6 +644,7 @@ def remove_tag(request,projectId):
     return HttpResponseRedirect(reverse('scientific_board_project_details', args = [project.id]))
 
 from django.contrib.auth.signals import user_logged_in
+
 from django.dispatch import receiver
 
 @receiver(user_logged_in)

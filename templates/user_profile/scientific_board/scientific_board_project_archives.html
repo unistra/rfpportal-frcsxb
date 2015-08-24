@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Project Archives{% endblock %}
+
+{% block body_block %}
+
+{% load user_extras %}
+
+{% csrf_token %}
+
+<div class="container">
+    <div class="col-xs-12 col-md-12">
+
+        <div class="row cs_header">
+            <div class="cs_block_title">
+                <div class="cs_icon_cell pull-left project_icon">
+                    <span class="glyphicon glyphicon-inbox"></span>
+                </div>
+
+                <div class="pull-left cs_title_cell">
+                    Project Archives
+                </div>
+            </div>
+        </div>
+
+        <table id="tableId" class="table table-striped">
+            <thead>
+            <tr>
+                <th>Project Title</th>
+                <th>Author</th>
+                <th>Year/Category</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% for p in project_listing %}
+            <tr>
+                <td>{{ p.name }}</td>
+                <td>{{ p.user.get_full_name }}</td>
+                <td>{{ p.rfp }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
+
+<script>
+    $("#tableId").dataTable({
+        "paging":   false
+    });
+</script>
+
+{% endblock %}
