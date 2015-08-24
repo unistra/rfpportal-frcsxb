@@ -60,3 +60,5 @@ venv
 *.pyc
 staticfiles
 testing.py
+.idea
+
