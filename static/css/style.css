@@ -1230,9 +1230,7 @@ height:200px;
     transform: rotate(180deg);
 }
 
-
 /*Project listing search bar styling*/
-
 .table_budget{
     border:2px solid #8C8989;
 }
@@ -1250,10 +1248,7 @@ height:200px;
     font-weight:bold;
 }
 
-
 #tableId_filter > label > input{
     width:100%;
     font-size:14px;
 }
-
-

@@ -8,12 +8,10 @@
 
 {% csrf_token %}
 
-
 {% if user|is_pi %}
 <div class="container">
 <!--List of open request for proposal-->
             {% include 'user_profile/list_request_for_proposal.html' %}
-
 </div>
 
 
@@ -32,7 +30,7 @@
 {% elif user|is_sb %}
 
 <div class="container">
-
+    {% if user|is_sb %}<p>Welcome member of the CS.</p>{% endif %}
     {% include 'user_profile/scientific_board/home_page.html' %}
 
 </div>
