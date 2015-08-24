@@ -8,6 +8,15 @@
 
 {% csrf_token %}
 
+
+<style>
+
+
+</style>
+
+
+
+
 <div class="container">
     <div class="col-xs-12 col-md-12">
 
@@ -51,6 +60,10 @@
     $("#tableId").dataTable({
         "paging":   false
     });
+</script>
+
+<script>
+    $('.dataTables_wrapper > .row > .col-sm-6:nth-child(2)').removeClass('col-sm-6').addClass('col-sm-12');
 </script>
 
 {% endblock %}
