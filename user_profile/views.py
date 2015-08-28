@@ -155,13 +155,16 @@ def post_homepage_login_landing_page(request):
 
     list_of_cs_rfp = RfpCampaign.objects.exclude(status='closed')
 
+    project_list = Project.objects.filter(rfp__in = list(list_of_cs_rfp))
+    list_of_tagged_project = Tag.objects.filter(user= user).filter(project__in = list(project_list))
+
     store_redirect_url(request)
 
     widget = True
 
     reviews = Review.objects.filter(user=user.pk)
 
-    context_dict = {'list_of_rfp' : list_of_rfp,'list_of_cs_rfp' : list_of_cs_rfp, 'widget' : widget, 'reviews' : reviews, 'is_pi' : is_pi, 'is_rev' : is_rev, 'rfp_c' : rfp_c, 'projects':projects}
+    context_dict = {'list_of_tagged_project': list_of_tagged_project, 'list_of_rfp' : list_of_rfp,'list_of_cs_rfp' : list_of_cs_rfp, 'widget' : widget, 'reviews' : reviews, 'is_pi' : is_pi, 'is_rev' : is_rev, 'rfp_c' : rfp_c, 'projects':projects}
 
     return render_to_response('user_profile/post_homepage_login_landing_page.html',context_dict,context)
 
