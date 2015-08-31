@@ -49,11 +49,14 @@
                     {% for t in tag_list %}
                     <li> <span class="glyphicon glyphicon-user"></span> {{ t.user.get_full_name }} </li>
                     {% endfor %}
+
+                {% if project.rfp.status != 'closed' %}
                     {% if user_is_tagged %}
                     <a href="{% url 'remove_tag' project.id %}">Remove me from Board Reviewer</a>
                     {% else %}
                     <a href="{% url 'add_tag' project.id %}">Add me as a Board Reviewer</a>
                     {% endif %}
+                {%  endif %}
                 </ul>
             </div>
 

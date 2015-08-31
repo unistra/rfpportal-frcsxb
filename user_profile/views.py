@@ -158,6 +158,8 @@ def post_homepage_login_landing_page(request):
     project_list = Project.objects.filter(rfp__in = list(list_of_cs_rfp))
     list_of_tagged_project = Tag.objects.filter(user= user).filter(project__in = list(project_list))
 
+
+
     store_redirect_url(request)
 
     widget = True
