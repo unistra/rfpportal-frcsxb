@@ -7,49 +7,49 @@
 
                 <h4>Total budgeted: <strong>{{ total }} €</strong> <span style = "font-size:14px;">(Total requested: {{ project.requested_amount }} €)<br><br></span></h4>
 <hr>
+            {%  if project.rfp.category != 'Synergy' %}
                 <div class="cs_block_sub_title">
+                    <div class="pull-left cs_title_cell cs_sub_title_cell_budget">
+                            Recruitment
+                            </div></div>
+                    <div class="table_budget">
+                    <table class="table table-striped">
+                    <thead>
+                            <tr>
+                                <th>Type of contract</th>
+                                <th>Duration</th>
+                                <th>Monthly Salary</th>
+                                <th>Total</th>
+                                <th> </th>
+                            </tr>
+                        </thead>
 
-                        <div class="pull-left cs_title_cell cs_sub_title_cell_budget">
-                        Recruitment
-                        </div>
-</div>
-                <div class="table_budget">
-                <table class="table table-striped">
-                <thead>
+                        <tbody>
+                        {% for line in hr_budget_lines_list %}
                         <tr>
-                            <th>Type of contract</th>
-                            <th>Duration</th>
-                            <th>Monthly Salary</th>
-                            <th>Total</th>
-                            <th> </th>
+                            <td>{{ line }}</td>
+                            <td>{{ line.duration }}</td>
+                            <td>{{ line.monthly_salary }}</td>
+                            <td>{{ line.amount|floatformat:-1 }} €</td>
+                            <td>{% if user|is_pi and project.rfp.status == 'open' %}<a class="act-link" href = "{% url 'edit_budget_hr' line.id %}?redirect={{ current_url }}">Edit</a>{% endif %}</td>
                         </tr>
-                    </thead>
+                        {% endfor %}
+                        <tr>{% if user|is_pi and project.rfp.status == 'open' %}<td><a class="act-link" href="{% url 'add_budget_hr' project.id %}?redirect={{ current_url }}">Add recruitment</a></td>{% endif %}
+                        <td></td>
+                        <td></td>
+                        </tr>
+                        <tr>
+                            <td><strong>TOTAL RECRUITMENT</strong></td>
+                            <td><strong>{{ hr_total }} €</strong></td>
+                            <td> </td>
+                        </tr>
+                        </tbody>
+                        </table>
+                    </div>
+                <hr>
+            {%  endif %}
 
-                    <tbody>
-                    {% for line in hr_budget_lines_list %}
-                    <tr>
-                        <td>{{ line }}</td>
-                        <td>{{ line.duration }}</td>
-                        <td>{{ line.monthly_salary }}</td>
-                        <td>{{ line.amount|floatformat:-1 }} €</td>
-                        <td>{% if user|is_pi and project.rfp.status == 'open' %}<a class="act-link" href = "{% url 'edit_budget_hr' line.id %}?redirect={{ current_url }}">Edit</a>{% endif %}</td>
-                    </tr>
-                    {% endfor %}
-                    <tr>{% if user|is_pi and project.rfp.status == 'open' %}<td><a class="act-link" href="{% url 'add_budget_hr' project.id %}?redirect={{ current_url }}">Add recruitment</a></td>{% endif %}
-                    <td></td>
-                    <td></td>
-                    </tr>
-                    <tr>
-                        <td><strong>TOTAL RECRUITMENT</strong></td>
-                        <td><strong>{{ hr_total }} €</strong></td>
-                        <td> </td>
-                    </tr>
-                    </tbody>
-                    </table>
-                </div>
-<hr>
-                     <div class="cs_block_sub_title">
-
+            <div class="cs_block_sub_title">
                         <div class="pull-left cs_title_cell cs_sub_title_cell_budget">
                         Equipments
                         </div>
@@ -63,37 +63,35 @@
                             <th>Quote</th>
                             <th> </th>
                         </tr>
-                    </thead>
-
+                </thead>
                     <tbody>
                     {% for line in eq_budget_lines_list %}
-                    <tr>
-                        <td>{{ line }}</a></td>
-                        <td>{{ line.amount|floatformat:-1 }} €</td>
-                        <td>{% if line.quote %} <a href="{{ line.quote.url }}" target="_blank">{{ line.quote }}</a> {% endif %}</td>
-                        <td>{% if user|is_pi and project.rfp.status == 'open' %}<a class="act-link" href = "{% url 'edit_budget_eq' line.id %}?redirect={{ current_url }}">Edit</a>{% endif %}</td>
-                    </tr>
+                        <tr>
+                            <td>{{ line }}</a></td>
+                            <td>{{ line.amount|floatformat:-1 }} €</td>
+                            <td>{% if line.quote %} <a href="{{ line.quote.url }}" target="_blank">{{ line.quote }}</a> {% endif %}</td>
+                            <td>{% if user|is_pi and project.rfp.status == 'open' %}<a class="act-link" href = "{% url 'edit_budget_eq' line.id %}?redirect={{ current_url }}">Edit</a>{% endif %}</td>
+                        </tr>
                     {% endfor %}
                     <tr><td>{% if user|is_pi and project.rfp.status == 'open' %}<a class="act-link" href="{% url 'add_budget_eq' project.id %}?redirect={{ current_url }}">Add equipment</a>{% endif %}</td>
-                    <td></td>
-                    <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                     <tr>
                         <td><strong>TOTAL EQUIPMENT</strong></td>
                         <td><strong>{{ eq_total }} €</strong></td>
                         <td> </td>
                     </tr>
-
                     </tbody>
-                    </table>
-                    </div>
-<hr>
-<div class="cs_block_sub_title">
+                </table>
+                </div>
+                <hr>
+                <div class="cs_block_sub_title">
 
-                        <div class="pull-left cs_title_cell cs_sub_title_cell_budget">
+                    <div class="pull-left cs_title_cell cs_sub_title_cell_budget">
                         Operating Costs
-                        </div>
-</div>
+                    </div>
+                </div>
                  <div class="table_budget">
                 <table class="table table-striped">
                 <thead>
@@ -105,10 +103,6 @@
                     </thead>
 
                     <tbody>
-
-
-
-
 
                     {% for line in oc_budget_lines_list %}
                     <tr>

@@ -3,17 +3,16 @@
                                     Do you accept to review this project ?
 </div>
 
-
 <form class="waiver_form" method="post" action="{% url 'post_review_waiver' review.id %}" >
 {% csrf_token %}
                 {% for f in form %}
                     {{ f }}
                     {{ f.errors }}
                 {% endfor %}
-
-                <div class="agreement"> By agreeing to review this project, I understand that information are confidential. I engage to not communicate any elements...Blablblblblblblblblblblblblblblblbl
-                blblblblblblblblblaaaaa.</div>
-
-  <button type="submit" class="btn btn-waiver pull-right">Submit</button>
-
+    <div class="agreement">By agreeing to review this project, I accept to treat the review process as strictly confidential
+         and not to discuss any elements of the proposal with anyone not directly
+         involved in the review. I certify that I have no personal or financial interest and
+         no present or past activity related to the project.
+    </div>
+    <button type="submit" class="btn btn-waiver pull-right">Submit</button>
 </form>

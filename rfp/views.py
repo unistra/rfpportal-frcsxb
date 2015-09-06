@@ -262,7 +262,7 @@ def project_detail(request,projectId):
     context = RequestContext(request)
     user = request.user
 
-    project=Project.objects.get(id=projectId)
+    project = Project.objects.get(id=projectId)
     review = find_user_review_for_project(user,project)
     questions = project.rfp.get_review_questions()
 
