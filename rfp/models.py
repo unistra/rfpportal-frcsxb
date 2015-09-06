@@ -180,7 +180,7 @@ class Project(models.Model):
 
             #Set the email template variables
             c = {'user' : self.user.first_name + str(" ") + self.user.last_name,
-                 'project' : self.name, 'rfp_name' : self.rfp,
+                 'project' : self.name, 'rfp_name' : self.rfp.name,
                  'url_to_project' : str(str(site.domain)+str(url_to_project))}
 
             #Send the Madrill email template
