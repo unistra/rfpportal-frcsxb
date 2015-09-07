@@ -7,7 +7,7 @@ from django.contrib.auth.models import User,Group,Permission
 register = template.Library()
 
 @register.filter(name='count_project')
-def count_review(self,s):
+def count_project(self,s):
     """
     Give the number of project with the status s in the corresponding rfp.
     :param s: str self: Object

@@ -2,9 +2,22 @@
     {% load user_extras %}
 
     <div class="col-xs-12 col-md-12">
-        <h3>Welcome to the portal...</h3>
-        <p>You'll find below all project submitted to ......</p>
-        <p>Use the button below to jump from CFP to CFP</p>
+        <h2>Welcome to the FRC Portal!</h2>
+
+<p style="font-size:18px;">You will find below all the submitted proposals. You can use the colored button to jump from CFP to CFP.
+Each scientific proposal can be downloaded (pdf file) and printed at your convenience.</p>
+
+<p style="font-size:18px;">We suggest to follow the procedure described below:</p>
+    <ol>
+        <li style="font-size:18px;">Let us try to have at least two members of the Board as referees for each proposal.
+            So please click on "Add me as a Board Reviewer" for proposals you are prepared to review.
+            Then you will see them directly in the "Project you're reviewing" part.</li>
+        <li style="font-size:18px;">Make suggestion of external referees and click on "Propose another reviewer". We need 4 referees as BOARD-PROPOSED for each proposal.</li>
+        <li style="font-size:18px;">Identify projects which seem to be out of the scope and post a comment to inform the Board.</li>
+    </ol>
+        <p style="font-size:18px;">In preparation for the meeting, you will see in real time all the reviews submitted. Click on "See full project" then "Read and rank this review".
+</p>
+
     </div>
 
     <div>
@@ -46,7 +59,7 @@
         <p>PI: {{ t.project.user.get_full_name }}</p>
         <p>Amount Requested: {{ t.project.requested_amount }}</p>
         <p>Keywords: {{ t.project.keywords }}</p>
-        <p>Comments: .</p>
+        <p>Number of completed reviews: {{ t.project.review_completed_count }}</p>
         <p><a href="{% url 'scientific_board_project_details' t.project.pk %}" target="_blank">See full project</a></p>
 
         <div class="tag-list">
@@ -120,6 +133,7 @@
                         <p>PI: {{ p.user.get_full_name }}</p>
                         <p>Amount Requested: {{ p.requested_amount }}</p>
                         <p>Keywords: {{ p.keywords }}</p>
+                        <p>Number of completed reviews: {{ project.review_completed_count }}</p>
                         <p>Comments: {% get_comment_count for p as comment_count %} {{ comment_count }}.</p>
                         <p><a href="{% url 'scientific_board_project_details' p.id %}" target="_blank">See full project</a></p>
 

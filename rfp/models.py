@@ -138,6 +138,10 @@ class Project(models.Model):
         n = Review.objects.filter(project = self)
         return n
 
+    def review_completed_count(self):
+        n = Review.objects.filter(project = self, status = 'completed').count()
+        return n
+
     def list_of_reviewers_id(self):
         l = list()
         reviews = Review.objects.filter(project = self)
@@ -179,7 +183,7 @@ class Project(models.Model):
 
 
             #Set the email template variables
-            c = {'user' : self.user.first_name + str(" ") + self.user.last_name,
+            c = {'full_name' : self.user.first_name + str(" ") + self.user.last_name,
                  'project' : self.name, 'rfp_name' : self.rfp.name,
                  'url_to_project' : str(str(site.domain)+str(url_to_project))}
 
