@@ -263,6 +263,7 @@ def project_detail(request,projectId):
     user = request.user
 
     project = Project.objects.get(id=projectId)
+    list_of_review = Review.objects.filter(project = project, status = 'completed')
     review = find_user_review_for_project(user,project)
     questions = project.rfp.get_review_questions()
 
@@ -300,7 +301,7 @@ def project_detail(request,projectId):
                   'review' : review,
                   'hr_budget_lines_list' : hr_budget_line_list, 'oc_budget_lines_list' : oc_budget_line_list,
                   'eq_budget_lines_list' : eq_budget_line_list,
-                  'oc_total' : oc_total, 'hr_total' : hr_total, 'eq_total' : eq_total, 'total' : total}
+                  'oc_total' : oc_total, 'hr_total' : hr_total, 'eq_total' : eq_total, 'total' : total, 'list_of_review' : list_of_review}
 
     return render_to_response('rfp/project_details.html',context_dict,context)
 
