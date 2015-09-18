@@ -23,61 +23,6 @@
                     </div>
 </div>
 
-<!--
-<div class="row">
-
-<div class="metric">
-
-<div class="metric_square">
-
-    <div class="metric_content">
-
-        <div class="metric_table pull-left">
-            <div id="" class="metric_cell project_icon">
-                        <span class="glyphicon glyphicon-inbox" style="font-size:45px;"></span>
-                        <p>Projects</p>
-            </div>
-        </div>
-
-        <div class="metric_table pull-right">
-            <div class="metric_cell pi_metric_text">
-                    <p>Submitted: {{ num_project }}</p>
-                    <p>Granted: {{ num_proj_granted }}</p>
-                    <p>Last granted in: {{ last_granted.rfp.year }}</p>
-            </div>
-        </div>
-
-    </div>
-
-</div>
-</div>
-
-<div class="metric">
-<div class="metric_square">
-
-    <div class="metric_content">
-
-        <div class="metric_table pull-left">
-            <div class="metric_cell metric_icon budget_icon">
-                        <span class="glyphicon glyphicon-euro" style="font-size:45px;"></span>
-                        <p>Recieved</p>
-            </div>
-        </div>
-
-        <div class="metric_table pull-right">
-            <div class="metric_cell metric_text">
-                    <p>{{ pi_amount }} 250000 € </p>
-
-            </div>
-        </div>
-
-    </div>
-
-</div>
-
-    </div>
-    </div>
--->
 
 {% for p in pi_data %}
 
@@ -85,7 +30,7 @@
 
 {% endfor %}
 
-<p><a href="{% url 'dashboard_edit_profile' user.id %}">Edit Address Information</a> - <a href="{% url 'admin:auth_user_change' pi.id %}">Edit User Information</a></p>
+<p><a href="{% url 'dashboard_edit_profile' pi.id %}">Edit Address Information</a> - <a href="{% url 'admin:auth_user_change' pi.id %}">Edit User Information</a></p>
 
 
 {% include 'elements/project_title.html' %}

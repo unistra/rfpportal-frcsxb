@@ -499,7 +499,6 @@ def dashboard_pi_details(request, userId):
     pi = User.objects.get(id = userId)
     pi_dict = model_to_dict(pi.userprofile)
 
-
     project_list = Project.objects.filter(user = pi).order_by('-rfp__year')
     num_project = project_list.exclude(status='draft').count()
     num_proj_granted = project_list.filter(status='granted').count()
