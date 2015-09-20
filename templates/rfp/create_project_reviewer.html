@@ -19,7 +19,7 @@
 <a class="btn btn-apply" href="{% url 'create_project_budget' project.id %}">Previous</a>
 
     {% if project|count_proposedreviewer < 4 %}
-    <p class="btn btn-inactive pull-right">Please add a minimum of 4 reviewers to submit your project.</p>
+    <p class="btn btn-inactive pull-right">4 proposed reviewers are required</p>
     {% else %}
     <a class="btn btn-apply pull-right" href="{% url 'create_project_summary' project.id %}">Save and Submit</a>
     {% endif %}

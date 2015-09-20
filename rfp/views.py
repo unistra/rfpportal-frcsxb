@@ -112,7 +112,10 @@ def create_project(request,rfpId):
             project.user = user
             project.save()
 
-            return HttpResponseRedirect(reverse('create_project_budget', args=[project.pk]))
+            if "Next" in request.POST:
+                return HttpResponseRedirect(reverse('create_project_budget', args=[project.pk]))
+            else:
+                return HttpResponseRedirect(reverse('create_project_previous', args=[project.pk]))
 
     else:
         project = ProjectForm(questions = questions)
@@ -129,6 +132,7 @@ def create_project_previous(request,projectId):
     questions = rfp.get_project_questions()
 
     if request.method == 'POST':
+        print (request.POST)
         #form = ProjectForm(request.POST,request.FILES, questions = questions)
         form = ProjectForm(request.POST, questions = questions)
 
@@ -145,7 +149,11 @@ def create_project_previous(request,projectId):
 
             project = proj.save()
 
-            return HttpResponseRedirect(reverse('create_project_budget', args=[proj.pk]))
+            if "Next" in request.POST:
+                return HttpResponseRedirect(reverse('create_project_budget', args=[proj.pk]))
+            else:
+                return HttpResponseRedirect(reverse('create_project_previous', args=[proj.pk]))
+
     else:
         form = ProjectForm(initial= project_dict,questions = questions)
 

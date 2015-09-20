@@ -15,8 +15,6 @@ $( document ).ready(function() {
         }
     }
 
-    console.log('it is running!');
-
 
    var rfp = getUrlParameter('rfp');
    var id = getUrlParameter('u');
@@ -33,8 +31,6 @@ $( document ).ready(function() {
    if (block != 'undefined'){
        $(id_block).removeClass('hide');
    }
-
-
 
    console.log(r);
 
