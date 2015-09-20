@@ -82,16 +82,18 @@
             <p class="project_data hide" id=""><strong>{{ p.label }} </strong>{{ p.data|linebreaksbr }}</p>
 
             {% elif p.name == 'document' %}
+                <hr>
             <div class="row">
                 <div class = "col-xs-12 col-md-4">
-
-                    <p><strong>Document: </strong></p>
+                    <p><strong>To print the proposal description: </strong></p>
+                    <p>To print the summary page click <a href="javascript:window.print()">here</a></p>
                 </div>
 
                 <div class = "col-md-8">
                     <p>{% if project.document %}<a href="{{ project.document.url }}" target="_blank"> {{ project.document.name }} </a> {% endif %}</p>
                 </div>
             </div>
+                <hr>
             {% else %}
 
             <p class="project_data" id="{{ p.label|slugify }}"><strong>{{ p.label }} </strong>{{ p.data|linebreaksbr }}</p>
