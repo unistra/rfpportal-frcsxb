@@ -13,12 +13,10 @@ category_choices = (
 
 ratings = (
     ('','----------'),
-    ('A', 'A: superb proposal; fund fully as requested with highest priority'),
-    ('B', 'B: excellent proposal; fund with high priority'),
-    ('C', 'C: very good proposal; fund with priority'),
-    ('D', 'D: good proposal; fund'),
-    ('E', 'E: promising proposal; recommend to refine based on comments and re-submit'),
-    ('F', 'F: insufficiently detailed proposal'),
+    ('Top 10', 'Top 10 % = High Priority'),
+    ('Top 20', 'Top 20% = Somewhat High Priority'),
+    ('Top 30', 'Top 30% = Average Priority'),
+    ('Top 50', 'Top 50% = Low Priority'),
 )
 
 class ReviewWaiverForm(forms.Form):

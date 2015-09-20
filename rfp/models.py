@@ -252,7 +252,7 @@ class ProposedReviewer(models.Model):
             user.last_name = self.last_name
             user.save()
 
-            #Add this user to Reviewer grou
+            #Add this user to Reviewer group
             g = Group.objects.get(name='Reviewer')
             g.user_set.add(user)
 

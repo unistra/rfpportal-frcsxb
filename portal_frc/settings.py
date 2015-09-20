@@ -104,21 +104,11 @@ if os.getenv('DATABASE_URL'):
     import dj_database_url
     DATABASES['default'] =  dj_database_url.config()
 
-    #AWS configuration
-    #AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
-    #AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-    #AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-    #AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-
     #Email configuration
     MANDRILL_API_KEY = os.getenv('MANDRILL_API_KEY')
     EMAIL_BACKEND = 'djrill.mail.backends.djrill.DjrillBackend'
     DEFAULT_FROM_EMAIL = 'admin@icfrc.fr'
 
-    # Static asset configuration for hosted dev:
-    #STATICFILES_LOCATION = 'static'
-    #STATICFILES_STORAGE = 'custom_storages.StaticStorage'
-    #STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
 
 
 else:
@@ -145,17 +135,11 @@ else:
                             'PORT': '5433',
                     }
     }
-    #AWS configuration
-    #AWS_STORAGE_BUCKET_NAME = api_key.AWS_STORAGE_BUCKET_NAME
-    #AWS_ACCESS_KEY_ID = api_key.AWS_ACCESS_KEY_ID
-    #AWS_SECRET_ACCESS_KEY = api_key.AWS_SECRET_ACCESS_KEY
-    #AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
     #Email configuration
     MANDRILL_API_KEY = api_key.MANDRILL_API_KEY
     EMAIL_BACKEND = 'djrill.mail.backends.djrill.DjrillBackend'
     DEFAULT_FROM_EMAIL = 'contact@icfrc.fr'
-
 
 # Static asset configuration for local dev:
 STATIC_ROOT = 'staticfiles'
@@ -166,26 +150,9 @@ STATICFILES_DIRS = (
        STATIC_PATH,
 )
 
-# List of finder classes that know how to find static files in
-# various locations.
-
-#STATICFILES_FINDERS = (
- #  'django.contrib.staticfiles.finders.FileSystemFinder',
-  # 'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-   #'django.contrib.staticfiles.finders.DefaultStorageFinder',
-#)
-
-
 # Media files configuration
 MEDIA_ROOT = 'media'
 MEDIA_URL = '/media/'
-
-#MEDIAFILES_LOCATION = 'media'
-
-
-#MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
-#DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
