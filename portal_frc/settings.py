@@ -52,6 +52,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'user_profile',
     'rfp',
+    'storages',
     'widget_tweaks',
     'bootstrap3',
     'djrill',
@@ -60,7 +61,6 @@ INSTALLED_APPS = (
     'explorer',
     'django_wysiwyg',
     'django_comments',
-    'storages',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -105,20 +105,21 @@ if os.getenv('DATABASE_URL'):
     import dj_database_url
     DATABASES['default'] =  dj_database_url.config()
 
+    #AWS configuration
+    AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
+    AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+    AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
     #Email configuration
     MANDRILL_API_KEY = os.getenv('MANDRILL_API_KEY')
     EMAIL_BACKEND = 'djrill.mail.backends.djrill.DjrillBackend'
     DEFAULT_FROM_EMAIL = 'admin@icfrc.fr'
 
-    #AWS Configuration
-    AWS_QUERYSTRING_AUTH = False
-    AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
-    AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-    AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
-
-    MEDIA_URL = 'http://%s.s3.amazonaws.com/your-folder/' % AWS_STORAGE_BUCKET_NAME
-    DEFAULT_FILE_STORAGE = "storages.backends.s3boto.S3BotoStorage"
-
+    # Static asset configuration for hosted dev:
+    STATICFILES_LOCATION = 'static'
+    STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+    STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
 
 
 else:
@@ -145,33 +146,48 @@ else:
                             'PORT': '5433',
                     }
     }
+    #AWS configuration
+    AWS_STORAGE_BUCKET_NAME = api_key.AWS_STORAGE_BUCKET_NAME
+    AWS_ACCESS_KEY_ID = api_key.AWS_ACCESS_KEY_ID
+    AWS_SECRET_ACCESS_KEY = api_key.AWS_SECRET_ACCESS_KEY
+    AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
     #Email configuration
     MANDRILL_API_KEY = api_key.MANDRILL_API_KEY
     EMAIL_BACKEND = 'djrill.mail.backends.djrill.DjrillBackend'
     DEFAULT_FROM_EMAIL = 'contact@icfrc.fr'
 
-    # Media files configuration
-    MEDIA_URL = '/media/'
-
     # Static asset configuration for local dev:
     STATIC_ROOT = 'staticfiles'
     STATIC_URL = '/static/'
     STATICFILES_LOCATION = 'static'
 
-    STATICFILES_DIRS = (
-           STATIC_PATH,
-    )
 
-
-MEDIA_ROOT = 'media'
-
-
-# Internationalization
-# https://docs.djangoproject.com/en/1.7/topics/i18n/
+LOGIN_REDIRECT_URL = "/user_profile/welcome/"
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Media files configuration
+MEDIA_ROOT = 'media'
+MEDIAFILES_LOCATION = 'media'
+MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+
+STATICFILES_DIRS = (
+        STATIC_PATH,
+    )
+
+# List of finder classes that know how to find static files in
+# various locations.
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+)
+
+# Internationalization
+# https://docs.djangoproject.com/en/1.7/topics/i18n/
 
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
@@ -220,8 +236,6 @@ USE_L10N = True
 USE_TZ = True
 
 SITE_ID = 1
-
-LOGIN_REDIRECT_URL = "/user_profile/welcome/"
 
 LOGGING = {
     'version': 1,
