@@ -60,6 +60,7 @@ INSTALLED_APPS = (
     'explorer',
     'django_wysiwyg',
     'django_comments',
+    'storages',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -109,6 +110,15 @@ if os.getenv('DATABASE_URL'):
     EMAIL_BACKEND = 'djrill.mail.backends.djrill.DjrillBackend'
     DEFAULT_FROM_EMAIL = 'admin@icfrc.fr'
 
+    #AWS Configuration
+    AWS_QUERYSTRING_AUTH = False
+    AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+    AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+    AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+
+    MEDIA_URL = 'http://%s.s3.amazonaws.com/your-folder/' % AWS_STORAGE_BUCKET_NAME
+    DEFAULT_FILE_STORAGE = "storages.backends.s3boto.S3BotoStorage"
+
 
 
 else:
@@ -141,18 +151,21 @@ else:
     EMAIL_BACKEND = 'djrill.mail.backends.djrill.DjrillBackend'
     DEFAULT_FROM_EMAIL = 'contact@icfrc.fr'
 
-# Static asset configuration for local dev:
-STATIC_ROOT = 'staticfiles'
-STATIC_URL = '/static/'
-STATICFILES_LOCATION = 'static'
+    # Media files configuration
+    MEDIA_URL = '/media/'
 
-STATICFILES_DIRS = (
-       STATIC_PATH,
-)
+    # Static asset configuration for local dev:
+    STATIC_ROOT = 'staticfiles'
+    STATIC_URL = '/static/'
+    STATICFILES_LOCATION = 'static'
 
-# Media files configuration
+    STATICFILES_DIRS = (
+           STATIC_PATH,
+    )
+
+
 MEDIA_ROOT = 'media'
-MEDIA_URL = '/media/'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
