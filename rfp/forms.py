@@ -154,7 +154,7 @@ class RfpCampaignForm(ModelForm):
         }
 
 class ReviewForm(forms.Form):
-    rating = forms.ChoiceField(required=True,choices = ratings,label='Project ranking as a whole (between A and F, A as the highest):', widget=forms.Select(attrs={'class':'form-control'}))
+    rating = forms.ChoiceField(required=True,choices = ratings,label='Overall scientific priority of the proposal based on the following scale (proposals rated in the upper 20% are more likely to be accepted for funding)', widget=forms.Select(attrs={'class':'form-control'}))
 
     def __init__(self, *args, **kwargs):
             questions = kwargs.pop('questions')
