@@ -8,27 +8,42 @@
 <!--Project Header-->
 {% include 'rfp/project/project_header.html' %}
 
-
+<!--
 <div class="alert alert-success" role="alert">
-
-<p style="text-align:center">
-    Your project has been succesfully submitted.
-    You will recieve a confirmation email soon at this address: {{ user.email }}.
-    Click <a href="#" onclick="window.print();return false;">here</a> to print this page.
-</p>
-    </div>
+    <p style="text-align:center">
+        Your project has been succesfully submitted.
+        You will recieve a confirmation email soon at this address: {{ user.email }}.
+        Click <a href="#" onclick="window.print();return false;">here</a> to print this page.
+    </p>
+</div>
 
 <div class="alert alert-info" role="alert">
     <p style="text-align:center">You can edit your project until the deadline.</p>
 </div>
+-->
 
-<div class="col-xs-12 col-md-4"></div>
-<div class="col-xs-12 col-md-4">
-<a href="{% url 'user_profile' %}?block=proj" class="center btn btn-apply" style="width:350px;margin:Auto; padding:15px 15px 15px 15px;">
-        Go to your Projects to follow the review process
-</a>
+<div class="col-xs-12 col-md-2">
+
+
 </div>
-<div class="col-xs-12 col-md-4"></div>
+<div class="col-xs-12 col-md-8">
+ <a href="{% url 'create_project_previous' project.pk %}" class="center btn btn-apply" style="width:350px;margin:Auto; padding:15px 15px 15px 15px;">
+        Click here to go back and edit your project
+    </a>
+<a href="#" class="center btn btn-apply" style="width:350px;margin:Auto; padding:15px 15px 15px 15px;" data-toggle="modal" data-target="#myModal">
+        Click here to Submit your Project
+</a>
+
+
+
+<!--
+    <a href="{% url 'user_profile' %}?block=proj" class="center btn btn-apply" style="width:350px;margin:Auto; padding:15px 15px 15px 15px;">
+            Go to your Projects to follow the review process
+    </a>
+-->
+
+</div>
+<div class="col-xs-12 col-md-2"></div>
 
 <!--Project Details-->
 {% include 'rfp/project/project_details.html' %}
@@ -37,17 +52,54 @@
 {% include 'rfp/project/project_budget.html' %}
 
 {% if project.rfp.add_reviewer %}
-
-    <!--Reviewer Table-->
+<!--Reviewer Table-->
     {% include 'rfp/project/project_reviewer.html' %}
 
 {% endif %}
 
 </div>
 
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">SUBMIT YOUR PROJECT</h4>
+      </div>
+      <div class="modal-body">
+        <p> You are just about to submit your project. You will still be able to edit your project until
+            the deadline of the {{  project.rfp }} call for proposal: <strong>{{ project.rfp.deadline }}</strong>.
+        </p>
+        <p> Click Submit to validate your project. After successful submission, you will receive a confirmation email at: {{ project.user.email }}.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="project-final-submit" class="btn btn-apply" data-dismiss="modal">Submit</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
 <script>
     console.log('Hide them');
     $('.act-link').hide();
+
+    $('#project-final-submit').click(function(){
+        console.log("SUBMIT!");
+        var jqxhr = $.ajax( "{%  url 'create_project_summary' project.pk %}" )
+              .done(function() {
+                alert( "success" );
+              })
+              .fail(function() {
+                alert( "error" );
+              })
+              .always(function() {
+                alert( "complete" );
+        });
+    });
+
 </script>
 
 {% endblock %}

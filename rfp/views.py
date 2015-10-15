@@ -228,9 +228,7 @@ def create_project_summary(request,projectId):
     excluded_rev_list = ProposedReviewer.objects.filter(project = project, type='USER_EXCLUDED')
     total_budgeted = budget_line_sum(budget_line_list)
 
-    user_is_owner(user,project)
-
-    project.send_project_confirmation_email()
+    #project.send_project_confirmation_email()
 
     context_dict = {'project':project,'project_data' : project_data,'budget_line_list': budget_line_list,
                     'total' : total_budgeted,'hr_budget_lines_list' : hr_budget_line_list, 'oc_budget_lines_list' : oc_budget_line_list,

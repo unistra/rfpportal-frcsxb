@@ -17,6 +17,7 @@
 
 
 <a class="btn btn-apply" href="{% url 'create_project_budget' project.id %}">Previous</a>
+<a class="btn btn-apply" href="{% url 'create_project_reviewer' project.id %}">Save and Continue</a>
 
     {% if project|count_proposedreviewer < 4 %}
     <p class="btn btn-inactive pull-right">4 proposed reviewers are required</p>
