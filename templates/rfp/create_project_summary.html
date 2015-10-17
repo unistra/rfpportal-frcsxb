@@ -69,36 +69,52 @@
         <h4 class="modal-title">SUBMIT YOUR PROJECT</h4>
       </div>
       <div class="modal-body">
-        <p> You are just about to submit your project. You will still be able to edit your project until
-            the deadline of the {{  project.rfp }} call for proposal: <strong>{{ project.rfp.deadline }}</strong>.
-        </p>
-        <p> Click Submit to validate your project. After successful submission, you will receive a confirmation email at: {{ project.user.email }}.</p>
+        <div class="hide" id="ajaxLoader">
+            <img src="/static/images/ajax_loader.gif">
+        </div>
+
+        <div id="PreSubmitText">
+             <p> You are just about to submit your project. You will still be able to edit your project until
+            the deadline of the {{  project.rfp.name }} call for proposal: <strong>{{ project.rfp.deadline }}</strong>.
+            </p>
+             <p> Click Submit to validate your project. After successful submission, you will receive a confirmation email at: {{ project.user.email }}.</p>
+        </div>
+
+        <div class="hide" id="PostSubmitText">
+             <p>Congratulations, you successfully submitted {{ project.name }} to {{ project.rfp.name }}</p>
+             <p>Click <a href="#" data-dismiss="modal">here</a> to close this message.</p>
+        </div>
+
       </div>
+
       <div class="modal-footer">
-        <button type="button" id="project-final-submit" class="btn btn-apply" data-dismiss="modal">Submit</button>
+
+          <form id="finalSubmit" method="post">
+              <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+              <input  id="project-final-submit" class="save_btn btn btn-primary pull-right" type="submit" value="Save"  />
+          </form>
+
       </div>
+
     </div>
 
   </div>
 </div>
 
 <script>
-    console.log('Hide them');
     $('.act-link').hide();
+    var postedData = $('#finalSubmit').serialize();
 
     $('#project-final-submit').click(function(){
-        console.log("SUBMIT!");
-        var jqxhr = $.ajax( "{%  url 'create_project_summary' project.pk %}" )
-              .done(function() {
-                alert( "success" );
-              })
-              .fail(function() {
-                alert( "error" );
-              })
-              .always(function() {
-                alert( "complete" );
-        });
-    });
+        $.post({
+            url: "{ url 'create_project_summary' project.id %}'",
+            data: postedData
+         });
+        $('#PreSubmitText').addClass('hide');
+        $('#PostSubmitText').removeClass('hide');
+        $('.modal-footer').hide();
+
+    })
 
 </script>
 

@@ -2,6 +2,7 @@ from django.shortcuts import render,render_to_response,HttpResponse,HttpResponse
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.http import Http404
+import pdb
 
 from django.forms.models import model_to_dict
 import datetime
@@ -210,6 +211,8 @@ def create_project_reviewer(request,projectId):
 
     return render_to_response('rfp/create_project_reviewer.html',context_dict,context)
 
+import json
+
 @user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def create_project_summary(request,projectId):
     context = RequestContext(request)
@@ -228,13 +231,23 @@ def create_project_summary(request,projectId):
     excluded_rev_list = ProposedReviewer.objects.filter(project = project, type='USER_EXCLUDED')
     total_budgeted = budget_line_sum(budget_line_list)
 
-    #project.send_project_confirmation_email()
+    if request.method == 'POST':
+        pdb.set_trace()
+        project.status='submitted'
+        project.save()
+
+        response_data = []
+        response_data.append('Project submitted')
+        #project.send_project_confirmation_email()
+
+        return HttpResponse(json.dumps(response_data), content_type='application/json')
 
     context_dict = {'project':project,'project_data' : project_data,'budget_line_list': budget_line_list,
                     'total' : total_budgeted,'hr_budget_lines_list' : hr_budget_line_list, 'oc_budget_lines_list' : oc_budget_line_list,
                     'eq_budget_lines_list' : eq_budget_line_list,'prop_rev_list' : prop_rev_list,'excluded_rev_list' : excluded_rev_list}
 
     return render_to_response('rfp/create_project_summary.html',context_dict,context)
+
 
 @user_passes_test(is_pi,login_url='/project/login_no_permission/',redirect_field_name='next')
 def edit_project(request,projectId):
