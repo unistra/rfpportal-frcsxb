@@ -22,28 +22,28 @@
 </div>
 -->
 
-<div class="col-xs-12 col-md-2">
+<div class="col-xs-12 col-md-12">
+    {%  if project.status == 'submitted' %}
+        <div class="alert alert-success">
+            <p>Your project has been succesfully submitted. Click <a href="#" onClick="window.print()">here</a> to print.</p>
+        </div>
+    {% else %}
+        <div class="alert alert-warning">
+            <p> Your project has not been yet submitted. Please review the information and click
+                <a href="#" data-toggle="modal" data-target="#myModal"> here to submit</a> your Project.
+            </p>
+        </div>
+    {%  endif  %}
 
-
+    {%  if project.rfp.status == 'open' %}
+        <div class="alert alert-link">
+            <p><a href="{% url 'create_project_previous' project.pk %}">
+            Click here to edit your project</a>
+            </p>
+        </div>
+    {%  endif %}
 </div>
-<div class="col-xs-12 col-md-8">
- <a href="{% url 'create_project_previous' project.pk %}" class="center btn btn-apply" style="width:350px;margin:Auto; padding:15px 15px 15px 15px;">
-        Click here to go back and edit your project
-    </a>
-<a href="#" class="center btn btn-apply" style="width:350px;margin:Auto; padding:15px 15px 15px 15px;" data-toggle="modal" data-target="#myModal">
-        Click here to Submit your Project
-</a>
 
-
-
-<!--
-    <a href="{% url 'user_profile' %}?block=proj" class="center btn btn-apply" style="width:350px;margin:Auto; padding:15px 15px 15px 15px;">
-            Go to your Projects to follow the review process
-    </a>
--->
-
-</div>
-<div class="col-xs-12 col-md-2"></div>
 
 <!--Project Details-->
 {% include 'rfp/project/project_details.html' %}
@@ -69,6 +69,7 @@
         <h4 class="modal-title">SUBMIT YOUR PROJECT</h4>
       </div>
       <div class="modal-body">
+
         <div class="hide" id="ajaxLoader">
             <img src="/static/images/ajax_loader.gif">
         </div>
@@ -78,11 +79,6 @@
             the deadline of the {{  project.rfp.name }} call for proposal: <strong>{{ project.rfp.deadline }}</strong>.
             </p>
              <p> Click Submit to validate your project. After successful submission, you will receive a confirmation email at: {{ project.user.email }}.</p>
-        </div>
-
-        <div class="hide" id="PostSubmitText">
-             <p>Congratulations, you successfully submitted {{ project.name }} to {{ project.rfp.name }}</p>
-             <p>Click <a href="#" data-dismiss="modal">here</a> to close this message.</p>
         </div>
 
       </div>
@@ -106,13 +102,19 @@
     var postedData = $('#finalSubmit').serialize();
 
     $('#project-final-submit').click(function(){
-        $.post({
-            url: "{ url 'create_project_summary' project.id %}'",
-            data: postedData
-         });
+        $('#ajaxLoader').removeClass('hide');
         $('#PreSubmitText').addClass('hide');
-        $('#PostSubmitText').removeClass('hide');
         $('.modal-footer').hide();
+
+        $.ajax({
+            type:"post",
+            url: "{% url 'create_project_summary' project.id %}'",
+            data: postedData
+         }).done(function(data){
+            console.log(data);
+        });
+
+
 
     })
 

@@ -232,15 +232,10 @@ def create_project_summary(request,projectId):
     total_budgeted = budget_line_sum(budget_line_list)
 
     if request.method == 'POST':
-        pdb.set_trace()
         project.status='submitted'
         project.save()
+        project.send_project_confirmation_email()
 
-        response_data = []
-        response_data.append('Project submitted')
-        #project.send_project_confirmation_email()
-
-        return HttpResponse(json.dumps(response_data), content_type='application/json')
 
     context_dict = {'project':project,'project_data' : project_data,'budget_line_list': budget_line_list,
                     'total' : total_budgeted,'hr_budget_lines_list' : hr_budget_line_list, 'oc_budget_lines_list' : oc_budget_line_list,
