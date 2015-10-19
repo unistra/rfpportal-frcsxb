@@ -84,9 +84,30 @@
             {% elif p.name == 'document' %}
                 <hr>
             <div class="row">
-                <div class = "col-xs-12 col-md-4">
+                <div class = "col-xs-12 col-md-12">
                     <p><strong>To print the proposal description: </strong></p>
                     <p>To print the summary page click <a href="javascript:window.print()">here</a></p>
+                    <p>To print the scientific description of the project:
+                        {% if project.document %}<a href="{{ project.document.url }}" target="_blank">{{ project.document.name }} </a>
+                        {%  else %} <em>None.</em>
+                        {% endif %}
+                    </p>
+                    <p>To print the different quotes associated with the project: </p>
+
+                    {%  if list_of_bl %}
+                        </ul>
+                        {% for bl in list_of_bl %}
+                            {% if bl.category == 'EQ' %}
+                               <li>{{ bl.item }} ({{ bl.amount }} Eur.) :
+                                   {% if bl.quote %} <a href="{{ bl.quote.url }}" target="_blank">{{ bl.quote }}</a>{% else %}
+                                       {% endif %}</li>
+                            {% endif %}
+                        {% endfor %}
+                        </ul>
+                     {% else %}
+                        <em>None.</em>
+                     {% endif %}
+
                 </div>
 
                 <div class = "col-md-8">
