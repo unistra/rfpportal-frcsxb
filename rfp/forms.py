@@ -19,6 +19,14 @@ ratings = (
     ('Top 50', 'Top 50% = Low Priority'),
 )
 
+contract = (
+    ('','----------'),
+    ('PhD','PhD'),
+    ('Research Scientist', 'Research Scientist'),
+    ('Technician', 'Technician'),
+    ('Other', 'Other(master student,...)'),
+)
+
 class ReviewWaiverForm(forms.Form):
     CHOICES = (('True', 'Yes, I will review this project.',), ('False', 'No, I will not review this project.',))
     no_conflict = forms.ChoiceField(widget=forms.RadioSelect, choices=CHOICES)
@@ -188,14 +196,16 @@ class ProposedReviewerForm(ModelForm):
 class ExcludedReviewerForm(ModelForm):
     first_name = forms.CharField(required=True,widget=forms.TextInput(attrs={'class':'form-control'}))
     last_name = forms.CharField(required=True,widget=forms.TextInput(attrs={'class':'form-control'}))
+    email = forms.EmailField(required=True,widget=forms.EmailInput(attrs={'class':'form-control'}))
 
     class Meta:
         model = ProposedReviewer
-        exclude = {'project','type','email','address','state','postcode','invited'}
+        exclude = {'project','type','address','state','postcode','invited'}
         widgets = {
             'institution' : forms.TextInput(attrs={'class':'form-control'}),
             'city' : forms.TextInput(attrs={'class':'form-control'}),
             'country' : forms.TextInput(attrs={'class':'form-control'}),
+
         }
 
 ProposedReviewerFormSet = modelformset_factory(
@@ -255,8 +265,10 @@ class BudgetLineEQ(ModelForm):
         }
 
 class BudgetLineHR(ModelForm):
-    item = forms.CharField(required=True,label='Contract Type (PhD, Post-doc...)', widget=forms.TextInput(attrs={'class':'form-control'}))
-    amount = forms.FloatField(required=True,label='Amount (Eur.)', widget=forms.NumberInput(attrs={'class':'form-control'}))
+
+
+    item = forms.CharField(required=True,label='Contract Type (PhD, Post-doc...)', widget=forms.Select(choices=contract,attrs={'class':'form-control'}))
+    amount = forms.FloatField(required=True,label='Amount (Eur.)', widget=forms.NumberInput(attrs={'class':'form-control','readonly':''}))
     duration = forms.IntegerField(required=True,label='Duration (months)',widget=forms.NumberInput(attrs={'class':'form-control'}))
     monthly_salary = forms.IntegerField(required=True,label='Monthly Salary (Eur.)',widget=forms.NumberInput(attrs={'class':'form-control'}))
 

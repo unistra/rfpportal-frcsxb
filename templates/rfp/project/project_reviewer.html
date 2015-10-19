@@ -12,7 +12,7 @@
                         </div>
 
                         <div class="pull-left cs_title_cell">
-                        Reviewer
+                        Reviewers
                         </div>
                     </div>
          </div>
@@ -31,6 +31,7 @@
                         <tr>
                             <th>Contact</th>
                             <th>Email</th>
+                            <th>Institution</th>
                             <th>City</th>
                             <th>Country</th>
                             <th></th>
@@ -44,6 +45,7 @@
                             <tr>
                                 <td>{{ r }}</td>
                                 <td>{{ r.email }}</td>
+                                <td>{{ r.institution }}</td>
                                 <td>{{ r.city }}</td>
                                 <td>{{ r.country }}</td>
                                 <td>{% if user|is_pi %}<a class="act-link" href = "{% url 'edit_reviewer' r.pk %}?redirect={{ current_url }}">Edit</a> {% endif %}</td>
@@ -72,7 +74,9 @@
                         <tr>
 
                             <th>Contact</th>
+                            <th>Email</th>
                             <th>Institution</th>
+                            <th>City</th>
                             <th>Country</th>
                             <th></th>
 
@@ -85,7 +89,9 @@
                     <tr>
 
                         <td>{{ r.first_name }} {{ r.last_name }}</td>
+                        <td>{{ r.email }}</td>
                         <td>{{ r.institution }}</td>
+                        <td>{{ r.city }}</td>
                         <td>{{ r.country }}</td>
                         <td>{% if user|is_pi %}<a class="act-link" href = "{% url 'edit_excluded_reviewer' r.pk %}?redirect={{ current_url }}">Edit</a> {% endif %}</td>
 

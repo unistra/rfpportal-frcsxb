@@ -53,9 +53,8 @@
             <div class="form-group">
                 <div class="col-xs-12 col-md-12">
                     {% if rfp.template %} <strong>Proposal description</strong>
-                        Please download the TEMPLATE : <a href="{{ rfp.template.url }}" target="_blank">{{ rfp.template }}</a> and upload it below after completion (PDF only).
-                     <br>
-                    <br>
+                        <p>Download the template <a href="{{ rfp.template.url }}" target="_blank">{{ rfp.template }}</a>,
+                            complete following the instructions and upload it just below (PDF only).</p><br>
                     {% endif %}
                 </div>
                 <div  style="padding-top:7px;padding-bottom:7px;" class="col-xs-12 col-md-4">

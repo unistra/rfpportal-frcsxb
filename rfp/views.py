@@ -540,7 +540,6 @@ def exclude_unique_reviewer(request, projectId):
             reviewer = r.save(commit = False)
             reviewer.project = project
             reviewer.type = 'USER_EXCLUDED'
-            reviewer.email = ''
             reviewer.save()
 
             return HttpResponseRedirect(redirect)
@@ -747,18 +746,29 @@ def post_review(request,reviewId):
 
     redirect_url = get_redirect_url(request) + str('#yourreview')
 
+
     if request.method == 'POST':
         form = ReviewForm(request.POST,request.FILES,questions=questions)
 
-        if form.is_valid():
-               form_data = form.cleaned_data
-               updated_review = Review.objects.update_or_create(user = user.pk, project = project.pk, defaults=form_data)
-               up_rev = updated_review[0]
-               up_rev.send_confirmation_email_to_reviewer()
-               up_rev.status = 'completed'
-               up_rev.save()
+        if len(request.POST.get('next')) > 0:
+            if form.is_valid():
+                   form_data = form.cleaned_data
+                   updated_review = Review.objects.update_or_create(user = user.pk, project = project.pk, defaults=form_data)
+                   up_rev = updated_review[0]
+                   up_rev.save()
 
-               return HttpResponseRedirect(redirect_url)
+                   return HttpResponseRedirect(request.POST.get('next'))
+
+        else:
+            if form.is_valid():
+                   form_data = form.cleaned_data
+                   updated_review = Review.objects.update_or_create(user = user.pk, project = project.pk, defaults=form_data)
+                   up_rev = updated_review[0]
+                   up_rev.send_confirmation_email_to_reviewer()
+                   up_rev.status = 'completed'
+                   up_rev.save()
+
+                   return HttpResponseRedirect(redirect_url)
 
     else:
         form = ReviewForm(initial= review_model_dict,questions = questions)

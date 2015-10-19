@@ -1266,3 +1266,7 @@ height:200px;
 .red {
     color:red;
 }
+
+#project_create_form label{
+    margin-top:20px;
+}

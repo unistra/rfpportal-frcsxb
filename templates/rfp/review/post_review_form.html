@@ -13,13 +13,21 @@
                     </div>
                 {% endfor %}
 
-                 <input class="btn btn-apply pull-right" type="submit" value="Save"  />
+                <input class="btn btn-apply pull-right" type="submit"  value="Save and Submit" />
+                <input class="btn btn-apply pull-right" type="submit" id="save-only" value="Save and Continue" style="margin-right:15px;" />
+
+                <input type="hidden" id="next-field" name="next" value="">
 
             </form>
+
         </div>
     </div>
 <script>
     $('#id_rating > option').addClass('green');
     $('#id_rating > option:nth-child(n+4)').addClass('red');
+
+    $('#save-only').click(function(){
+        $('#next-field').val('{% url 'post_review' review.id %}');
+    });
 </script>
 

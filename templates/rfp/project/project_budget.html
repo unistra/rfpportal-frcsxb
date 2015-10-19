@@ -5,7 +5,9 @@
 
             {% include 'elements/budget_title.html' %}
 
-                <h4>Total budgeted: <strong>{{ total }} €</strong> <span style = "font-size:14px;">(Total requested: {{ project.requested_amount }} €)<br><br></span></h4>
+                <h4>Total budgeted: (without VAT)<strong>
+                    <span id="TotalCalculated">{{ total }}</span> €
+                </strong> <span style = "font-size:14px;">(Total requested: <span id="TotalRequested">{{ project.requested_amount }}</span> €)<br><br></span></h4>
 <hr>
             {%  if project.rfp.category != 'Synergy' %}
                 <div class="cs_block_sub_title">

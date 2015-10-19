@@ -33,11 +33,10 @@
                 {{ form.errors }}
             </div>
         {% elif form.label == 'Email' %}
-                <div class = "col-xs-12 col-md-4">
+            <div class = "col-xs-12 col-md-4">
                  <strong>{{ form.label }}<span class="req"> *</span></strong>
-                    <div class="input-group"><span class="input-group-addon" id="basic-addon1">@</span>{{ form }}</div>
-
-                {{ form.errors }}
+                    {{ form }}
+                    {{ form.errors }}
             </div>
         </div>
 

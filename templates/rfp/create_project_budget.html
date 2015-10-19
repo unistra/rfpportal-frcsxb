@@ -21,21 +21,32 @@
 
 {% if project.rfp.add_reviewer %}
 
-    <a class="btn btn-apply pull-right" href="{% url 'create_project_reviewer' project.pk %}">Next</a>
+    <a class="btn btn-apply pull-right disabled" href="{% url 'create_project_reviewer' project.pk %}">Next</a>
+
 
 {% else %}
 
-    <a class="btn btn-apply pull-right" href="{% url 'create_project_summary' project.pk %}">Save and Submit</a>
+    <a class="btn btn-apply pull-right disabled" href="{% url 'create_project_summary' project.pk %}">Save and Submit</a>
 
 {% endif %}
 
-
+    <div class="budget-message pull-right hide" style="margin-right:15px;padding-top: 12px; color:red;">
+        Total requested {{ project.requested_amount }} Eur. not equal to total budgeted {{ total }} Eur.
+    </div>
 
 </div>
 
 <script>
     $('#step_1').removeClass('progtrckr-todo').addClass('progtrckr-done');
     $('#step_2').removeClass('progtrckr-todo').addClass('progtrckr-focus');
+    if ({{ total }} == {{ project.requested_amount }})
+    {
+        $('.disabled').removeClass('disabled');
+    }
+    else{
+        $('div.budget-message').removeClass('hide');
+    }
+
 </script>
 
 {% endblock %}
