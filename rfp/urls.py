@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     url(r'^create_project_reviewers/(?P<projectId>\d+)/$',views.create_project_reviewer,name='create_project_reviewer'),
     url(r'^create_project_summary/(?P<projectId>\d+)/$',views.create_project_summary,name='create_project_summary'),
     url(r'^create_project_previous/(?P<projectId>\d+)/$',views.create_project_previous,name='create_project_previous'),
+    url(r'^delete_project/(?P<projectId>\d+)/$',views.delete_project,name='delete_project'),
     #url(r'^final_project_submisson/(?P<projectId>\d+)/$',views.final_project_submisson,name='final_project_submisson'),
 
 #Add new Budget Line to a Project

@@ -907,6 +907,17 @@ def propose_reviewer(request,projectId):
 
     return render_to_response('rfp/propose_reviewer.html',{'formset' : r, 'user' : user, 'project' : project}, context)
 
+def delete_project(request,projectId):
+    context = RequestContext(request)
+    project = Project.objects.get( pk = projectId)
+
+    if request.method == 'POST':
+        project.delete()
+
+        return HttpResponseRedirect(reverse('user_profile') + '?block=proj')
+
+
+
 def test (request):
     from django.template.loader import render_to_string
     from django.core.mail import send_mail
