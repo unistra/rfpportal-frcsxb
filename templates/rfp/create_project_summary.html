@@ -28,18 +28,21 @@
             <p>Your project has been succesfully submitted. Click <a href="#" onClick="window.print()">here</a> to print.</p>
         </div>
     {% else %}
-        <div class="alert alert-warning">
-            <p> Your project has not been yet submitted. Please review the information and click
-                <a href="#" data-toggle="modal" data-target="#myModal"> here to submit</a> your Project.
-            </p>
+        <div class="col-md-6 col-xs-6 col-lg-6">
+        {% if project.document.url %}
+            <a href="#" style="width:100%;" class="btn btn-apply" data-toggle="modal" data-target="#myModal">Please review the information and click
+            here to submit your Project.</a>
+        {%  else %}
+            <p class="btn btn-inactive">You need to upload your document to submit your project.</p>
+        {%  endif %}
+
         </div>
     {%  endif  %}
 
     {%  if project.rfp.status == 'open' %}
-        <div class="alert alert-link">
-            <p><a href="{% url 'create_project_previous' project.pk %}">
+        <div class="col-md-6 col-xs-6 col-lg-6">
+            <a class="btn btn-apply" style="width:100%;"  href="{% url 'create_project_previous' project.pk %}">
             Click here to edit your project</a>
-            </p>
         </div>
     {%  endif %}
 </div>
@@ -56,6 +59,32 @@
     {% include 'rfp/project/project_reviewer.html' %}
 
 {% endif %}
+
+
+<div class="col-xs-12 col-md-12">
+    {%  if project.status == 'submitted' %}
+        <div class="alert alert-success">
+            <p>Your project has been succesfully submitted. Click <a href="#" onClick="window.print()">here</a> to print.</p>
+        </div>
+    {% else %}
+        <div class="col-md-6 col-xs-6 col-lg-6">
+        {% if project.document.url %}
+            <a href="#" style="width:100%;" class="btn btn-apply" data-toggle="modal" data-target="#myModal">Please review the information and click
+            here to submit your Project.</a>
+        {%  else %}
+            <p class="btn btn-inactive">You need to upload your document to submit your project.</p>
+        {%  endif %}
+
+        </div>
+    {%  endif  %}
+
+    {%  if project.rfp.status == 'open' %}
+        <div class="col-md-6 col-xs-6 col-lg-6">
+            <a class="btn btn-apply" style="width:100%;"  href="{% url 'create_project_previous' project.pk %}">
+            Click here to edit your project</a>
+        </div>
+    {%  endif %}
+</div>
 
 </div>
 
@@ -84,10 +113,9 @@
       </div>
 
       <div class="modal-footer">
-
           <form id="finalSubmit" method="post">
               <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
-              <input  id="project-final-submit" class="save_btn btn btn-primary pull-right" type="submit" value="Save"  />
+              <input  id="project-final-submit" class="save_btn btn btn-primary pull-right" type="submit" value="Submit" />
           </form>
 
       </div>
