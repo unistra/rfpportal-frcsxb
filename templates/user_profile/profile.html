@@ -71,10 +71,17 @@
 
                             <td><em>{% if p.rfp.status == 'under_review' %} Under Review {% else %} {{ p.status|capfirst }} {% endif %}</em></td>
                             <td> {% if p.status == 'granted' %} {{ p.awarded_amount }} {% else %} <em>None</em> {% endif %} </td>
-                            <td>{% if p.status == 'draft' %} <a href="#"  data-toggle="modal" data-target="#deleteConfirmModal" >Delete</a> {%  endif %}</td>
-                            <div id="deleteConfirmModal" class="modal fade" role="dialog">
+
+                            <td>{% if p.status == 'draft' %}
+                                <a href=""  data-toggle="modal" data-target="#deleteConfirmModal">Delete</a>
+                                {%  endif %}
+                            </td>
+
+
+                            <div id="deleteConfirmModal" class="modal fade" tabindex="-1" role="dialog">
                             <div class="modal-dialog">
-                            <!-- Modal content-->
+                            <!--
+                            Modal content-->
                                 <div class="modal-content">
                                   <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -84,14 +91,15 @@
                                     <div id="PreSubmitText">
                                          <p> This will permanently remove the project : {{  p.name }} from your profile.</p>
                                          <p> Click delete to remove the project.</p>
-                                         <a href="#" class="btn btn-primary" data-dismiss="modal">Close</a>
-                                         <a href="{%  url 'delete_project' p.id %}" class="btn btn-danger pull-right">Delete</a>
+                                        <form method="post" action="{%  url 'delete_project' p.id %}">
+                                             {% csrf_token %}
+                                            <input type="submit" class="btn btn-danger" value="Delete">
+                                            <a href="#" class="btn btn-primary" data-dismiss="modal">Cancel</a>
+                                        </form>
                                     </div>
                                   </div>
-
                                   <div class="modal-footer">
                                   </div>
-
                                 </div>
                             </div>
                             </div>

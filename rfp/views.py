@@ -914,7 +914,7 @@ def delete_project(request,projectId):
     if request.method == 'POST':
         project.delete()
 
-        return HttpResponseRedirect(reverse('user_profile') + '?block=proj')
+    return HttpResponseRedirect(reverse('user_profile') + '?block=proj')
 
 
 
