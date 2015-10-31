@@ -88,13 +88,15 @@
                 </table>
                 </div>
                 <hr>
+
+            {%  if project.rfp.category != 'Synergy' %}
                 <div class="cs_block_sub_title">
 
                     <div class="pull-left cs_title_cell cs_sub_title_cell_budget">
                         Operating Costs
                     </div>
                 </div>
-                 <div class="table_budget">
+                <div class="table_budget">
                 <table class="table table-striped">
                 <thead>
                         <tr>
@@ -126,5 +128,7 @@
                     </tbody>
                 </table>
                 </div>
+            {%  endif %}
+
             </div>
         </div>
