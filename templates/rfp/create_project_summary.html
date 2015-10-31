@@ -43,8 +43,8 @@
             <a href="#" class="btn btn-action pull-right" style="margin:0;" data-toggle="modal" data-target="#myModal">Please review the information and click
             here to submit your Project.</a>
         {%  else %}
-            <p class="btn btn-inactive pull-right">You need to upload your document to submit your project.
-            Click <a href="{% url 'create_project_previous' project.pk %}">here</a> to complete your application.</p>
+            <p class="pull-right">You need to upload your document to submit your project.
+                Click <a href="{% url 'create_project_previous' project.pk %}">here</a> to complete your application.</p>
         {%  endif %}
      </div>
 
@@ -85,7 +85,7 @@
             <a href="#" class="btn btn-action pull-right" style="margin:0;" data-toggle="modal" data-target="#myModal">Please review the information and click
             here to submit your Project.</a>
         {%  else %}
-            <p class="btn btn-inactive pull-right">You need to upload your document to submit your project.
+            <p class="pull-right">You need to upload your document to submit your project.
             Click <a href="{% url 'create_project_previous' project.pk %}">here</a> to complete your application.</p>
         {%  endif %}
      </div>
