@@ -909,7 +909,8 @@ def propose_reviewer(request,projectId):
 
 def delete_project(request,projectId):
     context = RequestContext(request)
-    project = Project.objects.get( pk = projectId)
+    project = Project.objects.get(pk = projectId)
+    pdb.set_trace()
 
     if request.method == 'POST':
         project.delete()

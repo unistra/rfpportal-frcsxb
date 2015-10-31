@@ -73,9 +73,45 @@
                             <td> {% if p.status == 'granted' %} {{ p.awarded_amount }} {% else %} <em>None</em> {% endif %} </td>
 
                             <td>{% if p.status == 'draft' %}
-                                <a href=""  data-toggle="modal" data-target="#deleteConfirmModal">Delete</a>
+                                <a href="#"  data-toggle="modal" data-target="#{{ p.id }}">Delete</a>
+                                <div class="modal fade" id="{{ p.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel">Are you Sure ?</h4>
+                              </div>
+                              <div class="modal-body">
+                                <p>You are just about to delete your project: {{ p.name }}.
+                                  This action will delete permanently this project from your profile.</p>
+                              </div>
+                              <div class="modal-footer">
+                                <form method="post" action="{% url 'delete_project' p.id  %}">
+                                    {% csrf_token %}
+                                    <input type="submit" class="btn btn-danger" value="Delete"></input>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                                 {%  endif %}
                             </td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
                             <div id="deleteConfirmModal" class="modal fade" tabindex="-1" role="dialog">
@@ -93,7 +129,7 @@
                                          <p> Click delete to remove the project.</p>
                                         <form method="post" action="{%  url 'delete_project' p.id %}">
                                              {% csrf_token %}
-                                            <input type="submit" class="btn btn-danger" value="Delete">
+                                            <input type="submit" class="btn btn-danger" value="delete">
                                             <a href="#" class="btn btn-primary" data-dismiss="modal">Cancel</a>
                                         </form>
                                     </div>
