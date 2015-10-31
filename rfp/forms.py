@@ -307,14 +307,7 @@ class BudgetLineOP(ModelForm):
 
 
 class ReviewRankForm(forms.Form):
-    RATE=(
-        ('1', '1'),
-        ('2', '2'),
-        ('3', '3'),
-        ('4', '4'),
-        ('5', '5')
-    )
-    rank = forms.IntegerField(required=True,label='Rate this review: ',widget=forms.Select(choices=RATE))
+   rank = forms.BooleanField(initial=False,label="")
 
 
 class file_test (forms.Form):

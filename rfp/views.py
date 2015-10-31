@@ -277,7 +277,7 @@ def project_detail(request,projectId):
     user = request.user
 
     project = Project.objects.get(id=projectId)
-    list_of_review = Review.objects.filter(project = project, status = 'completed')
+    list_of_review = Review.objects.filter(project = project, status = 'completed', dropped = False)
     review = find_user_review_for_project(user,project)
     questions = project.rfp.get_review_questions()
 
@@ -424,15 +424,15 @@ def view_review(request,reviewId):
         print(request.POST)
 
         if form.is_valid():
-            review.note = form.cleaned_data['rank']
+            review.dropped = form.cleaned_data['rank']
             review.save()
 
-            n = review.user.userprofile.num_rated_review + 1
-            avg = ((review.user.userprofile.rated_review_avg * review.user.userprofile.num_rated_review) + review.note)/n
+            #n = review.user.userprofile.num_rated_review + 1
+            #avg = ((review.user.userprofile.rated_review_avg * review.user.userprofile.num_rated_review) + review.note)/n
 
-            review.user.userprofile.num_rated_review = n
-            review.user.userprofile.rated_review_avg = avg
-            review.user.userprofile.save()
+            #review.user.userprofile.num_rated_review = n
+            #review.user.userprofile.rated_review_avg = avg
+            #review.user.userprofile.save()
 
             return HttpResponseRedirect(reverse('view_review', args=(reviewId,))+str('?r=')+str(review.note))
 
@@ -910,7 +910,6 @@ def propose_reviewer(request,projectId):
 def delete_project(request,projectId):
     context = RequestContext(request)
     project = Project.objects.get(pk = projectId)
-    pdb.set_trace()
 
     if request.method == 'POST':
         project.delete()

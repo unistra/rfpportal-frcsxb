@@ -2,22 +2,24 @@
 
 <hr>
 
+{%  if review.dropped %}
+
+    <div id="rate_info">
+        <div class="alert alert-danger" role="alert">This review has been flagged as incorrect and won't be considered in the review process.</div>
+    </div>
+
+{% else %}
+
 {% load bootstrap3 %}
 
 <form id="rate_form" class="form-inline" method="post" action="{% url 'view_review' review.id %}">
     {% csrf_token %}
    <div class="form-group">
 
-    {% bootstrap_form form %}/5 (5 as the highest)
+    Check this box: {% bootstrap_form form %} and click submit to flag this review as incorrect.
 
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <input class="btn btn-danger" type="submit" value="Submit" />
 </form>
 
-<div id="rate_info">
-    <div class="alert alert-success" role="alert">Thank you, your rating of {{ review.note }}/5 has been succesfully recorded.</div>
-</div>
-
-<script>
-
-</script>
+{%  endif %}

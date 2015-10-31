@@ -41,13 +41,6 @@ $( document ).ready(function() {
        $('#redirect').attr('value', redirect);
    }
 
-   $('#rate_info').hide();
-
-   if (r >= 1 ) {
-       $('#rate_form').hide();
-       $('#rate_info').show();
-   }
-
 
    $('#id_ending_date').datepicker();
    $('#id_starting_date').datepicker();

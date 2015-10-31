@@ -296,6 +296,7 @@ class Review(models.Model):
     user = models.ForeignKey(User,verbose_name=u"Reviewer")
     project = models.ForeignKey(Project, verbose_name=u"Project")
     rating = models.CharField(max_length=255, null=True,blank=True)
+    dropped = models.BooleanField(default=False)
     status = models.CharField(max_length=255,default='pending',choices=STATUS_CHOICES)
     custom_0 = models.CharField(max_length=4000,null=True,blank=True)
     custom_1 = models.CharField(max_length=4000,null=True,blank=True)
@@ -309,7 +310,7 @@ class Review(models.Model):
     custom_9 = models.CharField(max_length=4000,null=True,blank=True)
     date = models.DateField(auto_now=True)
     document = models.FileField(upload_to=('reviews'),null=True,blank=True)
-    note = models.IntegerField(null=True)
+    note = models.IntegerField(default=0)
 
     def __unicode__(self):
         return self.user.first_name + str(" ") + self.user.last_name + str(" for: ") + self.project.name
