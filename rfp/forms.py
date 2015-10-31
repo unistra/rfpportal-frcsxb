@@ -22,6 +22,7 @@ ratings = (
 contract = (
     ('','----------'),
     ('PhD','PhD'),
+    ('Post-Doc','Post-Doc'),
     ('Research Scientist', 'Research Scientist'),
     ('Technician', 'Technician'),
     ('Other', 'Other(master student,...)'),

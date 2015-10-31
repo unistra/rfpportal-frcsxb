@@ -448,8 +448,13 @@ ol.progtrckr li.progtrckr-focus:before {
     padding:10px 10px;
 }
 
-
 .btn-apply:hover,.btn-apply:focus,.btn-action:hover,.btn-action:focus{
+    background-color:white !important;
+    color:RGB(0,94,167);
+    border: 1px solid RGB(0,94,167);
+}
+
+.btn-action:hover,.btn-apply:focus,.btn-action:hover,.btn-action:focus{
     background-color:white !important;
     color:RGB(0,94,167);
     border: 1px solid RGB(0,94,167);
