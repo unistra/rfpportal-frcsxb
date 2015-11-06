@@ -342,10 +342,12 @@ class Review(models.Model):
             site = Site.objects.get(id=1)
 
             #Set the email template variables
-            c = {'username':self.user,'reviewer_full_name' : self.user.get_full_name(), 'project' : self.project.name,
+            c = {'username':self.user.username,'reviewer_full_name' : self.user.get_full_name(), 'project' : self.project.name,
                  'author' : self.project.user.get_full_name(),
                  'abstract' : self.project.abstract, 'keywords':self.project.keywords,
                  'url_accept' : str(str(site.domain)+str(url_accept)),'url_refuse' : str(str(site.domain)+str(url_refuse))}
+            import pdb
+            pdb.set_trace()
 
             #Send the Mandrill email template
             send_mandrill_email(self,self.project.rfp.email_template_review_invitation,c)
@@ -363,7 +365,7 @@ class Review(models.Model):
             site = Site.objects.get(id=1)
 
             #Set the email template variables
-            c = {'username':self.user,'reviewer_full_name' : self.user.first_name + str(" ") + self.user.last_name, 'project' : self.project.name,
+            c = {'username':self.user.username,'reviewer_full_name' : self.user.first_name + str(" ") + self.user.last_name, 'project' : self.project.name,
                  'author' : self.project.user.first_name + str(' ') + self.project.user.last_name,
                  'abstract' : self.project.abstract, 'keywords':self.project.keywords,
                  'url_to_project' : str(str(site.domain)+str(url_to_project))}
