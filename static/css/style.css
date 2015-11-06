@@ -1275,3 +1275,8 @@ height:200px;
 #project_create_form label{
     margin-top:20px;
 }
+
+.not-active{
+   pointer-events: none;
+   cursor: default;
+}
