@@ -63,7 +63,7 @@
                     <tr>
                             <td>
                                 {% if p.status == 'draft' %} <a href="{% url 'create_project_previous' p.id %}">
-                                {% else %}  <a href="{% url 'project_detail' p.id %}"> {% endif %}
+                                {% else %}  <a href="{% url 'create_project_previous' p.id %}"> {% endif %}
                                 {{ p.name }}</a>
                             </td>
                             <td> {{ p.rfp }}</td>
