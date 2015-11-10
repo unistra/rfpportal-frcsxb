@@ -1,20 +1,20 @@
 {% load user_extras %}
 
-<div class="row" id="budget_detail">
+        <div class="row" id="budget_detail">
             <div class="col-xs-12 col-md-12">
 
             {% include 'elements/budget_title.html' %}
-
                 <h4>Total budgeted: (without VAT)<strong>
-                    <span id="TotalCalculated">{{ total }}</span> €
+                <span id="TotalCalculated">{{ total }}</span> €
                 </strong> <span style = "font-size:14px;">(Total requested: <span id="TotalRequested">{{ project.requested_amount }}</span> €)<br><br></span></h4>
-<hr>
-            {%  if project.rfp.category != 'Synergy' %}
+                <hr>
+
+            {%  if project.rfp.budget_hr %}
                 <div class="cs_block_sub_title">
                     <div class="pull-left cs_title_cell cs_sub_title_cell_budget">
                             Recruitment
                             </div></div>
-                    <div class="table_budget">
+                <div class="table_budget">
                     <table class="table table-striped">
                     <thead>
                             <tr>
@@ -51,7 +51,8 @@
                 <hr>
             {%  endif %}
 
-            <div class="cs_block_sub_title">
+            {%  if project.rfp.budget_eq %}
+                <div class="cs_block_sub_title">
                         <div class="pull-left cs_title_cell cs_sub_title_cell_budget">
                         Equipments
                         </div>
@@ -88,8 +89,9 @@
                 </table>
                 </div>
                 <hr>
+            {%  endif %}
 
-            {%  if project.rfp.category != 'Synergy' %}
+            {%  if project.rfp.budget_op %}
                 <div class="cs_block_sub_title">
 
                     <div class="pull-left cs_title_cell cs_sub_title_cell_budget">

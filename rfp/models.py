@@ -62,6 +62,10 @@ class RfpCampaign(models.Model):
     deadline = models.DateField()
     status = models.CharField(max_length=255,null=True,choices=STATUS_CHOICES,default='open')
 
+    budget_hr = models.BooleanField(default=True)
+    budget_eq = models.BooleanField(default=True)
+    budget_op = models.BooleanField(default=True)
+
     instructions=models.TextField(max_length=4000,null=True)
 
     template = models.FileField(upload_to='rfp_templates',null=True,blank=True)
