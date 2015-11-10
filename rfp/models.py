@@ -341,6 +341,7 @@ class Review(models.Model):
             url_refuse = reverse('urlcrypt_redirect', args = (token_refuse,))
             site = Site.objects.get(id=1)
 
+
             #Set the email template variables
             c = {'username':self.user.username,'reviewer_full_name' : self.user.get_full_name(), 'project' : self.project.name,
                  'author' : self.project.user.get_full_name(),

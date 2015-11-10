@@ -49,24 +49,6 @@
 
         {% if f.label == 'Upload your document:' %}
 
-    <div class="row">
-            <div class="form-group">
-                <div class="col-xs-12 col-md-12">
-                    {% if rfp.template %} <strong>Proposal description</strong>
-                        <p>Download the template <a href="{{ rfp.template.url }}" target="_blank">{{ rfp.template }}</a>,
-                            complete following the instructions and upload it just below (PDF only).</p><br>
-                    {% endif %}
-                </div>
-                <div  style="padding-top:7px;padding-bottom:7px;" class="col-xs-12 col-md-4">
-
-                    <strong>{{ f.label }} <span class="req">*</span></strong>
-                </div>
-                <div style="padding-right:0px;" class="col-xs-12 col-md-8">
-                    {{ f }}
-                    {{ f.errors }}
-                </div>
-            </div>
-    </div>
 
         {% elif f.label == 'Abstract (1000 characters max.):' %}
             <div class="form-group">
@@ -87,6 +69,33 @@
                 {{ f.errors }}
             </div>
         {% endif %}
+
+    {% endfor %}
+
+    {% for f in form %}
+
+    {% if f.label == 'Upload your document:' %}
+
+    <div class="row">
+            <div class="form-group">
+                <div class="col-xs-12 col-md-12">
+                    {% if rfp.template %} <h1><strong>Proposal description</strong></h1>
+                        <p>Download the template <a href="{{ rfp.template.url }}" target="_blank">{{ rfp.template }}</a>,
+                            complete following the instructions and upload it just below (PDF only).</p><br>
+                    {% endif %}
+                </div>
+                <div  style="padding-top:7px;padding-bottom:7px;" class="col-xs-12 col-md-4">
+
+                    <strong>{{ f.label }} <span class="req">*</span></strong>
+                </div>
+                <div style="padding-right:0px;" class="col-xs-12 col-md-8">
+                    {{ f }}
+                    {{ f.errors }}
+                </div>
+            </div>
+    </div>
+
+    {% endif %}
 
     {% endfor %}
 
