@@ -351,8 +351,6 @@ class Review(models.Model):
                  'author' : self.project.user.get_full_name(),
                  'abstract' : self.project.abstract, 'keywords':self.project.keywords,
                  'url_accept' : str(str(site.domain)+str(url_accept)),'url_refuse' : str(str(site.domain)+str(url_refuse))}
-            import pdb
-            pdb.set_trace()
 
             #Send the Mandrill email template
             send_mandrill_email(self,self.project.rfp.email_template_review_invitation,c)
