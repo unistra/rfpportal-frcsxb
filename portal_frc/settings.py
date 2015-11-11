@@ -83,12 +83,14 @@ ROOT_URLCONF = 'portal_frc.urls'
 
 WSGI_APPLICATION = 'portal_frc.wsgi.application'
 
+EMAIL_BACKEND = 'djrill.mail.backends.djrill.DjrillBackend'
+DEFAULT_FROM_EMAIL = 'admin@icfrc.fr'
+
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 # Parse database configuration from $DATABASE_URL
 
 if os.getenv('DATABASE_URL'):
-
     SECRET_KEY = os.getenv('SECRET_KEY')
     DATABASES = {
                 'default': {
@@ -113,8 +115,6 @@ if os.getenv('DATABASE_URL'):
 
     #Email configuration
     MANDRILL_API_KEY = os.getenv('MANDRILL_API_KEY')
-    EMAIL_BACKEND = 'djrill.mail.backends.djrill.DjrillBackend'
-    DEFAULT_FROM_EMAIL = 'admin@icfrc.fr'
 
     # Static asset configuration for hosted dev:
     STATICFILES_LOCATION = 'static'
@@ -146,6 +146,7 @@ else:
                             'PORT': '5432',
                     }
     }
+
     #AWS configuration
     AWS_STORAGE_BUCKET_NAME = api_key.AWS_STORAGE_BUCKET_NAME
     AWS_ACCESS_KEY_ID = api_key.AWS_ACCESS_KEY_ID
@@ -153,15 +154,12 @@ else:
     AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
     #Email configuration
-    MANDRILL_API_KEY = api_key.MANDRILL_API_KEY
-    EMAIL_BACKEND = 'djrill.mail.backends.djrill.DjrillBackend'
-    DEFAULT_FROM_EMAIL = 'contact@icfrc.fr'
+    MANDRILL_API_KEY = 'uc7XUhws9Pr6NvFUjrCSZQ'
 
     # Static asset configuration for local dev:
     STATIC_ROOT = 'staticfiles'
     STATIC_URL = '/static/'
     STATICFILES_LOCATION = 'static'
-
 
 LOGIN_REDIRECT_URL = "/user_profile/welcome/"
 
