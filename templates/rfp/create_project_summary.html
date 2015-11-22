@@ -8,26 +8,11 @@
 <!--Project Header-->
 {% include 'rfp/project/project_header.html' %}
 
-<!--
-<div class="alert alert-success" role="alert">
-    <p style="text-align:center">
-        Your project has been succesfully submitted.
-        You will recieve a confirmation email soon at this address: {{ user.email }}.
-        Click <a href="#" onclick="window.print();return false;">here</a> to print this page.
-    </p>
-</div>
-
-<div class="alert alert-info" role="alert">
-    <p style="text-align:center">You can edit your project until the deadline.</p>
-</div>
--->
-
-<div class="col-xs-12 col-md-12">
+    <div class="col-xs-12 col-md-12">
     {%  if project.status == 'submitted' %}
             <div class="alert alert-success">
                 <p>Your project has been succesfully submitted. Click <a href="#" onClick="window.print()">here</a> to print.</p>
             </div>
-
     {% else %}
 
         {%  if not project.document %}
@@ -44,14 +29,11 @@
         {%  endif %}
 
     <div class="col-md-6 col-xs-6 col-lg-6">
-         {% if project.document %}
-        <a href="#" class="btn btn-apply pull-right" style="margin:0;" data-toggle="modal" data-target="#myModal">Submit</a>
-        {%  else %}
-        <p class="btn btn-inactive pull-right" style="width:150px;">Submit</p>
+             {% if project.document %}
+                <a href="#" class="btn btn-apply pull-right" style="margin:0;" data-toggle="modal" data-target="#myModal">Submit</a>
+            {% else %}
         {%  endif %}
-
-     </div>
-
+    </div>
     {%  endif %}
 
 </div>

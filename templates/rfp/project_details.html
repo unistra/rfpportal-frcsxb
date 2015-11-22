@@ -44,7 +44,9 @@
                  </div>
            {% else %}
 
-           <p class="project_data" id="{{ p.label|slugify }}"><strong>{{ p.label }} </strong>{{ p.data|linebreaksbr }}</p>
+           <p class="project_data" id="{{ p.label|slugify }}"><strong>{{ p.label }} </strong>
+               <p>{{ p.data|linebreaksbr }}</p>
+            </p>
 
 
         {% endif %}
