@@ -14,19 +14,16 @@
 
 <!--Project Budget-->
 {% include 'rfp/project/project_budget.html' %}
-<hr>
-
-<a class="btn btn-apply" href="{% url 'create_project_previous' project.pk %}">Previous</a>
-<a class="btn btn-apply" href="{%  url 'create_project_budget' project.pk %}">Save and Continue</a>
-
+    <hr>
+    <a class="btn btn-apply" href="{% url 'create_project_previous' project.pk %}">Previous</a>
+    <a class="btn btn-apply" href="{%  url 'create_project_budget' project.pk %}">Save and Continue</a>
 {% if project.rfp.add_reviewer %}
 
     <a class="btn btn-apply pull-right disabled" href="{% url 'create_project_reviewer' project.pk %}">Next</a>
 
-
 {% else %}
 
-    <a class="btn btn-apply pull-right disabled" href="{% url 'create_project_summary' project.pk %}">Save and Submit</a>
+    <a class="btn btn-apply pull-right disabled" href="{% url 'create_project_summary' project.pk %}">Next</a>
 
 {% endif %}
 
