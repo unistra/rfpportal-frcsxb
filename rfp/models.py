@@ -229,6 +229,7 @@ class ProposedReviewer(models.Model):
         return self.email in l
 
     def invite_reviewer(self):
+
         #Check if the proposed reviewer is an existing user
         if self.is_user():
             user = User.objects.get(email=self.email)
@@ -336,9 +337,11 @@ class Review(models.Model):
             """
             Send an invitation to review email including a link. Clicking the link log the user in and redirect to the review survey page.
             """
+
             #Create the link with credentials
             from urlcrypt import lib as urlcrypt
             from django.core.urlresolvers import reverse
+
             token_accept = urlcrypt.generate_login_token(self.user, reverse('post_review_waiver', args=[self.id]))
             token_refuse = urlcrypt.generate_login_token(self.user, reverse('post_review_waiver_refuse', args = [self.id]))
             url_accept = reverse('urlcrypt_redirect', args=(token_accept,))
@@ -347,19 +350,20 @@ class Review(models.Model):
 
 
             #Set the email template variables
-            c = {'username':self.user.username,'reviewer_full_name' : self.user.get_full_name(), 'project' : self.project.name,
+            c = {'username':self.user.username, 'reviewer_full_name' : self.user.get_full_name(), 'project' : self.project.name,
                  'author' : self.project.user.get_full_name(),
                  'abstract' : self.project.abstract, 'keywords':self.project.keywords,
                  'url_accept' : str(str(site.domain)+str(url_accept)),'url_refuse' : str(str(site.domain)+str(url_refuse))}
 
             #Send the Mandrill email template
-            send_mandrill_email(self,self.project.rfp.email_template_review_invitation,c)
+            send_mandrill_email(self, self.project.rfp.email_template_review_invitation, c)
 
     def send_follow_up_invitation_email_to_reviewer(self):
             """
             Send the follow up email to reviewer including a link. Clicking the link log the user in and redirect to the project details page.
             """
             #Create the link with credentials
+
             from urlcrypt import lib as urlcrypt
             from django.core.urlresolvers import reverse
             project = Project.objects.get(id = self.project.id)

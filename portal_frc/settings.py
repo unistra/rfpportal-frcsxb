@@ -154,7 +154,7 @@ else:
     AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
     #Email configuration
-    MANDRILL_API_KEY = 'uc7XUhws9Pr6NvFUjrCSZQ'
+    MANDRILL_API_KEY = api_key.MANDRILL_API_KEY
 
     # Static asset configuration for local dev:
     STATIC_ROOT = 'staticfiles'
