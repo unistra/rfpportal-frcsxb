@@ -30,42 +30,33 @@
 
 <!-- Project Details -->
 <div class="row" id="project_detail">
-
     <div class="col-xs-12 col-md-12">
 {% include 'elements/project_title.html' %}
-
     <h3>{{ project.name }}</h3>
     <h4>PI: <strong><a href="{% url 'dashboard_pi_details' project.user.id %}">{{ project.user.get_full_name }}</a></strong></h4>
     <h4>Category: <a href="{% url 'dashboard_rfp_details' project.rfp.id %}"><strong>{{ project.rfp }}</strong></a></h4>
     <h4>Status: <strong>{{ project.status|capfirst }}</strong></h4>
     <h4>Awarded Amount (Eur.): <strong>{{ project.awarded_amount }}</strong></h4>
-
-        <h4><a href="{% url 'dashboard_project_edit' project.id %}">Edit Project</a></h4>
-
+    <h4><a href="{% url 'dashboard_project_edit' project.id %}">Edit Project</a></h4>
     <hr>
     {% for p in project_data %}
         {% if p.label == '' %}
            <p class="project_data hide" id=""><strong>{{ p.label }} </strong>{{ p.data|linebreaksbr }}</p>
-
            {% elif p.name == 'document' %}
-
            <div class = "col-xs-12 col-md-4">
                <p class="file_field"><strong>Document: </strong></p>
            </div>
-
            <div class = col-md-8>
               <p>{% if project.document %}<a href="{{ project.document.url }}" target="_blank"> {{ project.document.name }} </a> {% else %} <em>None</em> {% endif %}</p>
            </div>
-
            {% else %}
-
-           <p class="project_data" id="{{ p.label|slugify }}"><strong>{{ p.label }} </strong>{{ p.data|linebreaksbr }}</p>
-
+           <span class="project_data" id="{{ p.label|slugify }}">
+               <strong>{{ p.label }} </strong>
+               <p>{{ p.data|linebreaksbr }}</p>
+           </span>
         {% endif %}
-
     {% endfor %}
-
-        </div>
+    </div>
 </div>
 
 <!--Budget-->
