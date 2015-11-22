@@ -20,7 +20,7 @@
                         <td>{% if r.project.rfp.status == 'under_review' or r.status == 'completed' %}
                             {{ r.status|capfirst }}
                             {% else %}
-                            <em>Closed. Project {{ r.project.status }}</em>
+                            <em>Closed. Project {{ r.project.status|capfirst }}</em>
                             {% endif %}
                         </td>
                         <td>{% if r.status == 'completed' %}

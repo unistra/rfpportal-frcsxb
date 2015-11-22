@@ -267,7 +267,8 @@ def dashboard_project_details(request,projectId):
     review_list = Review.objects.filter(project = project.id)
     tag_list = Tag.objects.filter(project = project)
 
-    context_dict = {'oc_total' : oc_total, 'eq_total' : eq_total, 'hr_total' : hr_total, 'tag_list' : tag_list, 'project':project,'project_data' : project_data,'budget_line_list': budget_line_list,
+    context_dict = {'oc_total' : oc_total, 'eq_total' : eq_total, 'hr_total' : hr_total, 'tag_list' : tag_list, 'project':project,'project_data' : project_data,
+                    'budget_line_list': budget_line_list,
                     'total' : total_budgeted,'hr_budget_lines_list' : hr_budget_line_list, 'oc_budget_lines_list' : oc_budget_line_list,
                     'eq_budget_lines_list' : eq_budget_line_list,'excluded_rev_list' : excluded_rev_list,'prop_rev_list' : prop_rev_list, 'list_of_review' : review_list}
 
@@ -612,7 +613,10 @@ def scientific_board_project_details(request, projectId):
     OC_form = BudgetLineOP()
     prop_rev_list = ProposedReviewer.objects.filter(project = project).exclude(type='USER_EXCLUDED')
 
-    context_dict = {'user_is_tagged' : user_is_tagged, 'tag_list' : tag_list, 'prop_rev_list' : prop_rev_list, 'project' : project, 'project_data' : project_data, 'list_of_review' : list_of_review, 'list_of_bl' : list_of_bl, 'HR_form' : HR_form,'EQ_form': EQ_form, 'OC_form' : OC_form}
+    context_dict = {'user_is_tagged' : user_is_tagged,
+                    'tag_list' : tag_list, 'prop_rev_list' : prop_rev_list,
+                    'project' : project, 'project_data' : project_data, 'list_of_review' : list_of_review,
+                    'list_of_bl' : list_of_bl, 'HR_form' : HR_form,'EQ_form': EQ_form, 'OC_form' : OC_form}
 
     return  render_to_response('user_profile/scientific_board/scientific_board_project_details.html',context_dict,context)
 
