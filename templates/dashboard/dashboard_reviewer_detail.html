@@ -40,7 +40,6 @@
         <table class="table">
             <thead>
                 <th>Reviews completed</th>
-                <th>Average Rating</th>
                 <th>Last review</th>
                 <th>Invitation to review</th>
                 <th>Reliability</th>
@@ -48,7 +47,6 @@
 
             <tr>
                <td>{{ reviewer|number_completed }}</td>
-               <td>{{ reviewer.userprofile.rated_review_avg }}/5</td>
                <td>{{ last_review_date }}</td>
                <td>{{ reviewer|number_invitation }}</td>
                <td>{% widthratio reviewer|number_completed reviewer|number_invitation 100 %} %</td>

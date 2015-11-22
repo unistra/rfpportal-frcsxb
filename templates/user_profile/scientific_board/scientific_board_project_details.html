@@ -326,7 +326,7 @@
             <div class="cs_block_sub_title">
 
                 <div style="border-left: 5px solid #333647;" class="pull-left cs_title_cell ">
-                    Activities
+                    Posted Reviews
                 </div>
             </div>
 
@@ -351,7 +351,9 @@
                     </td>
                     <td>{{ review.user.get_full_name }}</td>
                     <td>{{ review.rating }}</td>
-                    <td><a href="{% url 'view_review' review.id %}" target="_blank">Read and rank this review</a></td>
+                    <td><a href="{% url 'view_review' review.id %}" target="_blank">Read this review</a>
+                    {%  if review.dropped  %} <span style="color:red;"> ! Incorrect review !</span>{%  endif %}
+                    </td>
                 </tr>
                 </tbody>
 

@@ -480,7 +480,7 @@ def dashboard_send_results(request,projectId):
     project = Project.objects.get(id = projectId)
     project.send_results_email()
 
-    return HttpResponseRedirect(reverse('dashboard_project_list'))
+    return HttpResponseRedirect(reverse('dashboard_rfp_details', kwargs={'rfpId' : project.rfp.id}))
 
 @user_passes_test(is_staff,login_url='/project/login_no_permission/',redirect_field_name='next')
 def dashboard_pi_list(request):

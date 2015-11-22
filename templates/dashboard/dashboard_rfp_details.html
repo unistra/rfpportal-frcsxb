@@ -133,7 +133,7 @@
         <td>
             <div class="action-menu">
                 <ul>
-                    <li><a href="#">Send Results</a></li>
+                    <li><a href="{% url 'dashboard_send_results' p.id %}">Send Results</a></li>
                     <li><a href="{% url 'dashboard_project_details' p.id %}">See project</a></li>
                 </ul>
             </div>

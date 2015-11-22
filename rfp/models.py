@@ -177,6 +177,7 @@ class Project(models.Model):
             """
             Send the project result email to PI including a link. Clicking the link log the user in and redirect to the project details page.
             """
+
             #Create the link with credentials
             from urlcrypt import lib as urlcrypt
             from django.core.urlresolvers import reverse
@@ -185,14 +186,13 @@ class Project(models.Model):
             url_to_project = reverse('urlcrypt_redirect', args=(token_accept,))
             site = Site.objects.get(id=1)
 
-
             #Set the email template variables
             c = {'full_name' : self.user.first_name + str(" ") + self.user.last_name,
                  'project' : self.name, 'rfp_name' : self.rfp.name,
                  'url_to_project' : str(str(site.domain)+str(url_to_project))}
 
             #Send the Madrill email template
-            send_mandrill_email(self,self.rfp.email_template_rfp_closed,c)
+            send_mandrill_email(self, self.rfp.email_template_rfp_closed, c)
 
 class ProposedReviewer(models.Model):
     TYPE_CHOICES = (
