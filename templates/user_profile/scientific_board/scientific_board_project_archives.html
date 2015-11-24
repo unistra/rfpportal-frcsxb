@@ -29,6 +29,8 @@
                 <th>Project Title</th>
                 <th>Author</th>
                 <th>Year/Category</th>
+                <th>Status</th>
+                <th>Amount (Eur.)</th>
             </tr>
             </thead>
 
@@ -38,6 +40,8 @@
                 <td><a class="link_nostyle" href="{% url 'scientific_board_project_details' p.id %}" target="_blank">{{ p.name }}</a></td>
                 <td>{{ p.user.get_full_name }}</td>
                 <td>{{ p.rfp }}</td>
+                <td>{{ p.status }}</td>
+                <td>{{ p.awarded_amount }}</td>
             </tr>
             {% endfor %}
             </tbody>
