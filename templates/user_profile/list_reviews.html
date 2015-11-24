@@ -10,31 +10,34 @@
                     <tbody>
                     {% for r in reviews %}
 
-                    <tr>
-                        <td>{% if r.project.rfp.status == 'under_review' %}<a href="{% url 'project_detail' r.project.id %}">{{ r.project.name }}</a>
-                            {% else %}
-                                {{ r.project.name }}
-                            {% endif %}
-                        </td>
-                        <td>{{ r.project.rfp }}</td>
-                        <td>{% if r.project.rfp.status == 'under_review' or r.status == 'completed' %}
-                            {{ r.status|capfirst }}
-                            {% else %}
-                            <em>Closed. Project {{ r.project.status|capfirst }}</em>
-                            {% endif %}
-                        </td>
-                        <td>{% if r.status == 'completed' %}
-
-                            <a href="{% url 'view_review' r.id %}" target="_blank">See review</a>
-
-                            {% elif r.project.rfp.status == 'under_review' %}
-                                {% if not r.status == 'refused' %}
-                                    <a href="{% url 'post_review' r.id %}">Complete</a>
+                        {%  if r.status != 'refused' %}
+                            <tr>
+                            <td>
+                                    {% if r.project.rfp.status == 'under_review' %}<a href="{% url 'project_detail' r.project.id %}">{{ r.project.name }}</a>
+                                    {% else %}
+                                        {{ r.project.name }}
+                                    {%  endif  %}
+                            </td>
+                            <td>{{ r.project.rfp }}</td>
+                            <td>{% if r.project.rfp.status == 'under_review' or r.status == 'completed' %}
+                                {{ r.status|capfirst }}
+                                {% else %}
+                                <em>Closed. Project {{ r.project.status|capfirst }}</em>
                                 {% endif %}
-                            {% endif %}
+                            </td>
+                            <td>{% if r.status == 'completed' %}
 
-                        </td>
-                    </tr>
+                                <a href="{% url 'view_review' r.id %}" target="_blank">See review</a>
+
+                                {% elif r.project.rfp.status == 'under_review' %}
+                                    {% if not r.status == 'refused' %}
+                                        <a href="{% url 'post_review' r.id %}">Complete</a>
+                                    {% endif %}
+                                {% endif %}
+
+                            </td>
+                        </tr>
+                        {%  endif %}
 
                     {% endfor %}
                     </tbody>
