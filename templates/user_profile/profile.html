@@ -56,48 +56,53 @@
 
                     <tbody>
                     {% for p in projects %}
+
                     {% if p.status == 'draft' %}
                     <div class="alert alert-warning" role="alert">Your project <strong>{{ p.name }}</strong> is still a draft and has not been submitted yet. Please click
                         <a href="{% url 'create_project_previous' p.id %}">here</a> to complete and submit your project.</div>
                     {% endif %}
                     <tr>
                             <td>
-                                {% if p.status == 'draft' %} <a href="{% url 'create_project_previous' p.id %}">
-                                {% else %}  <a href="{% url 'create_project_previous' p.id %}"> {% endif %}
+                            {% if p.rfp.status == 'open' %}
+                                {% if p.status == 'draft' or p.status == 'submitted'  %}
+                                    <a href="{% url 'create_project_previous' p.id %}">
+                                {%  endif %}
+                            {% else %}
+                                <a href="{% url 'project_detail' p.id %}">
+                            {% endif %}
                                 {{ p.name }}</a>
                             </td>
                             <td> {{ p.rfp }}</td>
                             <td>{{ p.requested_amount }}</td>
 
                             <td><em>{% if p.rfp.status == 'under_review' %} Under Review {% else %} {{ p.status|capfirst }} {% endif %}</em></td>
-                            <td> {% if p.status == 'granted' %} {{ p.awarded_amount }} {% else %} <em>None</em> {% endif %} </td>
-
+                            <td>
+                                {% if p.status == 'granted' %} {{ p.awarded_amount }} {% else %} <em>None</em> {% endif %} </td>
                             <td>
                                 {% if p.status == 'draft' %}
                                 <a href="#"  data-toggle="modal" data-target="#{{ p.id }}">Delete</a>
                                 <div class="modal fade" id="{{ p.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                 <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                              <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Are you Sure ?</h4>
-                              </div>
-                              <div class="modal-body">
-                                <p>You are just about to delete your project: {{ p.name }}.
-                                  This action will delete permanently this project from your profile.</p>
-                              </div>
-                              <div class="modal-footer">
-                                <form method="post" action="{% url 'delete_project' p.id  %}">
-                                    {% csrf_token %}
-                                    <input type="submit" class="btn btn-danger" value="Delete"></input>
-                                </form>
-                              </div>
-                            </div>
-                          </div>
-                    </div>
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Are you Sure ?</h4>
+                                      </div>
+                                      <div class="modal-body">
+                                        <p>You are just about to delete your project: {{ p.name }}.
+                                          This action will delete permanently this project from your profile.</p>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <form method="post" action="{% url 'delete_project' p.id  %}">
+                                            {% csrf_token %}
+                                            <input type="submit" class="btn btn-danger" value="Delete"></input>
+                                        </form>
+                                      </div>
+                                    </div>
+                                    </div>
+                                </div>
                                 {%  endif %}
-                    </td>
-
+                            </td>
 
                             <div id="deleteConfirmModal" class="modal fade" tabindex="-1" role="dialog">
                             <div class="modal-dialog">
