@@ -76,6 +76,8 @@
         <div class="row cs_body">
             <span style="font-size:25px; line-height: 31px;">{{ project }}</span>
             <h4><strong>Author:</strong> {{ project.user.get_full_name }}</h4>
+            <h4><strong>Project Status:</strong> <span style="{% if project.status == 'granted' %}color:green;{% endif %}">{{ project.status | capfirst }}</span></h4>
+            <h4><strong>Awarded amount (Eur.):</strong> {{ project.awarded_amount }}</h4>
 
             {% for p in project_data %}
             {% if p.label == '' %}
