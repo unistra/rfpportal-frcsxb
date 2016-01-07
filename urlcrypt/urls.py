@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import *
 from urlcrypt.conf import RUNNING_TESTS
 
 if RUNNING_TESTS:

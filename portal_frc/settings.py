@@ -124,7 +124,7 @@ if os.getenv('DATABASE_URL'):
 
 else:
     #SQL-explorer setting
-    EXPLORER_CONNECTION_NAME = 'django_explorer'
+    EXPLORER_CONNECTION_NAME = 'default'
     SECRET_KEY = api_key.SECRET_KEY
     DATABASES = {
                 'default': {
