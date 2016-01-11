@@ -6,7 +6,6 @@ django-admin-bootstrapped==2.4.0
 django-contrib-comments==1.6.2
 django-wysiwyg==0.7.1
 django-sql-explorer==0.7.0
-django-urlcrypt==0.1.6
 django-bootstrap3==5.3.1
 django-import-export==0.2.6
 django-model-utils==2.2

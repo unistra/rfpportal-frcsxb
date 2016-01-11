@@ -102,7 +102,7 @@ USE_TZ = True
 # locale configuration #
 #######################
 
-LOCALE_PATHS = (normpath(join(DJANGO_ROOT, 'locale')),)
+LOCALE_PATHS = (normpath(join(SITE_ROOT, 'locale')),)
 
 
 #######################
@@ -111,7 +111,7 @@ LOCALE_PATHS = (normpath(join(DJANGO_ROOT, 'locale')),)
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
-MEDIA_ROOT = normpath(join(DJANGO_ROOT, 'media'))
+MEDIA_ROOT = normpath(join(SITE_ROOT, 'media'))
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -135,7 +135,7 @@ STATIC_URL = '/site_media/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    normpath(join(DJANGO_ROOT, 'static')),
+    normpath(join(SITE_ROOT, 'static')),
 )
 
 # List of finder classes that know how to find static files in
@@ -166,7 +166,7 @@ TEMPLATE_LOADERS = (
 )
 
 TEMPLATE_DIRS = (
-    normpath(join(DJANGO_ROOT, 'templates')),
+    normpath(join(SITE_ROOT, 'templates')),
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -252,6 +252,7 @@ THIRD_PARTY_APPS = (
 
 LOCAL_APPS = (
     'rfp',
+    'user_profile'
 )
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
