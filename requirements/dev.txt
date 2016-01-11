@@ -1,0 +1,8 @@
+-r common.txt
+ipython
+django-debug-toolbar
+coverage
+sphinx
+nose
+pylint
+tox
