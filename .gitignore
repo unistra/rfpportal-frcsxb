@@ -62,3 +62,5 @@ staticfiles
 testing.py
 .idea
 
+# Fabric
+fabfile/first_install.py

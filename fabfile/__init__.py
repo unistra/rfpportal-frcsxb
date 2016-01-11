@@ -8,6 +8,15 @@ from os.path import join
 
 import pydiploy
 
+try:
+    from .first_install import first_install
+
+    @task
+    def first():
+        execute(first_install)
+except ImportError:
+    pass
+
 # edit config here !
 
 env.remote_owner = 'django'  # remote server user
