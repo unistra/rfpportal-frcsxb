@@ -118,6 +118,8 @@ MEDIA_ROOT = normpath(join(SITE_ROOT, 'media'))
 # Examples: "http://example.com/media/", "http://media.example.com/"
 MEDIA_URL = '/media/'
 
+CUSTOM_MEDIA_STORAGE = False
+
 
 ##############################
 # Static files configuration #

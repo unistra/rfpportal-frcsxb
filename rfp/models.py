@@ -10,6 +10,8 @@ from django.forms.models import model_to_dict
 from django.contrib.auth.models import User,Group
 
 from user_profile.models import UserProfile
+from django.conf import settings
+
 
 def send_mandrill_email(self,mandrill_template_name, context_dict):
         """
@@ -42,6 +44,17 @@ def add_user_to_group(user,group):
     u.save()
 
 
+def campaign_templates_directory_path(instance, filename):
+    if settings.CUSTOM_MEDIA_STORAGE:
+        return 'rfp_templates'
+    return 'campaigns/{0}/templates/{1}'.format(instance.id, filename)
+
+
+def campaign_images_directory_path(instance, filename):
+    if settings.CUSTOM_MEDIA_STORAGE:
+        return 'image'
+    return 'campaigns/{0}/images/{1}'.format(instance.id, filename)
+
 
 class RfpCampaign(models.Model):
     CATEGORY_CHOICES = ( ('Synergy', 'Synergy'),
@@ -68,8 +81,8 @@ class RfpCampaign(models.Model):
 
     instructions=models.TextField(max_length=4000,null=True)
 
-    template = models.FileField(upload_to='rfp_templates',null=True,blank=True)
-    logo = models.ImageField(upload_to='image',null=True,blank=True)
+    template = models.FileField(upload_to=campaign_templates_directory_path, null=True, blank=True)
+    logo = models.ImageField(upload_to=campaign_images_directory_path, null=True, blank=True)
 
     project_questions = models.TextField(max_length = 4000, null=True, blank=True, verbose_name=u"Project questions (one question per line, maximum of 10 questions permitted.)")
     review_questions = models.TextField(max_length = 4000, null=True, blank=True, verbose_name=u"Review questions (one question per line, maximum of 10 questions permitted.)")
@@ -104,6 +117,13 @@ class RfpCampaign(models.Model):
         verbose_name = "Call for proposal"
         verbose_name_plural = "Call for proposals"
 
+
+def projects_directory_path(instance, filename):
+    if settings.CUSTOM_MEDIA_STORAGE:
+        return 'project'
+    return 'projects/{0}/{1}'.format(instance.id, filename)
+
+
 class Project(models.Model):
     STATUS_CHOICES = (
         ('draft','Draft'),
@@ -121,7 +141,7 @@ class Project(models.Model):
     additional_funding = models.CharField(max_length = 4000, null = True, blank = True)
     keywords=models.CharField(max_length=4000,null=True,blank=True,verbose_name=U"Keywords")
     abstract=models.CharField(max_length=4000,null=True,blank=True,verbose_name=u"Abstract")
-    document=models.FileField(upload_to='project',null=True,blank=True)
+    document=models.FileField(upload_to=projects_directory_path,null=True,blank=True)
     status=models.CharField(max_length=255,default='draft',choices=STATUS_CHOICES)
     confirmation_email_sent = models.BooleanField(default=False)
     custom_0 = models.CharField(max_length=4000,null=True,blank=True)
@@ -275,13 +295,20 @@ class ProposedReviewer(models.Model):
 
         return review
 
+
+def budget_directory_path(instance, filename):
+    if settings.CUSTOM_MEDIA_STORAGE:
+        return 'quotes'
+    return 'quotes/{0}/{1}'.format(instance.id, filename)
+
+
 class BudgetLine(models.Model):
     project = models.ForeignKey(Project,null = True,editable=False)
     item = models.CharField(max_length = 255, null=True, blank=True)
     category = models.CharField(max_length = 255, null=True, blank=True)
     duration = models.IntegerField(null=True,blank=True)
     monthly_salary = models.IntegerField(null=True,blank=True)
-    quote=models.FileField(upload_to='quotes',null=True,blank=True)
+    quote=models.FileField(upload_to=budget_directory_path, null=True,blank=True)
     amount = models.IntegerField(null=True, blank = True)
 
     def __unicode__(self):
@@ -289,6 +316,13 @@ class BudgetLine(models.Model):
 
     def get_data(self):
         return model_to_dict(self)
+
+
+def reviews_directory_path(instance, filename):
+    if settings.CUSTOM_MEDIA_STORAGE:
+        return 'reviews'
+    return 'reviews/{0}/{1}'.format(instance.id, filename)
+
 
 class Review(models.Model):
     STATUS_CHOICES = (
@@ -314,7 +348,7 @@ class Review(models.Model):
     custom_8 = models.CharField(max_length=4000,null=True,blank=True)
     custom_9 = models.CharField(max_length=4000,null=True,blank=True)
     date = models.DateField(auto_now=True)
-    document = models.FileField(upload_to=('reviews'),null=True,blank=True)
+    document = models.FileField(upload_to=reviews_directory_path,null=True,blank=True)
     note = models.IntegerField(default=0)
 
     def __unicode__(self):

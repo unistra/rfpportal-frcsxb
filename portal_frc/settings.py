@@ -140,5 +140,5 @@ MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media')
 MEDIAFILES_LOCATION = 'media'
 MEDIA_URL = "/media/"
 DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
-
+CUSTOM_MEDIA_STORAGE = True
 

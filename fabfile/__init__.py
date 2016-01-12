@@ -124,6 +124,7 @@ def test():
         'mandrill_api_key': "MANDRILL_API_KEY",
         'secret_key': "SECRET_KEY",
     }
+    env.extra_symlink_dirs = ['media',]
     execute(build_env)
 
 
