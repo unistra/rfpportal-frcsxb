@@ -43,6 +43,13 @@ LOGGING['handlers']['file']['filename'] = '{{ remote_shared_path }}/log/app.log'
 SECRET_KEY = '{{ secret_key }}'
 
 
+#########
+# Media #
+#########
+
+MEDIA_ROOT = '{{ media_root }}'
+
+
 ############
 # Mandrill #
 ############

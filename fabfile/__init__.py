@@ -45,7 +45,6 @@ env.verbose_output = True  # True for verbose output
 
 # env.dest_path = '' # if not set using env_local_tmp_dir
 # env.excluded_files = ['pron.jpg'] # file(s) that rsync should exclude when deploying app
-# env.extra_ppa_to_install = ['ppa:vincent-c/ponysay'] # extra ppa source(s) to use
 # env.extra_pkg_to_install = ['ponysay'] # extra debian/ubuntu package(s) to install on remote
 # env.cfg_shared_files = ['config','/app/path/to/config/config_file'] # config files to be placed in shared config dir
 # env.extra_symlink_dirs = ['mydir','/app/mydir'] # dirs to be symlinked in shared directory
@@ -161,28 +160,33 @@ def preprod():
 def prod():
     """Define prod stage"""
     env.roledefs = {
-        'web': ['dryb17.net'],
-        'lb': ['lb.dryb17.net']
+        'web': ['portailicfrc.u-strasbg.fr'],
+        'lb': ['portailicfrc.u-strasbg.fr']
     }
     # env.user = 'root'  # user for ssh
     env.backends = env.roledefs['web']
-    env.server_name = 'dryb17.net'
-    env.short_server_name = 'dryb17'
+    env.server_name = 'portailicfrc.u-strasbg.fr'
+    env.short_server_name = 'portailicfrc'
     env.static_folder = '/site_media/'
     env.server_ip = ''
     env.no_shared_sessions = False
-    env.server_ssl_on = True
+    env.server_ssl_on = False
     env.path_to_cert = '/etc/ssl/certs/dryb17.net.pem'
     env.path_to_cert_key = '/etc/ssl/private/dryb17.net.key'
     env.goal = 'prod'
-    env.socket_port = ''
+    env.socket_port = '8000'
     env.map_settings = {
         'default_db_host': "DATABASES['default']['HOST']",
         'default_db_user': "DATABASES['default']['USER']",
         'default_db_password': "DATABASES['default']['PASSWORD']",
         'default_db_name': "DATABASES['default']['NAME']",
+        'explorer_db_user': "DATABASES['explorer']['USER']",
+        'explorer_db_password': "DATABASES['explorer']['PASSWORD']",
+        'mandrill_api_key': "MANDRILL_API_KEY",
         'secret_key': "SECRET_KEY",
+        'media_root': "MEDIA_ROOT"
     }
+    env.extra_ppa_to_install = ['ppa:fkrull/deadsnakes-python2.7'] # extra ppa source(s) to use
     execute(build_env)
 
 # dont touch after that point if you don't know what you are doing !
